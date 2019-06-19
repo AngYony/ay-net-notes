@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fundamentals", "Fundamentals", "{BE84823A-BB36-49FB-91B2-9459FC999CD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{2C9AB064-1056-42E5-B27B-2DA0A8A806E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{3EECDD2F-B190-4F62-8674-7D3D3668C8CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RazorPages", "RazorPages", "{02197F0A-B4A8-4ACE-B169-03BA1AC90D27}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{C2580679-29FF-45CE-9E71-DCD638DBD11B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{C1722159-C48D-4AC4-88D5-BB3D827A6C19}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3EECDD2F-B190-4F62-8674-7D3D3668C8CC} = {2C9AB064-1056-42E5-B27B-2DA0A8A806E4}
+		{02197F0A-B4A8-4ACE-B169-03BA1AC90D27} = {2C9AB064-1056-42E5-B27B-2DA0A8A806E4}
+		{C2580679-29FF-45CE-9E71-DCD638DBD11B} = {2C9AB064-1056-42E5-B27B-2DA0A8A806E4}
+		{C1722159-C48D-4AC4-88D5-BB3D827A6C19} = {2C9AB064-1056-42E5-B27B-2DA0A8A806E4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FBA7A2B6-D298-4C96-AD6E-5BF11B5B20E4}
+	EndGlobalSection
+EndGlobal
