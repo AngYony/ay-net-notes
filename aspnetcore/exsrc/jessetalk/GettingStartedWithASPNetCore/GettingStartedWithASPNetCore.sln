@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter1 介绍与引入", "Chapter1 介绍与引入", "{5EA1ED3B-AF0A-4870-883E-B3AD70DAA6C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter2 配置管理", "Chapter2 配置管理", "{7C84D523-30D3-49FD-8645-7C3AEF2B9EA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter3 依赖注入", "Chapter3 依赖注入", "{05EEEA29-CC2C-494F-AB46-E47628ADE7C0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter4 ASP.NET Core HTTP介绍", "Chapter4 ASP.NET Core HTTP介绍", "{2E674231-1FF7-41A7-8B8B-C74222B78433}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter5 认证与授权", "Chapter5 认证与授权", "{11F3F8E7-4FCE-4011-9776-F13CC6B8F841}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter6 ASP.NET Core MVC", "Chapter6 ASP.NET Core MVC", "{FC5EBD66-3A1D-4048-B0A4-27A1EF9BC398}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D75730F2-F6D0-4B83-A555-EB9E73A13224}
+	EndGlobalSection
+EndGlobal
