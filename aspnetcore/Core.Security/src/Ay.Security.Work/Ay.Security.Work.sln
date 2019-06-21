@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "数据保护", "数据保�
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs.Identity.Sample", "Docs.Identity.Sample", "{9C586FD4-D7A6-4A57-9F05-BF1EA9FFA8FA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "My.Identity.Study", "My.Identity.Study", "{6265D75B-BBFD-46CE-87A4-3B4A9D130E1D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ay.Identity.Study", "Ay.Identity.Study", "{6265D75B-BBFD-46CE-87A4-3B4A9D130E1D}"
 EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
