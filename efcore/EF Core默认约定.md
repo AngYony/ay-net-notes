@@ -28,5 +28,26 @@ public class Enrollment
 
 
 
+DbContext相关约定：
+
+```c#
+public class SchoolContext : DbContext
+    {
+        public SchoolContext(DbContextOptions<SchoolContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Student> Student { get; set; }
+        public DbSet<Enrollment> Enrollment { get; set; }
+        public DbSet<Course> Course { get; set; }
+    }
+```
+
+上述代码为每个实体集创建 DbSet<TEntity> 属性。 在 EF Core 术语中：
+
+- 实体集通常对应一个数据库表。
+- 实体对应表中的行。
+
 
 

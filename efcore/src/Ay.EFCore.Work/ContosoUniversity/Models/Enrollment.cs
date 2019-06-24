@@ -11,6 +11,9 @@ namespace ContosoUniversity.Models
         A, B, C, D, F
     }
 
+    /// <summary>
+    /// 登记、注册信息
+    /// </summary>
     public class Enrollment
     {
         public int EnrollmentID { get; set; }
