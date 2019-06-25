@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs.EFCore.Sample", "Docs.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContosoUniversity", "ContosoUniversity\ContosoUniversity.csproj", "{4395AAD0-DB3A-456D-B691-8CBCD4DEDD34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ay.EFCore.Work", "Ay.EFCore.Work\Ay.EFCore.Work.csproj", "{710DF8F6-69FA-450A-81EF-541A4292C4A3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,10 +17,6 @@ Global
 		{4395AAD0-DB3A-456D-B691-8CBCD4DEDD34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4395AAD0-DB3A-456D-B691-8CBCD4DEDD34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4395AAD0-DB3A-456D-B691-8CBCD4DEDD34}.Release|Any CPU.Build.0 = Release|Any CPU
-		{710DF8F6-69FA-450A-81EF-541A4292C4A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{710DF8F6-69FA-450A-81EF-541A4292C4A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{710DF8F6-69FA-450A-81EF-541A4292C4A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{710DF8F6-69FA-450A-81EF-541A4292C4A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
