@@ -48,9 +48,9 @@ namespace ContosoUniversity.Models
                 new Enrollment{ StudentID=3,CourseID=2222, Grade=Grade.A},
                 new Enrollment{ StudentID=3,CourseID=3333, Grade=Grade.F},
 
-                new Enrollment{ StudentID=4,CourseID=1111, Grade=Grade.B},
-                new Enrollment{ StudentID=5,CourseID=3333, Grade=Grade.C},
-                new Enrollment{ StudentID=6,CourseID=3333, Grade=Grade.A}
+                //new Enrollment{ StudentID=4,CourseID=1111, Grade=Grade.B},
+                //new Enrollment{ StudentID=5,CourseID=3333, Grade=Grade.C},
+                //new Enrollment{ StudentID=6,CourseID=3333, Grade=Grade.A}
             };
 
             foreach(Enrollment e in enrollments){

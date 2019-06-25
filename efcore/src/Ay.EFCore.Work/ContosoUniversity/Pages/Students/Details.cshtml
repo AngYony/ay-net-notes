@@ -29,6 +29,24 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Student.EnrollmentDate)
         </dd>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>课程名称</th>
+                    <th>等级</th>
+                </tr>
+                @foreach (var item in Model.Student.Enrollments)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Course.Title) </td>
+                        <td>
+                            @Html.DisplayFor(modelitem => item.Grade)
+                        </td>
+
+                    </tr>
+                }
+            </table>
+        </dd>
     </dl>
 </div>
 <div>
