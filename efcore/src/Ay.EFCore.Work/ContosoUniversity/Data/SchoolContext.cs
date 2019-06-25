@@ -11,6 +11,7 @@ namespace ContosoUniversity.Models
         public SchoolContext (DbContextOptions<SchoolContext> options)
             : base(options)
         {
+        
         }
 
         public DbSet<ContosoUniversity.Models.Student> Student { get; set; }
