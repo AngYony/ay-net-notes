@@ -32,32 +32,32 @@ namespace ContosoUniversity.Pages.Students
 
 
 
+        //public async Task<IActionResult> OnPostAsync()
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Page();
+        //    }
+
+        //    var emptyStudent = new Student();
+
+
+        //    if (await TryUpdateModelAsync<Student>(
+        //        emptyStudent,
+        //        "student",   // 是用于查找值的前缀。 该自变量不区分大小写
+        //        s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate))
+        //        {
+        //            _context.Student.Add(emptyStudent);
+        //            await _context.SaveChangesAsync();
+        //            return RedirectToPage("./Index");
+        //        }
+
+        //    return null;
+        //}
+
+
+
         public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            var emptyStudent = new Student();
-
-
-            if (await TryUpdateModelAsync<Student>(
-                emptyStudent,
-                "student",   // 是用于查找值的前缀。 该自变量不区分大小写
-                s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate))
-                {
-                    _context.Student.Add(emptyStudent);
-                    await _context.SaveChangesAsync();
-                    return RedirectToPage("./Index");
-                }
-
-            return null;
-        }
-
-
-
-        public async Task<IActionResult> OnPostAsync2()
         {
             if (!ModelState.IsValid)
             {

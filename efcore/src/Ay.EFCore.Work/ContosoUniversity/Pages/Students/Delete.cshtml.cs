@@ -23,21 +23,21 @@ namespace ContosoUniversity.Pages.Students
 
         public string ErrorMessage{ get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> OnGetAsync(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            Student = await _context.Student.FirstOrDefaultAsync(m => m.ID == id);
+        //    Student = await _context.Student.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Student == null)
-            {
-                return NotFound();
-            }
-            return Page();
-        }
+        //    if (Student == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Page();
+        //}
 
 
         public async Task<IActionResult> OnGetAsync(int? id, bool? saveChangesError = false)
@@ -65,26 +65,26 @@ namespace ContosoUniversity.Pages.Students
         }
 
 
+        //public async Task<IActionResult> OnPostAsync(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    Student = await _context.Student.FindAsync(id);
+
+        //    if (Student != null)
+        //    {
+        //        _context.Student.Remove(Student);
+        //        await _context.SaveChangesAsync();
+        //    }
+
+        //    return RedirectToPage("./Index");
+        //}
+
+
         public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Student = await _context.Student.FindAsync(id);
-
-            if (Student != null)
-            {
-                _context.Student.Remove(Student);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
-        }
-
-
-        public async Task<IActionResult> OnPostAsync2(int? id)
         {
             if (id == null)
             {
