@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineSample", "Comman
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonConfigSample", "JsonConfigSample\JsonConfigSample.csproj", "{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionsBindSample", "OptionsBindSample\OptionsBindSample.csproj", "{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,6 +46,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A641607C-2AA2-4251-94C2-7C882B05A1B3} = {7C84D523-30D3-49FD-8645-7C3AEF2B9EA8}
 		{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E} = {7C84D523-30D3-49FD-8645-7C3AEF2B9EA8}
+		{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD} = {7C84D523-30D3-49FD-8645-7C3AEF2B9EA8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D75730F2-F6D0-4B83-A555-EB9E73A13224}
