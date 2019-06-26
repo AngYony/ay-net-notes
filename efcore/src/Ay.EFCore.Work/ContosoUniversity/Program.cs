@@ -24,11 +24,12 @@ namespace ContosoUniversity
                 {
                     var context = services.GetRequiredService<SchoolContext>();
 
-                    //DbInitializer.Initializer(context);
+                    
                     
                     //EnsureCreated 确保存在上下文数据库。 如果存在，则不需要任何操作。 如果不存在，则会创建数据库及其所有架构。
                     //EnsureCreated 不使用迁移创建数据库。 使用 EnsureCreated 创建的数据库稍后无法使用迁移更新。
                    //var _a= context.Database.EnsureCreated();
+                    DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)
                 {
