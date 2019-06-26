@@ -9,7 +9,7 @@ namespace JsonConfigSample
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder()
-            .AddJsonFile("wy.json");
+            .AddJsonFile("wy.json",false,true);
 
             var configuration= builder.Build();
 

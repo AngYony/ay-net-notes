@@ -19,6 +19,9 @@ namespace OptionsBindSample
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            //.ConfigureAppConfiguration(config=> {
+            //    config.AddJsonFile("appsettings.json", false, true);
+            //})
                 .UseStartup<Startup>();
     }
 }

@@ -1,5 +1,6 @@
 ﻿@using Microsoft.Extensions.Options
 @inject IOptions<OptionsBindSample.MyClass> classAccesser
+@*@inject IOptionsSnapshot<OptionsBindSample.MyClass> classAccesser  热更新使用IOptionsSnapshot*@
 @{
     Layout = null;
 }
