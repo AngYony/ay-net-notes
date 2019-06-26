@@ -15,9 +15,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter5 认证与授权", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter6 ASP.NET Core MVC", "Chapter6 ASP.NET Core MVC", "{FC5EBD66-3A1D-4048-B0A4-27A1EF9BC398}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineSample", "CommandLineSample\CommandLineSample.csproj", "{A641607C-2AA2-4251-94C2-7C882B05A1B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonConfigSample", "JsonConfigSample\JsonConfigSample.csproj", "{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A641607C-2AA2-4251-94C2-7C882B05A1B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A641607C-2AA2-4251-94C2-7C882B05A1B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A641607C-2AA2-4251-94C2-7C882B05A1B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A641607C-2AA2-4251-94C2-7C882B05A1B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A641607C-2AA2-4251-94C2-7C882B05A1B3} = {7C84D523-30D3-49FD-8645-7C3AEF2B9EA8}
+		{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E} = {7C84D523-30D3-49FD-8645-7C3AEF2B9EA8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D75730F2-F6D0-4B83-A555-EB9E73A13224}
