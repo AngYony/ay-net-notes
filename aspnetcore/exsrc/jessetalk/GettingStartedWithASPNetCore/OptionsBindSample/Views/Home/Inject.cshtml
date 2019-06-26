@@ -1,0 +1,26 @@
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<OptionsBindSample.MyClass> classAccesser
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Inject</title>
+</head>
+<body>
+
+    <h3>
+        Class No:@classAccesser.Value.ClassNo
+    </h3>
+
+    @foreach (var student in classAccesser.Value.Students)
+    {
+        <p>@student.Name</p>
+        <p>@student.Age</p>
+    }
+</body>
+</html>

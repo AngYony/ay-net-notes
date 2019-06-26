@@ -1,0 +1,25 @@
+﻿@model OptionsBindSample.MyClass
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+<h3>
+Class No:@Model.ClassNo
+</h3>
+
+    @foreach (var student in Model.Students)
+    {
+        <p>@student.Name</p>
+        <p>@student.Age</p>
+    }
+</body>
+</html>

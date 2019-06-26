@@ -22,6 +22,8 @@ namespace OptionsBindSample
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<MyClass>(Configuration);
+            services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,18 +34,22 @@ namespace OptionsBindSample
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
-            {
-                var myClass = new MyClass();
-                Configuration.Bind(myClass);
 
-                await context.Response.WriteAsync($"ClassNo:{myClass.ClassNo}");
-                await context.Response.WriteAsync($"ClassDesc:{myClass.ClassDesc}");
+            app.UseMvcWithDefaultRoute();
 
-                await context.Response.WriteAsync($"Count:{myClass.Students.Count}");
-            });
+
+            //本数据来自于appsettings.json文件
+            //app.Run(async (context) =>
+            //{
+            //    var myClass = new MyClass();
+            //    Configuration.Bind(myClass);
+
+            //    await context.Response.WriteAsync($"ClassNo:{myClass.ClassNo}");
+            //    await context.Response.WriteAsync($"ClassDesc:{myClass.ClassDesc}");
+
+            //    await context.Response.WriteAsync($"Count:{myClass.Students.Count}");
+            //});
         }
     }
 }
 
-//本数据来自于appsettings.json文件
