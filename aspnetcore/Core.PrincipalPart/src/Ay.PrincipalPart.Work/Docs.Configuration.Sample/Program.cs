@@ -17,8 +17,35 @@ namespace Docs.Configuration.Sample
             CreateWebHostBuilder(args).Build().Run();
         }
 
+        static Dictionary<string, string> arrayDict = new Dictionary<string, string>
+        {
+            {"array:entries:0", "value0"},
+            {"array:entries:1", "value1"},
+            {"array:entries:2", "value2"},
+            {"array:entries:4", "value4"},
+            {"array:entries:5", "value5"}
+        };
+
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+
+                config.SetBasePath(Directory.GetCurrentDirectory());
+
+                config.AddInMemoryCollection(arrayDict);
+
+                config.AddJsonFile("json_array.json", optional: false, reloadOnChange: false);
+                config.AddJsonFile("starship.json", optional: false, reloadOnChange: false);
+                config.AddXmlFile("tvshow.xml", optional: false, reloadOnChange: false);
+
+                //自定义配置提供程序
+                //config.AddEFConfiguration(options => options.UseInMemoryDatabase("InMemoryDb"));
+                
+                config.AddCommandLine(args);
+            })
+            .UseStartup<Startup>();
     }
 }
