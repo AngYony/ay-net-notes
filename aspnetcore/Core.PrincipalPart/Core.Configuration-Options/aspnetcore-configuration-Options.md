@@ -347,40 +347,124 @@ public class IndexModel : PageModel
 }
 ```
 
-获取配置值需要用到的主要有以下几个方法：
+获取配置值使用的是IConfiguration接口的成员方法及其扩展方法。
 
-- GetValue：从具有指定键的配置中提取一个值，并将其转换为指定类型。如果没有找到配置键，允许提供默认值。
+#### 成员方法：GetSection()、GetChildren()
 
-  ```c#
-  public int NumberConfig { get; private set; }
-  
-      public void OnGet()
-      {
-          NumberConfig = _config.GetValue<int>("NumberKey", 99);
-      }
-  ```
+GetSection()、GetChildren()是IConfiguration接口自身的成员方法，这两个方法主要用来获取键节点，注意，这两个方法都不是获取最终的值，而是包含了Key和节点路径的配置节点。若要获取最终的值，必须结合使用GetValue、Get、Bind等方法。
 
-- GetSection：使用指定的子节键提取配置子节。
+##### GetSection()
 
-  ```c#
-  var configSection = _config.GetSection("section1");
-  var configSection = _config.GetSection("section2:subsection0");
-  ```
+使用指定的子节键提取配置节点，参数为节名称：
 
-- GetChildren：会获得 `IEnumerable<IConfigurationSection>`。
+```c#
+var configSection = _config.GetSection("section1");
+var configSection = _config.GetSection("section2:subsection0");
+```
 
-  ```c#
-  var configSection = _config.GetSection("section2");
-  var children = configSection.GetChildren();
-  ```
+GetSection 永远不会返回 null。 如果找不到匹配的节，则返回空 IConfigurationSection。因此使用它时，不用担心空引用问题。
 
-- Exists：用于判断配置节是否存在
+##### GetChildren()
 
-  ```c#
-  var sectionExists = _config.GetSection("section2:subsection2").Exists();
-  ```
+获取配置节点的子节点，该方法会获得 `IEnumerable<IConfigurationSection>`：
 
-### 将配置绑定至类
+```c#
+var configSection = _config.GetSection("section2");
+var children = configSection.GetChildren();
+```
+
+##### IConfigurationSection的扩展方法：Exists()
+
+Exists()是IConfigurationSection接口的扩展方法，用于判断配置节是否存在：
+
+```c#
+var sectionExists = _config.GetSection("section2:subsection2").Exists();
+```
+
+#### 扩展方法：GetValue()、Get()、Bind()
+
+这三个方法是IConfiguration接口的扩展方法，被定义在`Microsoft.Extensions.Configuration.ConfigurationBinder`类中。
+
+##### GetValue()
+
+从具有指定键的配置中提取一个值，并将其转换为指定类型。如果没有找到配置键，允许提供默认值。
+
+```c#
+public int NumberConfig { get; private set; }
+
+    public void OnGet()
+    {
+        NumberConfig = _config.GetValue<int>("NumberKey", 99);
+    }
+```
+
+##### Bind()
+
+使用Bind()可以将一个配置节点绑定到一个类。这个配置节点可以是JSON格式的节点，也可以是XML格式的节点。
+
+JSON格式的节点：
+
+```json
+{
+  "starship": {
+    "name": "USS Enterprise",
+    "registry": "NCC-1701",
+    "class": "Constitution",
+    "length": 304.8,
+    "commissioned": false
+  },
+  "trademark": "Paramount Pictures Corp. http://www.paramount.com"
+}
+```
+
+使用Bind()将该节点绑定到对应的类，类的结构需要JSON结构保持一致：
+
+```c#
+public class Starship
+{
+    public string Name { get; set; }
+    public string Registry { get; set; }
+    public string Class { get; set; }
+    public decimal Length { get; set; }
+    public bool Commissioned { get; set; }
+}
+//Bind()用法
+var starship = new Starship(); //实例化一个对象
+_config.GetSection("starship").Bind(starship); //将该对象和节点绑定
+Starship = starship;//获取绑定后得到的对象
+```
+
+Bind()方法不仅可以绑定简单的类（类的成员属性都是简单类型，不是其他类的引用），[也可以绑定复杂的类](https://docs.microsoft.com/zh-cn/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2#bind-to-an-object-graph)（类的成员属性引用了其他类）。前提是配置节点的结构一定要和类结构保持一致，否则不能正确绑定。
+
+如果定义的类中包含了数组属性，而配置节点又包含数组节点（例如JSON格式的对象，值为一个数组），也可以使用Bind()方法将[配置节点的值绑定到包含了数组属性的类对象上](https://docs.microsoft.com/zh-cn/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2#bind-an-array-to-a-class)。
+
+##### Get()
+
+Get()方法和Bind()一样，都实现绑定并返回指定类型，不同的是Get()比使用Bind()要更方便。上述代码改用Get()调用：
+
+```c#
+Starship = _config.GetSection("starship").Get<Starship>();
+```
+
+### 自定义配置提供程序
+
+
+
+
+
+
+
+
+
+ConfigurationProvider
+
+IConfigurationBuilder
+
+
+
+IConfigurationProvider
+
+IConfigurationSource
 
 
 
