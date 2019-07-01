@@ -1,0 +1,46 @@
+﻿@page
+@model Docs.Options.Sample.Pages.IndexModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>@Model._options.Option1</p>
+    <p>@Model._options.Option2</p>
+
+    <hr />
+
+    <p>@Model._optionsWithDelegateConfig.Option1</p>
+    <p>@Model._optionsWithDelegateConfig.Option2</p>
+
+    <hr />
+    <p>@Model._subOptions.SubOption1</p>
+    <p>@Model._subOptions.SubOption2</p>
+
+    <hr />
+    <p>@Model._snapshotOptions.Option1</p>
+    <p>@Model._snapshotOptions.Option2</p>
+
+    <hr />
+    <p>@Model._named_options_1.Option1</p>
+    <p>@Model._named_options_1.Option2</p>
+
+    <hr />
+    <p>@Model._named_options_2.Option1</p>
+    <p>@Model._named_options_2.Option2</p>
+
+
+    <hr />
+    <p>@Model.addOptions.Option1</p>
+    <p>@Model.addOptions.Option2</p>
+
+
+</body>
+</html>
