@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Docs.Configuration.Sample
@@ -20,7 +21,7 @@ namespace Docs.Configuration.Sample
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,IConfiguration configuration)
         {
             if (env.IsDevelopment())
             {
@@ -29,7 +30,8 @@ namespace Docs.Configuration.Sample
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                 
+                await context.Response.WriteAsync(configuration["quote3"]);
             });
         }
     }

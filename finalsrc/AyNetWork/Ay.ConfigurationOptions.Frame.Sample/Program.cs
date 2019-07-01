@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Ay.ConfigurationOptions.Frame.Sample.CusConfigurationProvider;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,10 @@ namespace Ay.ConfigurationOptions.Frame.Sample
             WebHost.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration((hostingContext, config) => {
                 
+                config.AddAyConfiguration(ayinfo=> {
+                    //为委托指定操作
+                    ayinfo.Value = ayinfo.Key + ayinfo.Value;
+                });
             })
             .UseStartup<Startup>();
     }

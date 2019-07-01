@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Docs.Configuration.Sample.AyConfigurationProvider;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -41,9 +43,10 @@ namespace Docs.Configuration.Sample
                 config.AddJsonFile("starship.json", optional: false, reloadOnChange: false);
                 config.AddXmlFile("tvshow.xml", optional: false, reloadOnChange: false);
 
+
                 //自定义配置提供程序
-                //config.AddEFConfiguration(options => options.UseInMemoryDatabase("InMemoryDb"));
-                
+                config.AddEFConfiguration(options => options.UseInMemoryDatabase("InMemoryDb"));
+
                 config.AddCommandLine(args);
             })
             .UseStartup<Startup>();

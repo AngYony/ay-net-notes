@@ -12,6 +12,56 @@
 
 
 
+## 重点总结部分
+
+Configuration（配置）是通过IConfigurationBuilder的方法及其扩展方法进行指定的，而IConfigurationBuilder通常通过IWebHostBuilder的ConfigureAppConfiguration方法引入。
+
+```c#
+public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+    WebHost.CreateDefaultBuilder(args)
+    .ConfigureAppConfiguration((hostingContext, configBuilder) =>
+    {
+        configBuilder.SetBasePath(Directory.GetCurrentDirectory());
+        configBuilder.Add****();
+    })
+    .UseStartup<Startup>();
+```
+
+配置的核心是以下几个成员：
+
+- IConfigurationBuilder
+- IConfigurationSource
+- IConfigurationProvider
+- ConfigurationProvider（派生自IConfigurationProvider）
+
+这几个成员之间是通过IConfigurationSource联系起来的，IConfigurationSource的定义如下：
+
+```c#
+public interface IConfigurationSource
+{
+	IConfigurationProvider Build(IConfigurationBuilder builder);
+}
+```
+
+而IConfigurationBuilder的Add()（原生方法）又需要接收IConfigurationSource变量：
+
+```c#
+public interface IConfigurationBuilder
+{
+	...
+	IConfigurationBuilder Add(IConfigurationSource source);
+	IConfigurationRoot Build();
+}
+```
+
+关于这几个核心之间的详细介绍见下文中的“自定义配置提供程序”。
+
+配置一般在Program.cs文件中进行处理，而选项是在Startup的ConfigureServices()方法中进行指定的。
+
+
+
+
+
 ## 配置（Configuration）
 
 在讲述配置之前，一定需要强调的是，配置指的是配置源类似于键值对，即必须包含配置键和对应值的配置，可以是JSON文件、命令行参数、文件内容、环境变量等，无论配置源是什么，都是最终可以具体到一对一形式的键和值。
@@ -448,23 +498,221 @@ Starship = _config.GetSection("starship").Get<Starship>();
 
 ### 自定义配置提供程序
 
+上文中讲到的所有配置提供程序，都是通过如下代码添加激活的：
 
+```c#
+WebHost.CreateDefaultBuilder(args)
+    .ConfigureAppConfiguration((hostingContext, config) =>
+    {
+        config.SetBasePath(Directory.GetCurrentDirectory());
+        config.AddInMemoryCollection(arrayDict);
+        config.AddJsonFile(
+            "json_array.json", optional: false, reloadOnChange: false);
+        config.AddJsonFile(
+            "starship.json", optional: false, reloadOnChange: false);
+        config.AddXmlFile(
+            "tvshow.xml", optional: false, reloadOnChange: false);
+        config.AddEFConfiguration(
+            options => options.UseInMemoryDatabase("InMemoryDb"));
+        config.AddCommandLine(args);
+    })
+    .UseStartup<Startup>();
+```
 
+无论是使用AddJsonFile()、AddXmlFile()，还是AddCommandLine()等其他方法，这些方法的内部，调用的都是IConfigurationBuilder的扩展方法Add()方法，该方法位于Microsoft.Extensions.Configuration.ConfigurationExtensions类中，其定义和实现如下：
 
+```c#
+public static IConfigurationBuilder Add<TSource>(this IConfigurationBuilder builder, Action<TSource> configureSource) where TSource : IConfigurationSource, new()
+{
+	TSource val = new TSource();
+	configureSource?.Invoke(val); //执行委托方法
+    //此处调用的是IConfigurationBuilder成员方法Add()
+	return builder.Add((IConfigurationSource)(object)val); 
+}
+```
 
+需要特别注意的是，该扩展方法的内部，调用的是IConfigurationBuilder接口的Add()方法，该方法位于Microsoft.Extensions.Configuration.IConfigurationBuilder接口中，定义如下：
 
+```c#
+IConfigurationBuilder Add(IConfigurationSource source);
+```
 
+因此，当需要自定义配置程序时，也需要进行IConfigurationBuilder的Add()方法的调用，无论该方法采用的是扩展版本还是原生版本，IConfigurationSource都必不可少。因此可以围绕IConfigurationSource自定义配置程序。
 
+#### 第一步：实现IConfigurationSource接口
 
-ConfigurationProvider
+该接口只有一个成员方法Build()，当定义了一个实现IConfigurationSource接口的类时，必须实现该方法：
 
-IConfigurationBuilder
+```c#
+public class AyConfigurationSource : IConfigurationSource
+{
+    public IConfigurationProvider Build(IConfigurationBuilder builder)
+    {
+        //此处需要返回IConfigurationProvider
+        throw new NotImplementedException();
+        //return new AyConfigurationProvider();
+    }
+}
+```
 
+该方法的builder参数来自于外部的调用，可以添加断点调试看看。由于该方法返回的是IConfigurationProvider，因此还需要提供实现了IConfigurationProvider接口的类。
 
+#### 第二步：实现IConfigurationProvider接口
 
-IConfigurationProvider
+该接口提供了应用程序的配置键/值操作，可以自定义一个实现了IConfigurationProvider接口的类。通常，可以直接使用ConfigurationProvider类，该类已经实现了IConfigurationProvider接口，因此可以直接定义一个类派生自ConfigurationProvider类即可，并且需要重写Load()方法，该方法用于加载配置值，将配置键/对，赋值给ConfigurationProvider类的Data属性。
 
-IConfigurationSource
+```c#
+public class AyConfigurationProvider: ConfigurationProvider
+{
+    public override void Load()
+    {
+        Data = new Dictionary<string, string>
+        {
+            { "quote1", "I aim to misbehave." },
+            { "quote2", "I swallowed a bug." },
+            { "quote3", "You can't stop the signal, Mal." }
+        };
+    }
+}
+```
+
+#### 只有两步的完成调用
+
+一旦完成了上述两个步骤，就可以在Program.cs中，通过ConfigureAppConfiguration方法进行配置提供程序的添加操作，需要调用IConfigurationBuilder的Add()方法进行添加：
+
+```c#
+public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+    WebHost.CreateDefaultBuilder(args)
+    .ConfigureAppConfiguration((hostingContext, config) => {
+        config.Add(new AyConfigurationSource());
+    })
+    .UseStartup<Startup>();
+```
+
+可以在Startup.cs中，访问配置，查看运行情况：
+
+```c#
+public void Configure(
+    IApplicationBuilder app, IHostingEnvironment env, IConfiguration config)
+{
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+    app.Run(async (context) =>
+    {
+        await context.Response.WriteAsync(config["quote1"]);
+    });
+}
+```
+
+虽然可以直接通过IConfigurationBuilder.Add()方法直接添加配置提供程序，但一般为了代码结构更加易用，会定义一个额外的扩展方法，在扩展方法中，执行IConfigurationBuilder.Add()的调用。
+
+#### 第三步：定义IConfigurationBuilder的扩展方法（非必需，但推荐使用）
+
+```c#
+public static class AyConfigurationExtensions
+{
+    public static IConfigurationBuilder AddAyConfiguration(this IConfigurationBuilder builder)
+    {
+        return builder.Add(new AyConfigurationSource());
+    }
+}
+```
+
+改写Program.cs中的代码：
+
+```c#
+WebHost.CreateDefaultBuilder(args)
+.ConfigureAppConfiguration((hostingContext, config) => {
+    config.AddAyConfiguration(); //类似于config.AddJsonFile()形式
+})
+.UseStartup<Startup>();
+```
+
+上述就是创建自定义配置提供程序的3个步骤，代码相对比较简洁，不包含外部的其他调用，相对不太实用，可以对其进行扩展。
+
+只需要对AyConfigurationProvider类定义一个匿名委托的属性，并在该类的构造方法中进行引入：
+
+```c#
+public class AyConfigurationProvider: ConfigurationProvider
+{
+    Action<AyInfo> AyAction{ get; }
+
+    public AyConfigurationProvider(Action<AyInfo> _ayAction)
+    {
+        AyAction = _ayAction;
+    }
+
+    public override void Load()
+    {
+       var ay= new AyInfo { Key = "AAA", Value = "BBB" };
+        //为匿名委托传入实参
+        AyAction(ay);
+
+        Data = new Dictionary<string, string>
+        {
+            { "quote1", "I aim to misbehave." },
+            { "quote2", "I swallowed a bug." },
+            { "quote3", "You can't stop the signal, Mal." }
+        };
+        Data[ay.Key] = ay.Value;
+
+    }
+}
+```
+
+AyConfigurationSource类也同样使用构造函数进行引入：
+
+```c#
+public class AyConfigurationSource : IConfigurationSource
+{
+    private readonly Action<AyInfo> AyAction;
+    public AyConfigurationSource(Action<AyInfo> _ayAction)
+    {
+        AyAction = _ayAction;
+    }
+    public IConfigurationProvider Build(IConfigurationBuilder builder)
+    {
+        //此处需要返回IConfigurationProvider
+        return new AyConfigurationProvider(AyAction);
+    }
+}
+```
+
+AyConfigurationExtensions类同样如此：
+
+```c#
+public static class AyConfigurationExtensions
+{
+    public static IConfigurationBuilder AddAyConfiguration(
+    this IConfigurationBuilder builder,
+    Action<AyInfo> AyAction)
+    {
+        return builder.Add(new AyConfigurationSource(AyAction));
+    }
+}
+```
+
+在Program.cs中，进行匿名委托函数的操作指定：
+
+```c#
+WebHost.CreateDefaultBuilder(args)
+.ConfigureAppConfiguration((hostingContext, config) => {
+    //ayinfo是形参
+    config.AddAyConfiguration(ayinfo=> {
+        //为委托指定操作
+        ayinfo.Value = ayinfo.Key + ayinfo.Value;
+    });
+})
+.UseStartup<Startup>();
+```
+
+以上就是自定义配置提供程序的全部内容，官方提供了一个基于EF的配置提供程序，原理都是一样的。
+
+需要注意的是，在提供匿名委托方法时，参数一定要是引用类型。例如上文中的AyInfo类型。
+
+另外，可以在Startup中的Configure()方法中，直接访问配置值，代码见上文第二步。
 
 
 
