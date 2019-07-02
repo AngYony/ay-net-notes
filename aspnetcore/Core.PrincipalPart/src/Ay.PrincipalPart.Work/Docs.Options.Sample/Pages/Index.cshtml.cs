@@ -21,7 +21,7 @@ namespace Docs.Options.Sample.Pages
             IOptionsMonitor<MyOptions> addOptionsAccessor
         )
         {
-
+          
 
             _options  = optionsAccessor.CurrentValue;
             _optionsWithDelegateConfig = optionsAccessorWithDelegateConfig.CurrentValue;

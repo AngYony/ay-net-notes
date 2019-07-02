@@ -23,10 +23,11 @@ namespace Docs.Options.Sample
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<MyOptions>(Configuration);
+
             
 
 
-            services.Configure<MyOptions>(Configuration);
             services.Configure<MyOptionsWithDelegateConfig>(myconfig =>
             {
                 myconfig.Option1 = "value1_configured_by_delegate";
