@@ -756,35 +756,306 @@ public static IServiceCollection AddOptions(this IServiceCollection services)
 
 上述这些方法的内部，都会先调用IServiceCollection.AddOptions()方法，完成必要服务的添加工作后，才能注入选项配置。
 
+当使用选项类来表示相关配置时，选项类必须为包含公共无参数构造函数的非抽象类：
+
+```c#
+public class AyOption
+{
+    public AyOption()
+    {
+        Option1 = "Hello Options";
+    }
+
+    public string Option1 { get; set; }
+    public int Option2 { get; set; } = 333;
+}
+```
+
 ### `IServiceCollection.Configure<T>()`
 
 Configure()是IServiceCollection的扩展方法，由Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions类和Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions类提供。这两个类提供的Configure()方法的主要区别是：
 
-OptionsConfigurationServiceCollectionExtensions中的Configure()方法，都需要传入IConfiguration类型的参数；而OptionsServiceCollectionExtensions中的Configure()方法，不需要提供IConfiguration类型的参数。
+- OptionsConfigurationServiceCollectionExtensions中的Configure()方法，都需要传入IConfiguration类型的参数；
+- 而OptionsServiceCollectionExtensions中的Configure()方法，不需要提供IConfiguration类型的参数。
+
+**如果选项类的值来自于配置提供程序，如JSON文件、命令行参数、环境变量等配置提供程序，就需要使用带有IConfiguration类型参数的Configure()方法；如果选项类的值不依赖任何配置提供程序，而是完全通过匿名委托进行配置的，那么就需要使用不带IConfiguration类型参数的Configure()方法。**
+
+==因此，更恰当的说法是，当调用带有IConfiguration参数的Configure()方法时，将其称之为选项配置绑定。当调用不带IConfiguration参数的Configure()方法时，将其称之为选项自定义配置。==
 
 #### 带有IConfiguration类型参数的Configure()方法
 
+带有IConfiguration类型参数的Configure()方法，选项类的值都依赖于配置提供程序，可能来自JSON文件、环境变量、命令行等，选项类的值不能手动的进行配置。
+
 ##### `Configure<TOptions>(IConfiguration config) `
 
+将AyOption添加到服务容器，并绑定到配置：
 
+```c#
+public class Startup
+{
+	public IConfiguration Configuration { get; }
+	public Startup(IConfiguration configuration)
+	{
+		Configuration = configuration;
+	}
+	public void ConfigureServices(IServiceCollection services)
+	{
+		services.Configure<AyOption>(Configuration);
+	}
+}
+```
+
+在Index.cshtml.cs中，使用构造函数依赖关系注入访问设置：
+
+```c#
+public readonly AyOption ayOption;
+public IndexModel(IOptionsMonitor<AyOption> optionsAccessor)
+{
+    ayOption= optionsAccessor.CurrentValue;
+}
+```
+
+上述代码读取到的配置值，来自于AyOption实体定义时默认指定的值，如果存在如下格式的appsettings.json文件：
+
+```json
+{
+  "option1": "value1_from_json",
+  "option2": -1,
+  "subsection": {
+    "suboption1": "subvalue1_from_json",
+    "suboption2": 200
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+```
+
+最终获取选项类的值，将会是SON文件中的值。
+
+如果要绑定上述json文件中的subsection节点的值，仍然可以使用该方法进行绑定：
+
+```c#
+services.Configure<MySubOptions>(Configuration.GetSection("subsection"));
+```
+
+原因是，GetSection()方法返回的是IConfigurationSection，而IConfigurationSection派生自IConfiguration。
 
 ##### `Configure<TOptions>(string name, IConfiguration config)`
 
+该方法为选项配置指定一个名称，在获取选项时，可以通过选项名称进行区分。
+
+```c#
+services.Configure<AyOption>("named_options_1", Configuration);
+```
+
+通过Get()方法访问命名选项：
+
+```c#
+private readonly AyOption _named_options_1;
+public IndexModel(IOptionsSnapshot<AyOption> namedOptionsAccessor)
+{
+    _named_options_1 = namedOptionsAccessor.Get("named_options_1");
+}
+```
+
+补充备注：除了上述两种方法外，带有IConfiguration参数的Configure()方法，还包含两个参数是Action<BinderOptions>匿名委托的重载方法。
+
+#### 不带IConfiguration类型参数的Configure()方法
+
+不带IConfiguration类型参数的Configure()方法，允许传入匿名委托，对选项类的值进行自定义设置。
+
+##### `Configure<TOptions>(Action<TOptions> configureOptions)`
+
+可以在不传入IConfiguration类型参数的情况下，通过委托设置选项的值：
+
+```c#
+services.Configure<AyOption>(ay => {
+    ay.Option1 = "value1_from_delegate";
+    ay.Option2 = 444;
+});
+```
+
+同样可以使用IOptionsMonitor获取选项值。
+
+```c#
+public IndexModel(IOptionsMonitor<AyOption> optionsAccessor)
+{
+    ayOption= optionsAccessor.CurrentValue;
+}
+```
+
+##### `Configure<TOptions>(string name, Action<TOptions> configureOptions)`
+
+为选项配置指定选项名称。
+
+```c#
+services.Configure<AyOption>("named_options_2", myOptions =>
+{
+    myOptions.Option1 = "named_options_2_value1_from_action";
+});
+```
+
+同样使用Get()方法获取命名选项，代码见上。
+
+### `IServiceCollection.ConfigureAll<T>()`
+
+ConfigureAll()方法也位于Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions类中，它是不带有IConfiguration参数的扩展方法。ConfigureAll()方法的内部，调用的是同一个类中的Configure()方法（见上文描述），这两个方法都不带有IConfiguration参数，因此都是选项的自定义配置。
+
+ConfigureAll()方法的实现代码如下：
+
+```c#
+public static IServiceCollection ConfigureAll<TOptions>(this IServiceCollection services, Action<TOptions> configureOptions) where TOptions : class
+{
+	return services.Configure(null, configureOptions);
+}
+```
+
+通过源码可以看到，ConfigureAll()方法的内部，为选项配置的名称设置了null，这样在调用ConfigureAll()方法时，会为选项类实例配置统一的值：
+
+```c#
+services.ConfigureAll<AyOption>(myOptions => 
+{
+    myOptions.Option1 = "ConfigureAll replacement value";
+});
+```
+
+### `OptionsBuilder<T>.Configure()`与`Validate()`
+
+`OptionsBuilder<TOptions>`通过IServiceCollection的扩展方法`AddOptions<TOptions>(string name)`返回，然后调用`OptionsBuilder<TOptions>`的Configure()方法进行选项配置。
+
+```c#
+services.AddOptions<MyOptions>().Configure(o => o.Property = "default");
+
+services.AddOptions<MyOptions>("optionalName")
+    .Configure(o => o.Property = "named");
+```
+
+需要特别注意的是：此处的services.AddOptions<T>()方法，是IServiceCollection的扩展方法，返回的类型是`OptionsBuilder<TOptions>`，一定要和IServiceCollection的另一个扩展方法AddOptions()区分开，后者返回的是IServiceCollection。另外，此处的Configure()方法返回的仍然是`OptionsBuilder<TOptions>`，也要和IServiceCollection的Configure()方法区分开，后者返回的仍然是IServiceCollection。
+
+可以使用该方法通过DI服务配置选项：
+
+```c#
+services.AddOptions<MyOptions>("optionalName")
+    .Configure<Service1, Service2, Service3, Service4, Service5>(
+        (o, s, s2, s3, s4, s5) => 
+            o.Property = DoSomethingWith(s, s2, s3, s4, s5));
+```
+
+备注：除了这种方式之外，还可以创建实现了 IConfigureOptions<TOptions> 或 IConfigureNamedOptions<TOptions> 的你自己的类型，并将该类型注册为服务。但这种方式较为复杂，一般更推荐将配置委托传递给Configure，如上述代码所示。
+
+同时，`OptionsBuilder<T>.Configure()`方法返回的仍然是OptionsBuilder<TOptions>，可以在此基础上进行选项验证操作。验证已配置的选项，调用的是Validate方法，如果选项有效，方法返回 true；如果无效，方法返回 false：
+
+```c#
+services.AddOptions<MyOptions>("optionalOptionsName")
+    .Configure(o => { }) // 配置选项
+    .Validate(o => YourValidationShouldReturnTrueIfValid(o), //必须返回bool类型值 
+        "验证信息");
+
+var monitor = services.BuildServiceProvider()
+    .GetService<IOptionsMonitor<MyOptions>>();
+
+try
+{
+	//如果验证失败，将不会获取到选项值，会触发异常
+    var options = monitor.Get("optionalOptionsName");
+}
+catch (OptionsValidationException e) 
+{
+  	
+}
+```
+
+关于[选项验证](https://docs.microsoft.com/zh-cn/aspnet/core/fundamentals/configuration/options?view=aspnetcore-2.2#options-validation)的更多内容，请参阅官方文档（包括基于数据注释的验证）。
+
+### `IServiceCollection.PostConfigure<T>()`
+
+该方法用于设置后期配置。
+
+```c#
+services.PostConfigure<MyOptions>(myOptions =>
+{
+    myOptions.Option1 = "post_configured_option1_value";
+});
+//包含命名选项的重载方法
+services.PostConfigure<MyOptions>("named_options_1", myOptions =>
+{
+    myOptions.Option1 = "post_configured_option1_value";
+});
+```
+
+### `IServiceCollection.PostConfigureAll<T>()`
+
+PostConfigureAll()方法的内部调用的是PostConfigure()方法，用于对所有配置实例进行后期配置。
+
+```c#
+services.PostConfigureAll<MyOptions>(myOptions =>
+{
+    myOptions.Option1 = "post_configured_option1_value";
+});
+```
 
 
 
+当启用多个配置服务时，指定的最后一个配置源优于其他源，由其设置配置值。
 
 
 
+### 获取选项配置的值
+
+所有的注入都可以使用以下两种方式来访问：
+
+- 使用构造函数依赖关系注入来访问选项
+
+  ```c#
+  public IndexModel(
+      IOptionsMonitor<MyOptions> optionsAccessor, 
+      IOptionsSnapshot<MyOptions> namedOptionsAccessor)
+  {
+      _options = optionsAccessor.CurrentValue;
+      _named_options_1 = namedOptionsAccessor.Get("named_options_1");
+  }
+  ```
+
+- 通过直接视图注入获取选项
+
+  ```c#
+  @page
+  @model IndexModel
+  @using Microsoft.Extensions.Options
+  @inject IOptionsMonitor<MyOptions> OptionsAccessor
+  <p><b>Option1:</b> @OptionsAccessor.CurrentValue.Option1</p>
+  <p><b>Option2:</b> @OptionsAccessor.CurrentValue.Option2</p>
+  ```
+
+而获取选项配置值时，需要使用IOptionsMonitor或IOptionsSnapshot，在上文中提到的IServiceCollection.AddOptions()方法的内部：
+
+```c#
+services.TryAdd(ServiceDescriptor.Scoped(typeof(IOptionsSnapshot<>), typeof(OptionsManager<>)));
+            services.TryAdd(ServiceDescriptor.Singleton(typeof(IOptionsMonitor<>), typeof(OptionsMonitor<>)));
+```
+
+IOptionsSnapshot<TOptions>支持重新加载选项，针对请求生存期访问和缓存选项时，每个请求只能计算一次选项。
+
+### 在`Startup.Configure()`中访问选项
+
+因为在 `Configure()` 方法执行之前已生成服务，因此可以在该方法中直接访问选项配置：
+
+```c#
+public void Configure(IApplicationBuilder app, IOptionsMonitor<MyOptions> optionsAccessor)
+{
+    var option1 = optionsAccessor.CurrentValue.Option1;
+}
+```
+
+由于服务注册的顺序，可能存在不一致的选项状态。因此不要在Configure中使用 Startup.ConfigureServices 中的 IOptions<TOptions> 或 IOptionsMonitor<TOptions>。
 
 
 
-
-
-
-
-
-
+【完结】
 
 
 
