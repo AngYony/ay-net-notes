@@ -14,7 +14,9 @@ namespace Docs.Options.Sample
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var a=CreateWebHostBuilder(args);
+            var b = a.Build(); //
+            b.Run(); //
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

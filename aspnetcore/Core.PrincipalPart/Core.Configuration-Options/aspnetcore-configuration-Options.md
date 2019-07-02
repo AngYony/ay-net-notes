@@ -724,6 +724,68 @@ WebHost.CreateDefaultBuilder(args)
 - 能够更好的遵循关注点分离原则和接口分离原则（封装）
 - 支持配置数据的验证机制
 
+基于选项的配置，都会调用IServiceCollection的AddOptions()扩展方法，该方法的定义和实现如下：
+
+```c#
+public static IServiceCollection AddOptions(this IServiceCollection services)
+{
+    if (services == null)
+    {
+        throw new ArgumentNullException("services");
+    }
+	services.TryAdd(ServiceDescriptor.Singleton(typeof(IOptions<>), typeof(OptionsManager<>)));
+	services.TryAdd(ServiceDescriptor.Scoped(typeof(IOptionsSnapshot<>), typeof(OptionsManager<>)));
+	services.TryAdd(ServiceDescriptor.Singleton(typeof(IOptionsMonitor<>), typeof(OptionsMonitor<>)));
+	services.TryAdd(ServiceDescriptor.Transient(typeof(IOptionsFactory<>), typeof(OptionsFactory<>)));
+	services.TryAdd(ServiceDescriptor.Singleton(typeof(IOptionsMonitorCache<>), typeof(OptionsCache<>)));
+	return services;
+}
+```
+
+该方法用于添加使用选项所需的服务，可以简单理解为初始化选项配置服务。所有的选项配置方法，都会调用该方法。
+
+特别注意：该方法返回的类型为IServiceCollection，需要和另一个AddOptions<T>()方法区分开来，后者返回的是OptionsBuilder类型（下文会介绍该方法的用法）。
+
+当在Startup.ConfigureServices()方法中，对选项进行配置时，常见的几种方法如下：
+
+- services.AddOptions<T>() 及其重载方法（该方法的内部会调用IServiceCollection.AddOptions()方法）
+- services.Configure<T>()及其重载方法（该方法的内部也会调用IServiceCollection.AddOptions()方法）
+- services.ConfigureAll<T>()（该方法的内部调用的是services.Configure()方法）
+- service.PostConfigure<T>()及其重载方法（该方法的内部也会调用IServiceCollection.AddOptions()方法）
+- services.PostConfigureAll<T>()（该方法的内部调用的是services.PostConfigure()方法）
+
+上述这些方法的内部，都会先调用IServiceCollection.AddOptions()方法，完成必要服务的添加工作后，才能注入选项配置。
+
+### `IServiceCollection.Configure<T>()`
+
+Configure()是IServiceCollection的扩展方法，由Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions类和Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions类提供。这两个类提供的Configure()方法的主要区别是：
+
+OptionsConfigurationServiceCollectionExtensions中的Configure()方法，都需要传入IConfiguration类型的参数；而OptionsServiceCollectionExtensions中的Configure()方法，不需要提供IConfiguration类型的参数。
+
+#### 带有IConfiguration类型参数的Configure()方法
+
+##### `Configure<TOptions>(IConfiguration config) `
+
+
+
+##### `Configure<TOptions>(string name, IConfiguration config)`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

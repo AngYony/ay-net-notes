@@ -23,6 +23,9 @@ namespace Docs.Options.Sample
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            
+
+
             services.Configure<MyOptions>(Configuration);
             services.Configure<MyOptionsWithDelegateConfig>(myconfig =>
             {
@@ -49,6 +52,7 @@ namespace Docs.Options.Sample
 
             services.AddOptions<MyOptions>("wyOptions").Configure(o => o.Option2 = 333);
 
+            
 
             //        services.AddOptions<MyOptions>("optionalName")
             //.Configure<Service1, Service2, Service3, Service4, Service5>(
