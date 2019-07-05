@@ -101,7 +101,7 @@ public void ConfigureServices(IServiceCollection services)
 	services.AddScoped<IOperationScoped, Operation>();
 	services.AddSingleton<IOperationSingleton, Operation>();
     
-    //方式三：使用接口和实例
+    //方式三：使用接口和实例，单个服务的工厂方法
 	services.AddSingleton<ISomeService>(sp => new SomeServiceImplementation());
     services.AddSingleton<IOperationSingletonInstance>(new Operation(Guid.Empty));
 
