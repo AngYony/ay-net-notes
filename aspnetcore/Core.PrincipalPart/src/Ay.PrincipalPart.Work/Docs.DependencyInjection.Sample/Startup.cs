@@ -21,9 +21,22 @@ namespace Docs.DependencyInjection.Sample
 
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2);
 
-            services.AddScoped<IMyDependency, MyDependency>();
+            //services.AddScoped<IMyDependency, MyDependency>();
 
-             
+
+            services.AddTransient<IOperationTransient, Operation>();
+            services.AddScoped<IOperationScoped, Operation>();
+            services.AddSingleton<IOperationSingleton, Operation>();
+
+            services.AddSingleton<IOperationSingletonInstance>(new Operation(Guid.Empty));
+
+            
+
+
+
+            services.AddTransient<OperationService,OperationService>();
+
+
 
         }
 
