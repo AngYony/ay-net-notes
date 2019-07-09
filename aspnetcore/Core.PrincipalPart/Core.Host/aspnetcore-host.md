@@ -1,19 +1,44 @@
 # ASP.NET Core Host
 
-Host也被称为托管或主机。Host负责应用程序启动和生存期管理，主要有以下两种：
+**名词释义**
 
-- Web Host：Web主机，适用于托管Web应用。为托管 ASP.NET Core Web 应用，开发人员应使用基于 `IWebHostBuilder` 的 Web 主机。
-- Generic Host：通用主机， 适用于托管非 Web 应用（例如，运行后台任务的应用）。 在未来的版本中，通用主机将适用于托管任何类型的应用，包括 Web 应用。 通用主机最终将取代 Web 主机。为托管非 Web 应用，开发人员应使用基于 `HostBuilder`的通用主机。
+- Host：主机、托管，本文为了避免歧义，统一使用Host。
 
 
+
+## Host简介
+
+Host的作用是：负责应用程序启动和生存期管理。
+
+按照不同用途可以分为：
+
+- Web Host（Web主机）
+- Generic Host （通用主机或泛型主机）
+
+两者之间的主要区别是：
+
+- Web Host适用于托管Web应用，当使用VS模板创建ASP.NET Core Web应用程序时，默认使用的都是Web Host：
+
+  ```c#
+  public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>...
+  ```
+
+- Generic Host适用于托管非 Web 应用，如后台任务、消息处理等非HTTP请求的应用。泛型主机将在未来版本中替换 Web 主机，并在 HTTP 和非 HTTP 方案中充当主要的主机 API。
+
+  
 
 ## Web Host（IWebHostBuilder）
 
-ASP.NET Core应用需要配置和启动Host，Host负责应用程序的启动和生存期管理，Host至少要配置服务器和请求处理管道。在ASP.NET Core中，使用ASP.NET Core Web主机 （IWebHostBuilder）托管Web应用。
+Web Host主要负责：
 
-### 设置Host
+- 应用程序启动和生存期管理
+- 服务器的配置
+- 处理请求管道
+- 设置日志记录、依赖关系注入和配置。
 
-通常Program.cs中的Main方法在应用的入口点首先被执行，典型的Program.cs中的代码如下：
+### 配置 Web Host
+
+当使用项目模板创建Web应用时，是通过Program.cs中的CreateWebHostBuilder()方法来构建Host的：
 
 ```c#
 public static void Main(string[] args)
@@ -26,101 +51,68 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         .UseStartup<Startup>();
 ```
 
-它通过WebHost.CreateDefaultBuilder的调用开始设置Host，CreateDefaultBuilder将会执行以下任务：
+#### WebHost.CreateDefaultBuilder()
 
-###### 配置Web服务器
+当调用WebHost.CreateDefaultBuilder()时，将会执行下列任务：
 
-使用应用程序的Host配置提供程序将Kestrel服务器配置为web服务器。
+- 配置Web服务器：使用Hosting配置提供程序将Kestrel配置为Web服务器。
 
-###### 设置内容根目录
+  ConfigureKestrel()方法用于重写CreateDefaultBuilder中的Kestrel配置：
 
-将内容根目录设置为Directory.GetCurrentDirectory返回的路径。
+  ```c#
+  public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+      WebHost.CreateDefaultBuilder(args)
+      .ConfigureKestrel((context,options)=> {
+      	//Limits.MaxRequestBodySize默认为30000000字节
+          options.Limits.MaxRequestBodySize = 20_000_000;
+      })
+      .UseStartup<Startup>();
+  ```
 
-内容根确定主机搜索内容文件（如 MVC 视图文件）的位置。 应用从项目的根文件夹启动时，会将项目的根文件夹用作内容根。 这是 Visual Studio 和 dotnet new 模板中使用的默认值。
+- 设置内容根目录：将内容根目录设置为Directory.GetCurrentDirectory返回的路径。
 
-###### 加载Host配置
+- 加载Host配置：通过前缀为 `ASPNETCORE_` 的环境变量（例如，ASPNETCORE_ENVIRONMENT）和命令行参数来加载Host配置。
 
-主要通过以下方式加载Host配置：
+- 加载应用配置：不同配置源加载的先后顺序不同，默认按照以下顺序加载：
 
-- 以ASPNETCORE_作为前缀的环境变量（例如，ASPNETCORE_ENVIRONMENT）。
-- 命令行参数。
+  - appsettings.json
+  - appsettings.{Environment}.json
+  - 应用在使用入口程序集的 Development 环境中运行时的机密管理器（Secret Manager）
+  - 环境变量
+  - 命令行参数
 
-###### 加载应用配置
+  ConfigureAppConfiguration方法用于自定义加载应用配置：
 
-将按照以下顺序加载应用配置：
+  ```c#
+  public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+      WebHost.CreateDefaultBuilder(args)
+      .ConfigureAppConfiguration((hostingContext, config) => {
+          config.AddXmlFile("appsettings.xml", optional: true, reloadOnChange: true);
+      })
+      .UseStartup<Startup>();
+  ```
 
-- appsettings.json。
-- appsettings.{Environment}.json。
-- 应用在使用入口程序集的 Development 环境中运行时的机密管理器（Secret Manager）。
-- 环境变量。
-- 命令行参数。
+- 配置日志记录：配置控制台和调试输出的日志记录，日志记录包含 appsettings.json 或 appsettings.{Environment}.json 文件的日志记录配置部分中指定的日志筛选规则。
 
-###### 配置控制台和调试输出的日志记录
+  ConfigureLogging方法用于配置Logging，可以被多次调用：
 
-日志记录包含 appsettings.json 或 appsettings.{Environment}.json 文件的日志记录配置部分中指定的日志筛选规则。
+  ```c#
+  public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+      WebHost.CreateDefaultBuilder(args)
+      .ConfigureLogging(logging => {
+          logging.SetMinimumLevel(LogLevel.Warning);
+      })
+      .UseStartup<Startup>();
+  ```
 
-###### 在IIS后方运行时，启用IIS集成
+- 如果使用了[ASP.NET Core模块](https://docs.microsoft.com/zh-cn/aspnet/core/host-and-deploy/aspnet-core-module?view=aspnetcore-2.2)，在IIS后面运行时，`CreateDefaultBuilder` 会启用 [IIS 集成](https://docs.microsoft.com/zh-cn/aspnet/core/host-and-deploy/iis/index?view=aspnetcore-2.2)，这会配置应用的基址和端口。 
+- 设置作用域验证：如果应用环境为“开发”，则CreateDefaultBuilder将ServiceProviderOptions.ValidateScopes 设为 true。
 
-当使用ASP.NET Core 模块时，可以配置基路径和被服务器侦听的端口。ASP.NET Core模块创建IIS与Kestrel之间的反向代理，还配置应用启动错误的捕获。
-
-###### 设置作用域验证
-
-如果应用环境为“开发”，则 CreateDefaultBuilder 将 ServiceProviderOptions.ValidateScopes 设为 true。
-
-#### 其他方法
-
-除了CreateDefaultBuilder定义的配置外，还可以使用ConfigureAppConfiguration、ConfigureLogging 以及 IWebHostBuilder 的其他方法和扩展方法重写和增强 CreateDefaultBuilder 定义的配置。
-
-##### ConfigureAppConfiguration 
-
-ConfigureAppConfiguration用于指定应用的其他IConfiguration。
-
-下面的示例代码中，ConfigureAppConfiguration调用一个委托，向应用添加appsettings.xml文件中的配置，可以多次调用ConfigureAppConfiguration方法。
-
-```c#
-public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-    WebHost.CreateDefaultBuilder(args)
-    .ConfigureAppConfiguration((hostingContext, config) => {
-        config.AddXmlFile("appsettings.xml", optional: true, reloadOnChange: true);
-    })
-    .UseStartup<Startup>();
-```
-
-##### ConfigureLogging
-
-添加委托以配置提供的ILoggingBuilder，可以被多次调用。
-
-下面的示例代码中，ConfigureLogging 调用添加委托，以将最小日志记录级别 (SetMinimumLevel) 配置为 LogLevel.Warning。 此设置重写了CreateDefaultBuilder在appsettings.Development.json和appsettings.Production.json中配置的设置，这两个配置项分别为 LogLevel.Debug 和 LogLevel.Error。
-
-```c#
-public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-    WebHost.CreateDefaultBuilder(args)
-    .ConfigureLogging(logging => {
-        logging.SetMinimumLevel(LogLevel.Warning);
-    })
-    .UseStartup<Startup>();
-```
-
-##### ConfigureKestrel
-
-用于重写CreateDefaultBuilder中的Kestrel配置。
-
-下面的示例调用ConfigureKestrel来重写CreateDefaultBuilder在配置Kestrel时，Limits.MaxRequestBodySize默认指定的30000000字节。
-
-```c#
-public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-    WebHost.CreateDefaultBuilder(args)
-    .ConfigureKestrel((context,options)=> {
-        options.Limits.MaxRequestBodySize = 20_000_000;
-    })
-    .UseStartup<Startup>();
-```
-
-### Host配置值
+#### Host 配置值
 
 WebHostBuilder派生自IWebHostBuilder接口，WebHostBuilder依赖于以下几种形式设置Host配置值：
 
-- 基于Host生成器配置，Host生成器配置会读取设置的环境变量，其中包括格式ASPNETCORE_{configurationKey} 的环境变量， 例如 ASPNETCORE_ENVIRONMENT。因此可以通过环境变量进行设置Host配置值。
+- Host配置提供程序，基于Host生成器配置，Host生成器配置会读取设置的环境变量，其中包括格式ASPNETCORE_{configurationKey} 的环境变量， 例如 ASPNETCORE_ENVIRONMENT。因此可以通过环境变量进行设置Host配置值。
 - 使用UseContentRoot和UseConfiguration等扩展方法显式的设置Host配置值。
 - 使用UseSetting方法，该方法需要指定要设置的Host配置值对应的配置键，该值来自于WebHostDefaults的成员变量，同时还要指定要设置的字符串值。
 
@@ -148,7 +140,7 @@ public static class WebHostDefaults
 
 下面对常用的Host配置值进行讲述。在每个配置值中，列出的环境变量来自于”ASPNETCORE_配置键“的形式（习惯全大写），下述列出的设置形式只是对常用的形式进行了表述，并不仅仅局限于代码中指定的这种形式。可以结合上述的WebHostDefaults中的成员进行理解。
 
-#### 应用程序名称
+##### 应用程序名称
 
 配置键：applicationName
 
@@ -164,7 +156,7 @@ WebHost.CreateDefaultBuilder(args)
 .UseSetting(WebHostDefaults.ApplicationKey,"MyAppName")
 ```
 
-#### 捕获启动错误
+##### 捕获启动错误
 
 配置键：captureStartupErrors
 
@@ -179,7 +171,7 @@ WebHost.CreateDefaultBuilder(args)
     .CaptureStartupErrors(true)
 ```
 
-#### 内容根
+##### 内容根
 
 配置键：contentRoot
 
@@ -194,7 +186,7 @@ WebHost.CreateDefaultBuilder(args)
     .UseContentRoot("c:\\<content-root>")
 ```
 
-#### 详细错误
+##### 详细错误
 
 配置键：detailedErrors
 
@@ -209,7 +201,7 @@ WebHost.CreateDefaultBuilder(args)
     .UseSetting(WebHostDefaults.DetailedErrorsKey, "true")
 ```
 
-#### 环境
+##### 环境
 
 配置键：environment
 
@@ -224,7 +216,7 @@ WebHost.CreateDefaultBuilder(args)
     .UseEnvironment(EnvironmentName.Development)
 ```
 
-#### 承载启动程序集
+##### 承载启动程序集
 
 配置键：hostingStartupAssemblies
 
@@ -239,7 +231,7 @@ WebHost.CreateDefaultBuilder(args)
     .UseSetting(WebHostDefaults.HostingStartupAssembliesKey, "assembly1;assembly2")
 ```
 
-#### HTTPS端口
+##### HTTPS端口
 
 配置键：https_port
 
@@ -254,7 +246,7 @@ WebHost.CreateDefaultBuilder(args)
     .UseSetting("https_port", "8080")
 ```
 
-#### 承载启动排除程序集
+##### 承载启动排除程序集
 
 配置键：hostingStartupExcludeAssemblies
 
@@ -269,7 +261,7 @@ WebHost.CreateDefaultBuilder(args)
     .UseSetting(WebHostDefaults.HostingStartupExcludeAssembliesKey, "assembly1;assembly2")
 ```
 
-#### 首选承载URL
+##### 首选承载URL
 
 配置键：preferHostingUrls
 
@@ -284,7 +276,7 @@ WebHost.CreateDefaultBuilder(args)
     .PreferHostingUrls(false)
 ```
 
-#### 阻止承载启动
+##### 阻止承载启动
 
 配置值：preventHostingStartup
 
@@ -299,7 +291,7 @@ WebHost.CreateDefaultBuilder(args)
     .UseSetting(WebHostDefaults.PreventHostingStartupKey, "true")
 ```
 
-#### 服务器URL
+##### 服务器URL
 
 配置值：urls
 
@@ -314,7 +306,7 @@ WebHost.CreateDefaultBuilder(args)
     .UseUrls("http://*:5000;http://localhost:5001;https://hostname:5002")
 ```
 
-#### 关闭超时
+##### 关闭超时
 
 配置值：shutdownTimeoutSeconds
 
@@ -340,7 +332,7 @@ WebHost.CreateDefaultBuilder(args)
 
 如果在所有Host服务停止之前就达到了超时时间，则会在应用关闭时会终止剩余的所有活动的服务。 即使没有完成处理工作，服务也会停止。 如果停止服务需要额外的时间，那么就需要增加超时时间。
 
-#### 启动程序集
+##### 启动程序集
 
 配置值：startupAssembly
 
@@ -362,7 +354,7 @@ WebHost.CreateDefaultBuilder(args)
     .UseStartup<TStartup>()
 ```
 
-#### Web 根路径
+##### Web 根路径
 
 配置值：webroot
 
@@ -440,7 +432,7 @@ dotnet run --urls "http://*:8080"
 
 Run 方法启动 Web 应用并阻塞调用线程，直到关闭主机。
 
-```
+```c#
 host.Run();
 ```
 
@@ -475,8 +467,6 @@ using (host)
     Console.ReadLine();
 }
 ```
-
-在使用WebHost.CreateDefaultBuilder方法时，应用通过该方法的预配置的默认值初始化并启动新的主机，这些方法在没有控制台输出的情况下启动服务器，并使用 WaitForShutdown 等待中断（Ctrl-C/SIGINT 或 SIGTERM）。
 
 #### Start(RequestDelegate app)和Start(string url,RequestDelegate app)
 
@@ -707,13 +697,13 @@ WebHost.CreateDefaultBuilder(args)
 
 
 
-## .NET Core 通用主机（HostBuilder）
-
-【约定：Web主机在前文中统称为Web Host，为保持汉语的连贯性，此处约定将通用Host统一称为通用主机】
 
 
 
-对于托管不处理HTTP请求的应用推荐使用通用主机，主要基于HostBuilder进行构建和配置。通用主机的目标是将HTTP管道从Web Host API中分离出来，从而启动更多的主机方案。基于通用主机的消息、后台任务和其他非 HTTP 工作负载，可从配置、依赖关系注入 [DI] 和日志记录等功能中受益。
+
+## Generic Host（HostBuilder）
+
+与Web Host相比，Generic Host用于托管不处理HTTP请求的应用。
 
 备注：通用主机正处于开发阶段，用于在未来版本中替换 Web 主机，并在 HTTP 和非 HTTP 方案中充当主要的主机 API。
 
@@ -1269,6 +1259,3 @@ public class MyClass
     }
 }
 ```
-
-
-
