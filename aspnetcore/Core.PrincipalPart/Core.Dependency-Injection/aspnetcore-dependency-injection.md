@@ -341,5 +341,9 @@ public static void Main(string[] args)
 
 
 
+## 替换内置的服务容器
 
+[官方文档](https://docs.microsoft.com/zh-cn/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.2#default-service-container-replacement)
+
+[如何在 ASP.NET Core DI 中注册具有多个接口的服务](https://andrewlock.net/how-to-register-a-service-with-multiple-interfaces-for-in-asp-net-core-di/)
 
