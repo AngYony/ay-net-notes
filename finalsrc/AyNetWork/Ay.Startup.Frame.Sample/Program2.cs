@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Ay.Startup.Frame.Sample
 {
-    public class ProgramNotStartup
+    public class Program2
     {
         public static IHostingEnvironment HostingEnvironment { get; set; }
         public static IConfiguration Configuration { get; set; }
