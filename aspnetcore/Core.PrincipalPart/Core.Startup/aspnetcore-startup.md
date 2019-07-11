@@ -1,14 +1,14 @@
 # ASP.NET Core 中的应用启动
 
-启动类用于配置服务和应用程序的请求管道。
+Startup类用于配置服务和应用程序的请求管道。
 
 
 
 ## Startup类
 
-在ASP.NET Core中，按照约定将启动类命名Startup，Startup类必须包括Configure方法，该方法用于创建应用的请求处理管道。除了Configure方法外，Startup类也可以包括ConfigureServices方法，但不是必须的，ConfigureServices方法用于配置应用的服务。
-
-Startup类最终在Program.cs中被引入。
+- 在ASP.NET Core中，按照约定将启动类命名Startup
+- Startup类必须包括Configure方法，该方法用于创建应用的请求处理管道。
+- Startup类也可以包括ConfigureServices方法，但不是必须的，ConfigureServices方法用于配置应用的服务。
 
 当创建一个Empty的Web应用程序时，Startup类中默认包含的代码如下：
 
