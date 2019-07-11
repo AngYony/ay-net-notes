@@ -31,6 +31,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host ( 主机 )", "Host ( �
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Startup ( 应用启动 )", "Startup ( 应用启动 )", "{2DD04CD9-9829-4C51-8A99-93A4E7706E9C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Middleware ( 中间件 )", "Middleware ( 中间件 )", "{766FD1C3-EEA1-4D4E-9DB6-AF59FD99FF77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docs.Middleware.Sample", "Docs.Middleware.Sample\Docs.Middleware.Sample.csproj", "{A8DA2839-27C4-43B8-A1B0-49582F49C559}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,10 @@ Global
 		{1BD01275-7232-47FA-9850-FF70CBCA5FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BD01275-7232-47FA-9850-FF70CBCA5FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BD01275-7232-47FA-9850-FF70CBCA5FBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8DA2839-27C4-43B8-A1B0-49582F49C559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8DA2839-27C4-43B8-A1B0-49582F49C559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8DA2839-27C4-43B8-A1B0-49582F49C559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8DA2839-27C4-43B8-A1B0-49582F49C559}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +74,8 @@ Global
 		{1BD01275-7232-47FA-9850-FF70CBCA5FBD} = {EBF21C94-6807-4A6B-A34A-F92312AA336B}
 		{DBFFCC19-8025-424D-B6A7-297C444D06A0} = {BE84823A-BB36-49FB-91B2-9459FC999CD6}
 		{2DD04CD9-9829-4C51-8A99-93A4E7706E9C} = {BE84823A-BB36-49FB-91B2-9459FC999CD6}
+		{766FD1C3-EEA1-4D4E-9DB6-AF59FD99FF77} = {BE84823A-BB36-49FB-91B2-9459FC999CD6}
+		{A8DA2839-27C4-43B8-A1B0-49582F49C559} = {766FD1C3-EEA1-4D4E-9DB6-AF59FD99FF77}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FBA7A2B6-D298-4C96-AD6E-5BF11B5B20E4}

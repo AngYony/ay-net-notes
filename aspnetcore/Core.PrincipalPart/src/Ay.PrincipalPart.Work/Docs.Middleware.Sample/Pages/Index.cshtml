@@ -1,0 +1,28 @@
+﻿@page
+@model MiddlewareCompilation.Pages.IndexModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @if (Model.Students.Count == 0)
+    {
+        <p>没有Student显式</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var stu in Model.Students)
+            {
+                <li>@stu.Name</li>
+            }
+        </ul>
+    }
+</body>
+</html>
