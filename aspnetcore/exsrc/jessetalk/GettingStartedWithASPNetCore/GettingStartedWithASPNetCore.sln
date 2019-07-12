@@ -15,11 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter5 认证与授权", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter6 ASP.NET Core MVC", "Chapter6 ASP.NET Core MVC", "{FC5EBD66-3A1D-4048-B0A4-27A1EF9BC398}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineSample", "CommandLineSample\CommandLineSample.csproj", "{A641607C-2AA2-4251-94C2-7C882B05A1B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandLineSample", "CommandLineSample\CommandLineSample.csproj", "{A641607C-2AA2-4251-94C2-7C882B05A1B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonConfigSample", "JsonConfigSample\JsonConfigSample.csproj", "{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonConfigSample", "JsonConfigSample\JsonConfigSample.csproj", "{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionsBindSample", "OptionsBindSample\OptionsBindSample.csproj", "{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptionsBindSample", "OptionsBindSample\OptionsBindSample.csproj", "{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCore", "HelloCore\HelloCore.csproj", "{1E24D880-AB65-4749-9FE3-023B79CD72AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E24D880-AB65-4749-9FE3-023B79CD72AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E24D880-AB65-4749-9FE3-023B79CD72AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E24D880-AB65-4749-9FE3-023B79CD72AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E24D880-AB65-4749-9FE3-023B79CD72AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +53,7 @@ Global
 		{A641607C-2AA2-4251-94C2-7C882B05A1B3} = {7C84D523-30D3-49FD-8645-7C3AEF2B9EA8}
 		{4BBCF7B4-ECE4-49BE-BDC5-5804C51C765E} = {7C84D523-30D3-49FD-8645-7C3AEF2B9EA8}
 		{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD} = {7C84D523-30D3-49FD-8645-7C3AEF2B9EA8}
+		{1E24D880-AB65-4749-9FE3-023B79CD72AF} = {2E674231-1FF7-41A7-8B8B-C74222B78433}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D75730F2-F6D0-4B83-A555-EB9E73A13224}
