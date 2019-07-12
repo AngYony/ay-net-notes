@@ -69,10 +69,6 @@ namespace HelloCore
 
 
 
-
-
-
-
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("3:start....");
