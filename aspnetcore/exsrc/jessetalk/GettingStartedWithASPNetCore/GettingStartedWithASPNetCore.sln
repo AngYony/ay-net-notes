@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptionsBindSample", "Option
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCore", "HelloCore\HelloCore.csproj", "{1E24D880-AB65-4749-9FE3-023B79CD72AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPipeline", "MyPipeline\MyPipeline.csproj", "{08C41653-F74C-4EBC-8C73-96665B222D30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPipeline", "MyPipeline\MyPipeline.csproj", "{08C41653-F74C-4EBC-8C73-96665B222D30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcCookieAuthSample", "MvcCookieAuthSample\MvcCookieAuthSample.csproj", "{599B6E27-38E2-4761-B1EF-EA947ECC3FFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{08C41653-F74C-4EBC-8C73-96665B222D30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08C41653-F74C-4EBC-8C73-96665B222D30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08C41653-F74C-4EBC-8C73-96665B222D30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{599B6E27-38E2-4761-B1EF-EA947ECC3FFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{599B6E27-38E2-4761-B1EF-EA947ECC3FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{599B6E27-38E2-4761-B1EF-EA947ECC3FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{599B6E27-38E2-4761-B1EF-EA947ECC3FFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{68B3B4F9-3C58-4FF5-B4C2-EDEE7E7E92CD} = {7C84D523-30D3-49FD-8645-7C3AEF2B9EA8}
 		{1E24D880-AB65-4749-9FE3-023B79CD72AF} = {2E674231-1FF7-41A7-8B8B-C74222B78433}
 		{08C41653-F74C-4EBC-8C73-96665B222D30} = {2E674231-1FF7-41A7-8B8B-C74222B78433}
+		{599B6E27-38E2-4761-B1EF-EA947ECC3FFC} = {11F3F8E7-4FCE-4011-9776-F13CC6B8F841}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D75730F2-F6D0-4B83-A555-EB9E73A13224}
