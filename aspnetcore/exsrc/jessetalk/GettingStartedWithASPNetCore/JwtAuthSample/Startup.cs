@@ -29,7 +29,8 @@ namespace JwtAuthSample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.Configure<JwtSettings>(Configuration); //该行并不是一定需要，只有在需要进行获取值时，通过该代码注入
+            //该行并不是一定需要，只有在需要进行获取值时，通过该代码注入，本处写入，在控制器中取出
+            services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings")); 
 
             var jwtSettings = new JwtSettings();
             Configuration.Bind("JwtSettings", jwtSettings); //从配置项中获取配置值
@@ -43,6 +44,7 @@ namespace JwtAuthSample
                 {
                     ValidIssuer = jwtSettings.Issuer,
                     ValidAudience = jwtSettings.Audience,
+                    //注意JSON文件中的SecretKey设置的值必须是16+个字符，设置的太小会出现异常
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey))
                 };
             });
