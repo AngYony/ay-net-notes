@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CusJwtAuthSample.Controllers
 {
     [Authorize(Policy = "SuperAdminOnly")]
+    //[Authorize(Roles ="user")]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
