@@ -7,9 +7,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MvcCookieAuthSample2.Data;
+using MvcCookieAuthSample2.Models;
 
 namespace MvcCookieAuthSample2
 {
@@ -32,11 +36,29 @@ namespace MvcCookieAuthSample2
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+
+            services.AddDbContext<ApplicationDbContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            
+            });
+            services.AddIdentity<ApplicationUser, ApplicationUserRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
-                options.LoginPath = "/Account/MakeLogin";
+                options.LoginPath = "/Account/Login";
 
+            });
+
+
+            services.Configure<IdentityOptions>(options => {
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            
             });
 
 

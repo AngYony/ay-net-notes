@@ -5,22 +5,56 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MvcCookieAuthSample2.Models;
+using MvcCookieAuthSample2.ViewModels;
 
 namespace MvcCookieAuthSample2.Controllers
 {
     public class AccountController : Controller
     {
 
-        public IActionResult Register(){
+        private UserManager<ApplicationUser> _userManager;
+        private SignInManager<ApplicationUser> _signInManager;
+
+        public AccountController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
+        public IActionResult Register()
+        {
             return View();
         }
 
-         
-        public IActionResult Login(){
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+        {
+            var identityUser = new ApplicationUser
+            {
+                Email = registerViewModel.Email,
+                UserName = registerViewModel.Email,
+                NormalizedUserName = registerViewModel.Email
+            };
+
+            var identityResult = await _userManager.CreateAsync(identityUser, registerViewModel.Password);
+            if (identityResult.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
-        
+
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
 
         public IActionResult MakeLogin()
         {
