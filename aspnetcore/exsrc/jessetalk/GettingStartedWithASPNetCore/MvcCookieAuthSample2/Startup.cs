@@ -55,10 +55,11 @@ namespace MvcCookieAuthSample2
 
 
             services.Configure<IdentityOptions>(options => {
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-            
+                options.Password.RequireLowercase = false; //必须包含小写字母
+                options.Password.RequireNonAlphanumeric = false; //必须包含特殊符号
+                options.Password.RequireUppercase = false; //必须包含大写字母
+                options.Password.RequiredLength = 8;//必须大于等于8个长度
+
             });
 
 

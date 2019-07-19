@@ -18,8 +18,9 @@ namespace MvcCookieAuthSample2.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
 
-        private IActionResult RedirectToLocal(string returnUrl){
-            if(Url.IsLocalUrl(returnUrl))
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
@@ -34,57 +35,76 @@ namespace MvcCookieAuthSample2.Controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult Register(string returnUrl=null)
+        public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
+        private void AddErrors(IdentityResult identityResult){
+            foreach (var err in identityResult.Errors)
+            {
+                ModelState.AddModelError(string.Empty, err.Description);
+                }
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel registerViewModel,string returnUrl=null)
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel, string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-
-            var identityUser = new ApplicationUser
+            if (ModelState.IsValid)
             {
-                Email = registerViewModel.Email,
-                UserName = registerViewModel.Email,
-                NormalizedUserName = registerViewModel.Email
-            };
 
-            var identityResult = await _userManager.CreateAsync(identityUser, registerViewModel.Password);
-            if (identityResult.Succeeded)
-            {
-                //登录，该方法的本质也是调用的HTTPContext.SingnInAsync方法
-               await _signInManager.SignInAsync(identityUser, new AuthenticationProperties { IsPersistent = true });
+                ViewData["ReturnUrl"] = returnUrl;
 
+                var identityUser = new ApplicationUser
+                {
+                    Email = registerViewModel.Email,
+                    UserName = registerViewModel.Email,
+                    NormalizedUserName = registerViewModel.Email
+                };
 
-                return RedirectToLocal(returnUrl);
+                var identityResult = await _userManager.CreateAsync(identityUser, registerViewModel.Password);
+                if (identityResult.Succeeded)
+                {
+                    //登录，该方法的本质也是调用的HTTPContext.SingnInAsync方法
+                    await _signInManager.SignInAsync(identityUser, new AuthenticationProperties { IsPersistent = true });
+                    return RedirectToLocal(returnUrl);
+                }
+                else{
+                    AddErrors(identityResult);
+                }
             }
             return View();
         }
 
 
-        public IActionResult Login(string returnUrl=null)
+        public IActionResult Login(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(RegisterViewModel loginViewModel,string returnUrl){
-           
-            ViewData["ReturnUrl"] = returnUrl;
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel, string returnUrl)
+        {
 
-            var user =await _userManager.FindByEmailAsync(loginViewModel.Email);
-           if(user==null){
-                
-           }
+            if (ModelState.IsValid)
+            {
+                ViewData["ReturnUrl"] = returnUrl;
 
-            await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent = true });
+                var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
+                if (user == null)
+                {
+
+                }
+
+                await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent = true });
 
 
-            return RedirectToLocal(returnUrl);
+                return RedirectToLocal(returnUrl);
+            }
+            return View();
+
 
             //return RedirectToAction("Index", "Home");
         }
@@ -121,6 +141,6 @@ namespace MvcCookieAuthSample2.Controllers
         //    return Ok();
         //}
 
-       
+
     }
 }
