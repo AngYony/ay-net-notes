@@ -59,35 +59,49 @@ namespace MvcCookieAuthSample2.Controllers
             return View();
         }
 
-        public IActionResult Logout()
+        [HttpPost]
+        public async Task<IActionResult> Login(RegisterViewModel loginViewModel){
+           var user=await _userManager.FindByEmailAsync(loginViewModel.Email);
+           if(user==null){
+                
+           }
+
+            await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent = true });
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        public async Task<IActionResult> Logout()
         {
-            return Ok();
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
 
 
 
 
-        public IActionResult MakeLogin()
-        {
-            var claims = new List<Claim>{
-                new Claim(ClaimTypes.Name,"jesse"),
-                new Claim(ClaimTypes.Role,"admin")
-            };
+        //public IActionResult MakeLogin()
+        //{
+        //    var claims = new List<Claim>{
+        //        new Claim(ClaimTypes.Name,"jesse"),
+        //        new Claim(ClaimTypes.Role,"admin")
+        //    };
 
-            var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        //    var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-            new ClaimsPrincipal(claimIdentity));
+        //    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+        //    new ClaimsPrincipal(claimIdentity));
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
-        public IActionResult MakeLogout()
-        {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Ok();
-        }
+        //public IActionResult MakeLogout()
+        //{
+        //    HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        //    return Ok();
+        //}
 
        
     }
