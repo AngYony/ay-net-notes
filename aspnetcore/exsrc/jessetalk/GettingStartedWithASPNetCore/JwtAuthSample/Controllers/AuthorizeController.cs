@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using JwtAuthSample.Models;
+﻿using JwtAuthSample.Models;
 using JwtAuthSample.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace JwtAuthSample.Controllers
 {
@@ -18,7 +15,9 @@ namespace JwtAuthSample.Controllers
     public class AuthorizeController : ControllerBase
     {
         private JwtSettings _jwtSettings;
-        public AuthorizeController(IOptions<JwtSettings> _jwtSettingsAccesser){
+
+        public AuthorizeController(IOptions<JwtSettings> _jwtSettingsAccesser)
+        {
             _jwtSettings = _jwtSettingsAccesser.Value;
         }
 
@@ -43,18 +42,15 @@ namespace JwtAuthSample.Controllers
 
                 var token = new JwtSecurityToken(
                 _jwtSettings.Issuer,
-                _jwtSettings.Audience, 
-                claims, 
+                _jwtSettings.Audience,
+                claims,
                 DateTime.Now,
                 DateTime.Now.AddHours(30),
-                creds               );
+                creds);
 
                 return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
             }
             return BadRequest();
         }
-
-
-        
     }
 }
