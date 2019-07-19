@@ -18,6 +18,14 @@ namespace MvcCookieAuthSample2.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
 
+        private IActionResult RedirectToLocal(string returnUrl){
+            if(Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
@@ -26,14 +34,17 @@ namespace MvcCookieAuthSample2.Controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult Register()
+        public IActionResult Register(string returnUrl=null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel,string returnUrl=null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
+
             var identityUser = new ApplicationUser
             {
                 Email = registerViewModel.Email,
@@ -48,27 +59,34 @@ namespace MvcCookieAuthSample2.Controllers
                await _signInManager.SignInAsync(identityUser, new AuthenticationProperties { IsPersistent = true });
 
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToLocal(returnUrl);
             }
             return View();
         }
 
 
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl=null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(RegisterViewModel loginViewModel){
-           var user=await _userManager.FindByEmailAsync(loginViewModel.Email);
+        public async Task<IActionResult> Login(RegisterViewModel loginViewModel,string returnUrl){
+           
+            ViewData["ReturnUrl"] = returnUrl;
+
+            var user =await _userManager.FindByEmailAsync(loginViewModel.Email);
            if(user==null){
                 
            }
 
             await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent = true });
 
-            return RedirectToAction("Index", "Home");
+
+            return RedirectToLocal(returnUrl);
+
+            //return RedirectToAction("Index", "Home");
         }
 
 
