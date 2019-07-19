@@ -40,6 +40,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
                         </li>
+                        @if(User.Identity.IsAuthenticated){
+                            <li>欢迎,@User.Identity.Name,<a asp-controller="Account" asp-action="Logout">Logout</a></li>
+                        }
 
                     </ul>
                 </div>

@@ -44,6 +44,10 @@ namespace MvcCookieAuthSample2.Controllers
             var identityResult = await _userManager.CreateAsync(identityUser, registerViewModel.Password);
             if (identityResult.Succeeded)
             {
+                //登录，该方法的本质也是调用的HTTPContext.SingnInAsync方法
+               await _signInManager.SignInAsync(identityUser, new AuthenticationProperties { IsPersistent = true });
+
+
                 return RedirectToAction("Index", "Home");
             }
             return View();
@@ -54,6 +58,14 @@ namespace MvcCookieAuthSample2.Controllers
         {
             return View();
         }
+
+        public IActionResult Logout()
+        {
+            return Ok();
+        }
+
+
+
 
 
         public IActionResult MakeLogin()
@@ -71,10 +83,12 @@ namespace MvcCookieAuthSample2.Controllers
             return Ok();
         }
 
-        public IActionResult Logout()
+        public IActionResult MakeLogout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Ok();
         }
+
+       
     }
 }
