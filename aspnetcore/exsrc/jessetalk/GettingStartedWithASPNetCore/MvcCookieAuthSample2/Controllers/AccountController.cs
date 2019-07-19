@@ -95,7 +95,7 @@ namespace MvcCookieAuthSample2.Controllers
                 var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
                 if (user == null)
                 {
-
+                    return View();
                 }
 
                 await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent = true });
