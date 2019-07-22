@@ -37,13 +37,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "35-37 应用Jwtbearer Authe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "34 Cookie-based认证实现", "34 Cookie-based认证实现", "{705A6CCD-8EF5-4968-A803-F508ABD90FA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentitySample", "IdentitySample\IdentitySample.csproj", "{049F827B-86B5-4971-9AF5-4F68F7D95B0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentitySample", "IdentitySample\IdentitySample.csproj", "{049F827B-86B5-4971-9AF5-4F68F7D95B0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcCookieAuthSample2", "MvcCookieAuthSample2\MvcCookieAuthSample2.csproj", "{9028AA26-5571-4DD6-BBC1-B4FB186DFD4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcCookieAuthSample2", "MvcCookieAuthSample2\MvcCookieAuthSample2.csproj", "{9028AA26-5571-4DD6-BBC1-B4FB186DFD4D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "40-42 EF Core Migration", "40-42 EF Core Migration", "{9D036D1D-0B8D-4446-8990-0E781AAA2793}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "43 Identity MVC", "43 Identity MVC", "{475C0074-169B-4962-8A29-F7AB1D98BBB2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "43-50 Identity MVC", "43-50 Identity MVC", "{475C0074-169B-4962-8A29-F7AB1D98BBB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
