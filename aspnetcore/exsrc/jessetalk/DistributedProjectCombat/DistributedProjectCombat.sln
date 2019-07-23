@@ -3,6 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第1章 Identity Server 4 准备", "第1章 Identity Server 4 准备", "{A25ABB4C-9441-44EE-A928-07C3496F1D6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第2章 Docker准备", "第2章 Docker准备", "{13CCF864-F8EE-4D1E-A1B2-F84265A2BF1A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第3章 项目开发-用户服务", "第3章 项目开发-用户服务", "{3C0D6E04-945C-4917-BBCC-D9FDC1A12618}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第4章 项目开发-网关与认证", "第4章 项目开发-网关与认证", "{DF26F88C-0544-4523-BDDD-5C3A79B5C65B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第5章 项目开发-通讯录服务", "第5章 项目开发-通讯录服务", "{62BB478F-1CA9-4E0C-8D63-EAEAF0B8A1E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第6章 项目开发-[项目][推荐]服务", "第6章 项目开发-[项目][推荐]服务", "{8987AFB9-0689-48DA-A385-68885AAADFF7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第7章 微服务监控与部署", "第7章 微服务监控与部署", "{ED862876-18CC-4696-BB0B-03AC776D3AC0}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
