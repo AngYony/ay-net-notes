@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第1章 Identity Server 4 准备", "第1章 Identity Server 4 准备", "{A25ABB4C-9441-44EE-A928-07C3496F1D6F}"
+	ProjectSection(SolutionItems) = preProject
+		Identity Server4 笔记.md = Identity Server4 笔记.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第2章 Docker准备", "第2章 Docker准备", "{13CCF864-F8EE-4D1E-A1B2-F84265A2BF1A}"
 EndProject
