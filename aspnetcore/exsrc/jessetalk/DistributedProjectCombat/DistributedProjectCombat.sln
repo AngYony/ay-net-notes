@@ -17,9 +17,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第6章 项目开发-[项�
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第7章 微服务监控与部署", "第7章 微服务监控与部署", "{ED862876-18CC-4696-BB0B-03AC776D3AC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerCenter", "IdentityServerCenter\IdentityServerCenter.csproj", "{8716D57D-D691-4F20-BF94-82DC695A2663}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8 IdentityServer4登录中心", "8 IdentityServer4登录中心", "{DB88F249-501B-46A6-88C5-EC94245BE6DC}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8716D57D-D691-4F20-BF94-82DC695A2663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8716D57D-D691-4F20-BF94-82DC695A2663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8716D57D-D691-4F20-BF94-82DC695A2663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8716D57D-D691-4F20-BF94-82DC695A2663}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8716D57D-D691-4F20-BF94-82DC695A2663} = {DB88F249-501B-46A6-88C5-EC94245BE6DC}
+		{DB88F249-501B-46A6-88C5-EC94245BE6DC} = {A25ABB4C-9441-44EE-A928-07C3496F1D6F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA35D3A3-A9A6-474A-BEC5-45DA1F7BD374}
