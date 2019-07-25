@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "24010a23-6f55-47f4-a48c-2ce6dd4cd1aa",
+		"name": "jessetalk-入门教程",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://localhost:5001/api/values",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic21hbGx6IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJuYmYiOjE1NjM0MzA0MjQsImV4cCI6MTU2MzUzODQyNCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIn0.64LEjTnI6RPgWgWc1zbacepNYRqTJ3ckYXTDXMQ0CU8",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "mytoken",
+						"value": "abcdefg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:5001/api/values",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"values"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/api/Authorize/token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "UserName",
+							"value": "smallz",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/Authorize/token",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Authorize",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

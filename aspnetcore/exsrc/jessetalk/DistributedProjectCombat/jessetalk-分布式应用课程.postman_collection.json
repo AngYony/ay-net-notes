@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "5c0ba1f6-70fb-4b1f-81fc-7a8bdeb617a3",
+		"name": "jessetalk-分布式应用课程",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "IdentityServer",
+			"item": [
+				{
+					"name": "IdentityServer-ClientCredentialApi",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImM1NDI1MDVlMmMyMjAyMDc3NTZmMzhiZWJiZDdlYWVhIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NjQwNDU3NjksImV4cCI6MTU2NDA0OTM2OSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiYXVkIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTAwMC9yZXNvdXJjZXMiLCJhcGkiXSwiY2xpZW50X2lkIjoicHdkQ2xpZW50Iiwic3ViIjoiMSIsImF1dGhfdGltZSI6MTU2NDA0NTc2OSwiaWRwIjoibG9jYWwiLCJzY29wZSI6WyJhcGkiXSwiYW1yIjpbInB3ZCJdfQ.k9OX_57nruxhGSlNXkgfw_nMTfV8gNJc9AhyrinprMMO9xNWaMBT0zPCJKQUVgdMqMI4llKj6C9-BjYJBIhBNOb9Ox_27_wNoA6BiZPtdV3ScgCMzKkjCx7WPYgosvw_dKIW3ho1PMzo20NqhC1eqMDftuXiw6EGo-S47PHlyp8kCDQ_qP0XLy5_vUzpa9FNbtkHcrbQmzGn7h3tQ8K5H8mpxfFZw4WqZGLbPPi-E7-0NtTckYDb85dv6weby2HeTlteUSFzywLCrs7gRYaY960bHfz4MdJljka8Jc6z5xS0mQMShhFaHRwP2V8YOBYYDL_bShKq4J_9vD-EdlK-8A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5001/api/values",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"values"
+							]
+						},
+						"description": "模拟最终token是否能够请求用户数据"
+					},
+					"response": []
+				},
+				{
+					"name": "identityServer-IdentityServerCenter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/.well-known/openid-configuration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								".well-known",
+								"openid-configuration"
+							]
+						},
+						"description": "获取IdentityServer服务器端请求的资源链接"
+					},
+					"response": []
+				},
+				{
+					"name": "通过.well-known/openid-configuration得到的链接获取token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "client_id",
+									"value": "client",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "secret",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "是通过客户端模式获取的"
+					},
+					"response": []
+				},
+				{
+					"name": "使用密码模式获取token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "client_id",
+									"value": "pwdClient",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "secret",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "wy",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "通过密码的形式进行访问，参数需要传入username和password。如果使用form-data不行，可以尝试使用x-www-form-urlencoded的方式进行请求"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
