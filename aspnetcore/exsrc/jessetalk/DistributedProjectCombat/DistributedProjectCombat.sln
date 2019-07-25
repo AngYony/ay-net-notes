@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerCenter", "Ide
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08 IdentityServer4登录中心", "08 IdentityServer4登录中心", "{DB88F249-501B-46A6-88C5-EC94245BE6DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientCredentialApi", "ClientCredentialApi\ClientCredentialApi.csproj", "{94E37CF7-2350-4C54-BE5C-F7B0BFA72308}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientCredentialApi", "ClientCredentialApi\ClientCredentialApi.csproj", "{94E37CF7-2350-4C54-BE5C-F7B0BFA72308}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8716D57D-D691-4F20-BF94-82DC695A2663} = {8716D57D-D691-4F20-BF94-82DC695A2663}
 	EndProjectSection
@@ -33,7 +33,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09 客户端集成IdentityS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10 第三方ClientCredential模式调用", "10 第三方ClientCredential模式调用", "{546BCB75-8C20-4E67-B987-F35F8B0C2914}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThirdPartyDemo", "ThirdPartyDemo\ThirdPartyDemo.csproj", "{F007EAA2-A9FA-4214-9A25-EAE45622940B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThirdPartyDemo", "ThirdPartyDemo\ThirdPartyDemo.csproj", "{F007EAA2-A9FA-4214-9A25-EAE45622940B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12 oauth密码模式identity server4实现", "12 oauth密码模式identity server4实现", "{8E4B24B7-A8C0-4345-9B89-00B724E67CAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PwdClient", "PwdClient\PwdClient.csproj", "{E1B4AE18-DD26-43AB-9106-BA0B81052DF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +57,10 @@ Global
 		{F007EAA2-A9FA-4214-9A25-EAE45622940B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F007EAA2-A9FA-4214-9A25-EAE45622940B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F007EAA2-A9FA-4214-9A25-EAE45622940B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1B4AE18-DD26-43AB-9106-BA0B81052DF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1B4AE18-DD26-43AB-9106-BA0B81052DF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1B4AE18-DD26-43AB-9106-BA0B81052DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1B4AE18-DD26-43AB-9106-BA0B81052DF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +72,8 @@ Global
 		{0F78FABD-4B96-4AC7-B089-389CFC647F2F} = {A25ABB4C-9441-44EE-A928-07C3496F1D6F}
 		{546BCB75-8C20-4E67-B987-F35F8B0C2914} = {A25ABB4C-9441-44EE-A928-07C3496F1D6F}
 		{F007EAA2-A9FA-4214-9A25-EAE45622940B} = {546BCB75-8C20-4E67-B987-F35F8B0C2914}
+		{8E4B24B7-A8C0-4345-9B89-00B724E67CAD} = {A25ABB4C-9441-44EE-A928-07C3496F1D6F}
+		{E1B4AE18-DD26-43AB-9106-BA0B81052DF2} = {8E4B24B7-A8C0-4345-9B89-00B724E67CAD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA35D3A3-A9A6-474A-BEC5-45DA1F7BD374}

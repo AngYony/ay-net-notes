@@ -30,7 +30,11 @@ namespace IdentityServerCenter
             .AddDeveloperSigningCredential()
 
             .AddInMemoryApiResources(Config.GetResources())
-            .AddInMemoryClients(Config.GetClients());
+            .AddInMemoryClients(Config.GetClients())
+
+            //添加支持密码模式的用户
+            .AddTestUsers(Config.GetTestUsers());
+            ;
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
