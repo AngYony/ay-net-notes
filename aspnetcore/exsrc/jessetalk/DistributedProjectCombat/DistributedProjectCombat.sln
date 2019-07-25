@@ -22,12 +22,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第7章 微服务监控与�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerCenter", "IdentityServerCenter\IdentityServerCenter.csproj", "{8716D57D-D691-4F20-BF94-82DC695A2663}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8 IdentityServer4登录中心", "8 IdentityServer4登录中心", "{DB88F249-501B-46A6-88C5-EC94245BE6DC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08 IdentityServer4登录中心", "08 IdentityServer4登录中心", "{DB88F249-501B-46A6-88C5-EC94245BE6DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientCredentialApi", "ClientCredentialApi\ClientCredentialApi.csproj", "{94E37CF7-2350-4C54-BE5C-F7B0BFA72308}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8716D57D-D691-4F20-BF94-82DC695A2663} = {8716D57D-D691-4F20-BF94-82DC695A2663}
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09 客户端集成IdentityServer", "09 客户端集成IdentityServer", "{0F78FABD-4B96-4AC7-B089-389CFC647F2F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10 第三方ClientCredential模式调用", "10 第三方ClientCredential模式调用", "{546BCB75-8C20-4E67-B987-F35F8B0C2914}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThirdPartyDemo", "ThirdPartyDemo\ThirdPartyDemo.csproj", "{F007EAA2-A9FA-4214-9A25-EAE45622940B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +49,10 @@ Global
 		{94E37CF7-2350-4C54-BE5C-F7B0BFA72308}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94E37CF7-2350-4C54-BE5C-F7B0BFA72308}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94E37CF7-2350-4C54-BE5C-F7B0BFA72308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F007EAA2-A9FA-4214-9A25-EAE45622940B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F007EAA2-A9FA-4214-9A25-EAE45622940B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F007EAA2-A9FA-4214-9A25-EAE45622940B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F007EAA2-A9FA-4214-9A25-EAE45622940B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,7 +60,10 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8716D57D-D691-4F20-BF94-82DC695A2663} = {DB88F249-501B-46A6-88C5-EC94245BE6DC}
 		{DB88F249-501B-46A6-88C5-EC94245BE6DC} = {A25ABB4C-9441-44EE-A928-07C3496F1D6F}
-		{94E37CF7-2350-4C54-BE5C-F7B0BFA72308} = {DB88F249-501B-46A6-88C5-EC94245BE6DC}
+		{94E37CF7-2350-4C54-BE5C-F7B0BFA72308} = {0F78FABD-4B96-4AC7-B089-389CFC647F2F}
+		{0F78FABD-4B96-4AC7-B089-389CFC647F2F} = {A25ABB4C-9441-44EE-A928-07C3496F1D6F}
+		{546BCB75-8C20-4E67-B987-F35F8B0C2914} = {A25ABB4C-9441-44EE-A928-07C3496F1D6F}
+		{F007EAA2-A9FA-4214-9A25-EAE45622940B} = {546BCB75-8C20-4E67-B987-F35F8B0C2914}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA35D3A3-A9A6-474A-BEC5-45DA1F7BD374}
