@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using IdentityServer4.Test;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -14,9 +15,10 @@ namespace MvcCookieAuthSample2.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly TestUserStore _users;
 
-        private UserManager<ApplicationUser> _userManager;
-        private SignInManager<ApplicationUser> _signInManager;
+        //private UserManager<ApplicationUser> _userManager;
+        //private SignInManager<ApplicationUser> _signInManager;
 
         private IActionResult RedirectToLocal(string returnUrl)
         {
@@ -27,13 +29,18 @@ namespace MvcCookieAuthSample2.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        public AccountController(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+        public AccountController(TestUserStore users)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _users = users;
         }
+
+        //public AccountController(
+        //    UserManager<ApplicationUser> userManager,
+        //    SignInManager<ApplicationUser> signInManager)
+        //{
+        //    _userManager = userManager;
+        //    _signInManager = signInManager;
+        //}
 
         public IActionResult Register(string returnUrl = null)
         {
@@ -41,39 +48,40 @@ namespace MvcCookieAuthSample2.Controllers
             return View();
         }
 
-        private void AddErrors(IdentityResult identityResult){
+        private void AddErrors(IdentityResult identityResult)
+        {
             foreach (var err in identityResult.Errors)
             {
                 ModelState.AddModelError(string.Empty, err.Description);
-                }
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerViewModel, string returnUrl = null)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
 
-                ViewData["ReturnUrl"] = returnUrl;
+            //    ViewData["ReturnUrl"] = returnUrl;
 
-                var identityUser = new ApplicationUser
-                {
-                    Email = registerViewModel.Email,
-                    UserName = registerViewModel.Email,
-                    NormalizedUserName = registerViewModel.Email
-                };
+            //    var identityUser = new ApplicationUser
+            //    {
+            //        Email = registerViewModel.Email,
+            //        UserName = registerViewModel.Email,
+            //        NormalizedUserName = registerViewModel.Email
+            //    };
 
-                var identityResult = await _userManager.CreateAsync(identityUser, registerViewModel.Password);
-                if (identityResult.Succeeded)
-                {
-                    //登录，该方法的本质也是调用的HTTPContext.SingnInAsync方法
-                    await _signInManager.SignInAsync(identityUser, new AuthenticationProperties { IsPersistent = true });
-                    return RedirectToLocal(returnUrl);
-                }
-                else{
-                    AddErrors(identityResult);
-                }
-            }
+            //    var identityResult = await _userManager.CreateAsync(identityUser, registerViewModel.Password);
+            //    if (identityResult.Succeeded)
+            //    {
+            //        //登录，该方法的本质也是调用的HTTPContext.SingnInAsync方法
+            //        await _signInManager.SignInAsync(identityUser, new AuthenticationProperties { IsPersistent = true });
+            //        return RedirectToLocal(returnUrl);
+            //    }
+            //    else{
+            //        AddErrors(identityResult);
+            //    }
+            //}
             return View();
         }
 
@@ -90,29 +98,46 @@ namespace MvcCookieAuthSample2.Controllers
 
             if (ModelState.IsValid)
             {
+
                 ViewData["ReturnUrl"] = returnUrl;
 
-                var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
+                var user = _users.FindByUsername(loginViewModel.UserName);
                 if (user == null)
                 {
-                    return View();
+                    ModelState.AddModelError(nameof(loginViewModel.UserName), "Email not exists");
                 }
+                else
+                {
+                    if (_users.ValidateCredentials(loginViewModel.UserName, loginViewModel.Password))
+                    {
+                        var props = new AuthenticationProperties
+                        {
+                            IsPersistent = true,
+                            ExpiresUtc = DateTimeOffset.UtcNow.Add(TimeSpan.FromMinutes(30))
+                        };
 
-                await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent = true });
-
-
-                return RedirectToLocal(returnUrl);
+                        await Microsoft.AspNetCore.Http.AuthenticationManagerExtensions.SignInAsync(
+                            HttpContext,
+                            user.SubjectId,
+                            user.Username,
+                            props
+                        );
+                        return RedirectToLocal(returnUrl);
+                    }
+                    ModelState.AddModelError(nameof(loginViewModel.Password), "wrong password");
+                }
             }
+
             return View();
-
-
-            //return RedirectToAction("Index", "Home");
         }
 
 
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            //await _signInManager.SignOutAsync();
+            //return RedirectToAction("Index", "Home");
+
+            await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
 

@@ -11,9 +11,9 @@
             <form method="post" asp-route-returnUrl="@ViewData["ReturnUrl"]" asp-controller="Account" asp-action="Login">
                 <h4>Use a local account to log in.</h4>
                 <div class="form-group">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <label asp-for="UserName"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">

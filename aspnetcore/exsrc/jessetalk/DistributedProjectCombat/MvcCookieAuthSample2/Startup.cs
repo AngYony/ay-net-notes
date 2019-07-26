@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MvcCookieAuthSample2.Data;
 using MvcCookieAuthSample2.Models;
+using IdentityServer4;
+
 
 namespace MvcCookieAuthSample2
 {
@@ -36,31 +38,40 @@ namespace MvcCookieAuthSample2
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
-            services.AddDbContext<ApplicationDbContext>(options => {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            
-            });
-            services.AddIdentity<ApplicationUser, ApplicationUserRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
+            services.AddIdentityServer()
+            .AddDeveloperSigningCredential()
+            .AddInMemoryClients(Config.GetClients())
+            .AddInMemoryApiResources(Config.GetApiResources())
+            .AddInMemoryIdentityResources(Config.GetIdentityResources())
+            .AddTestUsers(Config.GetTestUsers());
 
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options =>
-            {
-                options.LoginPath = "/Account/Login";
+            #region 旧版注释部分
+            //services.AddDbContext<ApplicationDbContext>(options => {
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
 
-            });
+            //});
+            //services.AddIdentity<ApplicationUser, ApplicationUserRole>()
+            //.AddEntityFrameworkStores<ApplicationDbContext>()
+            //.AddDefaultTokenProviders();
 
 
-            services.Configure<IdentityOptions>(options => {
-                options.Password.RequireLowercase = false; //必须包含小写字母
-                options.Password.RequireNonAlphanumeric = false; //必须包含特殊符号
-                options.Password.RequireUppercase = false; //必须包含大写字母
-                options.Password.RequiredLength = 8;//必须大于等于8个长度
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //.AddCookie(options =>
+            //{
+            //    options.LoginPath = "/Account/Login";
 
-            });
+            //});
+
+
+            //services.Configure<IdentityOptions>(options => {
+            //    options.Password.RequireLowercase = false; //必须包含小写字母
+            //    options.Password.RequireNonAlphanumeric = false; //必须包含特殊符号
+            //    options.Password.RequireUppercase = false; //必须包含大写字母
+            //    options.Password.RequiredLength = 8;//必须大于等于8个长度
+
+            //});
+            #endregion 
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -80,13 +91,14 @@ namespace MvcCookieAuthSample2
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
 
-            app.UseAuthentication();
+            app.UseIdentityServer();
 
-            app.UseCookiePolicy();
+
+            //app.UseCookiePolicy();
 
             app.UseMvc(routes =>
             {
