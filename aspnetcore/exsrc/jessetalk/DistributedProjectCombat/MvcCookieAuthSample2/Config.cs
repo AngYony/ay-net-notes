@@ -29,6 +29,11 @@ namespace MvcCookieAuthSample2
                 new Client()
                 {
                     ClientId = "mvc",
+                    ClientName="Mvc Client",
+                    ClientUri="http://localhost:5001",
+                    LogoUri="https://docs.microsoft.com/zh-cn/dotnet/images/hub/dotnet-core.svg",
+                    AllowRememberConsent=true,
+
                     //匿名模式也叫隐式模式
                     AllowedGrantTypes = GrantTypes.Implicit,
 
@@ -36,7 +41,7 @@ namespace MvcCookieAuthSample2
                         new Secret("secret".Sha256())
                     },
 
-                    RequireConsent=false, //是否跳转到“是否同意授权”的页面，如果为false，将直接跳过询问页面
+                    RequireConsent=true, //是否跳转到“是否同意授权”的页面，如果为false，将直接跳过询问页面
                     
                     //客户端登录地址，默认格式：url+/signin-oidc
                     RedirectUris={ "http://localhost:5001/signin-oidc"},

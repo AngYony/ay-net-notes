@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace MvcCookieAuthSample2.Controllers
 {
+ 
     public class ConsentController:Controller
     {
         private readonly IClientStore _clientStore;
@@ -77,7 +78,8 @@ namespace MvcCookieAuthSample2.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> IndexAsync(string returnUrl){
+        public async Task<IActionResult> Index(string returnUrl)
+        {
             var model = await BuildConsentViewModelAsync(returnUrl);
 
             if(model==null)

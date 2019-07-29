@@ -1,5 +1,24 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@using MvcCookieAuthSample2.ViewModels
+@model  ScopeViewModel
+
+<li>
+<label>
+    <input type="checkbox"
+        name="ScopesConsented"
+        id="scopes_@Model.Name"
+        value="@Model.Name"
+        checked="@Model.Checked"
+        disabled="@Model.Required" />
+
+        <strong>@Model.Name</strong>
+        @if(Model.Emphasize){
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+        }
+</label>
+@if(string.IsNullOrEmpty(Model.Description))
+{
+    <div>
+        <label for="scopes_@Model.Name">@Model.Description</label>
+    </div>
 }
+</li>
