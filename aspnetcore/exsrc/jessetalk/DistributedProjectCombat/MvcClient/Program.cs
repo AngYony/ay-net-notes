@@ -7,26 +7,22 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MvcCookieAuthSample2.Data;
 
-namespace MvcCookieAuthSample2
+namespace MvcClient
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build()
-            //.MigrateDbContext<ApplicationDbContext>((context,services)=> 
-            //{
-            //    new ApplicationDBContextSeed().SeedAsync(context, services).Wait();
-
-            //})
-            .Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-            .UseUrls("http://localhost:5000")
-                .UseStartup<Startup>();
+           .UseUrls("http://localhost:5001")    
+            .UseStartup<Startup>();
     }
 }
+
+
+//必须先运行了MvcCookieAuthSample2项目，才能运行该项目

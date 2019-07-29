@@ -10,8 +10,7 @@ namespace MvcCookieAuthSample2.ViewModels
     public class RegisterViewModel
     {
         [Required]
-        [DataType(DataType.EmailAddress)]
-        public string Email{ get; set; }
+        public string UserName{ get; set; }
 
         [Required]
         [DataType(DataType.Password)]

@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <dl>
+        @foreach (var claim in User.Claims)
+        {
+        <dt><span style="color:red;">@claim.Type</span> => @claim.Value</dt>
+            
+
+        }
+
+    </dl>

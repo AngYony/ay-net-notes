@@ -1,4 +1,5 @@
 ﻿using IdentityModel;
+using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 using System;
@@ -35,7 +36,17 @@ namespace MvcCookieAuthSample2
                         new Secret("secret".Sha256())
                     },
 
-                    AllowedScopes = { "api1" }
+                    RequireConsent=false, //是否跳转到“是否同意授权”的页面，如果为false，将直接跳过询问页面
+                    
+                    //客户端登录地址，默认格式：url+/signin-oidc
+                    RedirectUris={ "http://localhost:5001/signin-oidc"},
+
+                    PostLogoutRedirectUris={"http://localhost:5001/signout-callback-oidc" },
+
+                    AllowedScopes = { 
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OpenId
+                    },
                 }
                 //,//密码模式
                 //new Client(){
@@ -60,7 +71,7 @@ namespace MvcCookieAuthSample2
                 new TestUser
                 {
                     SubjectId="10000",
-                    Username="wy",
+                    Username="ay",
                     Password="123456",
                     
                     //Claims=new List<Claim>{
