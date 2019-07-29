@@ -39,7 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12 oauth密码模式identit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PwdClient", "PwdClient\PwdClient.csproj", "{E1B4AE18-DD26-43AB-9106-BA0B81052DF2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "15 oauth2 + oidc 实现 server部分", "15 oauth2 + oidc 实现 server部分", "{A5E99A62-F70A-4FC5-8AF1-3FE651F5A8AE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "15-18 oauth2 + oidc 实现 server部分", "15-18 oauth2 + oidc 实现 server部分", "{A5E99A62-F70A-4FC5-8AF1-3FE651F5A8AE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcCookieAuthSample2", "MvcCookieAuthSample2\MvcCookieAuthSample2.csproj", "{0FAF28BE-EBC1-43A2-A241-F631075EBFD1}"
 EndProject

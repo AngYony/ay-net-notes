@@ -1,0 +1,47 @@
+﻿@using MvcCookieAuthSample2.ViewModels
+@model ConsentViewModel
+@{
+    ViewData["Title"] = "Consent Page";
+}
+
+<h1>Consent Page</h1>
+<div class="row">
+    <div class="col-sm-10">
+        @if (!string.IsNullOrWhiteSpace(Model.ClientLogoUrl))
+        {
+            <div><img src="@Model.ClientLogoUrl" /></div>
+        }
+
+        <h1>
+            @Model.ClientName
+            <small>希望使用你的账户</small>
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-8">
+        <form asp-action="Index" method="post">
+            @if (Model.IdentityScopes.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var scope in Model.IdentityScopes)
+                    {
+                        @Html.PartialAsync("_ScopeListItem", scope);
+                    }
+                </ul>
+            }
+
+            @if (Model.ResourceScopes.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var scope in Model.IdentityScopes)
+                    {
+                        @Html.PartialAsync("_ScopeListItem", scope);
+
+                    }
+                </ul>
+            }
+        </form>
+    </div>
+</div>
