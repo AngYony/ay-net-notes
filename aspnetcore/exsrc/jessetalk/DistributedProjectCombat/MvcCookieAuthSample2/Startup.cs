@@ -74,6 +74,7 @@ namespace MvcCookieAuthSample2
             #endregion 
 
 
+            services.AddScoped<Services.ConsentService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

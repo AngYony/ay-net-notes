@@ -23,6 +23,12 @@
     <div class="col-sm-8">
         <form asp-action="Index" method="post">
             <input type="hidden" asp-for="ReturnUrl"/>
+
+            <div class="alert alert-danger">
+            <strong>Error ""</strong>
+            <div asp-validation-summary="All"></div>
+            </div>
+
             @if (Model.IdentityScopes.Any())
             {
                 <h4>用户信息</h4>
