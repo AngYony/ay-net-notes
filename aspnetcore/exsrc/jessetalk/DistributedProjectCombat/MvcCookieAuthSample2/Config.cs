@@ -78,11 +78,12 @@ namespace MvcCookieAuthSample2
                     SubjectId="10000",
                     Username="ay",
                     Password="123456",
-                    
-                    //Claims=new List<Claim>{
-                    //    new Claim(JwtClaimTypes.Email,"wy@abc.com"),
-                    //    new Claim(JwtClaimTypes.Role,"user")
-                    //}
+
+                    Claims=new List<Claim>{
+                        new Claim(JwtClaimTypes.Email,"wy@abc.com"),
+                        new Claim(JwtClaimTypes.Role,"user"),
+                        new Claim("website","wy.com")
+                    }
                 }
             };
         }

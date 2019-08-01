@@ -22,6 +22,7 @@
 <div class="row">
     <div class="col-sm-8">
         <form asp-action="Index" method="post">
+            <input type="hidden" asp-for="ReturnUrl"/>
             @if (Model.IdentityScopes.Any())
             {
                 <h4>用户信息</h4>
@@ -45,12 +46,22 @@
                 </ul>
             }
 
+
             <div>
-                <button>同意</button>
-                <button>取消</button>
+                <label>
+                    <input type="checkbox" asp-for="RemeberConsent" />
+                    <strong>记住我的选择</strong>
+                </label>
+            </div>
+
+            <div>
+                <button name="button" value="yes" class="btn btn-primary" autofocus>同意</button>
+                <button name="button" value="no"  class="btn">取消</button>
+
+
                 @if(!string.IsNullOrWhiteSpace(Model.ClientUrl))
                 {
-                    <a>
+                    <a href="@Model.ClientUrl">
                         <strong>@Model.ClientUrl</strong>
                     </a>
                 }

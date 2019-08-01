@@ -36,7 +36,9 @@ namespace MvcCookieAuthSample2.Controllers
             var client = await _clientStore.FindEnabledClientByIdAsync(request.ClientId);
             var resources = await _resourceStore.FindEnabledResourcesByScopeAsync(request.ScopesRequested);
 
-            return CreateConsentViewModel(request, client, resources);
+            var vm= CreateConsentViewModel(request, client, resources);
+            vm.ReturnUrl = returnUrl;
+            return vm;
         }
 
 
@@ -46,7 +48,7 @@ namespace MvcCookieAuthSample2.Controllers
             vm.ClientName = client.ClientName;
             vm.ClientLogoUrl = client.LogoUri;
             vm.ClientUrl = client.ClientUri;
-            vm.AllowRememberConsent = client.AllowRememberConsent;
+            vm.RemeberConsent = client.AllowRememberConsent;
 
             vm.IdentityScopes = resources.IdentityResources.Select(_identityResource => {
                 return new ScopeViewModel
@@ -88,5 +90,34 @@ namespace MvcCookieAuthSample2.Controllers
             }
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(InputConsentViewModel viewModel)
+        {
+            ConsentResponse consentResponse = null;
+
+            if(viewModel.Button=="no"){
+                consentResponse = ConsentResponse.Denied;
+            }
+            else if(viewModel.Button=="yes"){
+                if(viewModel.ScopesConsented!=null && viewModel.ScopesConsented.Any()){
+                    consentResponse = new ConsentResponse
+                    {
+                        RememberConsent = viewModel.RemeberConsent,
+                        ScopesConsented = viewModel.ScopesConsented
+                    };
+                }
+            }
+            if(consentResponse!=null)
+            {
+                var request = await _identityServerInteractionService.GetAuthorizationContextAsync(viewModel.ReturnUrl);
+                await _identityServerInteractionService.GrantConsentAsync(request, consentResponse);
+                return Redirect(viewModel.ReturnUrl);
+            }
+            else{
+                return View();
+            }
+
+        } 
     }
 }
