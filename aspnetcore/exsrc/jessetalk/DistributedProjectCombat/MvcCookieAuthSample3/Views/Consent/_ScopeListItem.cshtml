@@ -1,0 +1,27 @@
+﻿@using MvcCookieAuthSample3.ViewModels
+@model  ScopeViewModel
+
+<li>
+<label>
+    <input type="checkbox"
+        name="ScopesConsented"
+        id="scopes_@Model.Name"
+        value="@Model.Name"
+        checked="@Model.Checked"
+        disabled="@Model.Required" />
+
+        @if(Model.Required){
+            <input type="hidden" name="ScopesConsented" value="@Model.Name" />
+        }
+        <strong>@Model.Name</strong>
+        @if(Model.Emphasize){
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+        }
+</label>
+@if(string.IsNullOrEmpty(Model.Description))
+{
+    <div>
+        <label for="scopes_@Model.Name">@Model.Description</label>
+    </div>
+}
+</li>

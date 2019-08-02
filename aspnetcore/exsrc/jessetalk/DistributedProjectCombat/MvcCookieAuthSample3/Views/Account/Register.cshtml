@@ -1,0 +1,40 @@
+﻿@model MvcCookieAuthSample3.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-route-returnUrl="@ViewData["ReturnUrl"]">
+            <h4>Create a new account.</h4>
+            <hr />
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmedPassword"></label>
+                <input asp-for="ConfirmedPassword" type="password" class="form-control" />
+                <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>
+@*添加客户端验证*@
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
