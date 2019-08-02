@@ -38,22 +38,36 @@ namespace MvcCookieAuthSample3
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+
+            });
+
+
+            services.AddIdentity<ApplicationUser, ApplicationUserRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+
+
+
             services.AddIdentityServer()
             .AddDeveloperSigningCredential()
             .AddInMemoryClients(Config.GetClients())
             .AddInMemoryApiResources(Config.GetApiResources())
             .AddInMemoryIdentityResources(Config.GetIdentityResources())
-            .AddTestUsers(Config.GetTestUsers());
+
+            .AddAspNetIdentity<ApplicationUser>();
+
+
+
+
 
 
             #region 旧版注释部分
-            //services.AddDbContext<ApplicationDbContext>(options => {
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
 
-            //});
-            //services.AddIdentity<ApplicationUser, ApplicationUserRole>()
-            //.AddEntityFrameworkStores<ApplicationDbContext>()
-            //.AddDefaultTokenProviders();
+
 
 
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -71,11 +85,11 @@ namespace MvcCookieAuthSample3
             //    options.Password.RequiredLength = 8;//必须大于等于8个长度
 
             //});
-            #endregion 
+            #endregion
 
 
             services.AddScoped<Services.ConsentService>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

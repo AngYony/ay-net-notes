@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MvcCookieAuthSample3.Models;
 
 namespace MvcCookieAuthSample3.Controllers
 {
+
     public class HomeController : Controller
     {
+
+        private UserManager<ApplicationUser> _userManager;
+
+
+        public HomeController(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
         public IActionResult Index()
         {
+            var u = User;
             return View();
         }
 
