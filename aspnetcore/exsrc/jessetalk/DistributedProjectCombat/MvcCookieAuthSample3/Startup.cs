@@ -15,7 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MvcCookieAuthSample3.Data;
 using MvcCookieAuthSample3.Models;
 using IdentityServer4;
-
+using IdentityServer4.Services;
+using MvcCookieAuthSample3.Services;
 
 namespace MvcCookieAuthSample3
 {
@@ -59,6 +60,11 @@ namespace MvcCookieAuthSample3
             .AddInMemoryIdentityResources(Config.GetIdentityResources())
 
             .AddAspNetIdentity<ApplicationUser>();
+            services.AddScoped<IProfileService, ProfileService>();
+
+
+            
+
 
 
 
