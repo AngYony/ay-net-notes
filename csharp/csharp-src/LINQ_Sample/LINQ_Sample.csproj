@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Championship.cs" />
     <Compile Include="Formulal.cs" />
+    <Compile Include="LeftJoinSample.cs" />
     <Compile Include="LinqDemo.cs" />
     <Compile Include="ParallelLINQDemo.cs" />
     <Compile Include="Program.cs" />

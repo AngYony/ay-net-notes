@@ -96,10 +96,10 @@ namespace LINQ_Sample
             #region 并行LINQ
             //ParallelLINQDemo.Run();
             //取消
-            ParallelLINQDemo.CancellationRun();
+            //ParallelLINQDemo.CancellationRun();
             #endregion
 
-
+            new LeftJoinSample().Test();
 
             Console.Read ();
         }
