@@ -46,6 +46,8 @@
     <Compile Include="Formulal.cs" />
     <Compile Include="LeftJoinSample.cs" />
     <Compile Include="LinqDemo.cs" />
+    <Compile Include="LookupSample.cs" />
+    <Compile Include="Model\BT_Factor_Detail_AG_MBG.cs" />
     <Compile Include="ParallelLINQDemo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
