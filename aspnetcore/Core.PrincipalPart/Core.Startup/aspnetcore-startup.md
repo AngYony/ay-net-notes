@@ -335,6 +335,44 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 
 
 
+# 扩展
+
+### 让标签生成的url全部小写
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddMvc();
+    services.Configure<RouteOptions>(options =>
+    {
+        options.LowercaseUrls = true;
+    });
+}
+```
+
+
+
+### 让任何情况下都会在页面名称后附加一个斜线
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddMvc();
+    services.Configure<RouteOptions>(options =>
+    {
+        options.AppendTrailingSlash = true;
+    });
+}
+```
+
+启用这两个选项后，生成的 HTML 如下所示：
+
+```
+<a href="/page/">Click</a>
+```
+
+
+
 
 
 
