@@ -1,0 +1,29 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+
+@model My.Filters.Study.Pages.IndexModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Razor页面筛选器的使用</title>
+
+    
+</head>
+<body>
+    <h1>ASP.NET Core Razor页面筛选器</h1>
+    
+    <p>@Model.Message</p>
+    <a href="@Url.Page("PageOne")">PageOne</a>
+
+    <a  asp-page="MyCode/MyCodeIndex">ceshi</a>
+</body>
+</html>

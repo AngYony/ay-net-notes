@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+@{
+    Console.WriteLine("_Layout.cshtml");
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <h1>Hello Layout Razor!</h1>
+    <hr/>
+    <div>
+        @RenderBody()
+    </div>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

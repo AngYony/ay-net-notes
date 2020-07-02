@@ -1,0 +1,24 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model My.RazorRoute.Study.Pages.IndexModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Razor Pages 路由和约定</title>
+</head>
+<body>
+    <h1>Razor页面路由和约定</h1>
+    <div>@Model.RouteDataGlobalTemplateValue</div>
+
+    <p>@Model.RouteDataOtherPagesTemplateValue</p>
+
+    <a asp-page="Contact">Contact</a>
+
+</body>
+</html>

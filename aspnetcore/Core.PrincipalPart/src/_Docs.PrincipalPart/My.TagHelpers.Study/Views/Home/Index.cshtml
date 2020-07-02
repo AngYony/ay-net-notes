@@ -1,0 +1,50 @@
+﻿@using My.TagHelpers.Study.Models
+@addTagHelper My.TagHelpers.Study.CusTagHelpers.EmailTagHelper,My.TagHelpers.Study
+@addTagHelper My.TagHelpers.Study.CusTagHelpers.OneTagHelper,My.TagHelpers.Study
+@addTagHelper *,My.TagHelpers.Study
+@{
+    Layout = null;
+}
+@{ 
+    WebsiteContext mycontext = new WebsiteContext()
+    {
+        Version = new Version(1, 0, 0),
+        CopyrightYear = 2019,
+        Approved = true,
+        TagsToShow = 111
+    };
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>标记帮助程序应用</title>
+</head>
+<body>
+
+  
+
+
+
+
+
+    <h1>标记帮助程序</h1>
+    <email mail-to="wy" />
+
+    <one>abc</one>
+
+
+
+    <p bold>nnnnnnnnnn</p>
+
+    <bold>无效的bold标签</bold>
+    <my-model my-info="mycontext" />
+
+    <div where="mycontext.Approved">ceshi</div>
+
+
+</body>
+</html>

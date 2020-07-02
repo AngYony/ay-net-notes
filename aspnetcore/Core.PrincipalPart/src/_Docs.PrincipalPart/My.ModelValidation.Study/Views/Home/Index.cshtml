@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@namespace My.ModelValidation.Study
+@using ViewModels
+
+@model StudentViewModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ASP.NET Core 模型验证</title>
+    @**@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--添加的下述链接之后，对于必填项的内容，如果没有填写，将会阻止提交-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    
+</head>
+<body>
+    <form asp-action="Save" method="post">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div>
+            <label asp-for="Birthday ">出生日期：</label>
+            <input type="text" asp-for="Birthday " />
+            <span asp-validation-for="Birthday" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="StudentName">学生姓名：</label>
+            <input asp-for="StudentName" />
+            <span asp-validation-for="StudentName" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Age"></label>：
+            <input asp-for="Age" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+
+        <input type="submit" value="Save" />
+    </form>
+</body>
+</html>

@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+    var exception = ViewData["Exception"] as Exception;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>自定义错误页面</title>
+</head>
+<body>
+    <div>
+        <h1>自定义错误页面</h1>
+    </div>
+    <footer>
+        异常详情: @exception.Message
+    </footer>
+</body>
+</html>

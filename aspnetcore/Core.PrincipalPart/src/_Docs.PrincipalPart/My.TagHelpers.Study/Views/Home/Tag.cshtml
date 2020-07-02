@@ -1,0 +1,190 @@
+﻿@{
+    Layout = null;
+}
+@using My.TagHelpers.Study.Models
+@model TagViewModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>内置标记帮助程序</title>
+</head>
+<body>
+
+    <h2>表单帮助程序</h2>
+
+    <form asp-controller="Home" asp-action="Save" asp-route-wy="sdf" method="post">
+        <input type="submit" value="Save" />
+        <input type="button" value="ceshi" asp-action="Index" asp-controller="Home" />
+    </form>
+
+    <div>
+        <p>提交到控制器示例：</p>
+        <form method="post">
+            <button asp-controller="Home" asp-action="Test">Click Me</button>
+            <input type="image" src="" alt="Or Click Me" asp-controller="Home" asp-action="Test" />
+        </form>
+    </div>
+
+    <div>
+        <p>提交到路由示例：</p>
+        <form method="post">
+            <button asp-route="Custom">Click Me</button>
+            <input type="image" src="" alt="Or Click me" asp-route="Custom" />
+        </form>
+    </div>
+
+    <div>
+        <p>输入标记帮助程序</p>
+        <form asp-controller="Home" asp-action="Save" method="post">
+            Email:<input asp-for="Email" />
+            Password:<input asp-for="Password" />
+            Address:<input asp-for="Address.AddressLine" />
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div>
+        <p>文本标记帮助程序</p>
+        <textarea asp-for="Description"></textarea>
+    </div>
+
+    <div>
+        <p>表达式名称</p>
+        @{
+            var wy = "smallz";
+        }
+        <input asp-for="@wy" />
+        @Html.EditorFor(m => m.Colors[1])
+
+        <input asp-for="@Model.Colors[1]" />
+        <input asp-for="Colors[1]" />
+    </div>
+
+
+    <div>
+        <p>label标记帮助程序</p>
+
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+    </div>
+
+
+    <div>
+        <p>Select标记帮助程序</p>
+        <select asp-for="Country" asp-items="Model.Countries"></select>
+    </div>
+
+
+    <div>
+        <p>下拉框绑定枚举</p>
+        <select asp-for="EnumCountry" asp-items="Html.GetEnumSelectList<CountryEnum>()"></select>
+    </div>
+
+    <hr />
+    <h2>cache标记帮助程序</h2>
+    <p>当前时间：@DateTime.Now</p>
+    <p>
+        <cache>缓存时间：@DateTime.Now</cache>
+    </p>
+    <p>
+        <cache enabled="true" expires-on="@new DateTime(2019,4,10,13,13,0)">
+            缓存到期时间：@(new DateTime(2019, 4, 10, 13, 13, 0)) ， 缓存时间: @DateTime.Now
+        </cache>
+    </p>
+
+    <p>
+        <cache expires-after="@TimeSpan.FromSeconds(10)">
+            每次缓存时长：10秒，@DateTime.Now
+        </cache>
+    </p>
+    <p>
+        <cache expires-sliding="@TimeSpan.FromSeconds(5)">
+            缓存逐出时长的使用，@DateTime.Now
+        </cache>
+    </p>
+
+    <p>
+        <cache vary-by-header="User-Agent,content-encoding">
+            vary-by-header示例：  @DateTime.Now
+        </cache>
+    </p>
+
+    <p>
+        <cache vary-by-query="wy,smallz">
+            vary-by-query示例：@DateTime.Now
+        </cache>
+    </p>
+
+    <p>
+        <cache vary-by-route="wy,smallz">
+            vary-by-route示例：@DateTime.Now
+        </cache>
+    </p>
+
+    <p>
+        <cache vary-by-cookie=".AspNetCore.Identity.Application">
+            vary-by-cookie示例：@DateTime.Now
+        </cache>
+    </p>
+
+    <p>
+        <cache vary-by-user="true">
+            vary-by-user示例：@DateTime.Now
+        </cache>
+    </p>
+
+    <p>
+        <cache vary-by="@Model">
+            vary-by示例：@DateTime.Now
+        </cache>
+    </p>
+
+    <p>
+        <cache priority="@Microsoft.Extensions.Caching.Memory.CacheItemPriority.High">
+            Current Time Inside Cache Tag Helper: @DateTime.Now
+        </cache>
+    </p>
+
+
+    <hr />
+
+    <h2>a标记的使用</h2>
+    <a asp-controller="Speaker" asp-action="Index"> All Speakers</a>
+    <br />
+    <a asp-controller="Speaker">只使用asp-controller示例</a>
+    <br />
+    <a asp-controller="Speaker" asp-action="Evaluations">asp-action的使用</a>
+    <a asp-action="Test">只使用asp-action的示例</a>
+    <br />
+    <a asp-controller="Speaker" asp-action="Detail" asp-route-id="2">asp-route-{value}的使用</a>
+    <a asp-controller="Speaker" asp-action="Detail2" asp-route-speakerid="2">asp-route-{value}的使用子自定义参数</a>
+    <br />
+    <a asp-route="speakerevals">asp-route的使用</a>
+    <br />
+
+    @{
+        var parms = new Dictionary<string, string>
+{
+        { "speakerId", "11" },
+        { "currentYear", "true" }
+        };
+    }
+    <a asp-route="speakervalscurrent" asp-all-route-data="parms">asp-all-route-data的使用</a>
+
+    <br />
+    <a asp-controller="Speaker" asp-action="Evaluations" asp-fragment="wy">asp-fragment锚点的使用</a>
+    <br />
+    <a asp-protocol="https" asp-controller="Home" asp-action="Index">asp-protocol的使用</a>
+    <br />
+    <a asp-protocol="https"
+       asp-host="microsoft.com"
+       asp-controller="Home"
+       asp-action="Test">
+        asp-host的使用
+    </a>
+
+    <hr />
+</body>
+</html>

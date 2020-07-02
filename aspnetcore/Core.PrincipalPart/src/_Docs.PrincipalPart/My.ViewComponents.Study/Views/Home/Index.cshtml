@@ -1,0 +1,14 @@
+﻿@addTagHelper *, My.ViewComponents.Study
+@{
+    ViewData["Title"] = "ASP.NET Core 视图组件";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h1>视图组件</h1>
+
+<div>
+    @await Component.InvokeAsync("MyStudent", new { StudentNo = 3, StudentAddress = "" })
+</div>
+<div>
+    <vc:my-student student-no="2" student-address="wy"></vc:my-student>
+</div>

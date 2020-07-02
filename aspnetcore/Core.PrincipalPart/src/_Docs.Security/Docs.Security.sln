@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "身份认证", "身份认证", "{57A21DA4-4F75-45E9-9E9F-20B1D196232A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "授权", "授权", "{126D3F45-ED3E-4528-81A6-C37860986ED3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "数据保护", "数据保护", "{C124C1A5-649F-4736-922C-8307A4C5403F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs.Identity.Sample", "Docs.Identity.Sample", "{BE4B190F-FD39-42BF-9092-D1C935364FEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp1", "WebApp1\WebApp1.csproj", "{56AA6994-030E-463C-BD7D-46003A152EB3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp2", "WebApp2\WebApp2.csproj", "{AF6835CE-B045-4513-B849-03C82FF3D7C3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomIdentityProviderSample", "CustomIdentityProviderSample\CustomIdentityProviderSample.csproj", "{3509FF23-7994-4B75-9151-DB82C40DE1B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "My.Identity.Study", "My.Identity.Study", "{BB1F5981-50F9-4607-9BA4-BA090FA7487A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WyIdentityStudy", "WyIdentityStudy\WyIdentityStudy.csproj", "{4E69A434-3F2A-4A80-9369-F258909D93E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56AA6994-030E-463C-BD7D-46003A152EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56AA6994-030E-463C-BD7D-46003A152EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56AA6994-030E-463C-BD7D-46003A152EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56AA6994-030E-463C-BD7D-46003A152EB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF6835CE-B045-4513-B849-03C82FF3D7C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF6835CE-B045-4513-B849-03C82FF3D7C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF6835CE-B045-4513-B849-03C82FF3D7C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF6835CE-B045-4513-B849-03C82FF3D7C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3509FF23-7994-4B75-9151-DB82C40DE1B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3509FF23-7994-4B75-9151-DB82C40DE1B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3509FF23-7994-4B75-9151-DB82C40DE1B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3509FF23-7994-4B75-9151-DB82C40DE1B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E69A434-3F2A-4A80-9369-F258909D93E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E69A434-3F2A-4A80-9369-F258909D93E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E69A434-3F2A-4A80-9369-F258909D93E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E69A434-3F2A-4A80-9369-F258909D93E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BE4B190F-FD39-42BF-9092-D1C935364FEC} = {57A21DA4-4F75-45E9-9E9F-20B1D196232A}
+		{56AA6994-030E-463C-BD7D-46003A152EB3} = {BE4B190F-FD39-42BF-9092-D1C935364FEC}
+		{AF6835CE-B045-4513-B849-03C82FF3D7C3} = {BE4B190F-FD39-42BF-9092-D1C935364FEC}
+		{3509FF23-7994-4B75-9151-DB82C40DE1B0} = {BE4B190F-FD39-42BF-9092-D1C935364FEC}
+		{BB1F5981-50F9-4607-9BA4-BA090FA7487A} = {57A21DA4-4F75-45E9-9E9F-20B1D196232A}
+		{4E69A434-3F2A-4A80-9369-F258909D93E8} = {BB1F5981-50F9-4607-9BA4-BA090FA7487A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7038C5F4-E8F3-4013-9ECB-96AA6D37DF98}
+	EndGlobalSection
+EndGlobal
