@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace S2
@@ -10,7 +7,7 @@ namespace S2
     //任务完成时的处理
     public class TaskCompletedTest
     {
-        static async Task<int> DelayAndReturnAsync(int val)
+        private static async Task<int> DelayAndReturnAsync(int val)
         {
             await Task.Delay(TimeSpan.FromSeconds(val));
             return val;
@@ -34,7 +31,7 @@ namespace S2
             }
         }
 
-
+        //正确的做法
         public static async Task ProcessTasksRightAsync()
         {
             //创建任务队列
@@ -49,9 +46,7 @@ namespace S2
                   Console.WriteLine(result);
               }).ToArray();
 
-            await Task.WhenAll(processingTasks);
-
+            await Task.WhenAll(processingTasks).ConfigureAwait(false);
         }
-
     }
 }
