@@ -16,6 +16,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "S7：中间件", "S7：中�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S7_WebApplication", "S7_WebApplication\S7_WebApplication.csproj", "{6E47D43D-A89B-42F8-994A-D7D2EC341894}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "S8：静态文件中间件", "S8：静态文件中间件", "{73AD4C78-F304-4720-9137-F314D718DD18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S8_WebApplication", "S8_WebApplication\S8_WebApplication.csproj", "{228B406C-46C6-48C1-A4EB-4393223D60D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +34,10 @@ Global
 		{6E47D43D-A89B-42F8-994A-D7D2EC341894}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E47D43D-A89B-42F8-994A-D7D2EC341894}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E47D43D-A89B-42F8-994A-D7D2EC341894}.Release|Any CPU.Build.0 = Release|Any CPU
+		{228B406C-46C6-48C1-A4EB-4393223D60D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{228B406C-46C6-48C1-A4EB-4393223D60D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{228B406C-46C6-48C1-A4EB-4393223D60D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{228B406C-46C6-48C1-A4EB-4393223D60D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +45,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D2CB4B31-88A9-4CFF-87CE-B223F016AF80} = {53F4A494-85F7-4D2D-904F-0884C034EEDE}
 		{6E47D43D-A89B-42F8-994A-D7D2EC341894} = {2E19B9F9-7B9C-4D49-91D5-E4F21B8E7051}
+		{228B406C-46C6-48C1-A4EB-4393223D60D7} = {73AD4C78-F304-4720-9137-F314D718DD18}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50309024-D1CC-40FE-840B-E3D56F3AC6B0}
