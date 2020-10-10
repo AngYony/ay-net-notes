@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9A1477C1-6D32-4288-B46A-DBB59FE4906C}"
+	ProjectSection(SolutionItems) = preProject
+		项目说明.txt = 项目说明.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "S6", "S6", "{53F4A494-85F7-4D2D-904F-0884C034EEDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S6WebApplication", "S6WebApplication\S6WebApplication.csproj", "{D2CB4B31-88A9-4CFF-87CE-B223F016AF80}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "S7：中间件", "S7：中间件", "{2E19B9F9-7B9C-4D49-91D5-E4F21B8E7051}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S7_WebApplication", "S7_WebApplication\S7_WebApplication.csproj", "{6E47D43D-A89B-42F8-994A-D7D2EC341894}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2CB4B31-88A9-4CFF-87CE-B223F016AF80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2CB4B31-88A9-4CFF-87CE-B223F016AF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2CB4B31-88A9-4CFF-87CE-B223F016AF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2CB4B31-88A9-4CFF-87CE-B223F016AF80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E47D43D-A89B-42F8-994A-D7D2EC341894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E47D43D-A89B-42F8-994A-D7D2EC341894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E47D43D-A89B-42F8-994A-D7D2EC341894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E47D43D-A89B-42F8-994A-D7D2EC341894}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D2CB4B31-88A9-4CFF-87CE-B223F016AF80} = {53F4A494-85F7-4D2D-904F-0884C034EEDE}
+		{6E47D43D-A89B-42F8-994A-D7D2EC341894} = {2E19B9F9-7B9C-4D49-91D5-E4F21B8E7051}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50309024-D1CC-40FE-840B-E3D56F3AC6B0}
+	EndGlobalSection
+EndGlobal
