@@ -22,7 +22,7 @@ namespace HostWebApplication
                 {
                     webBuilder.UseStartup<Startup>();
 
-                    //配置ip和端口绑定
+                    //配置ip和端口绑定 
                     webBuilder.UseKestrel(options => {
                         options.ListenAnyIP(6000);
                         //options.Listen()

@@ -20,6 +20,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostWebApplication", "HostWebApplication\HostWebApplication.csproj", "{700247A4-912D-4328-97DE-D5274501BD88}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "231 RESTFul", "231 RESTFul", "{B006FF40-CA59-4AD8-B67A-C1A2F1DCADC4}"
+	ProjectSection(SolutionItems) = preProject
+		RESTful API一般格式.txt = RESTful API一般格式.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
