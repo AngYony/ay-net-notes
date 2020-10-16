@@ -33,7 +33,11 @@ namespace Ay.Core3.WebApp
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //添加默认文件中间件，必须在UseStaticFiles之前注册UseDefaultFiles
+            app.UseDefaultFiles();
             app.UseStaticFiles(); //添加对静态文件的支持
+
 
             app.UseRouting();
 

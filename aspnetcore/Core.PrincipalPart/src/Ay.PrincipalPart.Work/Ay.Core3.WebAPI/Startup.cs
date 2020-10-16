@@ -34,6 +34,8 @@ namespace Ay.Core3.WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            env.IsEnvironment("Wy");
+
 
             app.UseRouting();
 

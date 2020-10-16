@@ -21,6 +21,13 @@ namespace Ay.Core3.WebApp
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+
+                    ////ÅäÖÃipºÍ¶Ë¿Ú°ó¶¨
+                    //webBuilder.UseKestrel(options => {
+                    //    options.ListenAnyIP(6000);
+                    //    //options.Listen()
+                    //    options.ListenLocalhost(6001, opts => opts.UseHttps());
+                    //});
                 });
     }
 }
