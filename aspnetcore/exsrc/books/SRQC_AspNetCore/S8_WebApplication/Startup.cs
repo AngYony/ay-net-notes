@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace S8_WebApplication
 {
+
     public class Startup
     {
         private readonly IConfiguration _configuration;
@@ -34,7 +35,20 @@ namespace S8_WebApplication
                 //如果存在异常并且环境是Development，此中间件会被调用，显示开发异常页面。
                 app.UseDeveloperExceptionPage();
             }
+
+            ////自定义默认文件
+            //DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            //defaultFilesOptions.DefaultFileNames.Clear();
+            //defaultFilesOptions.DefaultFileNames.Add("wy.html");
+            //app.UseDefaultFiles(defaultFilesOptions);
+
+            //添加默认文件中间件，必须在UseStaticFiles之前注册UseDefaultFiles
+            app.UseDefaultFiles();
+            //添加静态文件中间件
             app.UseStaticFiles();
+
+
+
 
             app.Run(async (context)=>{
                 context.Response.ContentType = "text/plain;charset=utf-8";
