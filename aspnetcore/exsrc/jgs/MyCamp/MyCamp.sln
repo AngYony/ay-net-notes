@@ -24,6 +24,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "231 RESTFul", "231 RESTFul"
 		RESTful API一般格式.txt = RESTful API一般格式.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "234 模型验证", "234 模型验证", "{697067F3-6FFD-473C-8169-C110ACAB1C93}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentValidationSample", "FluentValidationSample\FluentValidationSample.csproj", "{D834209B-CD94-4089-A201-80D795484C8E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "240 EF  Core", "240 EF  Core", "{E9C44625-3B31-4854-B1D0-1CD9C932A52E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +52,10 @@ Global
 		{700247A4-912D-4328-97DE-D5274501BD88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{700247A4-912D-4328-97DE-D5274501BD88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{700247A4-912D-4328-97DE-D5274501BD88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D834209B-CD94-4089-A201-80D795484C8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D834209B-CD94-4089-A201-80D795484C8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D834209B-CD94-4089-A201-80D795484C8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D834209B-CD94-4089-A201-80D795484C8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +65,7 @@ Global
 		{85DA05B1-56D7-4E03-B651-95C034A82767} = {77407FF8-E294-4850-ABF9-B2830F93EB8A}
 		{9D5B033F-EEE5-44CC-94CE-9F9FF0D9EF2C} = {E77FD221-1FC3-469D-89D4-9E2EAE1B10F3}
 		{700247A4-912D-4328-97DE-D5274501BD88} = {C6BC856A-58F2-4214-992A-C1D1F8EC62FF}
+		{D834209B-CD94-4089-A201-80D795484C8E} = {697067F3-6FFD-473C-8169-C110ACAB1C93}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8B0BCEAA-53E9-4F69-8312-1E818DE6434B}
