@@ -16,7 +16,7 @@ namespace LighterApi.Data
         }
         public DbSet<Project.Project> Projects { get; set; }
         public DbSet<Project.Member> Members { get; set; }
-        public DbSet<Project.Assistant> Assistants { get; set; }
+        //public DbSet<Project.Assistant> Assistants { get; set; }
 
         public DbSet<Project.ProjectGroup> ProjectGroups { get; set; }
         public DbSet<Project.Task> Tasks { get; set; }
@@ -26,6 +26,7 @@ namespace LighterApi.Data
 
             modelBuilder.Entity<Project.Project>()
                 .Property(p => p.Id).ValueGeneratedOnAdd();
+
 
             //一对多
             modelBuilder.Entity<Project.ProjectGroup>()

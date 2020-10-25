@@ -9,6 +9,7 @@ namespace LighterApi.Data
 {
     public class Entity
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         
         /// <summary>
@@ -36,6 +37,7 @@ namespace LighterApi.Data
         public string LastUpdatedBy { get; set; }
 
 
+        //设置默认值
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime CreatedAt { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

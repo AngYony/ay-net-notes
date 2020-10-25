@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace LighterApi
 {
@@ -28,7 +29,8 @@ namespace LighterApi
                 options.UseMySql(Configuration.GetConnectionString("LighterDbContext"));            
             });
 
-            services.AddControllers().AddNewtonsoftJson();
+            //防止自引用异常
+            services.AddControllers().AddNewtonsoftJson(x=>x.SerializerSettings.ReferenceLoopHandling=ReferenceLoopHandling.Ignore);
            
         }
 
