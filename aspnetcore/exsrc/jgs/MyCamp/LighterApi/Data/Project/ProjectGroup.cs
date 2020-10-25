@@ -12,8 +12,11 @@ namespace LighterApi.Data.Project
     public class ProjectGroup:Entity
     {
         public string Name{ get; set; }
+        //外键，指向主表Project
         public string ProjectId{ get; set; }
         //public List<Member> Superviosr{ get; set; }
+
+        public Project Project{ get; set; }
          
     }
 }

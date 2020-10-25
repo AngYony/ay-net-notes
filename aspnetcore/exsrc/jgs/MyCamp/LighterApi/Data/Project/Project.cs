@@ -10,11 +10,15 @@ namespace LighterApi.Data.Project
     /// 项目
     /// </summary>
     public class Project:Entity
-    {
+    { 
         public string Title{ get; set; }
         public string Superviosr{ get; set; }
         public DateTime StartDate{ get; set; }
         public DateTime EndDate{ get; set; }
         public string PlanId{ get; set; }
+
+        public IList<ProjectGroup> Groups{ get; set; }
+
+        public IList<SubjectProject> SubjectProjects{ get; set; }
     }
 }

@@ -67,3 +67,17 @@ AddDbContext 和 AddDbContextPool：
 
 参考EF Core官方文档说明，https://docs.microsoft.com/zh-cn/ef/core/miscellaneous/context-pooling#limitations。并不是AddDbContextPool一定会起到很明显的优化作用。
 
+
+
+## EF Core中的关系
+
+### 一对一
+
+### 一对多
+
+一是主体实体（主表），多是依赖实体（从表）。
+
+### 多对多
+
+A表和B表时多对多的关系，在此基础上，存在中间表C表，将A表和B表进行串联，C表中含有两个外键，分别指向A表和B表。同时包含两个引用属性，指向A实体和B实体。
+
