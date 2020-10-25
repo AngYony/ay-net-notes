@@ -24,18 +24,37 @@ namespace LighterApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetListAsync(CancellationToken cancellation)
         {
-           return await _lighterDbContext.Projects.ToListAsync(cancellation);
+            return await _lighterDbContext.Projects.ToListAsync(cancellation);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Project>> CreateAsync([FromBody] Project project,CancellationToken cancellation)
+        public async Task<ActionResult<Project>> CreateAsync([FromBody] Project project, CancellationToken cancellation)
         {
-            project.Id = Guid.NewGuid().ToString();
+            //project.Id = Guid.NewGuid().ToString();
             _lighterDbContext.Projects.Add(project);
             await _lighterDbContext.SaveChangesAsync(cancellation);
 
             return StatusCode((int)HttpStatusCode.Created, project);
         }
- 
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateAsync([FromBody] Project project, CancellationToken cancellationToken)
+        {
+            var origin = await _lighterDbContext.Projects.FirstOrDefaultAsync(p => p.Id == project.Id, cancellationToken);
+            if (origin == null)
+            {
+                return NotFound();
+            }
+
+            origin.Title = project.Title;
+            origin.StartDate = project.StartDate;
+            origin.EndDate = project.EndDate;
+
+            await _lighterDbContext.SaveChangesAsync(cancellationToken);
+
+            return Ok(origin);
+
+        }
+
     }
 }

@@ -30,10 +30,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentValidationSample", "F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "240 EF  Core", "240 EF  Core", "{E9C44625-3B31-4854-B1D0-1CD9C932A52E}"
 	ProjectSection(SolutionItems) = preProject
-		EF Core 笔记.txt = EF Core 笔记.txt
+		EF Core 相关笔记.md = EF Core 相关笔记.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LighterApi", "LighterApi\LighterApi.csproj", "{13FE0353-55FB-4A89-B928-11C52827FAB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LighterApi", "LighterApi\LighterApi.csproj", "{13FE0353-55FB-4A89-B928-11C52827FAB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -23,6 +23,9 @@ namespace LighterApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Project.Project>() 
+            .Property(p => p.Id).ValueGeneratedOnAdd();
+            
             base.OnModelCreating(modelBuilder);
         }
     }
