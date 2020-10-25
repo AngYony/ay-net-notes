@@ -1,5 +1,7 @@
 ﻿using LighterApi.Data.Project;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +12,10 @@ namespace LighterApi.Data
 {
     public class LighterDbContext : DbContext
     {
-        public LighterDbContext(DbContextOptions<LighterDbContext> options) : base(options)
+        private readonly HttpContext _httpContext;
+        public LighterDbContext(DbContextOptions<LighterDbContext> options,IHttpContextAccessor httpContextAccessor) : base(options)
         {
+            _httpContext = httpContextAccessor.HttpContext;
             //dotnet ef migrations add Init
         }
         public DbSet<Project.Project> Projects { get; set; }
@@ -54,6 +58,12 @@ namespace LighterApi.Data
             //.UsingEntity(j => j.ToTable("SubjectProject"));
 
             #endregion
+
+            _httpContext.Request.Headers.TryGetValue("tenantId", out StringValues tenantId);
+
+
+            modelBuilder.Entity<Project.Project>().HasQueryFilter(x => x.TenantId == tenantId.FirstOrDefault());
+
 
             base.OnModelCreating(modelBuilder);
         }

@@ -29,6 +29,8 @@ namespace LighterApi
                 options.UseMySql(Configuration.GetConnectionString("LighterDbContext"));            
             });
 
+            services.AddHttpContextAccessor();
+
             //防止自引用异常
             services.AddControllers().AddNewtonsoftJson(x=>x.SerializerSettings.ReferenceLoopHandling=ReferenceLoopHandling.Ignore);
            
