@@ -81,3 +81,25 @@ AddDbContext 和 AddDbContextPool：
 
 A表和B表时多对多的关系，在此基础上，存在中间表C表，将A表和B表进行串联，C表中含有两个外键，分别指向A表和B表。同时包含两个引用属性，指向A实体和B实体。
 
+
+
+## EF Core 查询建议
+
+foreach时，要先将要遍历的结果集提前执行ToList()，使其马上加载，然后再进行遍历。否则，它将在foreach内循环执行多次的数据库取值。
+
+错误的写法：
+
+```
+foreach(var p in wy.source){}
+```
+
+正确的写法：
+
+```
+var list=wy.source.ToList();
+foreach(var p in list){}
+```
+
+## 重点
+如果要在DbContext中获取HttpContext中的数据，必须要在DbContext的构造函数中获取，而不是在其他方法中获取。
+例如代码中的tenantId，如果在其他方法中获取，会因为缓存策略，而无法命中，导致获取不到新的值。

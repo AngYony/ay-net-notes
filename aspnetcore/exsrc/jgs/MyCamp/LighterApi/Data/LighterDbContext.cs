@@ -12,10 +12,11 @@ namespace LighterApi.Data
 {
     public class LighterDbContext : DbContext
     {
-        private readonly HttpContext _httpContext;
+        private StringValues par_tenantId;
         public LighterDbContext(DbContextOptions<LighterDbContext> options,IHttpContextAccessor httpContextAccessor) : base(options)
         {
-            _httpContext = httpContextAccessor.HttpContext;
+           var _httpContext = httpContextAccessor.HttpContext;
+            _httpContext.Request.Headers.TryGetValue("tenantId", out par_tenantId);
             //dotnet ef migrations add Init
         }
         public DbSet<Project.Project> Projects { get; set; }
@@ -59,10 +60,10 @@ namespace LighterApi.Data
 
             #endregion
 
-            _httpContext.Request.Headers.TryGetValue("tenantId", out StringValues tenantId);
+           
 
 
-            modelBuilder.Entity<Project.Project>().HasQueryFilter(x => x.TenantId == tenantId.FirstOrDefault());
+            modelBuilder.Entity<Project.Project>().HasQueryFilter(x => x.TenantId == par_tenantId.FirstOrDefault());
 
 
             base.OnModelCreating(modelBuilder);
