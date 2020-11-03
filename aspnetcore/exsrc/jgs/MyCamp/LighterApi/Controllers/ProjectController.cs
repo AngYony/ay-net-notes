@@ -29,6 +29,49 @@ namespace LighterApi.Controllers
             .ToListAsync(cancellation);
         }
 
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult> GetAsync(string id, CancellationToken cancellationToken)
+        {
+            var project = await _lighterDbContext.Projects
+                    .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+            return Ok(project);
+        }
+
+
+        [HttpGet]
+        [Route("{id}/profile")]
+        public async Task<ActionResult> GetProfileAsync(string id, CancellationToken cancellationToken)
+        {
+            //关联查询，得到关联表结果集的三种方式
+            #region 方式一：预先加载
+            var project = await _lighterDbContext.Projects
+                .Include(p => p.Groups)
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+            #endregion
+
+            #region 方式二：显式加载
+            var project2 = await _lighterDbContext.Projects.FirstOrDefaultAsync();
+            //关联的是一个集合类型的导航属性
+            await _lighterDbContext.Entry(project2).Collection(p => p.Groups).LoadAsync();
+            //关联的是一个单一实体类型的导航属性
+            //await _lighterDbContext.Entry(project2).Reference(p => p.Groups).LoadAsync();
+
+            #endregion
+
+            #region 方式三：延迟加载
+            // 参见：https://docs.microsoft.com/zh-cn/ef/core/querying/related-data/lazy
+            #endregion
+
+            return Ok(project);
+        }
+
+
+
+
+
+
         [HttpPost]
         public async Task<ActionResult<Project>> CreateAsync([FromBody] Project project, CancellationToken cancellation)
         {
@@ -83,32 +126,7 @@ namespace LighterApi.Controllers
 
 
 
-        [HttpGet]
-        [Route("{id}")]
-        public async Task<ActionResult> GetAsync(string id, CancellationToken cancellationToken)
-        {
-            //关联查询，得到关联表结果集的三种方式
-            #region 方式一：预先加载
-            var project = await _lighterDbContext.Projects
-                .Include(p => p.Groups)
-                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
-            #endregion
-
-            #region 方式二：显式加载
-            var project2 = await _lighterDbContext.Projects.FirstOrDefaultAsync();
-            //关联的是一个集合类型的导航属性
-            await _lighterDbContext.Entry(project2).Collection(p => p.Groups).LoadAsync();
-            //关联的是一个单一实体类型的导航属性
-            //await _lighterDbContext.Entry(project2).Reference(p => p.Groups).LoadAsync();
-
-            #endregion
-
-            #region 方式三：延迟加载
-            // 参见：https://docs.microsoft.com/zh-cn/ef/core/querying/related-data/lazy
-            #endregion
-
-            return Ok(project);
-        }
+        
 
         /*
          HttpPut：一般用于整个对象的替换更新
@@ -212,15 +230,15 @@ namespace LighterApi.Controllers
 
             #endregion
 
-            #region 方式二：不查询，直接删除
-            var project2 = new Project { Id = id };
+            //#region 方式二：不查询，直接删除
+            //var project2 = new Project { Id = id };
 
-            //设置实例的状态
-            _lighterDbContext.Projects.Attach(project2);
-            _lighterDbContext.Projects.Remove(project2);
-            await _lighterDbContext.SaveChangesAsync();
+            ////设置实例的状态
+            //_lighterDbContext.Projects.Attach(project2);
+            //_lighterDbContext.Projects.Remove(project2);
+            //await _lighterDbContext.SaveChangesAsync();
 
-            #endregion
+            //#endregion
 
             return StatusCode((int)HttpStatusCode.NoContent);
         }

@@ -39,6 +39,14 @@ dotnet ef migrations add ProjectIdAutoGenerate
 dotnet ef migrations remove
 ```
 
+上述命令只能移除最新的迁移文件。
+
+### 列出所有迁移版本
+
+```
+dotnet ef migrations list
+```
+
 ### 更新数据库
 
 然后执行更新数据库：
@@ -46,6 +54,54 @@ dotnet ef migrations remove
 ```
 dotnet ef database update
 ```
+
+### EF Core 生成SQL脚本
+
+以下命令可以指定输出到文件中，如果不指定，默认输出到控制台中。
+
+从空白开始生成sql脚本（从初始化到最新的生成脚本）：
+
+```
+dotnet ef migrations script
+```
+
+生成指定版本到最新版本的sql：
+
+```
+dotnet ef migrations script 版本名
+```
+
+从A-B版本生成迁移SQL脚本：
+
+```
+dotnet ef migrations script 版本A 版本B
+```
+
+### 对比更新数据库
+
+```
+dotnet ef database update
+```
+
+### 强制更新某个版本到数据库 
+
+```
+dotnet ef database update AddNe
+```
+
+
+
+## EF Core Database-First
+
+EF 提供了一种根据数据库连接字符串来生成实体的命令工具，如下：
+
+```
+dotnet ef dbcontext scaffold "server=192.168.0.2;port=7306;user=root;password=root123456@;database=lighter" Pomelo.EntityFrameworkCore.MySql -o Models
+```
+
+虽然可以生成实体，但是实体类需要进行修改才可以使用，因此不太建议使用Database-First模式。
+
+
 
 
 
