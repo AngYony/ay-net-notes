@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,15 @@ namespace LighterApi.Data
         /// 租户下的UserId
         /// </summary>
         public string UserId { get; set; }
+
+
+
+        [ConcurrencyCheck]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Version{ get; set; }
+
+        [Timestamp]
+        public byte[] RowVersion{ get; set; }
 
 
         

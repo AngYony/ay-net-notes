@@ -15,7 +15,8 @@ namespace LighterApi.Data
         private StringValues par_tenantId;
         public LighterDbContext(DbContextOptions<LighterDbContext> options,IHttpContextAccessor httpContextAccessor) : base(options)
         {
-           var _httpContext = httpContextAccessor.HttpContext;
+            var _httpContext = httpContextAccessor.HttpContext;
+
             _httpContext.Request.Headers.TryGetValue("tenantId", out par_tenantId);
             //dotnet ef migrations add Init
         }
