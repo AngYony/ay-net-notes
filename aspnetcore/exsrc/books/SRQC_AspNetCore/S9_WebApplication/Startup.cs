@@ -36,7 +36,11 @@ namespace S9_WebApplication
             }
 
             
-
+            //否则显示用户友好的错误页面
+            else if(env.IsStaging()|| env.IsProduction() || env.IsEnvironment("UAT") )
+            {
+                app.UseExceptionHandler("/Error");
+            }
 
 
             app.UseFileServer();
