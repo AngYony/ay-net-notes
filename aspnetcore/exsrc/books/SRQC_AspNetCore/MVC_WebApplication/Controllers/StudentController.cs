@@ -17,12 +17,21 @@ namespace MVC_WebApplication.Controllers
             _studentRepository = studentRepository;
         }
 
-        public ObjectResult Details(int id)
+        public ActionResult Details(int id)
         {
             Student student = _studentRepository.GetStudent(id);
-            //return View(student);
+            return View(student);
+            //return new ObjectResult(student);
+        }
+
+        public ActionResult JSONDetails(int id)
+        {
+            Student student = _studentRepository.GetStudent(id);
+            
             return new ObjectResult(student);
         }
+
+
 
         public IActionResult Index()
         {
