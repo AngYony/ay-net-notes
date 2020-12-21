@@ -30,7 +30,7 @@
 
 命名空间：[System.Web](https://docs.microsoft.com/zh-cn/dotnet/api/system.web?view=netframework-4.8)
 
-说明：该类主要用于ASP.NET程序中的服务端，用于获取客户端在Web请求期间发送的HTTP值。
+说明：该类主要用于ASP.NET程序中的服务端，用于获取客户端在Web请求期间发送的HTTP值。如在WebForm中的Request属性。
 
 
 
