@@ -7,11 +7,12 @@ namespace S02_Thread
     {
         static void Main(string[] args)
         {
-            //// 无参数Thread
-            //var th= new Thread(() => {
-            //    Console.WriteLine($"当前的线程：{Environment.CurrentManagedThreadId}");
-            //});
-            //th.Start();
+            // 无参数Thread
+            var th = new Thread(() =>
+            {
+                Console.WriteLine($"当前的线程：{Environment.CurrentManagedThreadId}");
+            });
+            th.Start();
 
 
 
@@ -33,7 +34,7 @@ namespace S02_Thread
 
             //实现先输出其他线程再输出主线程
             // 阻止调用线程（这里是主线程），直到子线程终止。
-            //pth.Join(1000*3); // 等待3秒，过后依旧执行主线程
+            pth.Join(1000*3); // 等待3秒，过后依旧执行主线程
 
             Console.WriteLine($"主线程：{Environment.CurrentManagedThreadId}");
             //Console.ReadLine();
@@ -43,9 +44,11 @@ namespace S02_Thread
 
 
 
-            // 
+            // 不建议直接使用Thread，有时候线程太多，造成上下文切换太过频繁，导致CPU爆高。
+            // 太多的线程会造成GC负担过大，托管堆很多“死thread”。
 
 
+            //Task建立在ThreadPool之上，做了封装
 
 
 
