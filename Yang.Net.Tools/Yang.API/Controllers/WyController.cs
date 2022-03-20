@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Yang.API.Models;
 using Yang.API.ViewModel;
 
 namespace Yang.API.Controllers
@@ -11,13 +12,19 @@ namespace Yang.API.Controllers
     // ApiController可以验证传入的参数是否符合规范
     public class WyController : ControllerBase
     {
-    public WyController(IWebHostEnvironment environment){
+
+
+        public readonly IUserService userService = null;
+        public WyController(IServiceProvider serviceProvider, IUserService userService, IWebHostEnvironment environment)
+        {
             //获取wwwroot的路径
-            var res= environment.WebRootPath; //必须存在wwwroot目录才能获取到值，否则值为null
+            var res = environment.WebRootPath; //必须存在wwwroot目录才能获取到值，否则值为null
+
+            userService = userService;
+            var code = userService.GetCode();
+        }
 
 
-
-    }
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
