@@ -1,7 +1,10 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Yang.API.AutofacCus.Extensions;
+using Yang.API.AutofacCus.Modules;
 using Yang.API.Controllers;
 using Yang.API.Models;
+ 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,16 +28,11 @@ builder.Services.AddTransient<IStudentService, Student>();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 {
-    //builder.RegisterType<Student>().As<IStudentService>().InstancePerLifetimeScope();
-    //注册为scope，默认为Transient
-    builder.RegisterType<User>().As<IUserService>()
-    // 设置为scope模式
-    .InstancePerLifetimeScope()
-    //在User中启用属性注入，即：在User类中的属性可以不使用构造函数进行赋值，而是直接在此指明User中属性已经被注入了
-    .PropertiesAutowired() ;
+    // 自定义扩展方法，将需要注入的服务通过该方法进行注入
+    builder.RegisterTypeExtensions();
+    //或者模块化注册，模块化注册可以在每个类库中对该类库的成员进行注入
+    builder.RegisterModule<APIModule>();
 
-    // 默认情况下，不能在控制器中使用属性注入，需要显示设置builder.Services.AddControllers().AddControllersAsServices()后才可以.
-    builder.RegisterType<UserController>().PropertiesAutowired();
 
 });
 
