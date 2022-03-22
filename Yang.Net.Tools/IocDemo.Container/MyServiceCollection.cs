@@ -55,6 +55,14 @@ namespace IocDemo.Container
             AddSingleton(typeof(TService), typeof(TImplement));
         }
 
+
+        public void AddSingleton<TService, TImplement>(TImplement instance) where TService : class where TImplement : class
+        {
+            AddSingleton(typeof(TService), typeof(TImplement),instance);
+        }
+
+
+
         public void AddSingleton(Type serviceType, Type implementType)
         {
             AddSingleton(serviceType, implementType, null);
