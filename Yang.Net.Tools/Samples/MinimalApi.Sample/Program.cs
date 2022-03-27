@@ -1,5 +1,3 @@
-using Minimal.API;
-
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 // 默认就带有minimal api
@@ -18,3 +16,9 @@ app.MapGet("/set/{age:regex(^[0-9]+$)}", (string age) => $"{age}");
 //依赖注入Logger组件
 app.MapGet("/", (ILogger<Student> logger) => { logger.LogWarning("输出日志"); return "首页"; });
 app.Run();
+
+
+internal class Student
+{
+}
+
