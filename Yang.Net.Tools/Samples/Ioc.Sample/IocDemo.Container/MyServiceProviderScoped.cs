@@ -9,10 +9,11 @@ namespace IocDemo.Container
 {
     public class MyServiceProviderScoped
     {
-        public Dictionary<Type,object> DicScopedService{ get; set; }
-        public MyServiceProvider Root{ get; set; }
-        public MyServiceProviderScoped(MyServiceProvider root){
-        this.Root = root;
+        public Dictionary<Type, object> DicScopedService { get; set; }
+        public MyServiceProvider Root { get; set; }
+        public MyServiceProviderScoped(MyServiceProvider root)
+        {
+            this.Root = root;
             DicScopedService = new();
             ResizeService(Root.dictionary);
         }
@@ -34,7 +35,8 @@ namespace IocDemo.Container
         /// </summary>
         /// <param name="serviceType"></param>
         /// <returns></returns>
-        public object? GetService(Type serviceType) {
+        public object? GetService(Type serviceType)
+        {
             return Root.GetService(serviceType, this);
         }
     }
