@@ -1,4 +1,4 @@
-# ASP.NET Core MVC中的筛选器
+# ASP.NET Core 筛选器
 
 说明：本文所说的筛选器，只针对ASP.NET Core MVC应用，而不是Razor Pages应用。
 
