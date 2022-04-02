@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMapper.Sample", "AutoMapper.Sample\AutoMapper.Sample.csproj", "{AC7FB5A3-A196-4D23-9F74-39EF7C2AFB01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection.Sample", "Reflection.Sample\Reflection.Sample.csproj", "{AB8EB22C-7AD1-45D4-9643-E48A867D294F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC7FB5A3-A196-4D23-9F74-39EF7C2AFB01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC7FB5A3-A196-4D23-9F74-39EF7C2AFB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC7FB5A3-A196-4D23-9F74-39EF7C2AFB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC7FB5A3-A196-4D23-9F74-39EF7C2AFB01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB8EB22C-7AD1-45D4-9643-E48A867D294F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB8EB22C-7AD1-45D4-9643-E48A867D294F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB8EB22C-7AD1-45D4-9643-E48A867D294F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB8EB22C-7AD1-45D4-9643-E48A867D294F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F1D8C84-7EA6-4329-902E-DA62D826856B}
+	EndGlobalSection
+EndGlobal
