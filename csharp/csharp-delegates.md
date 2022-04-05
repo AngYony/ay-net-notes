@@ -446,6 +446,26 @@ Func<string, string, string> joinString = (str1, str2) =>
 Console.WriteLine(joinString("abc", "def"));
 ```
 
+补充：
+
+```csharp
+public void Run()
+{
+    // 方法内定义一个简单的匿名方法
+    string Hi() => "这是什么";
+    // 调用方法
+    Console.WriteLine(Hi());
+
+    //方法内定义一个复杂的匿名方法
+    Func<string, string> fun = (string p) =>
+    {
+        return "传入的参数是：" + p;
+    };
+
+    Console.WriteLine(fun("参数A"));
+}
+```
+
 **闭包**
 
 在lambda表达式的内部使用表达式外部的变量，称为闭包。使用闭包需要注意的一点就是 ，如果在表达式中修改了闭包的值，可以在表达式的外部访问已修改的值 。
@@ -482,7 +502,7 @@ Console.WriteLine(joinString("abc", "def"));
 
 本文后续会随着知识的积累不断补充和更新，内容如有错误，欢迎指正。
 
-本文最后一次更新时间：2018-07-10
+本文最后一次更新时间：2022-03-27
 
 ------
 

@@ -1,5 +1,48 @@
 # ASP.NET Core 筛选器
 
+
+
+筛选器应用方式或注册方式：
+
+- 以特性的形式作用在具体方法上
+
+  ```csharp
+  [CusActionFilterOnMethod]
+  public void DoHomework(){ }
+  ```
+
+- 以特性的形式作用在类上
+
+  ```c#
+  [CusActionFilterOnClass]
+  public class DoHomeworkController : ControllerBase{ }
+  ```
+
+- 以接口的形式进行全局注册
+
+  ```csharp
+  builder.Services.AddControllers(opt=> { opt.Filters.Add(typeof(CusActionFilterOnGlobalAttribute)); });
+  ```
+
+  
+
+自定义过滤器的两种方式：
+
+- 继承内置的过滤器特性
+- 实现过滤器接口类
+
+
+
+
+
+过滤器之间的通信，可以使用：HttpContext.Item
+
+
+
+-----------------------------------------
+
+
+
 说明：本文所说的筛选器，只针对ASP.NET Core MVC应用，而不是Razor Pages应用。
 
 在ASP.NET Core MVC中，通过使用筛选器，可在请求处理的管道中的特定阶段之前或之后运行代码，筛选器可以避免跨操作的重复代码。
