@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Filters.Sample.Controllers
 {
     [CusActionFilterOnClass]
-    [CusResourceFilter] //资源过滤器
+    //[CusResourceFilter] //资源过滤器
     [CusExceptionFilter] //异常筛选器
     [Route("api/[controller]")]
     [ApiController]
+    [TypeFilter(typeof(CusResourceFilterAttribute))] //资源过滤器并注入
 
     public class DoHomeworkController : ControllerBase
     {
