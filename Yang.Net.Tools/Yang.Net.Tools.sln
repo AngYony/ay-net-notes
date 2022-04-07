@@ -33,9 +33,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "手写IOC容器实例", "�
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "过滤器", "过滤器", "{A6EF7187-5E4B-4173-A472-9E0F2CEF3B37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filters.Sample", "Samples\Filters.Sample\Filters.Sample.csproj", "{6164F412-C4CF-4977-B6E8-E80767ABF97B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Filters.Sample", "Samples\Filters.Sample\Filters.Sample.csproj", "{6164F412-C4CF-4977-B6E8-E80767ABF97B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalApi.Sample", "Samples\MinimalApi.Sample\MinimalApi.Sample.csproj", "{81FDACCF-FC6C-4ADC-AC99-6BCDD500A7D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinimalApi.Sample", "Samples\MinimalApi.Sample\MinimalApi.Sample.csproj", "{81FDACCF-FC6C-4ADC-AC99-6BCDD500A7D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "中间件", "中间件", "{5E15F582-123C-4AD0-9352-6177129CD593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Middleware.Sample", "Samples\Middleware.Sample\Middleware.Sample.csproj", "{969E6BDD-A79A-4C7A-8622-D08D2CB3B37C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +71,10 @@ Global
 		{81FDACCF-FC6C-4ADC-AC99-6BCDD500A7D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81FDACCF-FC6C-4ADC-AC99-6BCDD500A7D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81FDACCF-FC6C-4ADC-AC99-6BCDD500A7D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{969E6BDD-A79A-4C7A-8622-D08D2CB3B37C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{969E6BDD-A79A-4C7A-8622-D08D2CB3B37C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{969E6BDD-A79A-4C7A-8622-D08D2CB3B37C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{969E6BDD-A79A-4C7A-8622-D08D2CB3B37C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +91,8 @@ Global
 		{A6EF7187-5E4B-4173-A472-9E0F2CEF3B37} = {2B7F2FD7-6C49-4155-A883-144C01BB6A96}
 		{6164F412-C4CF-4977-B6E8-E80767ABF97B} = {A6EF7187-5E4B-4173-A472-9E0F2CEF3B37}
 		{81FDACCF-FC6C-4ADC-AC99-6BCDD500A7D3} = {89755235-E2C8-4495-9291-DA5E47F5606E}
+		{5E15F582-123C-4AD0-9352-6177129CD593} = {2B7F2FD7-6C49-4155-A883-144C01BB6A96}
+		{969E6BDD-A79A-4C7A-8622-D08D2CB3B37C} = {5E15F582-123C-4AD0-9352-6177129CD593}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE2F8488-B230-4EA6-AF67-DB0B0585836E}
