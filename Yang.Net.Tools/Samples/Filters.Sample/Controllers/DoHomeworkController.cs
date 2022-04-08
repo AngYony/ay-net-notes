@@ -9,13 +9,15 @@ namespace Filters.Sample.Controllers
     [CusExceptionFilter] //异常筛选器
     [Route("api/[controller]")]
     [ApiController]
-    [TypeFilter(typeof(CusResourceFilterAttribute))] //资源过滤器并注入
+    [MyServiceFilter(typeof(CusResourceFilterAttribute))] //资源过滤器并注入，使用ServiceFilter，必须要在program中进行注册
 
     public class DoHomeworkController : ControllerBase
     {
         [HttpGet]
         //[CusActionFilterOnMethod]
         [TypeFilter(typeof(CusActionFilterOnMethodAttribute))] //依赖注入
+        //如果使用ServiceFilter，CusActionFilterOnMethodAttribute必须在program中进行注册
+        //[ServiceFilter(typeof(CusActionFilterOnMethodAttribute))]
         [CusAuthorizationFilter]
         public void DoHomework()
         {
