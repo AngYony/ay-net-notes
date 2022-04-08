@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMapper.Sample", "AutoMapper.Sample\AutoMapper.Sample.csproj", "{AC7FB5A3-A196-4D23-9F74-39EF7C2AFB01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection.Sample", "Reflection.Sample\Reflection.Sample.csproj", "{AB8EB22C-7AD1-45D4-9643-E48A867D294F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reflection.Sample", "Reflection.Sample\Reflection.Sample.csproj", "{AB8EB22C-7AD1-45D4-9643-E48A867D294F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandling.Sample", "ExceptionHandling.Sample\ExceptionHandling.Sample.csproj", "{D2BD6E6D-A99C-49D3-82DD-6D550882828D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{AB8EB22C-7AD1-45D4-9643-E48A867D294F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB8EB22C-7AD1-45D4-9643-E48A867D294F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB8EB22C-7AD1-45D4-9643-E48A867D294F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2BD6E6D-A99C-49D3-82DD-6D550882828D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BD6E6D-A99C-49D3-82DD-6D550882828D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BD6E6D-A99C-49D3-82DD-6D550882828D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BD6E6D-A99C-49D3-82DD-6D550882828D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
