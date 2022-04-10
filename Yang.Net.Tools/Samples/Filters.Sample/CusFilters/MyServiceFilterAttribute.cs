@@ -31,10 +31,20 @@ namespace Filters.Sample.CusFilters
             }
             //GetService可以返回null，而GetRequiredService不存在就会报错
             //return serviceProvider.GetService<IFilterMetadata>();
-            ActivatorUtilities.CreateFactory(this.type, Type.EmptyTypes);
-
             return (IFilterMetadata) serviceProvider.GetRequiredService(this.type);
              
         }
+
+
+        ////TypeFilter的实现
+        //public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
+        //{
+        //    if (serviceProvider == null)
+        //    {
+        //        throw new Exception("serviceProvider没有值");
+        //    }
+        //    var objectFactory = ActivatorUtilities.CreateFactory(this.type, Type.EmptyTypes);
+        //    return (IFilterMetadata)objectFactory(serviceProvider, null);
+        //}
     }
 }
