@@ -1,4 +1,6 @@
+using Auth.Sample.CusAuthentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OAuth;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,14 +14,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //注册鉴权架构
-#region cookie 默认方式
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-.AddCookie(opt=> {
-    //设置未登录的跳转页面
-    opt.LoginPath = "/api/Login/NoLogin";
+//#region 方式一：使用cookie（默认方式）
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//.AddCookie(opt=> {
+//    //设置未登录的跳转页面
+//    opt.LoginPath = "/api/Login/NoLogin";
+//});
+//#endregion
+
+#region 方式二：自定义Token验证
+builder.Services.AddAuthentication(opt =>
+{
+    //把自定义的鉴权方案添加到鉴权架构中
+    opt.AddScheme<TokenAuthenticationHandler>("token", "cusToken");
+    //设置默认鉴权方案为Token鉴权
+    opt.DefaultAuthenticateScheme = "token";
+    opt.DefaultChallengeScheme = "token";
+    opt.DefaultForbidScheme = "token";
 });
-
-
 #endregion
 
 var app = builder.Build();
