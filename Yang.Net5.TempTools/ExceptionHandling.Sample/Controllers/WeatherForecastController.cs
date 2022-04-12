@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace ExceptionHandling.Sample.Controllers
 {
+
+    [MyFilter]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -35,6 +37,13 @@ namespace ExceptionHandling.Sample.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost]
+        public IActionResult Save(Student student)
+        {
+            throw new ArgumentException("模拟错误异常");
+            return Ok();
         }
     }
 }

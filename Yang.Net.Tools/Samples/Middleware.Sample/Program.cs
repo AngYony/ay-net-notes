@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+ï»¿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Middleware.Sample.Middlewares;
 using System.Net.Mime;
@@ -14,8 +14,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-//ÖĞ¼ä¼şÒıÈë£¬·½Ê½Ò»
-//Òì³£´¦ÀíÖĞ¼ä¼ş±ØĞëÔÚËùÓĞÖĞ¼ä¼şÖ®Ç°½øĞĞUse
+//ä¸­é—´ä»¶å¼•å…¥ï¼Œæ–¹å¼ä¸€
+//å¼‚å¸¸å¤„ç†ä¸­é—´ä»¶å¿…é¡»åœ¨æ‰€æœ‰ä¸­é—´ä»¶ä¹‹å‰è¿›è¡ŒUse
 app.UseExceptionHandler(configure =>
 {
     configure.Run(async context =>
@@ -33,7 +33,7 @@ app.UseExceptionHandler(configure =>
 });
 
 
-//Òì³£´¦ÀíÖĞ¼ä¼şÒıÈë£¬·½Ê½¶ş£¬Í¨¹ıExceptionHandlerOptionsµÄExceptionHandler
+//å¼‚å¸¸å¤„ç†ä¸­é—´ä»¶å¼•å…¥ï¼Œæ–¹å¼äºŒï¼Œé€šè¿‡ExceptionHandlerOptionsçš„ExceptionHandler
 app.UseExceptionHandler(new ExceptionHandlerOptions
 {
     ExceptionHandler = async (context) =>
@@ -50,15 +50,15 @@ app.UseExceptionHandler(new ExceptionHandlerOptions
 });
 
 
-//Òì³£´¦ÀíÖĞ¼ä¼şÒıÈë£¬·½Ê½Èı,Í¨¹ıExceptionHandlerOptionsµÄExceptionHandlingPath
+//å¼‚å¸¸å¤„ç†ä¸­é—´ä»¶å¼•å…¥ï¼Œæ–¹å¼ä¸‰,é€šè¿‡ExceptionHandlerOptionsçš„ExceptionHandlingPath
 app.UseExceptionHandler(new ExceptionHandlerOptions
 {
-    //Ö¸¶¨Òì³£´¦ÀíÒ³
+    //æŒ‡å®šå¼‚å¸¸å¤„ç†é¡µ
     ExceptionHandlingPath = new PathString("/exception")
 });
-app.MapGet("/exception", () => "Òì³£´íÎó");
+app.MapGet("/exception", () => "å¼‚å¸¸é”™è¯¯");
 
-//ÆäËûÖĞ¼ä¼ş£¬×Ô¶¨ÒåÖĞ¼ä¼ş£¬Í¨¹ıUseMiddlewareÒıÈëÖĞ¼ä¼ş
+//å…¶ä»–ä¸­é—´ä»¶ï¼Œè‡ªå®šä¹‰ä¸­é—´ä»¶ï¼Œé€šè¿‡UseMiddlewareå¼•å…¥ä¸­é—´ä»¶
 app.UseMiddleware<CusExceptionHandlerMiddleware>();
 
 
@@ -72,7 +72,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 
-////Í¨¹ı×Ô¶¨ÒåÀ©Õ¹·½·¨£¬¶Ôapp.Use½øĞĞ·â×°
+////é€šè¿‡è‡ªå®šä¹‰æ‰©å±•æ–¹æ³•ï¼Œå¯¹app.Useè¿›è¡Œå°è£…
 app.UseTest();
 
 
@@ -88,10 +88,10 @@ app.Map("/run2", Run2);
 ////
 //app.Run(async context =>
 //{
-//    await context.Response.WriteAsync("ËïÎò¿Õ");
+//    await context.Response.WriteAsync("å­™æ‚Ÿç©º");
 //});
 
-app.Run();//todo£ºÅªÃ÷°×Run()·½·¨µÄ×÷ÓÃ
+app.Run();//todoï¼šå¼„æ˜ç™½Run()æ–¹æ³•çš„ä½œç”¨
 
 
 
@@ -99,7 +99,7 @@ static void Run1(IApplicationBuilder app)
 {
     app.Run(async context =>
     {
-        await context.Response.WriteAsync("Hi ÌÆÉ®");
+        await context.Response.WriteAsync("Hi å”åƒ§");
     });
 }
 
@@ -107,6 +107,6 @@ static void Run2(IApplicationBuilder app)
 {
     app.Run(async context =>
     {
-        await context.Response.WriteAsync("Hi Öí°Ë½ä");
+        await context.Response.WriteAsync("Hi çŒªå…«æˆ’");
     });
 }

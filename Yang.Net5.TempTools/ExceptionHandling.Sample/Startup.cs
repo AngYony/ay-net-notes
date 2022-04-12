@@ -27,11 +27,25 @@ namespace ExceptionHandling.Sample
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()))
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new GlobalExceptionFilter());
+                options.Filters.Add(new HttpResponseExceptionFilter());
+            })
             .ConfigureApiBehaviorOptions(options =>
             {
+                //模型验证处理异常
                 options.InvalidModelStateResponseFactory = context =>
                 {
+                    //options.SuppressConsumesConstraintForFormFileParameters = true;
+                    //options.SuppressInferBindingSourcesForParameters = true;
+                    options.SuppressModelStateInvalidFilter = true;
+                    //options.SuppressMapClientErrors = true;
+                    //options.ClientErrorMapping[StatusCodes.Status404NotFound].Link =
+                    //    "https://httpstatuses.com/404";
+                    //options.DisableImplicitFromServicesParameters = true;
+
+
                     var result = new BadRequestObjectResult(context.ModelState);
 
                     // TODO: add `using System.Net.Mime;` to resolve MediaTypeNames
@@ -40,7 +54,9 @@ namespace ExceptionHandling.Sample
 
                     return result;
                 };
-            });
+            })
+
+            ;
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExceptionHandling.Sample", Version = "v1" });
@@ -50,6 +66,7 @@ namespace ExceptionHandling.Sample
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseExceptionHandler("/error-local-development");
@@ -63,6 +80,7 @@ namespace ExceptionHandling.Sample
             {
                 app.UseExceptionHandler("/error");
             }
+            app.UseMiddleware<CusExceptionHandlerMiddleware>();
 
             app.UseRouting();
 
