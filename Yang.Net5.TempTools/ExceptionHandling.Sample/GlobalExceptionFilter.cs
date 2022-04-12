@@ -11,7 +11,7 @@ namespace ExceptionHandling.Sample
     {
         public Task OnExceptionAsync(ExceptionContext context)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(0);//throw new NotImplementedException();
         }
     }
 }
