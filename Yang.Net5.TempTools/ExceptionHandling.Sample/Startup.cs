@@ -27,7 +27,11 @@ namespace ExceptionHandling.Sample
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()))
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new GlobalExceptionFilter());
+                options.Filters.Add(new HttpResponseExceptionFilter());
+            })
             .ConfigureApiBehaviorOptions(options =>
             {
                 //模型验证处理异常
@@ -51,7 +55,7 @@ namespace ExceptionHandling.Sample
                     return result;
                 };
             })
-            
+
             ;
             services.AddSwaggerGen(c =>
             {
@@ -75,6 +79,7 @@ namespace ExceptionHandling.Sample
             {
                 app.UseExceptionHandler("/error");
             }
+            app.UseMiddleware<CusExceptionHandlerMiddleware>();
 
             app.UseRouting();
 

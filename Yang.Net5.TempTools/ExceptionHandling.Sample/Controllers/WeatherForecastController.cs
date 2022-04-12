@@ -42,7 +42,7 @@ namespace ExceptionHandling.Sample.Controllers
         [HttpPost]
         public IActionResult Save(Student student)
         {
-
+            throw new ArgumentException("模拟错误异常");
             return Ok();
         }
     }
