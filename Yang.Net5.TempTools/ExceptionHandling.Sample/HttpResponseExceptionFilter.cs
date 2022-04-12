@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace ExceptionHandling.Sample
 {
+
+    //  创建处理异常相关的操作筛选器
     public class HttpResponseExceptionFilter : IActionFilter, IOrderedFilter
     {
-        public int Order => int.MaxValue - 10; //设置优先级
+        public int Order => int.MaxValue - 10; //设置优先级，保证其再所有筛选器之后处理OnActionExecuted方法
 
         public void OnActionExecuted(ActionExecutedContext context)
         {

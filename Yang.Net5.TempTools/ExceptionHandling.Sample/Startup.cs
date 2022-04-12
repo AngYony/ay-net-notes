@@ -30,8 +30,18 @@ namespace ExceptionHandling.Sample
             services.AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()))
             .ConfigureApiBehaviorOptions(options =>
             {
+                //模型验证处理异常
                 options.InvalidModelStateResponseFactory = context =>
                 {
+                    //options.SuppressConsumesConstraintForFormFileParameters = true;
+                    //options.SuppressInferBindingSourcesForParameters = true;
+                    options.SuppressModelStateInvalidFilter = true;
+                    //options.SuppressMapClientErrors = true;
+                    //options.ClientErrorMapping[StatusCodes.Status404NotFound].Link =
+                    //    "https://httpstatuses.com/404";
+                    //options.DisableImplicitFromServicesParameters = true;
+
+
                     var result = new BadRequestObjectResult(context.ModelState);
 
                     // TODO: add `using System.Net.Mime;` to resolve MediaTypeNames
@@ -40,7 +50,9 @@ namespace ExceptionHandling.Sample
 
                     return result;
                 };
-            });
+            })
+            
+            ;
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExceptionHandling.Sample", Version = "v1" });
