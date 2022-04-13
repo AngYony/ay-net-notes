@@ -11,7 +11,16 @@ namespace ExceptionHandling.Sample
     {
         public Task OnExceptionAsync(ExceptionContext context)
         {
-            return Task.FromResult(0);//throw new NotImplementedException();
+            var ex= context.Exception;
+            ex.GetBaseException();
+            switch (ex)
+            {
+                case MyException mye:
+                    break;
+                default:
+                    break;
+            }
+            return Task.CompletedTask;//throw new NotImplementedException();
         }
     }
 }

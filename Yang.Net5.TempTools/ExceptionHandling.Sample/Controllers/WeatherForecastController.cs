@@ -40,9 +40,21 @@ namespace ExceptionHandling.Sample.Controllers
         }
 
         [HttpPost]
+        [ValidateModel]
         public IActionResult Save(Student student)
         {
-            throw new ArgumentException("模拟错误异常");
+            try
+            {
+                string str = "abc";
+                var s= str[-1];
+            }
+            catch (Exception ex)
+            {
+            
+                throw new MyException("模拟错误异常",ex);
+            }
+
+            
             return Ok();
         }
     }
