@@ -26,20 +26,26 @@ namespace ExceptionHandling.Sample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+             
+            
 
+            
             services.AddControllers(options =>
             {
                 options.Filters.Add(new GlobalExceptionFilter());
                 options.Filters.Add(new HttpResponseExceptionFilter());
             })
+            //必须在AddController之后配置
             .ConfigureApiBehaviorOptions(options =>
             {
+                //设置当出现模型验证失败时依然执行过滤器操作，而抑制InvalidModelStateResponseFactory的执行
+                options.SuppressModelStateInvalidFilter = true; 
                 //模型验证处理异常
                 options.InvalidModelStateResponseFactory = context =>
                 {
                     //options.SuppressConsumesConstraintForFormFileParameters = true;
                     //options.SuppressInferBindingSourcesForParameters = true;
-                    options.SuppressModelStateInvalidFilter = true;
+                    
                     //options.SuppressMapClientErrors = true;
                     //options.ClientErrorMapping[StatusCodes.Status404NotFound].Link =
                     //    "https://httpstatuses.com/404";
