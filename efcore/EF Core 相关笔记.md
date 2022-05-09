@@ -110,6 +110,8 @@ dotnet ef database update AddNe
 
 ### Visual Studio中的包管理器控制台
 
+需要依赖包：Microsoft.EntityFrameworkCore.Tools，该包主要用于通过Visual Studio的包管理控制台来操作EF。
+
 见官方文档说明：https://docs.microsoft.com/zh-cn/ef/core/cli/powershell
 
 
