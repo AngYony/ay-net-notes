@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="..\GrpcServiceDemo\Protos\greet.proto" GrpcServices="Client">
+            <Link>Protos\greet.proto</Link>
+        </Protobuf>
+        <Protobuf Include="..\GrpcServiceDemo\Protos\weihudai.proto" GrpcServices="Client">
+            <Link>Protos\weihudai.proto</Link>
+        </Protobuf>
+
+        <Protobuf Include="..\GrpcServiceDemo\Protos\Messages.proto" GrpcServices="Client">
+            <Link>Protos\Messages.proto</Link>
+        </Protobuf>
+
+        <Protobuf Include="..\GrpcServiceDemo\Protos\Enums.proto" GrpcServices="None">
+            <Link>Protos\Enums.proto</Link>
+        </Protobuf>
+
+    </ItemGroup>
+</Project>

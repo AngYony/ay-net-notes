@@ -1,0 +1,10 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcServer.Web.Protos";
+
+enum EmployeeStatus{
+    NORMAL = 0;
+    ON_VACATION = 1;
+}
+
+// 注意：对于不需要生成client和server端的代码的proto文件，需要在属性中指定为“Do not generate”，只用生成消息类型就可以了。

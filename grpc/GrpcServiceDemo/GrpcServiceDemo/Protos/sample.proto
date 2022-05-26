@@ -1,0 +1,86 @@
+﻿syntax = "proto3";
+
+import "date.proto"; //引入其他proto文件
+
+package rhtect.project; // 为当前proto指定包，防止不同目录的message冲突
+
+option csharp_namespace = "MyNamespace"; //指定C#生成的命名空间规则，将会覆盖package的设置
+
+service Sample {
+  rpc GetTheData(MethodParam) returns (SampleDto);
+  rpc GetList(SearchParam) returns (SampleList); //即使没有参数，仍然需要指定一个空的请求类型message
+
+}
+
+
+// 1~15的Tag只占用一个字节的空间，所以应用在频繁使用的字段上
+
+message SampleDto{
+  string id = 1;
+  string name = 2; //长度不能超过232
+  int32 age = 3;
+  bool is_delete = 4;
+  //double weight = 5; 如果不需要该项，需要使用reserved进行指定
+  //float OBSOLETE_height = 6;
+  bytes image = 7; //长度不可以超过232
+  repeated string phone_numbers = 8;
+
+  reserved 5,6, 20 to 100, 200 to max; //将删除掉的字段的数值标记为reserved，这样其他人再使用这个数值作为字段标识符，那么编译器就会错误提示
+  reserved "weight","height";
+  Gender gender = 9;
+  Date birthday = 10;
+  repeated Address Addresses = 11;
+
+
+  //枚举可以定义在message里，也可以在外边单独定义以便复用。下述枚举在其他消息中可以使用Sample.Gender这种形式。
+  //枚举类型，成员必须从0开始
+  //枚举里面常量的值不能超过32位整型的数值，不建议使用负数。
+
+  enum Gender{
+      option allow_alias = true; // 允许枚举值指定别名，为枚举值起别名，允许两个枚举值拥有同一个数值
+      NOT_SPECIFIED = 0;
+      FEMALE = 1;
+      MALE = 2;
+      WOMAN = 1; //为FEMALE这个枚举值指定了一个别名叫WOMAN
+      MAN = 2; ////为MALE这个枚举值指定了一个别名叫MAN
+
+      reserved 3,4; // 枚举中也可以使用reserved
+
+  }
+
+
+  //可以在message里面嵌套message 
+  message Address{
+    string province = 1;
+    string city = 2;
+    string zip_code =3;
+}
+}
+
+
+
+
+//方法参数
+message MethodParam {
+   string id = 1; // 围护带Id
+}
+
+
+
+
+
+message SearchParam{
+    string kjdm = 1; 
+}
+
+ 
+
+message SampleList{
+    repeated SampleDto sample_dto = 1;
+} 
+
+
+/*
+默认值陷阱：无法区分这个默认值是否来自一个丢失的字段还是字段的实际值正好等于默认值。enum的默认值为0，即枚举定义的第一个项。
+
+*/

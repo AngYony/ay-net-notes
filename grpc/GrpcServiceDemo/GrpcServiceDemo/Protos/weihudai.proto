@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServiceDemo";
+
+package wy;
+
+// The greeting service definition.
+service WeiHuDai {
+  // Sends a greeting
+  rpc GetWeiHuDai (WeiHuDaiFrom) returns (WeiHuDaiDto);
+
+  rpc GetWeiHuDaiList(WeiHuDaiListFrom) returns (WeiHuDaiDtoList);
+}
+
+// The request message containing the user's name.
+message WeiHuDaiFrom {
+   string id = 1; // Î§»¤´øId
+}
+
+// The response message containing the greetings.
+message WeiHuDaiDto {
+  string id = 1;
+  string name = 2;
+  int32  chang_du = 3;
+  bool is_delete = 4;
+}
+
+
+message WeiHuDaiListFrom {
+   string kjdm = 1; 
+}
+
+message WeiHuDaiDtoList{
+    repeated WeiHuDaiDto whd_dto = 1;
+}

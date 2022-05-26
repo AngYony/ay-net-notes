@@ -1,0 +1,54 @@
+﻿syntax = "proto3"; 
+
+option csharp_namespace = "GrpcServer.Web.Protos";
+
+// 为了防止客户端生成找不到proto文件，需要在项目文件csproj中，显式设置ProtoRoot，这样就不需要在import中指定Protos目录了。
+import "Enums.proto";
+import "google/protobuf/timestamp.proto";
+
+
+message Employee{
+    int32 id = 1;
+    int32 no = 2;
+    string firstName = 3;
+    string lastName = 4;
+    float salary = 5;
+    EmployeeStatus status = 6;
+    google.protobuf.Timestamp lastModified = 7; //第三方提供的类型
+
+
+}
+message GetByNoRequest{
+    int32 no = 1;
+}
+message EmployeeResponse {
+    Employee employee = 1;
+}
+message GetAllRequest {
+
+}
+
+message AddPhotoRequest {
+    bytes data = 1;
+}
+
+message AddPhotoResponse{
+    bool isOk = 1 ;
+}
+
+message EmployeeRequest{
+    Employee employee = 1;
+}
+
+service EmployeeService {
+    rpc GetByNo(GetByNoRequest) returns (EmployeeResponse);
+    rpc Save(EmployeeRequest) returns (EmployeeResponse);
+
+    //service streaming 
+    rpc GetAll(GetAllRequest) returns (stream EmployeeResponse);
+    //client streaming 
+    rpc AddPhoto(stream AddPhotoRequest) returns (AddPhotoResponse);
+    //双向 streaming
+    rpc SaveAll(stream EmployeeRequest) returns (stream EmployeeResponse);
+    
+}
