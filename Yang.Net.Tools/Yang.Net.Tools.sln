@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.32319.34
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32510.428
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yang.API", "Yang.API\Yang.API.csproj", "{602E5E07-F6BC-48F7-9550-07C4ABD27CB2}"
 EndProject
@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Middleware.Sample", "Sample
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "认证授权", "认证授权", "{DD72EC59-FD77-4EF2-81FB-2DAE836EEE9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Sample", "Samples\Auth.Sample\Auth.Sample.csproj", "{59185D09-C941-45C8-9320-DA6278887D45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Sample", "Samples\Auth.Sample\Auth.Sample.csproj", "{59185D09-C941-45C8-9320-DA6278887D45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

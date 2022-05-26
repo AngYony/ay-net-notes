@@ -11,6 +11,11 @@ namespace Auth.Sample.CusAuthentication
     public class TokenAuthenticationHandler : IAuthenticationHandler
     {
 
+        /*
+         不需要自定义鉴权方案，此处只是为了讲述实现原理
+         */
+
+
         AuthenticationScheme _scheme;
         HttpContext _context;
         /// <summary>
@@ -40,7 +45,7 @@ namespace Auth.Sample.CusAuthentication
                 ClaimsIdentity claimsIdentity = new("Ctm");
                 claimsIdentity.AddClaims(new Claim[]{
                     new Claim(ClaimTypes.Name, "孙悟空"),
-                    new Claim(ClaimTypes.NameIdentifier, "1")
+                    new Claim(ClaimTypes.NameIdentifier, "6") //只对6做了鉴权，因此在验证授权时，也必须满足6
                 });
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 return Task.FromResult(AuthenticateResult.Success(new AuthenticationTicket(claimsPrincipal, null, _scheme.Name)));
