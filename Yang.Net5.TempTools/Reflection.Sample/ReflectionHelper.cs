@@ -190,7 +190,7 @@ namespace Reflection.Sample
 
             //获取所有实现了IWyMetadata<T>的接口
             var currentIBusinessType = typeof(IStudentBusiness).Assembly.GetExportedTypes()
-            .FirstOrDefault(t => t.IsInterface && t.GetTypeInfo().ImplementedInterfaces.Any(i => i.Equals(genericEntityType)));
+            .FirstOrDefault(t => t.IsInterface && t.IsAssignableTo(genericEntityType));// t.GetTypeInfo().ImplementedInterfaces.Any(i => i.Equals(genericEntityType)));
             object businessInstance = null;
             if (currentIBusinessType != null)
             {

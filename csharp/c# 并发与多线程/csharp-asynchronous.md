@@ -380,9 +380,26 @@ public static async void ShowAggregatedException()
 ## 个人总结
 
 - `await`关键字用来修饰的是返回`Task[<T>]`的方法，而不是一个返回普通类型的方法，并不是方法名带有`async`就一定要使用await关键字修饰，需要根据该方法返回的类型进行确定。
+
 - 在方法的内部使用了`await`关键字的方法，必须使用`async`关键字进行修饰。
+
+- 如果方法内部没有await关键字修饰的表达式，哪怕函数被async修饰也只能算作同步方法，执行的时候也是同步执行的。例如：
+
+  ```csharp
+  public async Task<int> GetAge()
+  {
+  	return 10;
+  }
+  等同于：
+  public async Task<int> GetAge()
+  {
+  	return await Task.FromResult(10);
+  }
+  ```
+
 - 使用了`async`关键字修饰的方法，在被主线程调用时，该主线程并不会受方法内部的`await`关键字的影响，不会被阻塞，依然会运行。而方法内部使用`await`修饰的代码，在未完成前，其他代码不会被执行。
-- 如果方法使用了async关键字修饰，无论该方法返回的是void还是Task或者Task<T>，该方法被调用时，如果主调线程没有使用await关键字，那么该方法都是以异步的方式被执行的。也就是异步调用跟方法的返回值无关，而与async关键字修饰有关。一般来说，如果返回的是Task，都会使用async修饰，如果不想在方法调用时，被VS提示建议使用await关键字，可以将方法的返回值由Task改为void。
+
+- 如果方法使用了async关键字修饰，无论该方法返回的是void还是Task或者Task<T>，该方法被调用时，如果主调线程没有使用await关键字，那么该方法都是以异步的方式被主线程执行的。也就是异步调用跟方法的返回值无关，而与async关键字修饰有关。一般来说，如果返回的是Task，都会使用async修饰，如果不想在方法调用时，被VS提示建议使用await关键字，可以将方法的返回值由Task改为void。
 
 
 

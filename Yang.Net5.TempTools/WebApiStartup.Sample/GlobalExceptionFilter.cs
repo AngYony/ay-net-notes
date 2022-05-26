@@ -1,17 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace ExceptionHandling.Sample
+namespace WebApiStartup.Sample
 {
-    public class GlobalExceptionFilter : IAsyncExceptionFilter
+    internal class GlobalExceptionFilter : IAsyncExceptionFilter
     {
         public Task OnExceptionAsync(ExceptionContext context)
         {
-            var ex= context.Exception;
+            var ex = context.Exception;
             ex.GetBaseException();
             switch (ex)
             {
@@ -21,6 +18,15 @@ namespace ExceptionHandling.Sample
                     break;
             }
             return Task.CompletedTask;//throw new NotImplementedException();
+        }
+    }
+
+    public class MyException : Exception
+    {
+
+        public MyException(string? message, Exception innerException) : base(message, innerException)
+        {
+
         }
     }
 }

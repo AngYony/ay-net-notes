@@ -5,10 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ExceptionHandling.Sample.Controllers
+namespace WebApiStartup.Sample.Controllers
 {
-
-    [MyFilter]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -28,7 +26,6 @@ namespace ExceptionHandling.Sample.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            throw new ArgumentException("参数传入错误了 ");
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -37,25 +34,6 @@ namespace ExceptionHandling.Sample.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
-        }
-
-        [HttpPost]
-        [ValidateModel]
-        public IActionResult Save(Student student)
-        {
-            try
-            {
-                string str = "abc";
-                var s= str[-1];
-            }
-            catch (Exception ex)
-            {
-            
-                throw new MyException("模拟错误异常",ex);
-            }
-
-            
-            return Ok();
         }
     }
 }
