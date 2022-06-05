@@ -12,6 +12,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ClientWebApp
@@ -31,12 +32,21 @@ namespace ClientWebApp
             // Ìí¼ÓRPCµ½IOCÖÐ
             services.AddGrpcClient<WeiHuDai.WeiHuDaiClient>(opt =>
             {
+                
                 opt.Address = new Uri("http://localhost:6001");
                 //opt.ChannelOptionsActions.Add(g =>
                 //{
                 //    g.Credentials = ChannelCredentials.Insecure;
                 //});
-            });
+            }).EnableCallContextPropagation(o => o.SuppressContextNotFoundErrors = true);
+
+            
+            //.ConfigurePrimaryHttpMessageHandler(() =>
+            //{
+            //    var handler = new HttpClientHandler();
+            //    handler.ClientCertificates.Add(LoadCertificate());
+            //    return handler;
+            //}).AddInterceptor<LoggingInterceptor>(InterceptorScope); ; ;
 
 
 

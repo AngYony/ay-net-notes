@@ -52,5 +52,5 @@
 ### proto文件管理方案
 
 - 使用单独的Git仓库管理proto文件
-- 使用 git submodule方式，将proto文件集成到工程目录中
+- 使用 git submodule方式，将proto文件集成到工程目录中，参考：[git submodule 使用_流浮生的博客-CSDN博客](https://blog.csdn.net/DanielJackZ/article/details/109108694)
 - 

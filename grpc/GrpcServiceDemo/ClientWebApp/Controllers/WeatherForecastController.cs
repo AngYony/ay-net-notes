@@ -41,6 +41,8 @@ namespace ClientWebApp.Controllers
         [HttpGet]
         public IEnumerable<WeiHuDaiDto> Get()
         {
+          
+
             return this.weiHuDaiClient.GetWeiHuDaiList(new WeiHuDaiListFrom { }).WhdDto;
         }
 
@@ -53,7 +55,7 @@ namespace ClientWebApp.Controllers
                 {"username","jack" },
                 {"role","admin" }
             };
-            using var channel = GrpcChannel.ForAddress("https://localhost:6001");
+            using var channel = GrpcChannel.ForAddress("http://localhost:6001");
             var client = new EmployeeService.EmployeeServiceClient(channel);
 
             return client.GetByNo(new GetByNoRequest
@@ -67,7 +69,7 @@ namespace ClientWebApp.Controllers
         {
             //传入元数据
 
-            using var channel = GrpcChannel.ForAddress("https://localhost:6001");
+            using var channel = GrpcChannel.ForAddress("http://localhost:6001");
             var client = new EmployeeService.EmployeeServiceClient(channel);
 
             List<Employee> employees = new List<Employee>();
@@ -91,7 +93,7 @@ namespace ClientWebApp.Controllers
                 {"username","jack" },
                 {"role","admin" }
             };
-            using var channel = GrpcChannel.ForAddress("https://localhost:6001");
+            using var channel = GrpcChannel.ForAddress("http://localhost:6001");
             var client = new EmployeeService.EmployeeServiceClient(channel);
 
             var s = Path.Combine(hostEnvironment.ContentRootPath, "doc", "abc.png");
@@ -150,7 +152,7 @@ namespace ClientWebApp.Controllers
                 {"username","jack" },
                 {"role","admin" }
             };
-            using var channel = GrpcChannel.ForAddress("https://localhost:6001");
+            using var channel = GrpcChannel.ForAddress("http://localhost:6001");
             var client = new EmployeeService.EmployeeServiceClient(channel);
 
             using var call = client.SaveAll();
