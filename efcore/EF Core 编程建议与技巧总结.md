@@ -1,6 +1,49 @@
-# EF Core 技巧总结
+# EF Core 编程建议与技巧总结
 
 
+
+### CancellationToken
+
+建议在 Controller 中，每个异步方法都采用带有 CancellationToken 参数的方法，这样在前台中断请求时，后端可以接收到前台中断的消息，从而取消后端的程序执行，以此来提高性能。
+
+
+
+### 单独设置 EF Core 的日志级别
+
+单独设置 EF Core 的日志级别：
+
+"Microsoft.EntityFrameworkCore.Database.Command":"Debug"，一旦设置之后，可以在控制台中查看EF Core 执行的生成脚本。
+
+
+
+### AddDbContext 和 AddDbContextPool
+
+AddDbContext 和 AddDbContextPool：
+
+参考EF Core官方文档说明，https://docs.microsoft.com/zh-cn/ef/core/miscellaneous/context-pooling#limitations。并不是AddDbContextPool一定会起到很明显的优化作用。
+
+
+
+### 遍历结果集时提前执行ToList()
+
+foreach时，要先将要遍历的结果集提前执行ToList()，使其马上加载，然后再进行遍历。否则，它将在foreach内循环执行多次的数据库取值。
+
+错误的写法：
+
+```
+foreach(var p in wy.source){}
+```
+
+正确的写法：
+
+```
+var list=wy.source.ToList();
+foreach(var p in list){}
+```
+
+
+
+### 使用FirstOrDefaultAsync替代SingleOrDefaultAsync
 
 获取单个实体时，无论是否通过主键获取，都推荐使用FirstOrDefaultAsync方法，而不是`SingleOrDefaultAsync`方法。
 
@@ -13,19 +56,19 @@
 
 
 
+### 使用AsNoTracking方法提升性能
 
-
-使用AsNoTracking方法提升性能
+使用AsNoTracking方法提升性能：
 
 https://docs.microsoft.com/zh-cn/aspnet/core/data/ef-rp/crud?view=aspnetcore-2.2#add-related-data
 
 
 
+### TryUpdateModelAsync
+
 使用TryUpdateModelAsync尝试更新实体，可以避免过多发布。
 
 https://docs.microsoft.com/zh-cn/aspnet/core/data/ef-rp/crud?view=aspnetcore-2.2#tryupdatemodelasync
-
-
 
 实体状态：https://docs.microsoft.com/zh-cn/aspnet/core/data/ef-rp/crud?view=aspnetcore-2.2#entity-states
 
@@ -62,8 +105,6 @@ Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())
 
 
 当为一个实体定义集合的时候，尽量使用ICollection，而不是List。如果指定了 ICollection<T>，EF Core 会默认创建 HashSet<T> 集合。
-
-
 
 
 
