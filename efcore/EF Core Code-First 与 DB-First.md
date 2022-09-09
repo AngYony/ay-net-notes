@@ -123,6 +123,52 @@ dotnet ef database update AddNe
 
 
 
+### 如何同时进行多个CodeFirst操作
+
+在添加了必要的Nuget包之后。
+
+第一步：手动创建dbContext
+
+```c#
+public class MyCodeFirstDbContext : DbContext
+{
+	public MyCodeFirstDbContext()
+	{
+	
+	}
+	public MyCodeFirstDbContext(DbContextOptions<MyCodeFirstDbContext> options) : base(options)
+	{
+	
+	}
+	
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	{
+		//需要操作的数据库的连接字符串
+		optionsBuilder.UseNpgsql("server=192.168.1.1;port=5432");
+		base.OnConfiguring(optionsBuilder);
+	}
+	
+	protected override void OnModelCreating(ModelBuilder builder)
+	{
+		var assemblies = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory,"*Entity.dll")
+			.Select(a=>Assembly.LoadFrom(a))
+			.Where(a=>!a.IsDynamic);
+		var types = assemblies.SelectMany(a=>a.GetTypes()).Where(a=>a.GetCustomAttribue(typeof(TableAttribute),false)!=null).ToList();
+		types.ForEach(type=>{
+			builder.Model.AddEntityType(type);
+		});
+		
+		base.OnModelCreating(builder);
+	}
+}
+```
+
+第二步：执行`Add-Migration Init -Context MyCodeFirstDbContext`命令即可。注意：必须指定需要应用到的DbContext名称。
+
+
+
+
+
 
 
 ## Database-First 开发模式
