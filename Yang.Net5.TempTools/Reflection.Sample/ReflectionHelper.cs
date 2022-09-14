@@ -23,6 +23,16 @@ namespace Reflection.Sample
             await (Task)currentMethod.Invoke(businessInstance, methodArgValue);
         }
 
+        public async Task<object> InvokeMethodReturnObjectAsync(string methodName, params object[] methodArgValue)
+        {
+            object businessInstance = await GetBusinessInstance(null);
+            if (businessInstance == null) return default;
+            Type[] methodArgType = methodArgValue.Select(p => p.GetType()).ToArray();
+            var currentMethod = businessInstance.GetType().GetMethod(methodName, methodArgType);
+            dynamic task = currentMethod.Invoke(businessInstance, methodArgValue);
+            return await task;
+        }
+
         public async Task<T> InvokeMethodAsync<T>(string methodName, params object[] methodArgValue)
         {
             object businessInstance = await GetBusinessInstance(null);
