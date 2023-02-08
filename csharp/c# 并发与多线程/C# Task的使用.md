@@ -4,7 +4,7 @@ Task 的使用有以下三种方式：
 
 - new Task() 
 - Task.Factory.StartNew()
-- 
+- Task.Run()
 
 
 
