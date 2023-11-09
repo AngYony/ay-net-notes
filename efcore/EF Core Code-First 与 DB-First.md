@@ -179,4 +179,6 @@ EF 提供了一种根据数据库连接字符串来生成实体的命令工具�
 dotnet ef dbcontext scaffold "server=192.168.0.2;port=7306;user=root;password=root123456@;database=lighter" Pomelo.EntityFrameworkCore.MySql -o Models
 ```
 
+上述脚本将会在项目下的“Models”目录中生成上下文文件。
+
 虽然可以生成实体，但是实体类需要进行修改才可以使用，因此不太建议使用Database-First模式。

@@ -1,5 +1,7 @@
 # EF Core默认约定
 
+### 默认主键
+
 默认情况下，EF Core 将名为 ID 或 classnameID 的属性视为主键。 在 classnameID 中，classname 为类名称。 
 
 
