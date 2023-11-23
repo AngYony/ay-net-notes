@@ -1,0 +1,26 @@
+﻿<Window x:Class="S2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:S2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Name="grid1">
+        <Grid.Background>
+            <LinearGradientBrush>
+                <LinearGradientBrush.GradientStops>
+                    <GradientStopCollection>
+                        <GradientStop Offset="0.00" Color="Red"/>
+                        <GradientStop Offset="0.50" Color="Indigo"/>
+                        <GradientStop Offset="1.00" Color="Violet"/>
+                    </GradientStopCollection>
+                </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <!--<Grid.RowDefinitions></Grid.RowDefinitions>
+        <TextBox Name="txtQuestion"></TextBox>
+        <Button Name="cmdAnswer"></Button>
+        <TextBox Name="txtAnswer"></TextBox>-->
+    </Grid>
+</Window>
