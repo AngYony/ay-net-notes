@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DearlerPlatform.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +16,8 @@ namespace DearlerPlatform.Service.ProductApp.Dto
         public string TypeNo { get; set; }
         public string TypeName { get; set; }
 
-        public string ProductPhotoUrl { get; set; }
-
-        public string StockNo { get; set; }
-        public double DiffPrice { get; set; }
-        public double SalePrice { get; set; }
+        public ProductPhoto ProductPhoto { get; set; }
+        public ProductSale ProductSale { get; set; }
 
     }
 }

@@ -67,6 +67,6 @@ namespace DearlerPlatform.Web.Controllers
             token.CustomerName = customerName;
             return TokenHelper.CreateToken(token);
 
-        }
+        } 
     }
 }
