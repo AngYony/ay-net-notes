@@ -1,5 +1,41 @@
 # ASP.NET Core 中的配置（Configuration）与选项（Options ）
 
+
+
+## 配置（Configuration）
+
+.NET 的配置系统由三个核心对象构成， 分别为：
+
+- IConfiguration：该对象表示供应用程序使用的配置。
+- IConfigurationSource：表示配置相关的不同形态的数据源。
+- IConfigurationBuilder：负责将不同IConfigurationSource对象提供的数据转换成IConfiguration对象的过程。
+
+IConfiguration对象是由 IConfigurationBuilder对象构建的，而原始的配置信息则是通过相应的IConfigurationSource对象提供的。
+
+```c#
+var source = new Dictionary<string, string>
+{
+    ["longDatePattern"] = "dddd, MMMM d, yyyy",
+    ["longTimePattern"] = "h:mm:ss tt",
+    ["shortDatePattern"] = "M/d/yyyy",
+    ["shortTimePattern"] = "h:mm tt"
+};
+
+var config = new ConfigurationBuilder()
+    .Add(new MemoryConfigurationSource { InitialData = source })
+    .Build();   //返回IConfiguration对象
+```
+
+
+
+----
+
+旧的笔记
+
+-----
+
+
+
 **必读部分**
 
 - Configuration：配置
