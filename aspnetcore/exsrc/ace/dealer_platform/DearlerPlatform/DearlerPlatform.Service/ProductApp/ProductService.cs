@@ -37,6 +37,7 @@ namespace DearlerPlatform.Service.ProductApp
 
         public async Task<IEnumerable<ProductDto>> GetProductDto(string sort, int pageIndex, int pageSize)
         {
+            //var products = (await ProductRepo.GetListAsync()).OrderBy(p => p.GetType().GetProperty(sort).GetValue(p));
             var products = await ProductRepo.GetListAsync(a => a.Id, pageIndex, pageSize);
             var dtos = Mapper.Map<List<ProductDto>>(products);
 

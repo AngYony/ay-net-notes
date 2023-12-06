@@ -23,7 +23,7 @@ namespace DearlerPlatform.Web.Controllers
         [HttpGet]
         public async Task<List<ProductDto>> GetProductDtosAsync()
         {
-            var data= await productService.GetProductDto("", 1, 10);
+            var data= await productService.GetProductDto("Id", 1, 10);
             return data.ToList();
         }
     }

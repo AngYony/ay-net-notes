@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DearlerPlatform.Domain
 {
-    public class CustomerPwd:BaseEntity
+    public class CustomerPwd : BaseEntity
     {
         public new int Id { get; set; }
 
