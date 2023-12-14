@@ -14,10 +14,10 @@ namespace DearlerPlatform.Service
         public DearlerPlatformProfile()
         {
             CreateMap<Product, ProductDto>().ReverseMap();
-            //忽略ID字典的映射
-            CreateMap<ProductSale, ProductDto>().ForMember(dest => dest.Id, opt => opt.Ignore()).ReverseMap();
-            CreateMap<ProductPhoto, ProductDto>().ForMember(dest => dest.Id, opt => opt.Ignore()).ReverseMap();
-            CreateMap<ProductSaleAreaDiff, ProductDto>().ForMember(dest => dest.Id, opt => opt.Ignore()).ReverseMap();
+            ////忽略ID字典的映射
+            //CreateMap<ProductSale, ProductDto>().ForMember(dest => dest.Id, opt => opt.Ignore()).ReverseMap();
+            //CreateMap<ProductPhoto, ProductDto>().ForMember(dest => dest.Id, opt => opt.Ignore()).ReverseMap();
+            //CreateMap<ProductSaleAreaDiff, ProductDto>().ForMember(dest => dest.Id, opt => opt.Ignore()).ReverseMap();
         }
     }
 }

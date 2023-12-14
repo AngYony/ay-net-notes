@@ -1,3 +1,4 @@
+using DearlerPlatform.Common.EventBusHelper;
 using DearlerPlatform.Common.TokenModule;
 using DearlerPlatform.Core.Core;
 using DearlerPlatform.Extensions;
@@ -87,6 +88,7 @@ namespace DearlerPlatform.Web
 
             services.RepositoryRegister();
             services.ServicesRegister();
+            services.AddScoped(typeof(LocalEventBus<>));
 
             services.AddControllers();
             //services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
