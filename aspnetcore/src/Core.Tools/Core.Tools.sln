@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34302.85
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependency Injection ( 依赖注入 )", "Dependency Injection ( 依赖注入 )", "{3B6D0228-AD2C-4F49-B269-CB151748EFFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "手写IOC容器实例", "手写IOC容器实例", "{518955CE-2E1D-44AD-9FA5-21BD97E74B9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth（认证授权）", "Auth（认证授权）", "{A669E6F1-B465-42DC-A4E3-10DA4304916B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Filters ( 筛选器 )", "Filters ( 筛选器 )", "{949CC4E0-AC0B-4AB9-ADC2-F43DDC8A89C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Middleware ( 中间件 )", "Middleware ( 中间件 )", "{E3403D64-A694-4A0C-9591-04BBD4110D3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Minimal API", "Minimal API", "{287D2E06-9531-43D6-B588-FE953CD20237}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IocDemo.Container", "DependencyInjection\IocDemo.Container\IocDemo.Container.csproj", "{943FB262-3308-4521-8206-2FD0682F5531}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Filters.Sample", "Filters\Filters.Sample\Filters.Sample.csproj", "{D8406C2D-6CD9-480E-A277-8BACB35B9709}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExceptionHandling.Sample", "Filters\ExceptionHandling.Sample\ExceptionHandling.Sample.csproj", "{D9968533-152F-4E2F-886D-DD420826EC6C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinimalApi.Sample", "MinimalAPI\MinimalApi.Sample\MinimalApi.Sample.csproj", "{96ADB15A-0AB3-427A-9C4B-89F94F3FC6DA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Sample", "Auth\Auth.Sample\Auth.Sample.csproj", "{C5A75BBF-1A08-4186-8272-0424DDD2512D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "异常过滤器", "异常过滤器", "{F72013F2-F392-4AC6-A358-D50A6F18C403}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Middleware.Sample", "Middleware\Middleware.Sample\Middleware.Sample.csproj", "{EE51E869-C58B-49C7-B37F-06638407CB17}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{943FB262-3308-4521-8206-2FD0682F5531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943FB262-3308-4521-8206-2FD0682F5531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943FB262-3308-4521-8206-2FD0682F5531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943FB262-3308-4521-8206-2FD0682F5531}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8406C2D-6CD9-480E-A277-8BACB35B9709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8406C2D-6CD9-480E-A277-8BACB35B9709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8406C2D-6CD9-480E-A277-8BACB35B9709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8406C2D-6CD9-480E-A277-8BACB35B9709}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9968533-152F-4E2F-886D-DD420826EC6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9968533-152F-4E2F-886D-DD420826EC6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9968533-152F-4E2F-886D-DD420826EC6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9968533-152F-4E2F-886D-DD420826EC6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96ADB15A-0AB3-427A-9C4B-89F94F3FC6DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96ADB15A-0AB3-427A-9C4B-89F94F3FC6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96ADB15A-0AB3-427A-9C4B-89F94F3FC6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96ADB15A-0AB3-427A-9C4B-89F94F3FC6DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5A75BBF-1A08-4186-8272-0424DDD2512D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5A75BBF-1A08-4186-8272-0424DDD2512D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5A75BBF-1A08-4186-8272-0424DDD2512D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5A75BBF-1A08-4186-8272-0424DDD2512D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE51E869-C58B-49C7-B37F-06638407CB17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE51E869-C58B-49C7-B37F-06638407CB17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE51E869-C58B-49C7-B37F-06638407CB17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE51E869-C58B-49C7-B37F-06638407CB17}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{518955CE-2E1D-44AD-9FA5-21BD97E74B9A} = {3B6D0228-AD2C-4F49-B269-CB151748EFFF}
+		{943FB262-3308-4521-8206-2FD0682F5531} = {518955CE-2E1D-44AD-9FA5-21BD97E74B9A}
+		{D8406C2D-6CD9-480E-A277-8BACB35B9709} = {949CC4E0-AC0B-4AB9-ADC2-F43DDC8A89C4}
+		{D9968533-152F-4E2F-886D-DD420826EC6C} = {F72013F2-F392-4AC6-A358-D50A6F18C403}
+		{96ADB15A-0AB3-427A-9C4B-89F94F3FC6DA} = {287D2E06-9531-43D6-B588-FE953CD20237}
+		{C5A75BBF-1A08-4186-8272-0424DDD2512D} = {A669E6F1-B465-42DC-A4E3-10DA4304916B}
+		{F72013F2-F392-4AC6-A358-D50A6F18C403} = {949CC4E0-AC0B-4AB9-ADC2-F43DDC8A89C4}
+		{EE51E869-C58B-49C7-B37F-06638407CB17} = {E3403D64-A694-4A0C-9591-04BBD4110D3D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {515C9EF2-8337-4572-9529-B0BD1339850A}
+	EndGlobalSection
+EndGlobal
