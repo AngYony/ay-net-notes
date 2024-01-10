@@ -167,7 +167,25 @@ public class MyCodeFirstDbContext : DbContext
 
 
 
+### 使用独立的迁移项目
 
+可以使用单独的项目来存放迁移代码文件。需要注意以下几点：
+
+- 迁移项目中不存在DbContext上下文类型时，必须添加对上下文项目的引用。
+
+- 必须在启动项目中添加对迁移项目的引用。（启动项目包含了连接字符串信息）。
+
+- 必须在启动项目中安装NuGet包 Microsoft.EntityFrameworkCore.Tools，注意：不是安装在迁移项目或上下文项目中，必须是安装在启动项目中，否则执行迁移命令会报错。
+
+- 在启动项目所在的文件夹中执行迁移命令：
+
+  ```
+  Add-Migration {迁移名称|例：V1_Initial} -Context {上下文类型|例：MyDbContext} -Project {迁移程序集，相对路径|例：My.Migrations.Project} -StartupProject {启动项目|例：My.WebApi}
+  ```
+
+  补充说明：
+
+  如果是首次添加迁移，在启动项目所在的文件夹中执行迁移命令：`Add-Migration <名称>`，然后把生成的迁移代码移动到迁移项目中；如果不是首次添加迁移，执行上述文件。【该描述未经验证】
 
 
 
