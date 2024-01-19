@@ -1,0 +1,65 @@
+﻿<Window x:Class="S12_4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:S12_4"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Background="Black">
+    <Grid x:Name="layoutRoot">
+        <!-- ① 路由事件
+        <local:MyTestElement MyClick="MyTestElement_Click"/>-->
+
+        <!-- ② 路由策略
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Canvas VerticalAlignment="Bottom" Height="200" Background="#FF87F1B3">
+            <Button Width="80" Height="40" Canvas.Left="25" Canvas.Top="49" Content="按钮1"/>
+            <Button Canvas.Left="165" Canvas.Top="100" Width="70" Height="40" Content="按钮2" />
+        </Canvas>
+
+        <StackPanel Grid.Column="1" VerticalAlignment="Top" Background="DarkSlateGray">
+            <Button Height="50" Content="按钮3"/>
+            <Button Content="按钮4" Margin="0,15,0,15" Height="60"/>
+        </StackPanel>-->
+
+        <!-- ③ 类处理程序-->
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Ellipse Fill="Red" Grid.Column="0" Grid.Row="0" Margin="10"/>
+        <Rectangle Grid.Column="1" Grid.Row="0" Margin="10">
+            <Rectangle.Fill>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF5C1068" Offset="0"/>
+                    <GradientStop Color="#FFAA93DA" Offset="1"/>
+                </RadialGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Path Grid.Column="0" Grid.Row="1" Margin="10" Fill="#FF7F1DC3" Stretch="Fill">
+            <Path.Data>
+                <GeometryGroup FillRule="Nonzero">
+                    <EllipseGeometry Center="10 10" RadiusX="5" RadiusY="10" />
+                    <EllipseGeometry Center="10 10" RadiusX="10" RadiusY="5"/>
+                </GeometryGroup>
+            </Path.Data>
+        </Path>
+        <Polygon Grid.Column="1" Grid.Row="1" Stretch="Fill" Points="0,0 3,5 0,10 10,5">
+            <Polygon.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFEE116B" Offset="0"/>
+                    <GradientStop Color="#FFFBD0E9" Offset="1"/>
+                    <GradientStop Color="#FFD880D0" Offset="0.516"/>
+                </LinearGradientBrush>
+            </Polygon.Fill>
+        </Polygon>
+    </Grid>
+</Window>

@@ -31,16 +31,16 @@
         </StackPanel>-->
 
 
-        <!--③ 使用已注册的依赖项属性
+        <!-- ③ 使用已注册的依赖项属性
         <local:RectangleElement Border="SaddleBrown" BorderWidth="20" Fill="Aquamarine" /> -->
 
 
-        <!--④ 只读的依赖项属性
+        <!-- ④ 只读的依赖项属性
         <local:MyRectangleElement x:Name="ele" Grid.Row="0" />
         <TextBlock Grid.Row="1" Margin="20,8" FontSize="20"
         Text="{Binding ElementName=ele,Path=AbcPoint,StringFormat=矩形的当前位置：{0}}" />-->
 
-        <!--⑤ 附加属性-->
+        <!-- ⑤ 附加属性-->
         <local:MyPanel>
             <Rectangle local:MyPanel.Location="120,50" Width="80" Height="80" Fill="Blue" />
             <Ellipse local:MyPanel.Location="200,180" Width="175" Height="100" Fill="OliveDrab" />
