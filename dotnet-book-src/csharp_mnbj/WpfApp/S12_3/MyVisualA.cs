@@ -9,7 +9,7 @@ using System.Windows.Media;
 namespace S12_3
 {
     /// <summary>
-    /// 依赖项属性示例一
+    /// ① 定义和使用依赖项属性
     /// </summary>
     public class MyVisualA : UIElement
     {

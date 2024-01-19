@@ -10,7 +10,7 @@ using System.Windows.Shapes;
 namespace S12_3
 {
     /// <summary>
-    /// 只读的依赖项属性
+    /// ④ 只读的依赖项属性
     /// </summary>
     public class MyRectangleElement : FrameworkElement
     {

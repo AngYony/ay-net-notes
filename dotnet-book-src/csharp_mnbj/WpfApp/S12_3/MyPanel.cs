@@ -9,7 +9,7 @@ using System.Windows.Controls;
 namespace S12_3
 {
     /// <summary>
-    /// 附加属性
+    /// ⑤ 附加属性
     /// </summary>
     public class MyPanel : Panel
     {

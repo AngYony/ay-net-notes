@@ -11,11 +11,11 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <!--<local:MyVisualA FillBrush="Yellow" />
-        <local:MyVisualB x:Name="mvs" FillBrush="SandyBrown" />-->
+        <!-- ① 定义和使用依赖项属性
+        <local:MyVisualA FillBrush="Yellow" /> -->
 
-        <!--依赖项属性的使用
-        <local:RectangleElement Border="SaddleBrown" BorderWidth="20" Fill="Aquamarine" />
+        <!-- ② 依赖项属性示例二：使用元数据
+        <local:MyVisualB x:Name="mvs" FillBrush="SandyBrown" />        
         <StackPanel Grid.Row="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="红色" Click="Red_Click" />
             <Button Content="绿色" Click="Green_Click" />
@@ -30,12 +30,17 @@
             </StackPanel.Resources>
         </StackPanel>-->
 
-        <!--只读的依赖项属性
+
+        <!--③ 使用已注册的依赖项属性
+        <local:RectangleElement Border="SaddleBrown" BorderWidth="20" Fill="Aquamarine" /> -->
+
+
+        <!--④ 只读的依赖项属性
         <local:MyRectangleElement x:Name="ele" Grid.Row="0" />
         <TextBlock Grid.Row="1" Margin="20,8" FontSize="20"
         Text="{Binding ElementName=ele,Path=AbcPoint,StringFormat=矩形的当前位置：{0}}" />-->
 
-        <!--附加属性-->
+        <!--⑤ 附加属性-->
         <local:MyPanel>
             <Rectangle local:MyPanel.Location="120,50" Width="80" Height="80" Fill="Blue" />
             <Ellipse local:MyPanel.Location="200,180" Width="175" Height="100" Fill="OliveDrab" />

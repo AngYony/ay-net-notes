@@ -10,7 +10,7 @@ using System.Windows.Shapes;
 namespace S12_3
 {
     /// <summary>
-    /// 使用已注册的依赖项属性
+    /// ③ 使用已注册的依赖项属性
     /// </summary>
     public class RectangleElement : FrameworkElement
     {

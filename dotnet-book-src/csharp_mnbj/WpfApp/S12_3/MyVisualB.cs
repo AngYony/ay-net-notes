@@ -9,7 +9,7 @@ using System.Windows.Media;
 namespace S12_3
 {
     /// <summary>
-    /// 依赖项属性示例二：使用元数据
+    /// ② 依赖项属性示例二：使用元数据
     /// </summary>
     public class MyVisualB : FrameworkElement
     {
