@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.34031.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WpfApp", "WpfApp", "{23E4997A-F517-4224-955C-8E01A5C32565}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S12_3", "WpfApp\S12_3\S12_3.csproj", "{355C95F6-9432-4FDB-8EA0-AE7C5B8A2E90}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "依赖项属性", "依赖项属性", "{7B39439A-1C97-433B-9AF6-416E7AD3B110}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{355C95F6-9432-4FDB-8EA0-AE7C5B8A2E90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{355C95F6-9432-4FDB-8EA0-AE7C5B8A2E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{355C95F6-9432-4FDB-8EA0-AE7C5B8A2E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{355C95F6-9432-4FDB-8EA0-AE7C5B8A2E90}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{355C95F6-9432-4FDB-8EA0-AE7C5B8A2E90} = {7B39439A-1C97-433B-9AF6-416E7AD3B110}
+		{7B39439A-1C97-433B-9AF6-416E7AD3B110} = {23E4997A-F517-4224-955C-8E01A5C32565}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {450C5CE6-F818-42E2-A60E-6BBEC4EE8032}
+	EndGlobalSection
+EndGlobal

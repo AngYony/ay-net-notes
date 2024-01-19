@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace S12_3
+{
+    /// <summary>
+    /// MainWindow.xaml 的交互逻辑
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        //private void Red_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.mvs.FillBrush = Brushes.Red;
+        //}
+
+        //private void Green_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.mvs.FillBrush = Brushes.Green;
+        //}
+
+        //private void Yellow_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.mvs.FillBrush = Brushes.Yellow;
+        //}
+    }
+}

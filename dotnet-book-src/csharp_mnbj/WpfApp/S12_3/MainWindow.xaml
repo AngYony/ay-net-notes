@@ -1,0 +1,45 @@
+﻿<Window x:Class="S12_3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:S12_3"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!--<local:MyVisualA FillBrush="Yellow" />
+        <local:MyVisualB x:Name="mvs" FillBrush="SandyBrown" />-->
+
+        <!--依赖项属性的使用
+        <local:RectangleElement Border="SaddleBrown" BorderWidth="20" Fill="Aquamarine" />
+        <StackPanel Grid.Row="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="红色" Click="Red_Click" />
+            <Button Content="绿色" Click="Green_Click" />
+            <Button Content="黄色" Click="Yellow_Click" />
+
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="FontSize" Value="15" />
+                    <Setter Property="Margin" Value="4,0" />
+                    <Setter Property="Padding" Value="6,2" />
+                </Style>
+            </StackPanel.Resources>
+        </StackPanel>-->
+
+        <!--只读的依赖项属性
+        <local:MyRectangleElement x:Name="ele" Grid.Row="0" />
+        <TextBlock Grid.Row="1" Margin="20,8" FontSize="20"
+        Text="{Binding ElementName=ele,Path=AbcPoint,StringFormat=矩形的当前位置：{0}}" />-->
+
+        <!--附加属性-->
+        <local:MyPanel>
+            <Rectangle local:MyPanel.Location="120,50" Width="80" Height="80" Fill="Blue" />
+            <Ellipse local:MyPanel.Location="200,180" Width="175" Height="100" Fill="OliveDrab" />
+            <Polygon Points="0,0  70,6  60,98" local:MyPanel.Location="300,47" Fill="SaddleBrown" />
+        </local:MyPanel>
+    </Grid>
+</Window>
