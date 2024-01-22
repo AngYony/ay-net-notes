@@ -24,5 +24,21 @@ namespace S12_5
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("您已经点击了。");
+        }
+
+        private void OnLogin(object sender, RoutedEventArgs e)
+        {
+            if (this.txtLoginName.Text == "" || passbox.Password == "")
+            {
+                MessageBox.Show("请输入用户名和密码。");
+                return;
+            }
+            // 显示输入的内容
+            this.tbresult.Text = string.Format("用户名：{0}，密码：{1}。", txtLoginName.Text, passbox.Password);
+        }
     }
 }

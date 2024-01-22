@@ -6,10 +6,232 @@
         xmlns:local="clr-namespace:S12_5"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+
+    <!-- ① Control：用户自定义控件
     <Grid>
-        <!-- ① Control：用户自定义控件-->
         <local:MyControl Background="DarkBlue" BorderThickness="1" BorderBrush="Orange"
          Text="自定义控件" HorizontalAlignment="Center" VerticalAlignment="Center"
          Padding="15,6" FontSize="32"/>
     </Grid>
+    -->
+
+    <!-- ②：按钮控件
+    <Grid>
+        <StackPanel>
+            <Button Content="Test"/>
+            <Button>
+                <Button.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Path Grid.Column="0" Fill="Green" Stretch="Uniform" Width="12">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="0,50" IsClosed="True">
+                                        <PolyLineSegment Points="40,100 100,0 75,0 40,65 10,35" />
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                        <TextBlock Grid.Column="1" Text="完成" Margin="3,0,0,0" VerticalAlignment="Center"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button Content="请点击" Click="Button_Click"/>
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="15,6,0,8"/>
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="Padding" Value="6,2"/>
+                </Style>
+            </StackPanel.Resources>
+        </StackPanel>
+    </Grid>
+    -->
+
+    <!-- ③ 单选框和多选框
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="5" Grid.Column="0">
+            <CheckBox Content="选项一" IsChecked="True"/>
+            <CheckBox IsChecked="False">
+                <CheckBox.Content>
+                    <Ellipse Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type CheckBox}},Path=ActualHeight}" Fill="Red" Width="20"/>
+                </CheckBox.Content>
+            </CheckBox>
+            <CheckBox IsChecked="True" Content="自动更新" Foreground="Blue" FontFamily="华文行楷" VerticalContentAlignment="Bottom"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Margin="5">
+            <StackPanel.Resources>
+                <Style x:Key="rdstyle" TargetType="{x:Type RadioButton}">
+                    <Setter Property="Margin" Value="0,13,0,0"/>
+                </Style>
+            </StackPanel.Resources>
+            <RadioButton Content="选项一" GroupName="g1"/>
+            <RadioButton Content="选项二" GroupName="g1"/>
+            <RadioButton Content="选项三" GroupName="g2" Style="{StaticResource rdstyle}"/>
+            <RadioButton Content="选项四" GroupName="g2"/>
+            <RadioButton Content="选项五" GroupName="g2"/>
+        </StackPanel>
+    </Grid>
+    -->
+
+    <!-- ④ 工具提示
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="VerticalAlignment" Value="Top"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Button Content="示例按钮" ToolTip="请点击按钮。" HorizontalAlignment="Left"/>
+
+            <Button Content="字体" Margin="25,15,0,15">
+                <Button.ToolTip>
+                    <ToolTip BorderBrush="#FFB9A210">
+                        <ToolTip.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF5F4D4" Offset="0"/>
+                                <GradientStop Color="#FFF0EDAA" Offset="0.857"/>
+                            </LinearGradientBrush>
+                        </ToolTip.Background>
+                        <Grid Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Foreground="#FF4E1295" FontFamily="宋体" FontSize="20" FontWeight="Bold" Margin="3,2" Text="选择字体"/>
+                            <TextBlock Text="为选定的内容选择一种字体。" Grid.Row="1" Margin="2"/>
+                        </Grid>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <TextBox Margin="20,15,0,10" Width="125" VerticalAlignment="Top"
+                     ToolTipService.Placement="Right"
+                     ToolTipService.PlacementRectangle="0,5,60,35">
+                <ToolTipService.ToolTip>
+                    <ToolTip Background="Black" FontSize="15">
+                        <TextBlock Margin="2" Foreground="White">
+                            请在这里输入
+                            <Run Foreground="Yellow" FontStyle="Italic" Text="用户名"/>
+                            。
+                        </TextBlock>
+                    </ToolTip>
+                </ToolTipService.ToolTip>
+            </TextBox>
+        </StackPanel>
+    </Grid>
+    -->
+
+    <!-- ⑤ 内容控件的自定义模板
+    <Window.Resources>
+        <Style x:Key="MyCheckBoxStyle" TargetType="{x:Type CheckBox}">
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="1,2,5,2"/>
+            <Setter Property="Margin" Value="5,3,0,2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" 
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter x:Name="ctp" 
+                                Margin="{TemplateBinding Padding}" 
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                            <Path x:Name="mark" Opacity="0" Grid.Column="1" Stretch="Uniform" 
+                            Height="{Binding Path=ActualHeight,ElementName=ctp}" 
+                            Stroke="Green" StrokeThickness="3" Margin="0,1,0,2">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="0,28" >
+                                            <LineSegment Point="22,50"/>
+                                            <LineSegment Point="50,0"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Opacity" TargetName="mark" Value="1.0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <CheckBox Grid.Row="0" Content="任务一" Style="{StaticResource MyCheckBoxStyle}"/>
+        <CheckBox Grid.Row="1" Content="任务二" Style="{StaticResource MyCheckBoxStyle}"/>
+        <CheckBox Grid.Row="2" Content="任务三" Style="{StaticResource MyCheckBoxStyle}"/>
+    </Grid>
+    -->
+
+    <!-- ⑥ 输入控件（文本输入框）-->
+    <Grid Margin="20">
+        <Grid.Resources>
+            <Style x:Key="tbstyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="1,0,12,0"/>
+                <Setter Property="FontSize" Value="15"/>
+            </Style>
+            <Style x:Key="inputbasestyle" TargetType="{x:Type Control}">
+                <Setter Property="Margin" Value="1,6,8,6"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+        </Grid.Resources>
+        <!--将Grid划分为四行两列--> 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="登录名：" Style="{StaticResource tbstyle}"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="密  码：" Style="{StaticResource tbstyle}"/>
+        <!--以下为输入控件的声明-->  
+        <TextBox Name="txtLoginName" Grid.Row="0" Grid.Column="1" Style="{StaticResource inputbasestyle}"/>
+        <PasswordBox Grid.Row="1" Grid.Column="1" Name="passbox" 
+        Style="{StaticResource inputbasestyle}" PasswordChar="#"/>
+        <!--以下为按钮控件-->
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Margin="35,0" Content="登  录" 
+        VerticalAlignment="Center" Padding="20,4" Click="OnLogin"/>
+        <!--以下为TextBlock控件，用于显示输入的内容-->  
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Name="tbresult" Foreground="Purple" FontSize="13"/>
+    </Grid>
+    
 </Window>
