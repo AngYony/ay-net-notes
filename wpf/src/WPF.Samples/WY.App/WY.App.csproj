@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{52DEB38C-58BA-421E-B09F-D830439F901E}</ProjectGuid>
+    <ProjectGuid>{8E91AE35-D83E-40A5-B285-12018324FA7C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>S12_6</RootNamespace>
-    <AssemblyName>S12_6</AssemblyName>
+    <RootNamespace>WY.App</RootNamespace>
+    <AssemblyName>WY.App</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -53,39 +53,7 @@
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BangDingZhuanHuanQi.xaml.cs">
-      <DependentUpon>BangDingZhuanHuanQi.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShangXianWenBangDing2.xaml.cs">
-      <DependentUpon>ShangXianWenBangDing2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShangXiaWenBangDing1.xaml.cs">
-      <DependentUpon>ShangXiaWenBangDing1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShangXiaWenBangDing3.xaml.cs">
-      <DependentUpon>ShangXiaWenBangDing3.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShangXiaWenBangDing4.xaml.cs">
-      <DependentUpon>ShangXiaWenBangDing4.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShuangXiangBangDing1.xaml.cs">
-      <DependentUpon>ShuangXiangBangDing1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShuangXiangBangDing2.xaml.cs">
-      <DependentUpon>ShuangXiangBangDing2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShuJuJiHeKongJian.xaml.cs">
-      <DependentUpon>ShuJuJiHeKongJian.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShuJuMuBan.xaml.cs">
-      <DependentUpon>ShuJuMuBan.xaml</DependentUpon>
-    </Compile>
-    <Page Include="BangDingZhuanHuanQi.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -98,38 +66,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ShangXianWenBangDing2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShangXiaWenBangDing1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShangXiaWenBangDing3.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShangXiaWenBangDing4.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShuangXiangBangDing1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShuangXiangBangDing2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShuJuJiHeKongJian.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShuJuMuBan.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
