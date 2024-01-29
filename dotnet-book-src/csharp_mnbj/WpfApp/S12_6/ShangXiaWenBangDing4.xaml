@@ -1,0 +1,30 @@
+﻿<Window x:Class="S12_6.ShangXiaWenBangDing4"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:S12_6"
+        mc:Ignorable="d"
+        Title="绑定当前元素的父节点" Height="450" Width="800">
+    <Grid>
+        <!--位于里面的矩形的填充画刷将从其父级面板的Background属性中获取，与之进行绑定-->
+
+        <StackPanel Background="Pink">
+            <Canvas Background="White" Height="80">
+                <Rectangle Width="90" Height="40" Canvas.Left="25" Canvas.Top="16"
+                Fill="{Binding Path=Background,RelativeSource={RelativeSource AncestorType=StackPanel}}"/>
+            </Canvas>
+            <DockPanel Background="#FFEBF5AD" Height="200">
+                <DockPanel Margin="30" Background="LightBlue">
+                    <DockPanel Background="White" Margin="30">
+                    <!--从当前元素开始往上找到的第三个对象-->
+                        <Rectangle Width="100" Height="50" DockPanel.Dock="Right"
+                        Fill="{Binding Path=Background,RelativeSource={RelativeSource AncestorType=DockPanel,AncestorLevel=3}}"/>
+                        <Rectangle Width="85" Height="55" 
+                        Fill="{Binding Path=Background,RelativeSource={RelativeSource AncestorType=DockPanel,AncestorLevel=2}}" />
+                    </DockPanel>
+                </DockPanel> 
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</Window>

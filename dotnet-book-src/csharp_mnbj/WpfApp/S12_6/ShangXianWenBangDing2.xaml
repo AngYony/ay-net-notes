@@ -1,0 +1,69 @@
+﻿<Window x:Class="S12_6.ShangXianWenBangDing2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:S12_6"
+        mc:Ignorable="d"
+        Title="ShangXianWenBangDing2" Height="450" Width="800">
+    <Window.Resources>
+        <local:ColorConverter x:Key="colorCvt"/>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Margin="9">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- 资源 -->
+            <Grid.Resources>
+                <Style x:Key="tbstyle" TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="Margin" Value="1,0,13,0"/>
+                </Style>
+                <Style TargetType="Slider">
+                    <Setter Property="Margin" Value="2,6,15,6"/>
+                    <Setter Property="IsMoveToPointEnabled" Value="True"/>
+                </Style>
+            </Grid.Resources>
+            <!-- 静态文本 -->
+            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource tbstyle}" Text="A"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource tbstyle}" Text="R"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource tbstyle}" Text="G"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource tbstyle}" Text="B"/>
+            <!-- 滑动条 -->
+            <Slider x:Name="sldA" Grid.Row="0" Grid.Column="1" Maximum="255" Minimum="0" Value="255" SmallChange="1" AutoToolTipPlacement="TopLeft"/>
+            <Slider x:Name="sldR" Grid.Row="1" Grid.Column="1" Maximum="255" Minimum="0" Value="0" SmallChange="1" AutoToolTipPlacement="TopLeft"/>
+            <Slider x:Name="sldG" Grid.Row="2" Grid.Column="1" Maximum="255" Minimum="0" Value="0" SmallChange="1" AutoToolTipPlacement="TopLeft"/>
+            <Slider x:Name="sldB" Grid.Row="3" Grid.Column="1" Maximum="255" Minimum="0" Value="0" SmallChange="1" AutoToolTipPlacement="TopLeft"/>
+        </Grid>
+        <!-- 矩形 -->
+        <Rectangle Grid.Row="0" Height="70" Width="250">
+            <Rectangle.Fill>
+                <SolidColorBrush>
+                    <SolidColorBrush.Color>
+                    <!--在SolidColorBrush画刷的Color属性使用MultiBinding对象，并且引用资源中的转换器实例-->
+                        <MultiBinding Converter="{StaticResource colorCvt}">
+                            <Binding ElementName="sldA" Path="Value" Mode="OneWay"/>
+                            <Binding ElementName="sldR" Path="Value" Mode="OneWay"/>
+                            <Binding ElementName="sldG" Path="Value" Mode="OneWay"/>
+                            <Binding ElementName="sldB" Path="Value" Mode="OneWay"/>
+                        </MultiBinding>
+                    </SolidColorBrush.Color>
+                </SolidColorBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+    </Grid>
+</Window>

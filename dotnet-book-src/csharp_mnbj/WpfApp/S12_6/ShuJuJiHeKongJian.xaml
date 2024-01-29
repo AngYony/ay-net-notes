@@ -1,0 +1,68 @@
+﻿<Window x:Class="S12_6.ShuJuJiHeKongJian"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:S12_6"
+        mc:Ignorable="d"
+        Title="数据集合控件" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!-- 第一行 -->
+        <Grid Grid.Row="0" Grid.Column="0" Margin="10" Background="#FFF9F2D9">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="1,3" Orientation="Horizontal">
+                <TextBlock Text="输入新项：" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtInput" Width="268"/>
+                <Button Content="确定" Margin="8,0,0,0" VerticalAlignment="Center" Click="Button_Click"/>
+            </StackPanel>
+            <ListBox x:Name="lb1" Grid.Row="1" Margin="2">
+                <ListBoxItem Content="Dark"/>
+                <ListBoxItem Content="Light"/>
+            </ListBox>
+        </Grid>
+
+        <!-- 第二行 -->
+        <ListBox x:Name="lb2" Grid.Row="1" Grid.Column="0" Margin="10"/>
+
+
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ComboBox x:Name="cb" Grid.Row="0" Margin="15,9" SelectionChanged="cb_SelectionChanged"/>
+            <StackPanel Margin="13" Grid.Row="1">
+                <TextBlock>
+                当前选中项的索引：<Run Foreground="Blue" x:Name="runTextIndex"/>
+                </TextBlock>
+                <TextBlock>
+                当前被选中项的内容：<Run Foreground="Blue" x:Name="runTextContent"/>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListBox x:Name="lb" Grid.Row="0" Margin="5"/>
+            <TextBlock Grid.Row="1" Margin="6" FontSize="15">
+            已选择的项：<Run Foreground="Orange" Text="{Binding ElementName=lb,Path=SelectedItem}"/>
+            </TextBlock>
+        </Grid>
+
+    </Grid>
+</Window>
