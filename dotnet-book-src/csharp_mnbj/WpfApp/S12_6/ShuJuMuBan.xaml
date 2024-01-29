@@ -6,7 +6,32 @@
         xmlns:local="clr-namespace:S12_6"
         mc:Ignorable="d"
         Title="数据模板" Height="450" Width="800">
+    <!-- 把转换器实例添加到窗口的资源列表中 -->
+    <Window.Resources>
+        <local:ColorBdConverter x:Key="colorCvt" />
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.Resources>
+            <DataTemplate x:Key="itemTemplate">
+                <Border BorderThickness="3" BorderBrush="{Binding Converter={StaticResource colorCvt}}">
+                    <StackPanel Margin="6">
+                        <TextBlock>
+                            <Run FontWeight="Bold" FontSize="15" Text="{Binding Name}"/>
+                            <Run FontSize="12" Text="{Binding Path=No,StringFormat=({0})}"/>
+                        </TextBlock>
+                        <TextBlock Foreground="Gray" Text="{Binding Path=Description}"/>
+                        <TextBlock>
+                            <Run FontSize="13" Text="课程："/>
+                            <Run FontSize="13" Text="{Binding Course}"/>
+                        </TextBlock>
+                        <TextBlock FontSize="13">
+                            分数：<Run Text="{Binding Path=Mark}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+        </Grid.Resources>
+        <ListBox x:Name="lbStudents" ItemTemplate="{StaticResource itemTemplate}" HorizontalContentAlignment="Stretch"/>
     </Grid>
 </Window>

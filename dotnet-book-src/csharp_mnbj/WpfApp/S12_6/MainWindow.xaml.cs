@@ -87,6 +87,12 @@ namespace S12_6
             ShuJuMuBan sjmb = new ShuJuMuBan();
             sjmb.ShowDialog();
         }
+
+        private void btnShuJuMoBanXuanZeQi_Click(object sender, RoutedEventArgs e)
+        {
+            ShuJuMoBanXuanZeQi xzq = new ShuJuMoBanXuanZeQi();
+            xzq.ShowDialog();
+        }
     }
 
     public class Employee
