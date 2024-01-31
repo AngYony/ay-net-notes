@@ -9,6 +9,9 @@
     <Grid>
         <StackPanel Width="300">
             <Button Margin="5,5,5,5" Content="① 自定义Panel子类" x:Name="btnMyPanel" Click="btnMyPanel_Click"/>
+            <Button Margin="5,5,5,5" Content="② 网格布局（Grid）" x:Name="btnGrid" Click="btnGrid_Click"/>
+            <Button Margin="5,5,5,5" Content="③ 栈布局（StackPanel）" x:Name="btnStackPanel" Click="btnStackPanel_Click"/>
+
         </StackPanel>
     </Grid>
 </Window>

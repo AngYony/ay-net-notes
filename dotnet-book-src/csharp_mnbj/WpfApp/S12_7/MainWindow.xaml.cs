@@ -30,5 +30,15 @@ namespace S12_7
             CusPanel myPanel = new CusPanel();
             myPanel.ShowDialog();
         }
+
+        private void btnGrid_Click(object sender, RoutedEventArgs e)
+        {
+            new GridPanel().ShowDialog();
+        }
+
+        private void btnStackPanel_Click(object sender, RoutedEventArgs e)
+        {
+            new MyStackPanel().ShowDialog();
+        }
     }
 }
