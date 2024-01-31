@@ -3,7 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:S12_6"
              StartupUri="MainWindow.xaml">
+             
     <Application.Resources>
-         
+        <!--定义一个数据模板，不声明Key命名，而是使用DataType，这样只要数据项是Goods类型就会自动套用该数据模板-->
+        <DataTemplate DataType="{x:Type local:Goods}">
+            <!--为了让价格显示为人民币格式，这里需要显式指定Language属性-->
+            <Grid Language="zh-CN">
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontFamily" Value="宋体"/>
+                        <Setter Property="FontSize" Value="15"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="商品名称："/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=GoodsName}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="商品编号："/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=ID}"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="单价："/>
+                <!--StringFormat添加一个空{}对{0:C2}进行转义-->
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Price,StringFormat={}{0:C2}}"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="分类："/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Category}"/>
+            </Grid>
+        </DataTemplate>
     </Application.Resources>
 </Application>

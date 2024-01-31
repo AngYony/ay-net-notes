@@ -45,6 +45,8 @@
             <Button Margin="0,5,0,0" HorizontalContentAlignment="Left" Content="⑥ 数据集合控件" x:Name="btnShuJuJiHeKongJian" Click="btnShuJuJiHeKongJian_Click"/>
             <Button Margin="0,5,0,0" HorizontalContentAlignment="Left" Content="⑦ 数据模版" x:Name="btnShuJuMoBan" Click="btnShuJuMoBan_Click"/>
             <Button Margin="0,5,0,0" HorizontalContentAlignment="Left" Content="⑦ 数据模版选择器" x:Name="btnShuJuMoBanXuanZeQi" Click="btnShuJuMoBanXuanZeQi_Click"/>
+            <Button Margin="0,5,0,0" HorizontalContentAlignment="Left" Content="⑧ 数据视图" x:Name="btnShuJuShiTu" Click="btnShuJuShiTu_Click"/>
+
         </StackPanel>
 
     </Grid>

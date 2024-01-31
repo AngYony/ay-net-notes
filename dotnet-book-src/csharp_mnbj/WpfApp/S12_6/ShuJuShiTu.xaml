@@ -1,0 +1,68 @@
+﻿<Window x:Class="S12_6.ShuJuShiTu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:S12_6"
+        mc:Ignorable="d"
+        Title="数据视图" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--排序-->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Margin="0,6" Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
+                <Button Content="商品编号 - 升序" x:Name="btnAsc" Click="btnAsc_Click"/>
+                <Button Margin="13,0,0,0" Content="商品编号 - 降序" x:Name="btnDesc" Click="btnDesc_Click"/>
+            </StackPanel>
+            <ListBox Grid.Row="1" x:Name="lb1"/>
+        </Grid>
+
+        <!--筛选-->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="2,5" Orientation="Horizontal">
+                <TextBlock Text="商品价格大于：" VerticalAlignment="Center" FontSize="14"/>
+                <TextBox x:Name="txtFilter" Width="80"/>
+                <Button Margin="12,0,0,0" Padding="10,3" Content="筛选" x:Name="btnFilter" Click="btnFilter_Click"/>
+                <Button Margin="5,0,0,0" Padding="10,3" Content="取消筛选" x:Name="btnFilterClear" Click="btnFilterClear_Click"/>
+            </StackPanel>
+            <ListBox x:Name="lb2" Grid.Row="1"/>
+        </Grid>
+
+        <!--分组，将商品列表依据商品类别Category属性分组-->
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="0,6" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="按商品类别分组" x:Name="btnGroup" Click="btnGroup_Click"/>
+                <Button Margin="13,0,0,0" Content="取消分组" x:Name="btnClearGroup" Click="btnClearGroup_Click"/>
+            </StackPanel>
+            <ListBox x:Name="lb3" Grid.Row="1">
+                <ListBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <Border Background="LightBlue" Padding="7">
+                                    <TextBlock FontFamily="黑体" FontSize="18" Text="{Binding Name}"/>
+                                </Border>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListBox.GroupStyle>
+            </ListBox>
+        </Grid>
+    </Grid>
+</Window>

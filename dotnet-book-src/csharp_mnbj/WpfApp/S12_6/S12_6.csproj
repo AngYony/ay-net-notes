@@ -85,6 +85,9 @@
     <Compile Include="ShuJuMuBan.xaml.cs">
       <DependentUpon>ShuJuMuBan.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ShuJuShiTu.xaml.cs">
+      <DependentUpon>ShuJuShiTu.xaml</DependentUpon>
+    </Compile>
     <Page Include="BangDingZhuanHuanQi.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -134,6 +137,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ShuJuMuBan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShuJuShiTu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

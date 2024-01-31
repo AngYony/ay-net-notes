@@ -93,6 +93,12 @@ namespace S12_6
             ShuJuMoBanXuanZeQi xzq = new ShuJuMoBanXuanZeQi();
             xzq.ShowDialog();
         }
+
+        private void btnShuJuShiTu_Click(object sender, RoutedEventArgs e)
+        {
+            ShuJuShiTu sjst = new ShuJuShiTu();
+            sjst.ShowDialog();
+        }
     }
 
     public class Employee
