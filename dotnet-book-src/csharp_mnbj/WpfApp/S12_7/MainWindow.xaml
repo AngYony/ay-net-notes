@@ -14,8 +14,9 @@
             <Button Margin="5,5,5,5" Content="④ 停靠面板（DockPanel）" x:Name="btnDockPanel" Click="btnDockPanel_Click"/>
             <Button Margin="5,5,5,5" Content="⑤ 绝对定位（Canvas）" x:Name="btnCanvas" Click="btnCanvas_Click"/>
             <Button Margin="5,5,5,5" Content="⑥ 自动换行面板（WrapPanel）" x:Name="btnWrapPanel" Click="btnWrapPanel_Click"/>
-            
-            
+            <Button Margin="5,5,5,5" Content="⑦ Z顺序（ZIndex）" x:Name="btnZIndex" Click="btnZIndex_Click"/>
+
+
         </StackPanel>
     </Grid>
 </Window>

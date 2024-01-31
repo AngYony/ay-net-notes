@@ -55,5 +55,10 @@ namespace S12_7
         {
             new MyWrapPanel().ShowDialog();
         }
+
+        private void btnZIndex_Click(object sender, RoutedEventArgs e)
+        {
+            new ZIndexSample().ShowDialog();
+        }
     }
 }

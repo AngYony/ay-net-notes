@@ -64,6 +64,9 @@
     <Compile Include="MyStackPanel.xaml.cs">
       <DependentUpon>MyStackPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ZIndexSample.xaml.cs">
+      <DependentUpon>ZIndexSample.xaml</DependentUpon>
+    </Compile>
     <Page Include="CanvasPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MyWrapPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ZIndexSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
