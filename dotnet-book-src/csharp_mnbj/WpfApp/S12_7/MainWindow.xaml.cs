@@ -40,5 +40,10 @@ namespace S12_7
         {
             new MyStackPanel().ShowDialog();
         }
+
+        private void btnDockPanel_Click(object sender, RoutedEventArgs e)
+        {
+            new MyDockPanel().ShowDialog();
+        }
     }
 }
