@@ -58,6 +58,9 @@
     <Compile Include="BangDingZhuanHuanQi.xaml.cs">
       <DependentUpon>BangDingZhuanHuanQi.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DongTaiShuJuJiHeZhanShi.xaml.cs">
+      <DependentUpon>DongTaiShuJuJiHeZhanShi.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ShangXianWenBangDing2.xaml.cs">
       <DependentUpon>ShangXianWenBangDing2.xaml</DependentUpon>
     </Compile>
@@ -92,6 +95,10 @@
       <DependentUpon>ZhuCongShiTu.xaml</DependentUpon>
     </Compile>
     <Page Include="BangDingZhuanHuanQi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DongTaiShuJuJiHeZhanShi.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

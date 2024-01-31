@@ -106,6 +106,12 @@ namespace S12_6
             zcst.ShowDialog();
                 
         }
+
+        private void btnDongTaiShuJu_Click(object sender, RoutedEventArgs e)
+        {
+            DongTaiShuJuJiHeZhanShi dtsj = new DongTaiShuJuJiHeZhanShi();
+            dtsj.ShowDialog();
+        }
     }
 
     public class Employee
