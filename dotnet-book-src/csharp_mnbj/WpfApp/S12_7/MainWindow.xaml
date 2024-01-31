@@ -12,7 +12,10 @@
             <Button Margin="5,5,5,5" Content="② 网格布局（Grid）" x:Name="btnGrid" Click="btnGrid_Click"/>
             <Button Margin="5,5,5,5" Content="③ 栈布局（StackPanel）" x:Name="btnStackPanel" Click="btnStackPanel_Click"/>
             <Button Margin="5,5,5,5" Content="④ 停靠面板（DockPanel）" x:Name="btnDockPanel" Click="btnDockPanel_Click"/>
-
+            <Button Margin="5,5,5,5" Content="⑤ 绝对定位（Canvas）" x:Name="btnCanvas" Click="btnCanvas_Click"/>
+            <Button Margin="5,5,5,5" Content="⑥ 自动换行面板（WrapPanel）" x:Name="btnWrapPanel" Click="btnWrapPanel_Click"/>
+            
+            
         </StackPanel>
     </Grid>
 </Window>

@@ -45,5 +45,15 @@ namespace S12_7
         {
             new MyDockPanel().ShowDialog();
         }
+
+        private void btnCanvas_Click(object sender, RoutedEventArgs e)
+        {
+            new CanvasPanel().ShowDialog();
+        }
+
+        private void btnWrapPanel_Click(object sender, RoutedEventArgs e)
+        {
+            new MyWrapPanel().ShowDialog();
+        }
     }
 }
