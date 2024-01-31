@@ -22,6 +22,7 @@
                 <Button Content="商品编号 - 升序" x:Name="btnAsc" Click="btnAsc_Click"/>
                 <Button Margin="13,0,0,0" Content="商品编号 - 降序" x:Name="btnDesc" Click="btnDesc_Click"/>
             </StackPanel>
+            <!--此处将自动套用App.xaml中定义好的数据模板-->
             <ListBox Grid.Row="1" x:Name="lb1"/>
         </Grid>
 

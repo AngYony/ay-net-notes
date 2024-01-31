@@ -99,6 +99,13 @@ namespace S12_6
             ShuJuShiTu sjst = new ShuJuShiTu();
             sjst.ShowDialog();
         }
+
+        private void btnZhuCongShiTu_Click(object sender, RoutedEventArgs e)
+        {
+            ZhuCongShiTu zcst = new ZhuCongShiTu();
+            zcst.ShowDialog();
+                
+        }
     }
 
     public class Employee
