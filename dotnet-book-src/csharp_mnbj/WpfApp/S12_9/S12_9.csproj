@@ -55,6 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationResourcesStyle.xaml.cs">
+      <DependentUpon>ApplicationResourcesStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceDictionaryStyle.xaml.cs">
+      <DependentUpon>ResourceDictionaryStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StaticDynamicResource.xaml.cs">
+      <DependentUpon>StaticDynamicResource.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StyleNoXKey.xaml.cs">
       <DependentUpon>StyleNoXKey.xaml</DependentUpon>
     </Compile>
@@ -64,6 +73,10 @@
     <Compile Include="StyleXKey.xaml.cs">
       <DependentUpon>StyleXKey.xaml</DependentUpon>
     </Compile>
+    <Page Include="ApplicationResourcesStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -76,6 +89,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MyResDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaryStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StaticDynamicResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StyleNoXKey.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

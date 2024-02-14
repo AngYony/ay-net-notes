@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--使用x:Key显式声明资源键，因此它不会自动套用到Button对象上，必须显式引用资源-->
+    <Style x:Key="btnstyle" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Path Fill="{TemplateBinding Background}" Stretch="Fill">
+                            <Path.Data>
+                                <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="17">
+                                    <EllipseGeometry.Transform>
+                                        <RotateTransform Angle="-30" CenterX="25" CenterY="25"/>
+                                    </EllipseGeometry.Transform>
+                                </EllipseGeometry>
+                            </Path.Data>
+                        </Path>
+                        <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background">
+            <Setter.Value>
+                <RadialGradientBrush Center="0.5,0.5" >
+                    <GradientStop Color="#FFF0F764" Offset="0"/>
+                    <GradientStop Color="#FFFF7567" Offset="0.979"/>
+                    <GradientStop Color="#FF49F051" Offset="0.678"/>
+                </RadialGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="Red"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Foreground" Value="Blue"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

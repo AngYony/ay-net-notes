@@ -3,7 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:S12_9"
              StartupUri="MainWindow.xaml">
+
+    <!-- ④ 资源的有效范围：Application.Resources.Style
+    
     <Application.Resources>
-         
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="楷体"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="Purple"/>
+        </Style>
+    </Application.Resources>-->
+
+    <!--⑤ 合并资源字典-->
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="MyResDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
+     
 </Application>

@@ -1,0 +1,40 @@
+﻿<Window x:Class="S12_9.ApplicationResourcesStyle"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:S12_9"
+        mc:Ignorable="d"
+        Title="资源的有效范围：Application.Resources.Style" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Margin="6">
+            <TextBlock Text="示例文本1"/>
+            <TextBlock Text="示例文本2"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="8">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="FontFamily" Value="隶书"/>
+                    <Setter Property="FontSize" Value="45"/>
+                    <Setter Property="Foreground">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="Blue" Offset="0"/>
+                                <GradientStop Color="Yellow" Offset="0.5"/>
+                                <GradientStop Color="Green" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="示例文本"/>
+            <Border Margin="2,15" Background="LemonChiffon" >
+                <TextBlock Text="测试文本2"/>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Window>

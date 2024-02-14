@@ -39,5 +39,20 @@ namespace S12_9
         {
             new StyleTrigger().ShowDialog();
         }
+
+        private void btnResources_Click(object sender, RoutedEventArgs e)
+        {
+            new ApplicationResourcesStyle().ShowDialog();
+        }
+
+        private void btnResourceDictionary_Click(object sender, RoutedEventArgs e)
+        {
+            new ResourceDictionaryStyle().ShowDialog();
+        }
+
+        private void btnStaticDynamicResource_Click(object sender, RoutedEventArgs e)
+        {
+            new StaticDynamicResource().ShowDialog();
+        }
     }
 }
