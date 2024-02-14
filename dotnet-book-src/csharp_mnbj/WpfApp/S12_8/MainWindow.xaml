@@ -7,11 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
-        <StackPanel Orientation="Horizontal">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
             <TextBlock Text="请输入密码：" FontSize="20" VerticalAlignment="Center"/>
             <!--引入用户控件-->
             <local:MyPasswordInput Width="150" Height="20"/>
         </StackPanel>
+        <StackPanel Grid.Row="1">
+            <!--引入用户自定义控件-->
+            <local:MyTimeRender HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </StackPanel>
     </Grid>
+
+
 </Window>
