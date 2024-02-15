@@ -1,0 +1,52 @@
+﻿<Window x:Class="S12_10.JiBenTuXing"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:S12_10"
+        mc:Ignorable="d"
+        Title="基本图形" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--矩形-->
+        <Rectangle Margin="9" Fill="Black" Grid.Row="0" Grid.Column="0"/>
+        <!--圆-->
+        <Ellipse Grid.Column="1" Grid.Row="0" Margin="12" Fill="Gray"/>
+        <!--直线-->
+        <Line Grid.Column="0" Grid.Row="1" X1="11" Y1="5" X2="145" Y2="133" Stroke="Orange" StrokeThickness="8"/>
+        <!--多边形-->
+        <Polygon  Points="10,25 50,48 120,37 24,3" Stretch="Uniform" Fill="Pink" Grid.Row="1" Grid.Column="1"/>
+
+        <Path Grid.Row="2" Grid.Column="0" Fill="DarkGreen" Stretch="Uniform" Margin="7">
+            <Path.Data>
+                <GeometryGroup>
+                    <EllipseGeometry Center="100,100" RadiusX="100" RadiusY="30"/>
+                    <EllipseGeometry Center="100,100" RadiusX="30" RadiusY="100"/>
+                </GeometryGroup>
+            </Path.Data>
+        </Path>
+
+        <Path Grid.Column="1" Grid.Row="2" Margin="8" Stroke="Purple" StrokeThickness="10" Stretch="Uniform" StrokeEndLineCap="Triangle" StrokeStartLineCap="Triangle" StrokeDashCap="Triangle">
+            <Path.Data>
+                <PathGeometry>
+                    <PathFigure StartPoint="0,0">
+                        <LineSegment Point="0,10"/>
+                        <LineSegment Point="40,0"/>
+                        <LineSegment Point="40,10"/>
+                    </PathFigure>
+                    <PathFigure StartPoint="0,0">
+                        <LineSegment Point="40,10"/>
+                    </PathFigure>
+                </PathGeometry>
+            </Path.Data>
+        </Path>
+    </Grid>
+</Window>
