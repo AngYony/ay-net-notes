@@ -29,6 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "异常过滤器", "异常�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Middleware.Sample", "Middleware\Middleware.Sample\Middleware.Sample.csproj", "{EE51E869-C58B-49C7-B37F-06638407CB17}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第三方IOC容器", "第三方IOC容器", "{758CE1C8-4765-445C-BE9B-7A894455B0CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.Sample", "DependencyInjection\Autofac.Sample\Autofac.Sample.csproj", "{F5DBCF07-20B4-4BEF-B2FE-714B39C7141E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,10 @@ Global
 		{EE51E869-C58B-49C7-B37F-06638407CB17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE51E869-C58B-49C7-B37F-06638407CB17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE51E869-C58B-49C7-B37F-06638407CB17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5DBCF07-20B4-4BEF-B2FE-714B39C7141E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5DBCF07-20B4-4BEF-B2FE-714B39C7141E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5DBCF07-20B4-4BEF-B2FE-714B39C7141E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5DBCF07-20B4-4BEF-B2FE-714B39C7141E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +80,8 @@ Global
 		{C5A75BBF-1A08-4186-8272-0424DDD2512D} = {A669E6F1-B465-42DC-A4E3-10DA4304916B}
 		{F72013F2-F392-4AC6-A358-D50A6F18C403} = {949CC4E0-AC0B-4AB9-ADC2-F43DDC8A89C4}
 		{EE51E869-C58B-49C7-B37F-06638407CB17} = {E3403D64-A694-4A0C-9591-04BBD4110D3D}
+		{758CE1C8-4765-445C-BE9B-7A894455B0CE} = {3B6D0228-AD2C-4F49-B269-CB151748EFFF}
+		{F5DBCF07-20B4-4BEF-B2FE-714B39C7141E} = {758CE1C8-4765-445C-BE9B-7A894455B0CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {515C9EF2-8337-4572-9529-B0BD1339850A}
