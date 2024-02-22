@@ -5,8 +5,6 @@ using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
 //添加全局过滤器
 builder.Services.AddControllers(opt => { opt.Filters.Add(typeof(CusActionFilterOnGlobalAttribute)); });

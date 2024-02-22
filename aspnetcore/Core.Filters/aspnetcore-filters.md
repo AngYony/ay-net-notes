@@ -31,11 +31,21 @@
 - 继承内置的过滤器特性
 - 实现过滤器接口类
 
+过滤器之间的通信，可以使用：HttpContext.Item。
+
+只要为过滤器中的Context的Result属性设置了值，都会造成过滤器短路而直接返回结果，如果需要在即使短路的情况下仍然执行过滤器，可以实现IAlwaysRunResultFilter 。
+
+如果要在过滤器中，使用依赖注入的项（过滤器构造函数引入了外部服务），就需要使用TypeFilter或ServiceFilter。
+
+ServiceFilter是TypeFilter的低配版，当自定义过滤器中需要使用到依赖注入的内容，如果不使用TypeFilter，而是使用ServiceFilter，那么必须像下面这样进行注入。
+
+```c#
+builder.Services.AddTransient<CusResourceFilterAttribute>();
+```
+
+推荐使用[TypeFilter(typeof(CusResourceFilterAttribute))] .
 
 
-
-
-过滤器之间的通信，可以使用：HttpContext.Item
 
 
 
