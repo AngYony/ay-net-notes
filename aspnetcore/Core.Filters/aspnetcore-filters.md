@@ -43,7 +43,7 @@ ServiceFilter是TypeFilter的低配版，当自定义过滤器中需要使用到
 builder.Services.AddTransient<CusResourceFilterAttribute>();
 ```
 
-推荐使用[TypeFilter(typeof(CusResourceFilterAttribute))] .
+推荐使用[TypeFilter(typeof(CusResourceFilterAttribute))] 
 
 
 
