@@ -24,7 +24,7 @@ namespace Auth.Sample.Controllers
         [Authorize(AuthorizationConts.MYPOLICY)] //wytoken
         [Authorize(AuthorizationConts.MYPOLICY2)] //Cookies
         //CookieAuthenticationDefaults.AuthenticationScheme等同于Cookies
-        [Authorize(AuthenticationSchemes = "wytoken,Cookies")] //如果指定多scheme方式（中间使用逗号隔开），成功一个即可验证通过
+        [Authorize(AuthenticationSchemes = "wytoken,Cookies")] //认证如果指定多scheme方式（中间使用逗号隔开），成功一个即可验证通过
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {

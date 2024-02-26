@@ -8,18 +8,21 @@ using System.Threading.Tasks;
 
 namespace Auth.Sample.CusAuthentication
 {
+    /// <summary>
+    /// 自定义认证方案（此处只是为了讲述实现原理），一般使用第三方包工具
+    /// </summary>
     public class TokenAuthenticationHandler : IAuthenticationHandler
     {
 
         /*
-         不需要自定义鉴权方案，此处只是为了讲述实现原理
+         不需要自定义认证方案，此处只是为了讲述实现原理，实际使用中，可以直接引入JwtBearer包
          */
 
 
         AuthenticationScheme _scheme;
         HttpContext _context;
         /// <summary>
-        /// 鉴权初始化
+        /// 认证初始化
         /// </summary>
         /// <param name="scheme">鉴权架构名称</param>
         /// <param name="context">HttpContext</param>
@@ -33,7 +36,7 @@ namespace Auth.Sample.CusAuthentication
         }
 
         /// <summary>
-        /// 鉴权操作
+        /// 认证操作
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
