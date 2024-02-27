@@ -1,0 +1,27 @@
+﻿@page "/signin"
+@using Microsoft.AspNetCore.Authentication
+@model SigninModel
+
+@if (!HttpContext.User.Identity.IsAuthenticated)
+{
+    <div class="jumbotron">
+        <h1>登录</h1>
+        <p class="lead text-left">使用下列平台之一进行登录:</p>
+
+        @foreach (var scheme in await HttpContext.GetExternalProvidersAsync())
+        {
+            <form asp-page="/account/signin" method="post">
+                <input type="hidden" name="provider" value="@scheme.Name" />
+
+                <button class="btn btn-lg btn-success m-1" type="submit">使用 @scheme.DisplayName 登录</button>
+            </form>
+        }
+    </div>
+}
+else
+{
+    <p>已登录。</p>
+    <p>用户名: @HttpContext.User.Identity.Name</p>
+    @* 如果配置方案时的 SaveTokens 为 false，此处的access_token为null *@
+    <p>AccessToken: @await HttpContext.GetTokenAsync("access_token")</p>
+}

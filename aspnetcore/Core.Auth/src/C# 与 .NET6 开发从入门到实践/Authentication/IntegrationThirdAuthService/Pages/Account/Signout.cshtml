@@ -1,0 +1,14 @@
+﻿@page "/signout"
+@model Signout
+
+@if (HttpContext.User.Identity.IsAuthenticated)
+{
+    <p>用户名: @HttpContext.User.Identity.Name</p>
+    <form method="post" asp-page="/account/signout">
+        <input type="submit" value="注销" />
+    </form>
+}
+else
+{
+    <p>已注销。</p>
+}

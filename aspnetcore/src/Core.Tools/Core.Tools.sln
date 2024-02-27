@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Middleware.Sample", "Middle
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "第三方IOC容器", "第三方IOC容器", "{758CE1C8-4765-445C-BE9B-7A894455B0CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.Sample", "DependencyInjection\Autofac.Sample\Autofac.Sample.csproj", "{F5DBCF07-20B4-4BEF-B2FE-714B39C7141E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autofac.Sample", "DependencyInjection\Autofac.Sample\Autofac.Sample.csproj", "{F5DBCF07-20B4-4BEF-B2FE-714B39C7141E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

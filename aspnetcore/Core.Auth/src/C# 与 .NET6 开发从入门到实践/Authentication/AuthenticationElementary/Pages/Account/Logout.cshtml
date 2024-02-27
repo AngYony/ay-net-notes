@@ -1,0 +1,13 @@
+﻿@page
+@model LogoutModel
+
+@if (HttpContext.User.Identity.IsAuthenticated)
+{
+    <form method="post" asp-page="/Account/Logout">
+        <input type="submit" value="注销 @HttpContext.User.Identity.Name" />
+    </form>
+}
+else
+{
+    <p>请先<a asp-page="/Account/Login" >登录</a>。</p>
+}

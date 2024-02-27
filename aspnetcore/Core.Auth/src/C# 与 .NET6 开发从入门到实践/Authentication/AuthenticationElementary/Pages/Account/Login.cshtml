@@ -1,0 +1,20 @@
+﻿@page
+@model LoginModel
+
+@if (HttpContext?.User?.Identity?.IsAuthenticated == true)
+{
+    <p>您已登录到 @HttpContext.User.Identity.Name ，请先<a asp-page="/Account/Logout" >注销</a>。</p>
+}
+else
+{
+    <form method="post" asp-page="/Account/Login">
+        <label asp-for="LoginViewModel.UserName"></label>
+        <input asp-for="LoginViewModel.UserName" />
+        <label asp-for="LoginViewModel.Password"></label>
+        <input asp-for="LoginViewModel.Password" type="password" />
+        <label>7天内免登录：</label>
+        <input type="checkbox" id="rememberMe" name="rememberMe" value="true" />
+        <input type="submit" value="Login"/>
+    </form>
+    <p>可以使用任意非空白用户名和密码“123123”测试登录</p>
+}
