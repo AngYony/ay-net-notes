@@ -44,8 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Demo.cs" />
-    <Compile Include="Job.cs" />
-    <Compile Include="lockDemo.cs" />
     <Compile Include="SemaphoreDemo.cs" />
     <Compile Include="WaitHandleDemo.cs" />
     <Compile Include="Program.cs" />

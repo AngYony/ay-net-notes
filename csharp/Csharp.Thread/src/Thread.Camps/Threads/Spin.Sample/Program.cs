@@ -1,5 +1,8 @@
 ﻿namespace Spin.Sample
 {
+    /*
+     * 代码来源：https://threads.whuanle.cn/2.thread_sync/10.spinwait.html
+     */
     internal class Program
     {
         static void Main(string[] args)

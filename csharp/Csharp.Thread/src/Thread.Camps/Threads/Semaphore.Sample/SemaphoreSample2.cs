@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace TaskSynchronization_Sample
+namespace Semaphore.Sample
 {
-    class SemaphoreDemo
+    /*
+     * 代码来源：《C#高级编程》
+     */
+    internal class SemaphoreSample2
     {
         static void TaskMain(SemaphoreSlim semaphore)
         {
@@ -27,9 +29,10 @@ namespace TaskSynchronization_Sample
                         Console.WriteLine($"Task {Task.CurrentId} releases the semaphore");
                         semaphore.Release();
                         isCompleted = true;
-                    } 
+                    }
                 }
-                else{
+                else
+                {
                     Console.WriteLine($"Timeout for task {Task.CurrentId}; wait again");
                 }
             }
@@ -43,15 +46,15 @@ namespace TaskSynchronization_Sample
             //该构造函数第一个参数表示最初释放的锁定量，第二个参数定义了锁定个数的计数
             var semaphore = new SemaphoreSlim(semaphoreCount, semaphoreCount);
             var tasks = new Task[taskCount];
-            for(int i = 0; i < taskCount; i++)
+            for (int i = 0; i < taskCount; i++)
             {
-                tasks[i] = Task.Run(()=>TaskMain(semaphore));
+                tasks[i] = Task.Run(() => TaskMain(semaphore));
             }
 
             Task.WaitAll(tasks);
             Console.WriteLine("All tasks finished");
-            
-            
+
+
         }
     }
 }
