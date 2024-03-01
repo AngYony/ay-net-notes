@@ -26,7 +26,7 @@ namespace TaskSynchronization_Sample
 
             //WaitHandleDemo.Run();
 
-            SemaphoreDemo.Run();
+            
 
 
             Console.WriteLine("-----程序执行完毕-----");
