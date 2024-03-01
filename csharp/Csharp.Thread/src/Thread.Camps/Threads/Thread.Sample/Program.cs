@@ -7,6 +7,48 @@
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("错误方式一");
+            for (int i = 0; i < 10; i++)
+                new Thread(() =>
+                {
+                    int tmp = i;
+                    Console.WriteLine($"i = {tmp}");
+                }).Start();
+            Console.ReadLine();
+            Console.WriteLine("错误方式二");
+            for (int i = 0; i < 10; i++)
+            {
+                new Thread(() =>
+                {
+                    var value = i;
+                    Console.WriteLine(value);
+                }).Start();
+            }
+
+            Console.ReadLine();
+            Console.WriteLine("正确方式一");
+
+            for (int i = 0; i <10; i++)
+            {
+                int tmp = i;
+                new Thread(() =>
+                {
+                    Console.WriteLine($"i = {tmp}");
+                }).Start();
+            }
+
+            Console.ReadLine();
+            Console.WriteLine("最好的写法");
+            for (int i = 0; i < 10; i++)
+            {
+                new Thread((a) =>
+                {
+                    Console.WriteLine(a + "进入到了资源池");
+                }).Start(i);
+            }
+
+
+
             // 无参数Thread
             var th = new Thread(() =>
             {

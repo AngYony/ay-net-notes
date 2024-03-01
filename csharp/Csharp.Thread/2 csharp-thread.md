@@ -563,7 +563,9 @@ public static void Test2()
 
 ## 数据不要直接跨线程使用
 
-有以下代码：
+如果线程中需要使用外部的变量，最好的做法是使用参数的形式传给线程，而不是直接引用该变量来使用。
+
+有以下代码，错误写法一：
 
 ```csharp
     static void Main(string[] args)
@@ -584,7 +586,7 @@ public static void Test2()
 
 ==这是因为线程在不同的 CPU 核心上运行，而 CPU 与内存之间具有 `寄存器、L1 Cache、L2 Cache、L3 Cache、内存` 多级结构，如果不对内存进行锁定，那么在一个 CPU 核心修改了变量的值但是还没有写回到内存中，而另一个 CPU 读取了旧的值时，便会出现脏读。==
 
-你可以改成这样：
+==错误写法二==，常错形式：
 
 ```csharp
 static void Main(string[] args)
@@ -600,9 +602,20 @@ static void Main(string[] args)
 }
 ```
 
-> 这样，每个线程单独存储一个变量，读写时不会相互干扰。后面的章节中，会继续讨论 volatile 关键字和线程同步问题，这里就不再赘述。
+正确写法一：
 
-更好的写法：
+```c#
+for (int i = 0; i <10; i++)
+{
+      int tmp = i;
+      new Thread(() =>
+      {
+          Console.WriteLine($"i = {tmp}");
+      }).Start();
+}
+```
+
+正确写法二，最好的写法，推荐写法：
 
 ```csharp
 static void Main(string[] args)

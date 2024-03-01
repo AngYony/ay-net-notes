@@ -1,12 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32106.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S02_Thread", "S02_Thread\S02_Thread.csproj", "{C5D06EF9-80EC-49DD-A516-ED50037CCABC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S03_ThreadPool", "S03_ThreadPool\S03_ThreadPool.csproj", "{31E4D852-7EFA-4884-AB97-C695970C1424}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S04_Task", "S04_Task\S04_Task.csproj", "{02FF9741-9C6D-4738-930D-ED01C3BFE13E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S05_TaskSharp", "S05_TaskSharp\S05_TaskSharp.csproj", "{296528E9-E933-4C5C-8248-A5A2AEF39BBC}"
@@ -23,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S10_Async", "S10_Async\S10_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S11_AsyncPrinciple", "S11_AsyncPrinciple\S11_AsyncPrinciple.csproj", "{3165D5B2-8F35-4449-A06A-BF9705D7BC6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{8BAC31F3-D46A-4B4A-B5E6-AB0AA955CDB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{8BAC31F3-D46A-4B4A-B5E6-AB0AA955CDB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C5D06EF9-80EC-49DD-A516-ED50037CCABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5D06EF9-80EC-49DD-A516-ED50037CCABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5D06EF9-80EC-49DD-A516-ED50037CCABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5D06EF9-80EC-49DD-A516-ED50037CCABC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31E4D852-7EFA-4884-AB97-C695970C1424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31E4D852-7EFA-4884-AB97-C695970C1424}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31E4D852-7EFA-4884-AB97-C695970C1424}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31E4D852-7EFA-4884-AB97-C695970C1424}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02FF9741-9C6D-4738-930D-ED01C3BFE13E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02FF9741-9C6D-4738-930D-ED01C3BFE13E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02FF9741-9C6D-4738-930D-ED01C3BFE13E}.Release|Any CPU.ActiveCfg = Release|Any CPU
