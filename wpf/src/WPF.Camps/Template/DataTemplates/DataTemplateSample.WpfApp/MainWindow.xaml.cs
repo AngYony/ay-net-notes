@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace S12_7
+namespace DataTemplateSample.WpfApp
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -25,22 +25,14 @@ namespace S12_7
             InitializeComponent();
         }
 
-        private void btnMyPanel_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            CusPanel myPanel = new CusPanel();
-            myPanel.ShowDialog();
-        }
- 
-
-        private void btnCanvas_Click(object sender, RoutedEventArgs e)
-        {
-            new CanvasPanel().ShowDialog();
+            new Sample1().ShowDialog();
         }
 
-    
-        private void btnZIndex_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new ZIndexSample().ShowDialog();
+            new Sample2().ShowDialog();
         }
     }
 }
