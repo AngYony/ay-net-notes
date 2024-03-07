@@ -1,0 +1,25 @@
+﻿<!--代码来源：B站痕迹《WPF项目实战合集-1.WPF布局基础》-->
+<Window x:Class="UniformGridSample.WpfApp.Sample1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UniformGridSample.WpfApp"
+        mc:Ignorable="d"
+        Title="Sample1" Height="450" Width="800">
+    <Grid>
+    <!--在有限的空间内均分空间-->
+        <!--<UniformGrid Columns="3" Rows="3">-->
+        <UniformGrid>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+        </UniformGrid>
+    </Grid>
+</Window>

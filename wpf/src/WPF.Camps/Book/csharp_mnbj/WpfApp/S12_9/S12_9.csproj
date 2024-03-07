@@ -64,14 +64,8 @@
     <Compile Include="StaticDynamicResource.xaml.cs">
       <DependentUpon>StaticDynamicResource.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StyleNoXKey.xaml.cs">
-      <DependentUpon>StyleNoXKey.xaml</DependentUpon>
-    </Compile>
     <Compile Include="StyleTrigger.xaml.cs">
       <DependentUpon>StyleTrigger.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="StyleXKey.xaml.cs">
-      <DependentUpon>StyleXKey.xaml</DependentUpon>
     </Compile>
     <Page Include="ApplicationResourcesStyle.xaml">
       <SubType>Designer</SubType>
@@ -101,15 +95,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StyleNoXKey.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="StyleTrigger.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="StyleXKey.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

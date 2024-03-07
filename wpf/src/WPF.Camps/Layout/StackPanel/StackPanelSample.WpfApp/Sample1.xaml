@@ -1,0 +1,41 @@
+﻿<!--代码来源《C#码农笔记》12.7.3 -->
+<Window x:Class="StackPanelSample.WpfApp.Sample1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StackPanelSample.WpfApp"
+        mc:Ignorable="d"
+        Title="Sample" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <!-- 沿水平方向布局 -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,6">
+            <Ellipse Width="130" Fill="LightBlue"/>
+            <Path Stroke="Orange" StrokeThickness="15" Stretch="Uniform" Width="120">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure StartPoint="0,0">
+                            <LineSegment Point="10,10"/>
+                        </PathFigure>
+                        <PathFigure StartPoint="10,0">
+                            <LineSegment Point="0,10"/>
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+            <Polygon Points="5,0 0,5 5,10 10,5" Fill="DarkGray" Stretch="Uniform" Width="120"/>
+            <TextBlock FontSize="70" FontFamily="隶书" Text="文本"/>
+        </StackPanel>
+
+        <!-- 沿垂直方向布局 -->
+        <StackPanel Grid.Row="1" Margin="0,6" Orientation="Vertical">
+            <Border Background="#FF5D1361" CornerRadius="15" Height="60"/>
+            <TextBlock FontSize="75" FontFamily="华文新魏" Text="测试内容"/>
+            <Polyline Points="0,0 25,15 50,0 75,15 100 0" Stroke="#FFDADA0C" StrokeThickness="15" Stretch="Fill" Height="50"/>
+        </StackPanel>
+    </Grid>
+</Window>
