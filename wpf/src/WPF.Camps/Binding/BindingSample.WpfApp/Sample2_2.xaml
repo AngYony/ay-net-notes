@@ -1,14 +1,12 @@
-﻿<Window x:Class="S12_6.ShuangXiangBangDing1"
+﻿<Window x:Class="BindingSample.WpfApp.Sample2_2"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:S12_6"
+        xmlns:local="clr-namespace:BindingSample.WpfApp"
         mc:Ignorable="d"
-        Title="ShuangXiangBangDing1" Height="450" Width="800">
+        Title="双向绑定" Height="450" Width="800">
     <Grid>
-
-        <!-- ② XAML扩展标记的使用-双项绑定-->
         <Grid Margin="20" x:Name="inputBox">
             <Grid.Resources>
                 <Style x:Key="labelStyle" TargetType="TextBlock">
@@ -41,35 +39,35 @@
             <TextBlock Text="标题：" Grid.Row="0" Grid.Column="0" Style="{StaticResource labelStyle}"/>
             <!-- 新闻标题 -->
             <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource textboxstyle}" 
-            Text="{Binding Path=Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        Text="{Binding Path=Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Grid.Row="1" Grid.Column="0" Text="作者：" Style="{StaticResource labelStyle}"/>
             <!-- 新闻作者 -->
             <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource textboxstyle}" 
-            Text="{Binding Path=Author,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        Text="{Binding Path=Author,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Grid.Row="2" Grid.Column="0" Text="正文：" Style="{StaticResource labelStyle}"/>
             <!-- 新闻正文 -->
             <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource textboxstyle}" 
-            ScrollViewer.VerticalScrollBarVisibility="Visible" 
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-            Text="{Binding Path=Content,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
+        ScrollViewer.VerticalScrollBarVisibility="Visible" 
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+        Text="{Binding Path=Content,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
 
             <TextBlock Grid.Row="3" Grid.Column="0" Text="状态：" Style="{StaticResource labelStyle}"/>
             <!-- 新闻状态 -->
             <CheckBox Grid.Row="3" Grid.Column="1" Content="已发布" 
-            IsChecked="{Binding Path=IsPublished,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-            Style="{StaticResource controlstyle}" Margin="10,5"/>
+        IsChecked="{Binding Path=IsPublished,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+        Style="{StaticResource controlstyle}" Margin="10,5"/>
 
             <!-- 单项绑定，显示处理结果 -->
             <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Margin="12,8" FontSize="18" 
-            FontFamily="新宋体" Foreground="Red" TextWrapping="Wrap">
-                新闻标题：<Run Text="{Binding Path=Title}"/>，
-                新闻作者：<Run Text="{Binding Path=Author}"/>，
-                发布状态：<Run Text="{Binding IsPublished}"/>
-                <LineBreak/>
-                新闻正文：<LineBreak/>
-                <Run Text="{Binding Path=Content}"/>
+        FontFamily="新宋体" Foreground="Red" TextWrapping="Wrap">
+            新闻标题：<Run Text="{Binding Path=Title}"/>，
+            新闻作者：<Run Text="{Binding Path=Author}"/>，
+            发布状态：<Run Text="{Binding IsPublished}"/>
+            <LineBreak/>
+            新闻正文：<LineBreak/>
+            <Run Text="{Binding Path=Content}"/>
             </TextBlock>
         </Grid>
     </Grid>

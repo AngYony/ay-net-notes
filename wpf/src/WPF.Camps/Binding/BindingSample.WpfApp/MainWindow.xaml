@@ -1,0 +1,27 @@
+﻿<Window x:Class="BindingSample.WpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BindingSample.WpfApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <!--绑定的应用场景：
+        1. 控件与业务代码（属性）
+        2. 控件与控件之间
+        3. Command
+        -->
+
+        <StackPanel>
+            <Button Height="40" Content="示例1：简单绑定（控件与属性绑定）" Click="Button_Click"/>
+            <Button Height="40" Content="示例2：Binding-Mode（控件与控件绑定）" Click="Button_Click_1"/>
+            <Button Height="40" Content="示例2.2：双向绑定（控件与控件绑定）" Click="Button_Click_2_2"/>
+            <Button Height="40" Content="示例3：Command 绑定（UI和业务分离）" Click="Button_Click_2"/>
+            <Button Height="40" Content="示例4：Command传递参数与通知更新" Click="Button_Click_3"/>
+
+            
+        </StackPanel>
+
+    </Grid>
+</Window>

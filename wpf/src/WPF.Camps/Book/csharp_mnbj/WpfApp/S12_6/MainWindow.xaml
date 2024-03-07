@@ -19,25 +19,9 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="员工姓名：" Grid.Row="0" Grid.Column="0"/>
-        <!--显示员工姓名-->
-        <TextBlock Grid.Row="0" Grid.Column="1">
-            <TextBlock.Text>
-                <Binding Path="Name"/>
-            </TextBlock.Text>
-        </TextBlock>
 
-        <TextBlock Text="员工年龄：" Grid.Row="1" Grid.Column="0" />
-        <!--显示员工年龄-->
-        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Age}"/>
-        
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="所属部门：" />
-        <!--显示员工所属部门-->
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Partment}"/>
 
         <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
-            <Button Margin="0,5,0,0" HorizontalContentAlignment="Left" Content="① 双向绑定，简单示例" x:Name="btnShuangXiang" Click="btnShuangXiang_Click"/>
-            <Button Margin="0,5,0,0" HorizontalContentAlignment="Left" Content="② 双向绑定，实现INotifyPropertyChanged" x:Name="btnShuangXiang2" Click="btnShuangXiang2_Click"/>
             <Button Margin="0,5,0,0" HorizontalContentAlignment="Left" Content="③ 上下文绑定，简单示例" x:Name="btnShangXiaWenBangDing" Click="btnShangXiaWenBangDing_Click"/>
             <Button Margin="0,5,0,0" HorizontalContentAlignment="Left" Content="③ 上下文绑定，多元素属性绑定" x:Name="btnShangXiaWenBangDing2" Click="btnShangXiaWenBangDing2_Click"/>
             <Button Margin="0,5,0,0" HorizontalContentAlignment="Left" Content="④ 上下文绑定，元素自身属性绑定" x:Name="btnShangXiaWenBangDing3" Click="btnShangXiaWenBangDing3_Click"/>

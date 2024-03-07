@@ -1,0 +1,24 @@
+﻿<Window x:Class="BindingSample.WpfApp.Sample2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BindingSample.WpfApp"
+        mc:Ignorable="d"
+        Title="控件与控件的双向绑定的Mode设置" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <Slider Margin="5" x:Name="mySlider"/>
+            <!--默认值-->
+            <TextBox Text="{Binding ElementName=mySlider,Path=Value}" Margin="5" Height="30"/>
+            <!--双向绑定-->
+            <TextBox Text="{Binding ElementName=mySlider,Path=Value,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="5" Height="30"/>
+            <!--OneTime：配置只绑定第一次的值，即使后面发生了变化也不更新-->
+            <TextBox Text="{Binding ElementName=mySlider,Path=Value,Mode=OneTime}" Margin="5" Height="30"/>
+            <!--OneWay：单向绑定，滑块的值影响文本框，文本框不影响滑块-->
+            <TextBox Text="{Binding ElementName=mySlider,Path=Value,Mode=OneWay}" Margin="5" Height="30"/>
+            <!--OneWayToSource和OneWay相反的作用效果，文本框的值影响滑块，滑块的值不影响文本框-->
+            <TextBox Text="{Binding ElementName=mySlider,Path=Value,Mode=OneWayToSource}" Margin="5" Height="30"/>
+        </StackPanel>
+    </Grid>
+</Window>

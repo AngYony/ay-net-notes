@@ -12,17 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace S12_6
+namespace BindingSample.WpfApp
 {
     /// <summary>
-    /// ② XAML扩展标记的使用-双项绑定
+    /// 
     /// </summary>
-    public partial class ShuangXiangBangDing1 : Window
+    public partial class Sample2_2 : Window
     {
-        public ShuangXiangBangDing1()
+        public Sample2_2()
         {
             InitializeComponent();
-
             this.inputBox.DataContext = new News
             {
                 Title = "新闻标题",
@@ -30,7 +29,6 @@ namespace S12_6
                 Content = "今天没有新闻",
                 IsPublished = false
             };
-
         }
     }
 

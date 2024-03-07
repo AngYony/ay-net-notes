@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{52DEB38C-58BA-421E-B09F-D830439F901E}</ProjectGuid>
+    <ProjectGuid>{A3836972-D0BC-417D-B5B4-35996C6E5211}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>S12_6</RootNamespace>
-    <AssemblyName>S12_6</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <RootNamespace>BindingSample.WpfApp</RootNamespace>
+    <AssemblyName>BindingSample.WpfApp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -55,47 +55,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BangDingZhuanHuanQi.xaml.cs">
-      <DependentUpon>BangDingZhuanHuanQi.xaml</DependentUpon>
+    <Compile Include="Sample1.xaml.cs">
+      <DependentUpon>Sample1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DongTaiShuJuJiHeZhanShi.xaml.cs">
-      <DependentUpon>DongTaiShuJuJiHeZhanShi.xaml</DependentUpon>
+    <Compile Include="Sample2.xaml.cs">
+      <DependentUpon>Sample2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ShangXianWenBangDing2.xaml.cs">
-      <DependentUpon>ShangXianWenBangDing2.xaml</DependentUpon>
+    <Compile Include="Sample2_2.xaml.cs">
+      <DependentUpon>Sample2_2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ShangXiaWenBangDing1.xaml.cs">
-      <DependentUpon>ShangXiaWenBangDing1.xaml</DependentUpon>
+    <Compile Include="Sample4.xaml.cs">
+      <DependentUpon>Sample4.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ShangXiaWenBangDing3.xaml.cs">
-      <DependentUpon>ShangXiaWenBangDing3.xaml</DependentUpon>
+    <Compile Include="Sample3.xaml.cs">
+      <DependentUpon>Sample3.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ShangXiaWenBangDing4.xaml.cs">
-      <DependentUpon>ShangXiaWenBangDing4.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShuJuJiHeKongJian.xaml.cs">
-      <DependentUpon>ShuJuJiHeKongJian.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShuJuMoBanXuanZeQi.xaml.cs">
-      <DependentUpon>ShuJuMoBanXuanZeQi.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShuJuMuBan.xaml.cs">
-      <DependentUpon>ShuJuMuBan.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShuJuShiTu.xaml.cs">
-      <DependentUpon>ShuJuShiTu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ZhuCongShiTu.xaml.cs">
-      <DependentUpon>ZhuCongShiTu.xaml</DependentUpon>
-    </Compile>
-    <Page Include="BangDingZhuanHuanQi.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DongTaiShuJuJiHeZhanShi.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -108,39 +82,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ShangXianWenBangDing2.xaml">
+    <Page Include="Sample1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ShangXiaWenBangDing1.xaml">
+    <Page Include="Sample2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ShangXiaWenBangDing3.xaml">
+    <Page Include="Sample2_2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ShangXiaWenBangDing4.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Sample4.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShuJuJiHeKongJian.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ShuJuMoBanXuanZeQi.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShuJuMuBan.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShuJuShiTu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ZhuCongShiTu.xaml">
+    <Page Include="Sample3.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -170,14 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\佛手瓜.jpg" />
-    <Resource Include="images\山药.jpg" />
-    <Resource Include="images\洋葱.jpg" />
-    <Resource Include="images\甜瓜.jpg" />
-    <Resource Include="images\芹菜.jpg" />
-    <Resource Include="images\苦瓜.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

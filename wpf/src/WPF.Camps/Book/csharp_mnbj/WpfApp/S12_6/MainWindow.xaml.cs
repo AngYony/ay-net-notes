@@ -23,34 +23,9 @@ namespace S12_6
         public MainWindow()
         {
             InitializeComponent();
-             
-            Employee emp = new Employee
-            {
-                Name = "刘备",
-                Age = 20,
-                Partment = "蜀国"
-            };
-            this.layoutRoot.DataContext = emp; 
+            
         }
-
-        /// <summary>
-        /// 双向绑定示例
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnShuangXiang_Click(object sender, RoutedEventArgs e)
-        {
-            ShuangXiangBangDing1 sxbd = new ShuangXiangBangDing1();
-            sxbd.ShowDialog();
-                
-        }
-
-        private void btnShuangXiang2_Click(object sender, RoutedEventArgs e)
-        {
-            ShuangXiangBangDing2 sxbd2 = new ShuangXiangBangDing2();
-            sxbd2.ShowDialog();
-
-        }
+         
 
         private void btnShangXiaWenBangDing_Click(object sender, RoutedEventArgs e)
         {
@@ -113,12 +88,5 @@ namespace S12_6
             dtsj.ShowDialog();
         }
     }
-
-    public class Employee
-    {
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public string Partment { get; set; }
-
-    }
+     
 }
