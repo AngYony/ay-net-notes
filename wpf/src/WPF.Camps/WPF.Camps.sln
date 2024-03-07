@@ -74,6 +74,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "样式与资源", "样式�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleResourceSample.WpfApp", "StyleResource\StyleResourceSample.WpfApp\StyleResourceSample.WpfApp.csproj", "{BAF3D284-DB37-420B-BDF6-B2B65A6D991F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "模板", "模板", "{D93C7C3B-CA20-482A-89F4-4378291F6334}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "控件模板", "控件模板", "{7EEFA30B-F818-4F6D-AB15-6F4C17A8E07F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "数据模板", "数据模板", "{E34C3D86-7C37-4F35-A322-F9B7A9846895}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlTemplateSample.WpfApp", "Template\ControlTemplates\ControlTemplateSample.WpfApp\ControlTemplateSample.WpfApp.csproj", "{14B86A8F-481A-4FEE-9A81-794AF84DEDD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -144,6 +152,10 @@ Global
 		{BAF3D284-DB37-420B-BDF6-B2B65A6D991F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAF3D284-DB37-420B-BDF6-B2B65A6D991F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAF3D284-DB37-420B-BDF6-B2B65A6D991F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14B86A8F-481A-4FEE-9A81-794AF84DEDD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14B86A8F-481A-4FEE-9A81-794AF84DEDD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14B86A8F-481A-4FEE-9A81-794AF84DEDD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14B86A8F-481A-4FEE-9A81-794AF84DEDD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,6 +192,9 @@ Global
 		{CEC63A30-BB26-4492-A277-2AC9F901149D} = {953810CC-87B6-48C8-BD96-3AC1A1AA705B}
 		{4BC9ECDD-A183-48DB-9685-C32CAF9A08F7} = {586755FE-0457-434C-A592-95F449E37D4A}
 		{BAF3D284-DB37-420B-BDF6-B2B65A6D991F} = {BA8A4D78-0549-47AA-92CB-1040D9098E33}
+		{7EEFA30B-F818-4F6D-AB15-6F4C17A8E07F} = {D93C7C3B-CA20-482A-89F4-4378291F6334}
+		{E34C3D86-7C37-4F35-A322-F9B7A9846895} = {D93C7C3B-CA20-482A-89F4-4378291F6334}
+		{14B86A8F-481A-4FEE-9A81-794AF84DEDD8} = {7EEFA30B-F818-4F6D-AB15-6F4C17A8E07F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {945CCE19-7FF0-47F2-8DA1-CE436BB7D010}

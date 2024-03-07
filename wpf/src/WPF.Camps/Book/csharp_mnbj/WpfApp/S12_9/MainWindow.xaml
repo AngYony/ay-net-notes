@@ -8,8 +8,6 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <StackPanel Width="300">
-            <Button Margin="5,5,5,5" Content="① 显式指定x:key的资源样式" x:Name="btnxKey" Click="btnxKey_Click"/>
-            <Button Margin="5,5,5,5" Content="② 不指定x:key的资源样式" x:Name="btnNoxKey" Click="btnNoxKey_Click"/>
             <Button Margin="5,5,5,5" Content="③ 样式中的触发器" x:Name="btnStyleTrigger" Click="btnStyleTrigger_Click"/>
             <Button Margin="5,5,5,5" Content="④ 资源的有效范围：Application.Resources.Style" x:Name="btnResources" Click="btnResources_Click"/>
             <Button Margin="5,5,5,5" Content="⑤ 合并资源字典" x:Name="btnResourceDictionary" Click="btnResourceDictionary_Click"/>

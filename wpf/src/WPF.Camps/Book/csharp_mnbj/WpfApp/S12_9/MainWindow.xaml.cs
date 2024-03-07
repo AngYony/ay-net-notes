@@ -24,16 +24,9 @@ namespace S12_9
         {
             InitializeComponent();
         }
+ 
 
-        private void btnxKey_Click(object sender, RoutedEventArgs e)
-        {
-            new StyleXKey().ShowDialog();
-        }
-
-        private void btnNoxKey_Click(object sender, RoutedEventArgs e)
-        {
-            new StyleNoXKey().ShowDialog();
-        }
+      
 
         private void btnStyleTrigger_Click(object sender, RoutedEventArgs e)
         {
