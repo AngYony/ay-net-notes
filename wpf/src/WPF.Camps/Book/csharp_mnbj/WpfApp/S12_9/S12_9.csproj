@@ -61,9 +61,6 @@
     <Compile Include="ResourceDictionaryStyle.xaml.cs">
       <DependentUpon>ResourceDictionaryStyle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StaticDynamicResource.xaml.cs">
-      <DependentUpon>StaticDynamicResource.xaml</DependentUpon>
-    </Compile>
     <Compile Include="StyleTrigger.xaml.cs">
       <DependentUpon>StyleTrigger.xaml</DependentUpon>
     </Compile>
@@ -88,10 +85,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceDictionaryStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="StaticDynamicResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

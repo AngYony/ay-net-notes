@@ -1,0 +1,19 @@
+﻿<Window x:Class="StyleResourceSample.WpfApp.Sample3"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StyleResourceSample.WpfApp"
+        mc:Ignorable="d"
+        Title="资源字典" Height="450" Width="800">
+    <!--资源字典需要手动的添加资源字典文件-->
+    <Grid>
+        <StackPanel>
+            <Button Margin="10" Content="修改" Height="40"  BorderThickness="5" Click="Button_Click" />
+            <!--静态资源，不会随着资源值的变化而变化-->
+            <Button BorderBrush="{StaticResource SolidColor}" Margin="10" Content="按钮1" Height="40" BorderThickness="5"/>
+            <!--动态资源，会随着引用的资源值的变化而变化，实际使用中多采用该方式-->
+            <Button Style="{StaticResource DefaultButtonStyle}" BorderBrush="{DynamicResource SolidColor}" Margin="10" Content="按钮2" Height="40" BorderThickness="5" />
+        </StackPanel>
+    </Grid>
+</Window>

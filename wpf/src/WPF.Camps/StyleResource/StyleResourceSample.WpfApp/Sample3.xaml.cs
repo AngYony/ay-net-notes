@@ -10,34 +10,27 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace StyleResourceSample.WpfApp
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// Sample3.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Sample3 : Window
     {
-        public MainWindow()
+        public Sample3()
         {
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new Sample1().ShowDialog();
-        }
+            //获取app.xaml引用的资源
+            var solidColor = App.Current.FindResource("SolidColor");
+            var style = App.Current.FindResource("DefaultButtonStyle");
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new Sample2().ShowDialog();
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            new Sample3().ShowDialog();
+            this.Resources["SolidColor"] = new SolidColorBrush(Colors.Fuchsia);
         }
     }
 }

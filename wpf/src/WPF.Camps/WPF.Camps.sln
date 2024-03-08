@@ -88,6 +88,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "绑定", "绑定", "{FBE9A0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BindingSample.WpfApp", "Binding\BindingSample.WpfApp\BindingSample.WpfApp.csproj", "{A3836972-D0BC-417D-B5B4-35996C6E5211}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mvvm", "Mvvm", "{5BC347F5-E5C2-4485-9CAC-51132D00CCB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmSample.WpfApp", "Mvvm\MvvmSample.WpfApp\MvvmSample.WpfApp.csproj", "{CE4C55A5-389E-4D42-BC7D-FEA48D30340E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -170,6 +174,10 @@ Global
 		{A3836972-D0BC-417D-B5B4-35996C6E5211}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3836972-D0BC-417D-B5B4-35996C6E5211}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3836972-D0BC-417D-B5B4-35996C6E5211}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE4C55A5-389E-4D42-BC7D-FEA48D30340E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE4C55A5-389E-4D42-BC7D-FEA48D30340E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE4C55A5-389E-4D42-BC7D-FEA48D30340E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE4C55A5-389E-4D42-BC7D-FEA48D30340E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -211,6 +219,7 @@ Global
 		{14B86A8F-481A-4FEE-9A81-794AF84DEDD8} = {7EEFA30B-F818-4F6D-AB15-6F4C17A8E07F}
 		{5D239CC8-E2E5-48E9-8FD4-28D083A56103} = {E34C3D86-7C37-4F35-A322-F9B7A9846895}
 		{A3836972-D0BC-417D-B5B4-35996C6E5211} = {FBE9A05E-8E2D-458D-9577-8C61F7E0EC87}
+		{CE4C55A5-389E-4D42-BC7D-FEA48D30340E} = {5BC347F5-E5C2-4485-9CAC-51132D00CCB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {945CCE19-7FF0-47F2-8DA1-CE436BB7D010}

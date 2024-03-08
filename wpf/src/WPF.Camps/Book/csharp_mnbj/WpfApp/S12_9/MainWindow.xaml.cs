@@ -43,9 +43,5 @@ namespace S12_9
             new ResourceDictionaryStyle().ShowDialog();
         }
 
-        private void btnStaticDynamicResource_Click(object sender, RoutedEventArgs e)
-        {
-            new StaticDynamicResource().ShowDialog();
-        }
     }
 }
