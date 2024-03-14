@@ -2004,6 +2004,7 @@ Console.ReadKey();
 
 - [1. 表达式树基础 · C# 表达式树教程大全 ](https://ex.whuanle.cn/1.base.html)
 - [Expression 核心操作符、表达式、操作方法_expression 溢位检查-CSDN博客](https://blog.csdn.net/zhuqinfeng/article/details/70168337)
+- [Linq To SQL 自定义表达式树](https://www.albahari.com/expressions)
 
 
 
