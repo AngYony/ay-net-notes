@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MvvmLightSample.WpfApp.Properties
+namespace AnimationSample.WpfApp.Properties
 {
 
 

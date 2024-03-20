@@ -1,12 +1,14 @@
-﻿<Window x:Class="MvvmLightSample.WpfApp.MainWindow"
+﻿<!--代码来源：B站痕迹《WPF项目实战合集-1.3动画基础》-->
+
+<Window x:Class="AnimationSample.WpfApp.Sample1"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MvvmLightSample.WpfApp"
+        xmlns:local="clr-namespace:AnimationSample.WpfApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="动画基础" Height="450" Width="800">
     <Grid>
-        
+        <Button Width="120" Height="40" Click="Button_Click" Name="btn"/>
     </Grid>
 </Window>

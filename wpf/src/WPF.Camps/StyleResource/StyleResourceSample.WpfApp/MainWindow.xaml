@@ -10,7 +10,7 @@
         <StackPanel>
             <Button Content="示例1：样式简单使用" Width="300" Height="40" Click="Button_Click"/>
             <Button Content="示例2：静态样式与动态样式" Width="300" Height="40" Click="Button_Click_1"/>
-            <Button Content="示例2：资源字典" Width="300" Height="40" Click="Button_Click_2"/>
+            <Button Content="示例3：资源字典" Width="300" Height="40" Click="Button_Click_2"/>
         </StackPanel>
     </Grid>
 </Window>

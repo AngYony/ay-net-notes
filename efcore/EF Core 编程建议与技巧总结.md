@@ -108,5 +108,48 @@ Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())
 
 
 
+### 允许事务中的Context异步提交事务
+
+```c#
+
+//允许事务中context异步提交数据
+using TransactionScope ts = new(TransactionScopeAsyncFlowOption.Enabled);
+try
+{
+    // 添加主订单
+    DateTime inputDate = DateTime.Now;
+    string orderNo = Guid.NewGuid().ToString();
+    SaleOrderMaster master = new SaleOrderMaster
+    {
+        CustomerNo = customerNo,
+        DeliveryDate = input.DeliveryDate,
+        EditUserNo = customerNo,
+        InputDate = inputDate,
+        Remark = input.Remark,
+        InvoiceNo = input.invoice,
+        SaleOrderNo = orderNo,
+        StockNo = ""
+    };
+    await OrderMasterRepo.InsertAsync(master);
+    // 添加流程
+    await AddProgress(orderNo, inputDate);
+    // 添加订单详情
+    await AddOrderDetail(carts, customerNo, orderNo, inputDate);
+    // 提交事务
+    ts.Complete();
+    // 删除Redis中的购物车数据
+    foreach (var cart in carts)
+    {
+        RedisWorker.RemoveKey($"cart:{cart.CartGuid}:{customerNo}");
+    }
+    return true;
+}
+catch (System.Exception)
+{
+    ts.Dispose();
+    throw;
+}
+```
+
 
 
