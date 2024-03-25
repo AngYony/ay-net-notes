@@ -22,7 +22,11 @@ namespace MyToDo.Views
         public MainView()
         {
             InitializeComponent();
-            InitializeComponent();
+            menuBar.SelectionChanged += (s, e) =>
+            {
+                drawerHost.IsLeftDrawerOpen = false;
+            };
+
             btnMin.Click += (s, e) => { this.WindowState = WindowState.Minimized; };
             btnMax.Click += (s, e) =>
             {
