@@ -26,8 +26,15 @@
                     <Border>
                         <Grid>
                             <StackPanel>
-                                
+                                <materialDesign:PackIcon Margin="15,0" Kind="Abacus"/>
+                                <TextBlock Text="汇总"/>
+                                <TextBlock FontWeight="Bold" Text="999"/>
+
                             </StackPanel>
+
+                            <Canvas>
+                                <Border Canvas.Top="10"
+                            </Canvas>
                         </Grid>
                     </Border>
                 </DataTemplate>
