@@ -91,7 +91,7 @@ public static BindingExpressionBase SetBinding(DependencyObject target, Dependen
 - dp：用于为Binding指明把数据送达到目标的哪个属性。
 - binding：指定使用哪个Binding实例将数据源与目标关联起来。
 
-由于FrameworkElement对BindingOperations.SetBinding(...)进行了封装，名称也叫SetBinding(...)，只是参数不同。因此实际使用中，更多的是直接调用控件的SetBinding方法进行绑定。
+由于FrameworkElement对BindingOperations.SetBinding(...)进行了封装，名称也叫SetBinding(...)，只是参数不同。FrameworkElement是WPF所有UI元素的父类，这从侧面向我们传递了这样一个思想——微软希望SetBinding（即作为数据目标）的对象是UI元素。因此实际使用中，更多的是直接调用控件的SetBinding方法进行绑定。
 
 上述示例代码可以简化为：
 
