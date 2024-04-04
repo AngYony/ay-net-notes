@@ -17,6 +17,7 @@
 
     <!--为窗体添加CommandBinding-->
     <Window.CommandBindings>
-        <CommandBinding Command="New" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
+        <CommandBinding Command="New" 
+        CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
     </Window.CommandBindings>
 </Window>

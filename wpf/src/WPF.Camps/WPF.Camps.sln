@@ -110,6 +110,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "命令", "命令", "{90BA49
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandSample.WpfApp", "Command\CommandSample.WpfApp\CommandSample.WpfApp.csproj", "{879F1D84-0BB2-4891-9703-69B9330CA655}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "资源", "资源", "{2EEA4B01-BED6-41FD-86DE-6BA2EFFE065D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceSample.WpfApp", "Resource\ResourceSample.WpfApp\ResourceSample.WpfApp.csproj", "{DD27DBE9-E02A-47C1-AB6F-69DAC0640021}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -216,6 +220,10 @@ Global
 		{879F1D84-0BB2-4891-9703-69B9330CA655}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{879F1D84-0BB2-4891-9703-69B9330CA655}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{879F1D84-0BB2-4891-9703-69B9330CA655}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD27DBE9-E02A-47C1-AB6F-69DAC0640021}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD27DBE9-E02A-47C1-AB6F-69DAC0640021}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD27DBE9-E02A-47C1-AB6F-69DAC0640021}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD27DBE9-E02A-47C1-AB6F-69DAC0640021}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -264,6 +272,7 @@ Global
 		{D8C74BC4-6671-46A0-93C4-D96B3D3E444A} = {4D00ED21-986A-4217-9306-857BFE7DBF55}
 		{346FA807-8933-42AB-9A22-C7CC5D5DA502} = {060053A3-57F1-4605-BD93-D904DBE695C0}
 		{879F1D84-0BB2-4891-9703-69B9330CA655} = {90BA49BA-8413-4926-AD51-F7A2A6792346}
+		{DD27DBE9-E02A-47C1-AB6F-69DAC0640021} = {2EEA4B01-BED6-41FD-86DE-6BA2EFFE065D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {945CCE19-7FF0-47F2-8DA1-CE436BB7D010}

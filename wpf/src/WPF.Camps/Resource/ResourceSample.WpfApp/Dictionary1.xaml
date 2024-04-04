@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="str">
+        这是一段文字
+    </sys:String>
+    <sys:Double x:Key="dbl">3.1415926</sys:Double>
+</ResourceDictionary>
