@@ -1,0 +1,16 @@
+﻿<Window x:Class="CommandSample.WpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CommandSample.WpfApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel x:Name="stackPanel">
+        <Button x:Name="button1" Content="Send Command" Margin="5"/>
+        <TextBox x:Name="textBoxA" Margin="5,0" Height="100"/>
+
+        <Button Content="window1" Click="Button_Click"/>
+        <Button Content="自定义命令" Click="Button_Click_1"/>
+    </StackPanel>
+</Window>
