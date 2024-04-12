@@ -1,0 +1,7 @@
+IDbContextFactory，使用方式
+ContextPool，使用方式
+
+基础API，尤其是映射配置相关的。
+
+
+

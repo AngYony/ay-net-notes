@@ -367,7 +367,7 @@ GetRequestHandlerSchemesAsync方法返回的认证方案是供 IAuthenticationRe
 
 ### 认证服务：IAuthenticationService
 
-在实际应用中，并不会直接调用作为认证处理器的IAuthenticationHandler对象的AuthenticateAsync方法、SignInAsync方法和SignOutAsync方法来进行认证、登录和注销操作，而是调用HttpContext上下文对象的同名方法。认证方案的5个核心操作（认证、登录、注销、2个质询）都可以调用HttpContext上下文对象对应的方法来完成。
+==在实际应用中，并不会直接调用作为认证处理器的IAuthenticationHandler对象的AuthenticateAsync方法、SignInAsync方法和SignOutAsync方法来进行认证、登录和注销操作，而是调用HttpContext上下文对象的同名方法。认证方案的5个核心操作（认证、登录、注销、2个质询）都可以调用HttpContext上下文对象对应的方法来完成==。
 
 下述是SignInAsync方法的实现方式：
 
