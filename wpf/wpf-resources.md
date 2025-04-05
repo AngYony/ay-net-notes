@@ -1,9 +1,97 @@
-# 资源
+# 样式与资源
+
+在WPF中，可以对特定类型的可视化对象的属性进行集中设置，样式由Style类表示。使用样式来描述对象的属性，可以实现重复利用。样式通常声明为资源，以方便在不同的地方进行引用。
 
 资源分为两类：
 
 - 对象资源，也称为WPF资源，指的是通过WPF界面元素的Resources属性设置的资源。
 - 程序集资源，也称为二进制资源，指的是编译器把外部文件编译进程序主体中的传统意义上的程序资源。
+
+
+
+## XAML样式
+
+在资源列表中声明样式对象时，如果显式指定x:key（资源的键，资源集合本质上是一个字典集合，通过键来访问），则XAML文档要使用该样式的元素必须显式引用；如果不设置x:key值，则在资源集合有效范围内的所有可视化对象都会自动套用资源中的样式。
+
+```xaml
+<Application.Resources>
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="楷体"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Foreground" Value="Purple"/>
+    </Style>
+</Application.Resources>
+```
+
+### 样式中的触发器
+
+Style类公开了一个Triggers集合，允许向其中添加触发器。触发器以TriggerBase抽象类为基础，即只要从TriggerBase类派生的类型都可以添加到Triggers集合中。
+
+```xaml
+<Window x:Class="S12_9.StyleTrigger"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:S12_9"
+        mc:Ignorable="d"
+        Title="样式中的触发器" Height="450" Width="800">
+
+    <Window.Resources>
+        <!--静态触发器-->
+        <Style TargetType="{x:Type Rectangle}">
+            <Setter Property="Width" Value="150" />
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="Fill" Value="Yellow"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Fill" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--动画触发器-->
+        <Style TargetType="{x:Type Ellipse}">
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="120"/>
+            <Setter Property="Fill" Value="LightBlue"/>
+            <Style.Triggers>
+                <Trigger Property="UIElement.IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Name="start">
+                            <Storyboard RepeatBehavior="Forever">
+                                <ColorAnimation Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" From="Orange" To="Blue" Duration="0:0:2"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <StopStoryboard BeginStoryboardName="start"/>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="30" Orientation="Horizontal">
+            <Rectangle/>
+            <Rectangle/>
+            <Rectangle/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="30" Orientation="Horizontal">
+            <Ellipse/>
+            <Ellipse/>
+            <Ellipse/>
+        </StackPanel>
+    </Grid>
+</Window>
+```
+
+
 
 
 
@@ -63,6 +151,14 @@ this.mytxt.Text = (string)this.Resources["str"];
     <ResourceDictionary Source="Dictionary1.xaml"/>
 </Window.Resources>
 ```
+
+### 资源的有效范围
+
+| 类型             | 说明                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| Application      | 表示应用程序级别的资源。在Application.Resources中声明的资源，其有效范围覆盖整个应用程序。只要位于当前应用程序中的代码都能访问。 |
+| Style            | 资源的有效范围仅限于当前样式，在样式之外不可访问。           |
+| FrameworkElement | 当前元素及其子元素都可以访问资源，而当前元素的父级元素或其他元素不能访问。由于WPF中许多类型都从FrameworkElement类派生，因此Resources属性也会被子类继承，如Control、TextBox等类型。 |
 
 
 
@@ -165,3 +261,16 @@ this.img.Source=new BitmapImage(uri);
 - 如果要使用绝对路径，UriKind必须为Absolute，并且代表根目录的/不能省略。
 
   
+
+
+
+----
+
+References:
+
+- 《深入浅出WPF》
+- 《C#码农笔记-WPF应用程序》
+- [XAML 资源概述 - WPF .NET | Microsoft Learn](https://learn.microsoft.com/zh-cn/dotnet/desktop/wpf/systems/xaml-resources-overview?view=netdesktop-9.0)
+- [如何为控件创建样式 - WPF .NET | Microsoft Learn](https://learn.microsoft.com/zh-cn/dotnet/desktop/wpf/controls/how-to-create-apply-style?view=netdesktop-9.0)
+
+Last updated：2025-04-04
