@@ -332,3 +332,15 @@ wrapPanel内部采用流式布局。
 
 WrapPanel使用Orientation属性来控制流延伸的方向，使用HorizontalAlignment和VerticalAlignment两个属性控制内部空间的对齐，在流延伸的方向上，WrapPanel会排列尽可能多的控件，排不下的控件将会新起一行或一列继续排列。
 
+
+
+
+
+----
+
+References:
+
+- 《深入浅出WPF》
+- 《C#码农笔记-WPF应用程序》
+
+Last updated：2025-04-04
