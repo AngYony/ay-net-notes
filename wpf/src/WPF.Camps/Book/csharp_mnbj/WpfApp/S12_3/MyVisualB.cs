@@ -15,10 +15,12 @@ namespace S12_3
     {
         #region 注册依赖项属性，属性名称，属性值的类型，注册该依赖项属性的类型
         public static readonly DependencyProperty FillBrushProperty = DependencyProperty.Register(
-            "FillBrushB", typeof(Brush), typeof(MyVisualB),
-            new FrameworkPropertyMetadata(
+           name: "FillBrushB",
+           propertyType: typeof(Brush),
+           ownerType: typeof(MyVisualB),
+           typeMetadata: new FrameworkPropertyMetadata(
                 //设置依赖项属性默认值
-                Brushes.Red,FrameworkPropertyMetadataOptions.AffectsRender
+                Brushes.Red, FrameworkPropertyMetadataOptions.AffectsRender
                     //当依赖项属性的值被修改后会调用
                     //new PropertyChangedCallback(FillBrushPropertyChanged)
                     ));
@@ -53,7 +55,7 @@ namespace S12_3
             double cy = s.Height / 2d;
             // 绘制图形
             dc.DrawEllipse(this.FillBrush, null, new Point(cx, cy), 100d, 100d);
-           
+
         }
         protected override Size MeasureOverride(Size availableSize)
         {
@@ -65,7 +67,7 @@ namespace S12_3
         //    // 返回呈现该元素所需要的空间
         //    return new Size(300d, 300d);
         //}
-         
+
 
     }
 }

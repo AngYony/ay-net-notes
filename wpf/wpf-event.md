@@ -41,6 +41,8 @@ class ReportTimeEventArgs : RoutedEventArgs
 }
 ```
 
+在WPF中，如果事件不需要传递任何额外细节，可使用RoutedEventArgs类。如果事件需要传递额外的信息，那么需要使用派生自RoutedEventArgs的各种事件类（如MouseButtonEventArgs），由于每个WPF事件参数类都继承自RoutedEventArgs类，所以每个WPF事件处理程序都可以访问与事件路由相关的信息。
+
 ### 第二步：声明并注册路由事件
 
 使用EventManager类的RegisterRoutedEvent方法进行注册。
@@ -109,6 +111,8 @@ protected override void OnClick()
 ```
 
 注意：传统直接事件的激发是通过调用CLR事件的Invoke方法实现的，而路由事件的激发与作为其包装器的CLR事件毫不相干。例如上述路由事件的激发是通过鼠标单击时被调用，与CLR事件包装器RoutedEventHandler没有任何关系。
+
+RaiseEvent()方法负责为每个已经通过AddHandler()方法注册的调用程序引发事件。
 
 ### 完整代码
 
