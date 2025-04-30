@@ -488,6 +488,355 @@ public void Run()
 
 ## 事件
 
+事件（event）是一种使对象或类能够提供通知（具备通知能力）的成员（事件通常定义在类中，因此事件属于类的成员）。
+
+“对象O拥有一个事件E”想表达的思想是：当事件E发生的时候，O有能力通知别的对象。
+
+事件用于对象或类间的动作协调与信息传递（消息推送）。
+
+事件的功能 = 通知 + 可选的事件参数（即详细信息）
+
+事件模型：发生 + 响应，包含5个组成部分：
+
+- 事件本身（event，成员）：事件不会主动发生，一定是被事件拥有者的某些内部逻辑触发之后才会发生，才会发挥通知的作用。
+- 事件的拥有者（event source）：也称为事件源、事件主题、事件消息发送者，通常是一个对象或一个类。
+- 事件的响应者（event subscriber，对象），也称为事件的订阅者、事件消息的接收者、事件的响应者、事件的处理者、被事件所通知的对象
+- 事件处理器（event handler，成员），本质上是一个回调方法，该方法包含了事件参数（也称为事件信息、事件消息、事件数据、事件参数）
+- 事件订阅：把事件处理器与事件关联在一起，本质上是一种以委托类型为基础的“约定”，代码形式上通常表现为“事件+=委托方法”。
+
+例如：在代码`obj1.button1.Click += obj2.ButtonClicked`中，事件本身是Click事件，事件的拥有者为button1，事件的响应者为obj2，事件处理器为obj2的ButtonClicked委托方法，事件订阅为代码“+="多播委托实现。
+
+
+
+### 事件的声明
+
+#### 事件完整声明形式
+
+1. 定义事件约束对应的委托，按照约定自定义事件要以EventHandler结尾，事件的两个参数分别为事件拥有者，和事件参数信息
+
+   ```csharp
+   /// <summary>
+   /// 定义事件约束委托，注意要定义在类的外部，按照约定自定义事件要以EventHandler结尾
+   /// 这里定义学习事件，通常事件的两个参数分别为事件拥有者，和事件参数信息
+   /// </summary>
+   /// <param name="student"></param>
+   /// <param name="e"></param>
+   public delegate void StudyEventHandler(Student student, StudyEventArgs e);
+   /// <summary>
+   /// 简明声明事件示例
+   /// 这里定义学生休息事件
+   /// </summary>
+   /// <param name="student"></param>
+   /// <param name="e"></param>
+   public delegate void RestEventHandler(Student student, StudyEventArgs e);
+   ```
+
+2. 定义事件拥有者，并在内部定义事件本身，事件完整声明形式下，必须定义委托对应的事件和使用add、romove关键字进行包装
+
+   ```csharp
+   /// <summary>
+   /// 定义事件拥有者
+   /// 这里事件拥有者为学生
+   /// </summary>
+   
+   public class Student
+   {
+       public string Name { get; set; }
+   	#region 将事件约束委托和事件进行关联（实现约束）
+       private StudyEventHandler studyEventHandler;
+   
+       /// <summary>
+       /// 定义事件本身
+       /// </summary>
+       public event StudyEventHandler Study
+       {
+           add
+           {
+               this.studyEventHandler += value;
+           }
+           remove
+           {
+               this.studyEventHandler -= value;
+           }
+       }
+   	#endregion
+           
+       /// <summary>
+       /// 定义触发事件的方法，开始上课
+       /// </summary>
+       public void OnStudy(string curriculumName)
+       {
+           //判断事件是否被订阅，等于null，就说明该事件没有被订阅
+           if (this.studyEventHandler != null)
+           {
+               //执行被订阅的事件
+               this.studyEventHandler.Invoke(this, new StudyEventArgs()
+               {
+                   CurriculumName = curriculumName
+               });
+           }
+       }
+   }
+   ```
+
+3. 定义事件订阅者（事件响应者）
+
+   ```csharp
+   /// <summary>
+   /// 定义事件响应者
+   /// </summary>
+   public class Teacher
+   {
+       /// <summary>
+       /// 订阅的具体事件，由+=代码引入
+       /// 这里订阅的事件为上课
+       /// </summary>
+       /// <param name="student"></param>
+       /// <param name="e"></param>
+       public void Lessons(Student student, StudyEventArgs e)
+       {
+           Console.WriteLine($"{student.Name}正在上{e.CurriculumName}课");
+       }
+   }
+   
+   internal class Program
+   {
+       static void Main(string[] args)
+       {
+           Teacher teacher = new Teacher();
+           Student student = new Student() { Name = "小明" };
+           //订阅事件
+           student.Study += teacher.Lessons;
+           student.OnStudy("语文");
+           Console.Read();
+       }
+   }
+   ```
+
+   
+
+#### 事件简略声明形式
+
+简略声明是在事件拥有者的内部，不再使用add/remove进行包装，而是有些类似属性的声明形式：
+
+```csharp
+/// <summary>
+/// 定义事件拥有者
+/// 这里事件拥有者为学生
+/// </summary>
+
+public class Student
+{
+    public string Name { get; set; }
+    
+    #region 事件简略声明形式
+    /// <summary>
+    /// 声明事件（声明后有点类似于属性）
+    /// </summary>
+    public event RestEventHandler Rest;
+
+    public void OnRest(string curriculumName)
+    {
+        if(this.Rest != null) //直接判断事件属性即可
+        {
+            this.Rest.Invoke(this, new StudyEventArgs() { CurriculumName = curriculumName });
+        }
+    }
+    #endregion
+}
+```
+
+使用时和完整声明形式一样的使用方式：
+
+```csharp
+/// <summary>
+/// 定义事件响应者
+/// </summary>
+public class Teacher
+{
+    /// <summary>
+    /// 上课
+    /// </summary>
+    /// <param name="student"></param>
+    /// <param name="e"></param>
+    public void Lessons(Student student, StudyEventArgs e)
+    {
+        Console.WriteLine($"{student.Name}正在上{e.CurriculumName}课");
+    }
+
+    internal void Recess(Student student, StudyEventArgs e)
+    {
+        Console.WriteLine($"{e.CurriculumName}下课了，{student.Name}开始休息了");
+    }
+}
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        Teacher teacher = new Teacher();
+        Student student = new Student() { Name = "小明" };
+        student.Study += teacher.Lessons;
+        student.OnStudy("语文");
+        Console.Read();
+        student.Rest += teacher.Recess;
+        student.OnRest("语文");
+        Console.Read();
+    }
+}
+```
+
+
+
+#### 完整声明和简略声明的完整代码
+
+```c#
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        Teacher teacher = new Teacher();
+        Student student = new Student() { Name = "小明" };
+        student.Study += teacher.Lessons;
+        student.OnStudy("语文");
+        Console.Read();
+        student.Rest += teacher.Recess;
+        student.OnRest("语文");
+        Console.Read();
+    }
+}
+
+/// <summary>
+/// 定义事件参数信息，按照约定事件以EventArgs结尾，且派生自EventArgs
+/// 这里定义学习事件参数
+/// </summary>
+public class StudyEventArgs : EventArgs
+{
+    /// <summary>
+    /// 课程名称
+    /// </summary>
+    public string CurriculumName { get; set; }
+}
+
+/// <summary>
+/// 定义事件约束委托，注意要定义在类的外部，按照约定自定义事件要以EventHandler结尾
+/// 这里定义学习事件，通常事件的两个参数分别为事件拥有者，和事件参数信息
+/// </summary>
+/// <param name="student"></param>
+/// <param name="e"></param>
+public delegate void StudyEventHandler(Student student, StudyEventArgs e);
+
+/// <summary>
+/// 简明声明事件示例
+/// 这里定义学生休息事件
+/// </summary>
+/// <param name="student"></param>
+/// <param name="e"></param>
+public delegate void RestEventHandler(Student student, StudyEventArgs e);
+
+
+/// <summary>
+/// 定义事件拥有者
+/// 这里事件拥有者为学生
+/// </summary>
+
+public class Student
+{
+    public string Name { get; set; }
+
+    private StudyEventHandler studyEventHandler;
+
+    /// <summary>
+    /// 定义事件本身
+    /// </summary>
+
+    public event StudyEventHandler Study
+    {
+        add
+        {
+            this.studyEventHandler += value;
+        }
+        remove
+        {
+            this.studyEventHandler -= value;
+        }
+    }
+
+    /// <summary>
+    /// 定义触发事件的方法，开始上课
+    /// </summary>
+
+    public void OnStudy(string curriculumName)
+    {
+        //等于null，就说明该事件没有被订阅
+        if (this.studyEventHandler != null)
+        {
+            this.studyEventHandler.Invoke(this, new StudyEventArgs()
+            {
+                CurriculumName = curriculumName
+            });
+        }
+    }
+
+    #region 事件简略声明形式
+    //简略声明的事件是由编译器进行的处理
+
+
+    /// <summary>
+    /// 声明事件
+    /// </summary>
+    public event RestEventHandler Rest;
+
+    public void OnRest(string curriculumName)
+    {
+        if(this.Rest != null)
+        {
+            //事件必须由事件拥有者触发
+            this.Rest.Invoke(this, new StudyEventArgs() { CurriculumName = curriculumName });
+        }
+    }
+
+    #endregion
+}
+
+/// <summary>
+/// 定义事件响应者
+/// </summary>
+public class Teacher
+{
+    /// <summary>
+    /// 上课
+    /// </summary>
+    /// <param name="student"></param>
+    /// <param name="e"></param>
+    public void Lessons(Student student, StudyEventArgs e)
+    {
+        Console.WriteLine($"{student.Name}正在上{e.CurriculumName}课");
+    }
+
+    internal void Recess(Student student, StudyEventArgs e)
+    {
+        Console.WriteLine($"{e.CurriculumName}下课了，{student.Name}开始休息了");
+    }
+}
+```
+
+#### 事件重点说明
+
+- 事件的本质是委托字段的一个包装器，这个包装器对委托字段的访问起限制作用，相当于一个“蒙板”。
+- 事件对外界隐藏了委托实例的大部分功能，仅暴露添加、移除事件处理器的功能。简略声明的事件是由编译器进行的处理（field-like)，即完整声明里面的add/romove都是由编译器进行了工作。
+- 用于声明事件的委托类型的命名约定：
+  - 用于声明Study事件的委托，一般命名为StudyEventHandler，也可以直接使用内置的EventHandler委托，该委托基本满足大多数场景。
+  - StudyEventHandler委托的参数一般有两个（由Win32 API演化而来，历史悠久）：
+    - 第一个参数是Object类型，名字为sender，实际上就是事件的拥有者，事件源。
+    - 第二个参数是EventArgs类的派生类，类名一般为StudyEventArgs，参数名为e，表示事件参数。可以把委托的参数列表看作是事件发生后发送给事件响应者的事件消息。
+  - 事件的触发必须由事件拥有者自己来做：即定义的事件，只能在事件所属类中进行Invoke调用（`this.Rest.Invoke(this, new StudyEventArgs() { CurriculumName = curriculumName });`），而在事件拥有者的外部是无法直接Invoke触发的。这正是事件与委托的一个关键性区别和事件之所以存在的最主要的一个原因，可以使程序更安全。
+  - 触发Study事件的方法一般命名为OnStudy，即“因何引发”，通常访问级别为protected。
+- 简略声明的事件是由编译器进行的处理，背后也是会存在委托属性。注意，上述代码中的`public event RestEventHandler Rest;`它不是委托属性，只有在去掉了event关键字，才相当于是定义了一个委托属性。
+- 事件不是委托，也不是以特殊方式声明的委托字段/实例，`public event RestEventHandler Rest;`这行代码，如果去掉了event关键字（event关键字更像是一个修饰符），就相当于是声明了一个委托的字段。而事件只是声明的时候“看起来像（对比委托字段与事件的简化声明，field-like）。委托可以在外部随意实现多播委托，并且被Invoke调用，而使用事件，不允许在事件所属类的外部进行Invoke操作，因此可以使程序的逻辑更加安全。
+- 属性是字段的包装器，而事件是委托字段的包装器，这个包装器用来保护委托字段不被滥用。包装器永远都不可能是被包装的内容本身。
+
+
+
 自定义事件，参见《C#核心技术指南》中的“委托和事件”章节内容。
 
 
@@ -510,7 +859,7 @@ public void Run()
 
 本文后续会随着知识的积累不断补充和更新，内容如有错误，欢迎指正。
 
-本文最后一次更新时间：2022-03-27
+本文最后一次更新时间：2025-04-30
 
 ------
 

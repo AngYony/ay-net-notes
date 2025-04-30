@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "表达式树", "表达式�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expression.Sample", "Expression\Expression.Sample\Expression.Sample.csproj", "{16D760E8-80A3-434D-9B71-AD9D9DA1B575}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event_Sample", "Event_Sample\Event_Sample.csproj", "{E01D6CBF-5C62-41A5-AB5A-2AD8BD9A3D36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,10 @@ Global
 		{16D760E8-80A3-434D-9B71-AD9D9DA1B575}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16D760E8-80A3-434D-9B71-AD9D9DA1B575}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16D760E8-80A3-434D-9B71-AD9D9DA1B575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E01D6CBF-5C62-41A5-AB5A-2AD8BD9A3D36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E01D6CBF-5C62-41A5-AB5A-2AD8BD9A3D36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E01D6CBF-5C62-41A5-AB5A-2AD8BD9A3D36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E01D6CBF-5C62-41A5-AB5A-2AD8BD9A3D36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
