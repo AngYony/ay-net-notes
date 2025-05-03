@@ -163,7 +163,7 @@ x:Name的作用有两个：
 
 x:FieldModifier用来设置元素的访问控制级别，默认为internal，当需要从一个程序集中访问其他程序集中的元素，就需要修改元素的访问级别。
 
-因为x:FieldModifier用来改变引用变量访问级别的，**所以使用x:FieldModifier就必须使用x:Name**。
+==因为x:FieldModifier用来改变引用变量访问级别的==，**所以使用x:FieldModifier就必须使用x:Name**。
 
 ```xaml
 <TextBox x:Name="txt1" x:FieldModifier="public" />
@@ -339,6 +339,12 @@ x:XData标签是一个专用标签，这里只展示用法。
 - 编辑C#代码生成exe、dll，使用C#编译工具csc命令。
 
 
+
+## 总结
+
+- XAML中的一个标签，在调用InitializeComponent()方法之后，相当于定义了一个该标签的实例，而x:Name相当于为该实例声明了一个引用变量，变量名为x:Name的值。
+- 应该为标签始终使用x:Name而不是Name来指定变量名称。因为Name属性派生自FrameworkElement，而其他非WPF控件类型不包含Name属性，而只能使用x:Name。
+- 由于XAML中的一个标签可以看作是定义了一个实例，因此除了WPF的控件可以作为标签之外，其他任何的类类型都可以作为标签写在XAML中，只需要使用xmlns引入该类型的命名空间即可。
 
 
 
