@@ -118,6 +118,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "《WPF编程宝典》", "�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S4_1", "Book\wpf_bcbd\WpfApp\S4_1\S4_1.csproj", "{F92CAF65-5ACD-4D67-9B3E-005AA53997D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrismWpfApp", "Mvvm\PrismWpfApp\PrismWpfApp.csproj", "{8E08FA06-5934-4484-B784-CA1962E8AC4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -232,6 +234,10 @@ Global
 		{F92CAF65-5ACD-4D67-9B3E-005AA53997D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F92CAF65-5ACD-4D67-9B3E-005AA53997D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F92CAF65-5ACD-4D67-9B3E-005AA53997D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E08FA06-5934-4484-B784-CA1962E8AC4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E08FA06-5934-4484-B784-CA1962E8AC4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E08FA06-5934-4484-B784-CA1962E8AC4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E08FA06-5934-4484-B784-CA1962E8AC4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -283,6 +289,7 @@ Global
 		{DD27DBE9-E02A-47C1-AB6F-69DAC0640021} = {2EEA4B01-BED6-41FD-86DE-6BA2EFFE065D}
 		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {060053A3-57F1-4605-BD93-D904DBE695C0}
 		{F92CAF65-5ACD-4D67-9B3E-005AA53997D7} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{8E08FA06-5934-4484-B784-CA1962E8AC4D} = {5BC347F5-E5C2-4485-9CAC-51132D00CCB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {945CCE19-7FF0-47F2-8DA1-CE436BB7D010}

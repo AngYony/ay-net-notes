@@ -1,6 +1,26 @@
 # 控件与布局
 
+WPF中的控件与布局的重要知识点：
+
+- 根据派生的父类分为不同的族，掌握各个控件的派生父类
+- 控件的内容属性，即控件的内容或子级元素
+- 布局元素的使用，尤其Grid和StackPanel的使用，其中控制宽度的带有“*”的用法。
+
+
+
+
+
 WPF中是数据驱动UI，数据是核心、是主动的；UI从属于数据并表达数据、是被动的。
+
+WPF中有两种树：逻辑树（Logical Tree）和可视元素树（Visual Tree）。
+
+- 逻辑树（Logical Tree）：代表你的UI的基本结构，即XAML代码中的控件结构，它是肉眼可见的。
+
+- 可视元素树（Visual Tree）：在逻辑树的基础上更细化的树形结构，包含一些肉眼不可见的用于事件传递、属性绑定、控件组成明细等相关的结构。（注意，肉眼可见的是逻辑树而不是可视化树）。在调试模式下，可以看到可视元素树的组成部分：
+
+  ![image-20250506152839508](./assets/image-20250506152839508.png)
+
+
 
 
 
@@ -46,7 +66,14 @@ WPF的控件都派生自FrameworkElement，这里的“Framework”指的是WPF 
 
 标签元素按照内容属性和共同基类可以分为下述几大类。
 
-
+- 派生自ContentControl类的标签元素：该类元素的内容只能包含一个元素来充当其子级元素。
+- 派生自HeaderedContentControl类的标签元素，注：HeaderedContentControl本身也派生自ContentControl类
+- 派生自ItemsControl类的标签元素：通常是一些包含选项形式的元素，如下拉框、菜单项、ListBox等
+- 派生自HeaderedItemsControl类的标签元素，注：HeaderedItemsControl本身也派生自ItemsControl类。
+- 派生自Decorator类的标签元素：通常是一些用于修饰UI的元素，如Border
+- 文本框
+- Shape族元素：用于图形绘制
+- 派生自Panel抽象类的布局元素
 
 ### ContentControl
 
@@ -70,7 +97,7 @@ ContentControl包含的控件：
 
 这类元素的特点：
 
-- 它们都派生自HeaderedContentControl类，HeaderedContentControl是ContentControl类的派生类。
+- 它们都派生自HeaderedContentControl类，由于HeaderedContentControl是ContentControl类的派生类，因此它们也具有ContentControl族的元素特点。
 - 他们都是Control，用于显示带标题的数据。
 - 除了用于显示主体内容的区域外，控件还具有一个显示标题（Header）的区域。
 - 内容属性为Content和Header。
@@ -165,7 +192,7 @@ private void Button_Click(object sender, RoutedEventArgs e)
 
 这类元素的特点：
 
-- 均派生自 HeaderedItemsControl类
+- 均派生自 HeaderedItemsControl类，由于HeaderedItemsControl是ItemsControl类的派生类，因此它们也具有ItemsControl族的元素特点。
 - 他们都是Control，用于显示列表化的数据，同时可以显示一个标题。
 - 内容属性为Items、ItemsSource和Header
 
@@ -235,13 +262,13 @@ TextBlock由于需要操纵格式，所以内容属性是Inlines（印刷中的�
 
 ## 布局
 
-WPF中的布局元素有如下几个：
+Panel是所有布局的基类。WPF中的布局元素有如下几个：
 
 - Grid：网格。可以自定义行和列并通过行列的数量、行高和列宽来调整控件的布局。类似于HTML中的Table。
-- StackPanel：栈式面板。可将包含的元素在竖直或水平方向上排成一条直线，当移除一个元素后，后面的元素会自动向前移动以填充空缺。
-- Canvas：画布。内部元素可以使用以像素为单位的绝对坐标进行定位，类似于winForm编程的布局方式。
+- StackPanel：栈式面板是一个简单的容器控件，它只显示一个接一个的元素。可将包含的元素在竖直或水平方向上排成一条直线，当移除一个元素后，后面的元素会自动向前移动以填充空缺。S
+- Canvas：画布。内部元素可以使用以像素为单位的绝对坐标进行定位，类似于winForm编程中的布局方式。
 - DockPanel：泊靠式面板，内部元素可以选择泊靠方向，类似于Winform编程中设置控件的Dock属性。
-- WrapPanel：自动折行面板。内部元素在排满一行后能够自动折行，类似于HTML中的流式布局。
+- WrapPanel：自动折行面板。内部元素在排满一行后能够自动折行，类似于HTML中的流式布局。WrapPanel在空间不够的时候可以做到自适应换行，而StackPanel不可以自动换行，甚至空间不够，也不会出现滑块。
 
 
 
@@ -251,7 +278,7 @@ Grid元素会以网格的形式对内容元素们进行布局。
 
 Grid特点：
 
-- 可以定义任意数量的行和列
+- 可以定义任意数量的行和列，使用这些行或列时，索引从0开始。
 - 行的高度和列的宽度可以使用绝对数值、相对比例或自动调整的方式进行精确设定，并可设置最大和最小值。
 - 内部元素可以设置自己所在的行和列，还可以设置跨几行跨几列。
 - 可以设置Children元素的对齐方向。
@@ -287,7 +314,7 @@ Grid可接受的宽度和高度的单位：
 行高和列宽可以设置三类值：
 
 1. 绝对值：double数值加单位后缀（如上述代码）
-2. 比例值：double数值后加一个星号（*）。解析器会把所有比例值的数值加起来作为分母、把每个比例值的数值作为分子，再用这个分数值乘以未被占用空间的像素数，得到的结果就是分配给这个比例值的最终像素数。
+2. 比例值：double数值后加一个星号（*），根据可用空间并相对于其他行或列来计算行和列的空间。解析器会把所有比例值的数值加起来作为分母、把每个比例值的数值作为分子，再用这个分数值乘以未被占用空间的像素数，得到的结果就是分配给这个比例值的最终像素数。
 3. 自动值：字符串Auto。此时行高或列宽的实际值由行列内控件的高度和宽度决定。如果行列中没有控件，则行高和列宽均为0。
 
 如果把两个元素放在Grid的同一个单元格内，则代码中后书写的元素将盖在先书写的元素之上。如果想让盖在后面的元素显示出来，可以把上面的元素的Visibility设置为Hidden或Collapsed，也可以把上面的元素的Opacity属性设置为0。
@@ -336,6 +363,12 @@ WrapPanel使用Orientation属性来控制流延伸的方向，使用HorizontalAl
 
 
 
+
+
+
+
+
+
 ----
 
 References:
@@ -343,4 +376,4 @@ References:
 - 《深入浅出WPF》
 - 《C#码农笔记-WPF应用程序》
 
-Last updated：2025-04-04
+Last updated：2025-05-07
