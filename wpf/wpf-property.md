@@ -8,6 +8,10 @@ WPF中的属性，指的不是CLR属性，而是依赖项属性（dependency  pr
 
 传统的.NET开发中，一个对象所占用的内存空间在调用new操作符进行实例化的时候就已经决定了，而WPF允许对象在被创建的时候并不包含用于存储数据的空间（即字段所占用的空间），只保留在需要用到数据时能够获得默认值、借用其他对象数据或实时分配空间的能力。这种对象就被称为依赖对象（Dependency Object），而它这种实时获取数据的能力则依靠依赖属性（Dependency Property）来实现。
 
+在WPF中，实现数据绑定、样式动画等，都需要用到依赖属性。依赖属性是在CLR属性的基础上，实现WPF功能进行的包装。
+
+依赖属性的用途之一是提供链式通知，这有助于数据绑定动画等。
+
 
 
 ## 定义依赖项属性（DependencyProperty）
@@ -31,6 +35,10 @@ public class WyElement : FrameworkElement
 }
 ```
 
+**依赖属性为什么是静态的并且只读的**？
+
+依赖属性应该始终对所有控件可用，因此它应该是共享的，并且不希望该类的对象一次又一次的被创建，所以应该始终是静态的。而使用readonly是为了防止其在使用的过程中被更改。
+
 
 
 ## 注册依赖项属性
@@ -51,7 +59,7 @@ public static DependencyProperty Register(string name, Type propertyType, Type o
 
 - name：用来指明以哪个CLR属性作为这个依赖属性的包装器，或者说此依赖属性支持的是哪个CLR属性。
 - propertyType：用来指明该依赖属性存储的值是什么类型。
-- ownerType：用来指明该依赖属性的宿主（依赖对象）是什么类型，或者说DependencyProperty.Register方法把这个依赖属性注册关联到哪个类型上。因为使用了public static修饰，因此ownerType指定的类型不一定非得是当前声明的依赖对象的类型，只是大多数情况下如此。
+- ownerType：用来指明通过CLR属性形式包装后的依赖属性的宿主（依赖对象）是什么类型，或者说DependencyProperty.Register方法把这个依赖属性注册关联到哪个类型上。因为使用了public static修饰，因此ownerType指定的类型不一定非得是当前声明的依赖对象的类型，只是大多数情况下如此。
 - typeMetadata：给依赖属性的DefaultMetadata属性赋值。
 - validateValueCallback：一个用于验证属性的回调函数。
 
@@ -104,6 +112,19 @@ public Brush FillBrush
 > 当创建属性封装器时，应当只包含对SetValue()和GetValue()方法的调用，不应当添加任何验证属性值的额外代码或引发事件的代码等。这是因为WPF中的其他功能可能会忽略属性封装器，并直接调用SetValue()和GetValue()方法（一个例子是，在运行时解析编译过的XAML文件）。
 
 属性封装器不是验证数据或引发事件的正确位置，而是使用依赖项属性回调函数。应当在声明DependencyProperty对象时，通过DependencyProperty.ValidateValueCallback回调函数进行验证操作，而事件的触发应当通过FrameworkPropertyMetadata.PropertyChangedCallback回调函数中进行。
+
+
+
+## 依赖属性与包装器图示
+
+注册与属性包装关联的地方图示：
+
+![image-20250507170640351](./assets/image-20250507170640351.png)
+
+依赖属性与包装器：
+
+- 依赖属性指的是由public static readonly修饰的DependencyProperty实例对象（如上图中的PaddingProperty），而不是依赖属性的包装器。
+- 依赖属性的包装器表示的是可依赖的名称属性，包装器的作用是以“实例属性”的形式向外界暴露依赖属性。
 
 
 
@@ -474,7 +495,10 @@ WPF提供两种方法来阻止非法值：
 
 
 
+## 依赖属性相关的重点知识点
 
+- 依赖属性指的是由public static readonly修饰的DependencyProperty实例对象，而不是依赖属性的包装器。
+- ==依赖属性不需要显式实现INotifyPropertyChanged接口，就具有数据绑定过程中当属性的值发生改变时与之关联的Binding对象就可以得到通知的能力==。
 
 
 
@@ -486,4 +510,4 @@ References:
 - 《C#码农笔记-WPF应用程序》
 - 《WPF编程宝典》
 
-Last updated：2025-04-04
+Last updated：2025-05-08
