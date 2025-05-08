@@ -488,6 +488,8 @@ public void Run()
 
 ## 事件
 
+>  注：本小节的内容是根据刘铁猛老师的《C#语言入门详解——事件详解》学习后的归纳和总结。
+
 事件（event）是一种使对象或类能够提供通知（具备通知能力）的成员（事件通常定义在类中，因此事件属于类的成员）。
 
 “对象O拥有一个事件E”想表达的思想是：当事件E发生的时候，O有能力通知别的对象。
@@ -820,7 +822,7 @@ public class Teacher
 }
 ```
 
-#### 事件重点说明
+### 事件重点说明
 
 - 事件的本质是委托字段的一个包装器，这个包装器对委托字段的访问起限制作用，相当于一个“蒙板”。
 - 事件对外界隐藏了委托实例的大部分功能，仅暴露添加、移除事件处理器的功能。简略声明的事件是由编译器进行的处理（field-like)，即完整声明里面的add/romove都是由编译器进行了工作。
@@ -847,19 +849,17 @@ public class Teacher
 
 
 
-#### 参考资源
+References:
 
 - 《C#高级编程（第10版）》
 - [委托概述](https://docs.microsoft.com/zh-cn/dotnet/csharp/delegates-overview) 
 - [System.Delegate 和 `delegate` 关键字](https://docs.microsoft.com/zh-cn/dotnet/csharp/delegate-class)
 - [委托和事件](https://docs.microsoft.com/zh-cn/dotnet/csharp/delegates-events)
 - [委托和 lambda](https://docs.microsoft.com/zh-cn/dotnet/standard/delegates-lambdas)
+- 刘铁猛老师的《C#语言入门详解——事件详解》
+
+Last updated：2025-05-08
 
 
 
 本文后续会随着知识的积累不断补充和更新，内容如有错误，欢迎指正。
-
-本文最后一次更新时间：2025-04-30
-
-------
-
