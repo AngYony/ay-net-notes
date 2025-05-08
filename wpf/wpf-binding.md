@@ -2,7 +2,11 @@
 
 Binding 音译为“绑定”，Binding更注重表达它是一种像桥梁一样的关联关系。两端分别是Binding的源（Source）和目标（Target）。
 
-一般情况下，Binding源是逻辑层的对象，Binding目标是UI层的控件对象。
+Binding的两端分别是源（Source，数据从哪来）和目标（Target，数据到哪去）。一般情况下，Binding源是逻辑层的对象，Binding目标是UI层的控件对象。
+
+目标属性在数据绑定中始终是依赖属性。
+
+数据绑定生效的前提是一定要进行数据上下文的设置。
 
 
 
@@ -13,6 +17,9 @@ Binding 音译为“绑定”，Binding更注重表达它是一种像桥梁一�
 - 定义数据源类型，一般为ViewModel实体
 - ViewModel实体实现接口 INotifyPropertyChanged，并在需要进行变化通知的属性的set语句中触发PropertyChanged事件。
 - 将该ViewModel进行UI绑定，调用 BindingOperations.SetBinding方法。
+- UI元素使用Binding的Path指定源的某个属性进行绑定。
+
+注意：上述表述的是普通的属性（非依赖属性）绑定到UI的某个属性时需要进行的操作，依赖属性本身具有通知变化的能力，不需要显式的实现INotifyPropertyChanged接口。
 
 上述几个操作可以直接简化两个过程：定义数据源和绑定控件。
 
@@ -88,7 +95,7 @@ public static BindingExpressionBase SetBinding(DependencyObject target, Dependen
 参数说明：
 
 - target：用于指定Binding的目标
-- dp：用于为Binding指明把数据送达到目标的哪个属性。
+- dp：用于为Binding指明把数据送达到目标的哪个属性。通过这个参数的类型可以知道：==目标属性在数据绑定中始终是依赖属性==
 - binding：指定使用哪个Binding实例将数据源与目标关联起来。
 
 由于FrameworkElement对BindingOperations.SetBinding(...)进行了封装，名称也叫SetBinding(...)，只是参数不同。FrameworkElement是WPF所有UI元素的父类，这从侧面向我们传递了这样一个思想——微软希望SetBinding（即作为数据目标）的对象是UI元素。因此实际使用中，更多的是直接调用控件的SetBinding方法进行绑定。
@@ -101,7 +108,7 @@ this.txtName.SetBinding(TextBox.TextProperty, new Binding("Name") { Source = myS
 
 
 
-## Binding 标记扩展与路径
+## Binding 标记扩展与Path
 
 上述是在C#代码中实现UI与数据源的绑定，如果要在XAML中实现同样的功能，就需要使用Binding标记扩展。
 
@@ -133,20 +140,26 @@ this.txtName.SetBinding(TextBox.TextProperty,new Binding("Value") { Source=mySli
 
 注意：在XAML中使用标记扩展进行绑定时，由于XAML不能访问C#代码中的成员，因此不能直接在标记扩展中使用Source属性来指定C#代码中的成员，即使设置了也无效。 
 
-### Binding对象的Mode属性
-
-控制Binding数据流向的是Binding对象的Mode属性，它的类型是BindingMode枚举。该枚举值分别为：
-
-- TwoWay：导致更改源属性或目标属性时自动更新另一方。 这种类型的绑定适用于可编辑的表单或其他完全交互式 UI 方案。
-- OneWay：只在更改绑定源（源）时更新绑定目标（目标），无需监视目标属性的更改。
-- OnTime：在应用程序启动或数据上下文更改时，更新绑定目标。 这是实质上是 OneWay 绑定的一种简化形式，它在源值不更改的情况下提供更好的性能。
-- OneWayToSource：在目标属性更改时，更新源属性。
-
-- Default：Binding的模式会根据目标的实际情况来确定，如果是可编辑的（如TextBox.Text属性），采用双向模式，若是只读的（如TextBlock.Text）采用单向模式。
+### Binding对象的Mode属性（数据绑定的几种模式）
 
 ![Data binding data flow](./assets/databinding-dataflow.pngview=netdesktop-7.png)
 
+控制Binding数据流向的是Binding对象的Mode属性，它的类型是BindingMode枚举。该枚举值分别为：
+
+- OneWay：只在更改绑定源（源）时更新绑定目标（目标），无需监视目标属性的更改。
+- TwoWay：导致更改源属性或目标属性时自动更新另一方。 这种类型的绑定适用于可编辑的表单或其他完全交互式 UI 方案。
+- OneWayToSource：和OneWay方向相反，在目标属性更改时，更新源属性。
+- OnTime：在应用程序启动或数据上下文更改时，更新绑定目标。 这是实质上是 OneWay 绑定的一种简化形式，它在源值不更改的情况下提供更好的性能。
+- Default：Binding的模式会根据目标的实际情况来确定，如果是可编辑的（如TextBox.Text属性），采用双向模式，若是只读的（如TextBlock.Text）采用单向模式。
+
 补充：对于 TwoWay 或 OneWayToSource 绑定，可以通过设置 UpdateSourceTrigger 属性来控制目标到源的更新。
+
+总结：
+
+- OneWay：只根据源更新目标
+- OneWayToSource：只根据目标更新源
+- TwoWay：源和目标一起更新
+- OnTime：仅在初始化绑定的时候更新
 
 ### Binding对象的Path属性
 
@@ -163,7 +176,7 @@ Path用于获取或设置绑定源属性的路径，它的类型是System.Window
 等效的C#代码是：
 
 ```c#
-Binding binding=new Binding(){Path=new PropertyPaht("Value"), Source=this.slider1};
+Binding binding=new Binding(){Path=new PropertyPath("Value"), Source=this.slider1};
 //或者简写为：Binding binding=new Binding("Value"){Source = this.slider1 };
 this.textBox1.SetBinding(TextBox.TextProperty,binding);
 ```
@@ -282,7 +295,7 @@ this.txtName.SetBinding(TextBox.TextProperty,new Binding("/ProvinceList/CityList
 - 把普通的CLR集合类型对象指定为Source，常见的如数组、`List<T>`、`ObservableCollection<T>`，一般会把集合类型数据作为ItemsControl派生类的数据源来使用。
 - 把ADO.NET数据对象指定为Source，如DataTable和DataView
 - 使用XmlDataProvider 把XML数据指定为Source。
-- 把依赖对象（Dependency Object）指定为Source
+- 把依赖对象（Dependency Object）指定为Source。依赖对象中的依赖属性可以直接作为Binding的Path，而无需实现INotifyPropertyChanged接口，准确的说INotifyPropertyChanged接口主要用于于普通的CLR属性作为Binding的Path。
 - 把容器的DataContext指定为Source（WPF Data Binding 的默认行为）
 - 通过ElementName指定Source，即把一个控件当作另一个控件的Source
 - 通过Binding的RelativeSource属性相对的指定Source。
@@ -293,7 +306,9 @@ this.txtName.SetBinding(TextBox.TextProperty,new Binding("/ProvinceList/CityList
 
 ### 使用 DataContext 作为Binding的源
 
-DataContext属性被定义在FrameworkElement类里，这个类是WPF控件的基类，这意味着所有的WPF控件（包括容器控件）都具有该属性。
+DataContext属性被定义在FrameworkElement类里，这个类是WPF控件的基类，这意味着所有的WPF控件（包括容器控件）都具有该属性。在UI元素树的每个结点都有DataContext。
+
+DataContext本身也是一个依赖属性，这意味着可以使用Binding把它关联到一个数据源上。
 
 当一个Binding只知道自己的Path而不知道自己的Source时，它会沿着UI元素树一路向树的根部（上级或父级）找过去，每路过一个结点就要看看这个结点的DataContext是否具有Path所指定的属性，如果有，那就把这个DataContext对象作为自己的Source，如果没有就继续找下去，如果到了树的根部还没有找到，那这个Binding就没有Source，因而也不会得到数据。
 
@@ -610,7 +625,13 @@ RelativeSource的属性介绍：
 
 Binding用于数据有效性检验的关卡是它的ValidationRules属性；用于数据类型转换的关卡是它的Converter属性。
 
+
+
 ### Binding的数据校验
+
+Binding进行校验时的默认行为是认为来自Source的数据总是正确的，只有来自Target的数据才有可能有问题（因为Target多为UI控件，所以等价于用户输入的数据），为了不让有问题的数据污染Source所以需要校验。换句话说，Binding只在Target被外部方法更新时校验数据，而来自Binding的Source数据更新Target时是不会进行校验的。如果想改变这种行为，或者说当来自Source的数据也有可能出问题时，就需要将校验条件的ValidatesOnTargetUpdated属性设为true。
+
+==也就是说，默认情况下，数据校验用于Target的数据变化（如UI组件录入）会影响Source时的情况，如果想要Source的数据变化影响Target也要进行数据校验时，需要将校验条件的ValidatesOnTargetUpdated属性设为true。==
 
 Binding的ValidationRules属性类型是Collection<ValidationRule>，可以为每个Binding设置多个数据校验条件，每个条件是一个ValidationRule类型对象。
 
@@ -661,15 +682,13 @@ this.txtShow.AddHandler(Validation.ErrorEvent, new RoutedEventHandler((s, e) => 
 
 【上述代码执行无弹窗提示，待解决】
 
-Binding进行校验时的默认行为是认为来自Source的数据总是正确的，只有来自Target的数据才有可能有问题（因为Target多为UI控件，所以等价于用户输入的数据），为了不让有问题的数据污染Source所以需要校验。换句话说，Binding只在Target被外部方法更新时校验数据，而来自Binding的Source数据更新Target时是不会进行校验的。如果想改变这种行为，或者说当来自Source的数据也有可能出问题时，就需要将校验条件的ValidatesOnTargetUpdated属性设为true。
-
 在创建Binding时，要把Binding对象的NotifyOnValidationError属性设为true，这样，当数据校验失败的时候，Binding会像报警器一样发出信号。这个信号会以Binding对象的Target为起点在UI元素树上传播。信号每到达一个结点，如果这个结点上设置有对这种信号的侦听器（事件处理器），那么这个侦听器就会被触发用以处理这个信号。信号处理完后，程序员还可以选择是让信号继续向下传播还是就此终止——这就是路由事件，信号在UI元素树上的传递过程就称为路由（Route）。
 
 
 
 ### binding的数据转换
 
-数据转换：当Source端Path所关联的数据与Target端目标属性数据类型不一致时，可以添加数据转换器（Data Converter）。
+数据转换：==当Source端Path所关联的数据与Target端目标属性数据类型不一致时，可以添加数据转换器（Data Converter）。==
 
 创建转换器，只需要创建一个类并让这个类实现IValueConverter接口，该接口的定义如下：
 
@@ -844,6 +863,12 @@ private void btnGet_Click(object sender, RoutedEventArgs e)
 ```
 
 
+
+### 数据转换与校验总结
+
+- 数据校验的方向是根据校验条件的ValidatesOnTargetUpdated属性的值来确定的，默认情况下，该值为false，表示只在Target影响Source进行校验；如果值设为true，表示Source影响Target时也会进行校验。
+- 数据转换的方向的执行由实现IValueConverter接口的两个方法决定：当数据从Binding的Source流向Target时，Convert方法将被调用；反之ConvertBack方法将被调用。而控制数据是从Source流向Target，还是从Target流向Source，是根据Binding对象的Mode属性的值来决定的。
+- 
 
 
 
