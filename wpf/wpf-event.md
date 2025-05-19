@@ -1,24 +1,40 @@
 # 路由事件
 
-WPF中的事件指的是路由事件（Routed Event）。
+在winform程序中，事件的激发与响应都是直接模式，即事件宿主发生的事件直接由事件响应者的事件处理器来处理，而WPF中的事件在其基础上升级为可传递的消息模型，即在由UI布局组件构成的树形结构上的某个结点激发出某个事件时，这个事件可以在UI组件树沿着一定的方向传递且经过多个中专结点（即路由），开发者在事件的路由的过程中就可以选择被恰当的处理。
 
-当UI组件树上的某个元素触发了事件，该事件可以在UI组件树沿着一定的方向传递，开发者可以在事件被路由过程中进行处理。
+WPF中的大多数事件被称为路由事件（Routed Event）。
+
+路由事件是可以调用元素Tree中的多个侦听器上的处理程序的事件。
+
+当UI组件树上的某个元素触发了事件，该事件可以在UI组件树沿着一定的方向传递，开发者可以在事件被路由过程中进行处理。（只要路由事件发生，它就会进入可视树，所以我们要做的就是使用可视结构来执行事件的路由。）
 
 UI组件树分为逻辑树（Logical Tree）和可视元素树（Visual Tree）。
 
 - Logical Tree：完全由布局控件和控件构成，每个结点不是布局组件就是控件。如果想在Logical Tree上导航或查找元素，可以使用LogicalTreeHelper类。
 - Visual Tree：在Logical Tree的基础上，进行更细微级别的组件呈现。如果想在Visual Tree上导航或查找元素，可以使用VisualTreeHelper类。
 
-当一个路由事件被激发后，也是沿着Visual Tree传递的。
+当一个路由事件被激发后，是沿着Visual Tree传递的，而不是Logical Tree，因为只有这样，藏在Template里的控件才能把消息送出来。
 
 CLR事件（Winform中的事件或使用event关键字修饰的事件）与路由事件的区别：
 
 - CLR事件激发时，发送者直接将消息通过事件订阅交送给事件响应者，事件响应者使用其事件处理器方法对事件的发生做出响应、驱动程序逻辑按客户需求运行；
 - 路由事件的事件拥有者和事件响应者之间则没有直接显式的订阅关系，事件的拥有者只负责激发事件，事件将由谁响应它并不知道，事件的响应者则安装有事件侦听器，针对某类事件进行侦听，当有此类事件传递至此时，事件响应者就使用事件处理器来响应事件并决定事件是否可以继续传递。
 
+> 有点类似于JS处理HTML中的事件模型，在winform中，只是单纯的事件，而wpf中的XAML更接近于HTML中元素的事件模型，如按照树形结构依次向外引发。这样当需要处理树形元素上的同一类型的事件时，就不需要为每个元素定义事件，而只需要在引发事件的最内层元素定义路由事件即可。
+
+路由事件根据注册的策略不同，分为：
+
+- 冒泡事件，从下到上传播事件。例如一个按钮的内部包含了另一个按钮，当点击内部按钮时，会先触发内部按钮的Click事件，然后再触发外部按钮的Click事件。
+- 隧道事件，从上到下传播事件。例如常见的鼠标移动相关的事件很多都是隧道事件，以preview开头。
+- 直接事件，Winform中的事件模式。
+
 
 
 ## 自定义路由事件
+
+注：需要先熟练掌握C#中的事件的相关知识，包括事件的完整声明和简略声明两种形式，因为路由事件的定义和C#中事件的定义类似，只是在此基础上，添加了额外的方法进行注册和包装而已。
+
+
 
 自定义路由事件的步骤：
 
@@ -42,6 +58,20 @@ class ReportTimeEventArgs : RoutedEventArgs
 ```
 
 在WPF中，如果事件不需要传递任何额外细节，可使用RoutedEventArgs类。如果事件需要传递额外的信息，那么需要使用派生自RoutedEventArgs的各种事件类（如MouseButtonEventArgs），由于每个WPF事件参数类都继承自RoutedEventArgs类，所以每个WPF事件处理程序都可以访问与事件路由相关的信息。
+
+#### 路由事件参数补充说明
+
+为什么需要定义路由事件参数：
+
+在C#中的事件声明中，通常为事件会定义一个事件约束委托（见C#事件笔记），对应的WPF中内置了一个这样的事件约束委托：
+
+```C#
+public delegate void RoutedEventHandler(object sender, RoutedEventArgs e);
+```
+
+可以看到第二个参数即为RoutedEventArgs类型，正是因为这个事件委托约束，如果事件不需要传递任何额外细节，可直接使用RoutedEventArgs，当需要额外的参数时，通常使用派生该类型的子类。
+
+
 
 ### 第二步：声明并注册路由事件
 
@@ -69,7 +99,26 @@ public static RoutedEvent RegisterRoutedEvent(string name, RoutingStrategy routi
 - handlerType：指定事件处理器的类型。事件处理器的返回值类型和参数列表必须与此参数指定的委托保持一致，不然会导致在编译时抛出异常。
 - ownerType：用于指明路由事件的宿主（拥有者）是哪个类型。与依赖属性类似，这个类型和第一个参数name的值共同参与一些底层算法且产生这个路由事件的Hash Code 并被注册到程序的路由事件列表中。
 
+#### 为什么需要注册路由事件
 
+在C#中的事件完整声明过程中，事件使用如下形式进行定义：
+
+```C#
+private StudyEventHandler studyEventHandler;
+public event StudyEventHandler Study
+{
+    add
+    {
+        this.studyEventHandler += value;
+    }
+    remove
+    {
+        this.studyEventHandler -= value;
+    }
+}
+```
+
+而WPF中的路由事件是在事件的基础上，在add和remove中，分别调用了AddHandler和RemoveHandler方法（见下文中的第三步），而这两个方法的第一个参数都是RoutedEvent，因此需要先声明RoutedEvent类型的对象。只是这个对象不是直接实例化出来的，而是通过EventManager.RegisterRoutedEvent方法生成的。
 
 ### 第三步：为路由事件添加CLR事件包装
 
@@ -94,6 +143,24 @@ public event RoutedEventHandler ReportTime
 
 XAML编辑器也是靠这个CLR事件包装器来产生自动提示。
 
+#### RoutedEventHandler
+
+系统内置的一个独立的委托：
+
+```
+public delegate void RoutedEventHandler(object sender, RoutedEventArgs e);
+```
+
+该委托的作用是用来约束路由事件，
+
+#### AddHandler
+
+AddHandler方法源自UIElement类，也就是说，WPF中的所有控件都具有这个方法。用于为指定的路由事件添加路由事件处理程序，将处理程序添加到当前元素上的处理程序集合。
+
+```c#
+AddHandler(RoutedEvent, Delegate)
+```
+
 ### 第四步：激发路由事件并关联事件参数
 
 激发路由事件需要先创建RoutedEventArgs的实例，通过在其构造函数中传入路由事件实例，实现事件参数与路由事件的关联，然后调用元素的RaiseEvent方法（继承自UIElement类）把事件发送出去。
@@ -110,7 +177,7 @@ protected override void OnClick()
 }
 ```
 
-注意：传统直接事件的激发是通过调用CLR事件的Invoke方法实现的，而路由事件的激发与作为其包装器的CLR事件毫不相干。例如上述路由事件的激发是通过鼠标单击时被调用，与CLR事件包装器RoutedEventHandler没有任何关系。
+注意：==传统直接事件的激发是通过调用CLR事件的Invoke方法实现的，而路由事件的激发与作为其包装器的CLR事件毫不相干==。例如上述路由事件的激发是通过鼠标单击时被调用，与CLR事件包装器RoutedEventHandler没有任何关系。
 
 RaiseEvent()方法负责为每个已经通过AddHandler()方法注册的调用程序引发事件。
 
@@ -269,7 +336,13 @@ XAML实现同样效果的代码：
 
 
 
-## RoutedEventArgs的Source与OriginalSource
+## RoutedEventArgs
+
+### Handled
+
+当需要让一个路由事件在某个结点处不再继续传递，可以将RoutedEventArgs的Handled属性设置为true，表示路由事件“已经被处理”了，不必再往下传递了。
+
+### Source与OriginalSource
 
 路由事件是沿着VisualTree传递的，RoutedEventArgs 的 Source表示的是LogicalTree（逻辑树）上的消息源头，而OriginalSource 表示VisualTree（可视元素树）上的源头。
 
@@ -278,6 +351,8 @@ XAML实现同样效果的代码：
 
 
 ## 附加事件
+
+这里附加事件中的附加不能理解为附加属性里的附加，而是因为定义的方式类似于附加才叫附加事件。
 
 附加事件不同于附加属性，附加事件中的“附件”，确切的说，UIElement类是路由事件宿主与附加事件宿主的分水岭，不单是因为从UIElement类开始才具备了在界面上显示的能力，还因为RaiseEvent、AddHandler和RemoveHandler 这些方法也定义在UIElement类中。
 
@@ -302,7 +377,7 @@ XAML实现同样效果的代码：
   }
   ```
 
-- 接触UI元素对附加事件侦听的包装器是名为`Remove*Handler`的public Static方法，星号亦为事件名称，参数与`Add*Handler`一致。
+- 解除UI元素对附加事件侦听的包装器是名为`Remove*Handler`的public Static方法，星号亦为事件名称，参数与`Add*Handler`一致。
 
   例如：
 
