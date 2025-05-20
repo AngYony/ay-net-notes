@@ -12,5 +12,6 @@
 
         <Button Content="window1" Click="Button_Click"/>
         <Button Content="自定义命令" Click="Button_Click_1"/>
+        <Button Content="命令的简单绑定" Click="Button_Click_2"/>
     </StackPanel>
 </Window>

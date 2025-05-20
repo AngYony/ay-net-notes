@@ -10,29 +10,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ControlTemplateSample.WpfApp
+namespace DataTemplateSample.WpfApp
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// Sample3.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Sample3 : Window
     {
-        public MainWindow()
+        public Sample3()
         {
             InitializeComponent();
-        }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new Sample1().ShowDialog();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new XmlSample().ShowDialog();
+            var cars = new List<Car>()
+            {
+                 new Car(){Name="g1",Title="AA"},
+                 new Car(){Name="g2",Title="BB"}
+            };
+            this.listBoxCars.ItemsSource = cars;
+            this.listBoxCars.SelectedIndex = 0;
         }
     }
 }

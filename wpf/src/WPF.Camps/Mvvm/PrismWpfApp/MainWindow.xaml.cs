@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DataTemplateSample.WpfApp
+namespace PrismWpfApp
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -23,21 +23,6 @@ namespace DataTemplateSample.WpfApp
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new Sample1().ShowDialog();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new Sample2().ShowDialog();
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            new Sample3().ShowDialog();
         }
     }
 }

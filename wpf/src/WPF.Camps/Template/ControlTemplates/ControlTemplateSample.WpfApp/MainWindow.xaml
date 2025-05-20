@@ -63,6 +63,24 @@
             <Button Style="{DynamicResource ButtonStyle1}" Content="Hello1"/>
             <Button Content="Hello2"/>
             <Button Content="Hello3"/>
+            <TextBox Style="{DynamicResource MyTextBoxStyle}" TextWrapping="Wrap" Text="TextBox" Width="120" Height="30"/>
+            
+            <ListBox>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+                <TextBlock Text="张三"/>
+                <TextBlock Text="李四"/>
+                <TextBlock Text="王武"/>
+            </ListBox>
+
+            <Button Content="示例1" Click="Button_Click"/>
+            <Button Content="xml数据源示例" Click="Button_Click_1"/>
         </StackPanel>
     </Grid>
+
+  
 </Window>

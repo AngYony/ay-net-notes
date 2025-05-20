@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+    <Grade Name="一年级">
+        <class Name="1班">
+            <Group Name="A组"/>
+            <Group Name="B组"/>
+            <Group Name="C组"/>
+        </class>
+        <Class Name="2班">
+            <Group Name="A组"/>
+            <Group Name="B组"/>
+            <Group Name="C组"/>
+        </Class>
+    </Grade>
+    <Grade Name="二年级">
+        <Class Name="3班">
+            <Group Name="A组"/>
+            <Group Name="B组"/>
+            <Group Name="C组"/>
+        </Class>
+        <Class Name="4班">
+            <Group Name="A组"/>
+            <Group Name="B组"/>
+            <Group Name="C组"/>
+        </Class>
+    </Grade>
+</Data>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,8 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DataTemplateSample.WpfApp
-{
+namespace RoutedEventSample.WpfApp
+{ 
+
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
@@ -22,22 +24,15 @@ namespace DataTemplateSample.WpfApp
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); 
+     
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new Sample1().ShowDialog();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new Sample2().ShowDialog();
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            new Sample3().ShowDialog();
-        }
     }
+
+
+
+
+
+
 }

@@ -10,29 +10,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace ControlTemplateSample.WpfApp
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// XmlSample.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class XmlSample : Window
     {
-        public MainWindow()
+        public XmlSample()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new Sample1().ShowDialog();
-        }
+         
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Menu_Click(object sender, RoutedEventArgs e)
         {
-            new XmlSample().ShowDialog();
+            MenuItem mi= e.OriginalSource as MenuItem;
+            XmlElement xe = mi.Header as XmlElement;
+            MessageBox.Show(xe.Attributes["Name"].Value);
         }
     }
 }

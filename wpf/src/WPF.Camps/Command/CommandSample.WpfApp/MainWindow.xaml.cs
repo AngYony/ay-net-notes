@@ -57,5 +57,10 @@ namespace CommandSample.WpfApp
         {
             new CusCommand().ShowDialog();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            new Sample2().ShowDialog();
+        }
     }
 }

@@ -1,0 +1,46 @@
+﻿<Window x:Class="ControlTemplateSample.WpfApp.XmlSample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ControlTemplateSample.WpfApp"
+        mc:Ignorable="d"
+        Title="XmlSample" Height="450" Width="800">
+    <Window.Resources>
+
+        <!--示例一：使用TreeView显示多层级、不同类型数据-->
+        <!--数据源-->
+        <XmlDataProvider x:Key="ds" Source="Data.xml" XPath="Data/Grade"/>
+        <!--年级模板-->
+        <HierarchicalDataTemplate DataType="Grade" ItemsSource="{Binding XPath=Class}">
+            <TextBlock Text="{Binding XPath=@Name}"/>
+        </HierarchicalDataTemplate>
+
+        <!--班级模板-->
+        <HierarchicalDataTemplate DataType="Class" ItemsSource="{Binding XPath=Group}">
+            <RadioButton Content="{Binding XPath=@Name}" GroupName="gn" />
+        </HierarchicalDataTemplate>
+
+        <!--小组模板-->
+        <HierarchicalDataTemplate DataType="Group">
+            <CheckBox Content="{Binding XPath=@Name}"/>
+        </HierarchicalDataTemplate>
+
+
+
+
+        <XmlDataProvider x:Key="md" Source="Menu.xml" XPath="Data/Operation"/>
+        <HierarchicalDataTemplate DataType="Operation" ItemsSource="{Binding XPath=Operation}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding XPath=@Name}" Margin="10,0"/>
+                <TextBlock Text="{Binding XPath=@Gesture}"/>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+
+    </Window.Resources>
+
+    <StackPanel>
+        <TreeView Margin="5" ItemsSource="{Binding Source={StaticResource ds}}"/>
+        <Menu ItemsSource="{Binding Source={StaticResource md}}" MenuItem.Click="Menu_Click"/>
+    </StackPanel>
+</Window>
