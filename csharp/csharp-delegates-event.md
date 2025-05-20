@@ -825,16 +825,26 @@ public class Teacher
 ### 事件重点说明
 
 - 事件的本质是委托字段的一个包装器，这个包装器对委托字段的访问起限制作用，相当于一个“蒙板”。
+
 - 事件对外界隐藏了委托实例的大部分功能，仅暴露添加、移除事件处理器的功能。简略声明的事件是由编译器进行的处理（field-like)，即完整声明里面的add/romove都是由编译器进行了工作。
+
 - 用于声明事件的委托类型的命名约定：
   - 用于声明Study事件的委托，一般命名为StudyEventHandler，也可以直接使用内置的EventHandler委托，该委托基本满足大多数场景。
+  
   - StudyEventHandler委托的参数一般有两个（由Win32 API演化而来，历史悠久）：
     - 第一个参数是Object类型，名字为sender，实际上就是事件的拥有者，事件源。
     - 第二个参数是EventArgs类的派生类，类名一般为StudyEventArgs，参数名为e，表示事件参数。可以把委托的参数列表看作是事件发生后发送给事件响应者的事件消息。
-  - 事件的触发必须由事件拥有者自己来做：即定义的事件，只能在事件所属类中进行Invoke调用（`this.Rest.Invoke(this, new StudyEventArgs() { CurriculumName = curriculumName });`），而在事件拥有者的外部是无法直接Invoke触发的。这正是事件与委托的一个关键性区别和事件之所以存在的最主要的一个原因，可以使程序更安全。
+    
+  - ==事件的触发必须由事件拥有者自己来做：即定义的事件，只能在事件所属类中进行Invoke调用（`this.Rest.Invoke(this, new StudyEventArgs() { CurriculumName = curriculumName });`），而在事件拥有者的外部是无法直接Invoke触发的。这正是事件与委托的一个关键性区别和事件之所以存在的最主要的一个原因，可以使程序更安全==。例如，下述程序在外部调用Invoke时，会触发错误提示：
+  
+    
+  
   - 触发Study事件的方法一般命名为OnStudy，即“因何引发”，通常访问级别为protected。
+  
 - 简略声明的事件是由编译器进行的处理，背后也是会存在委托属性。注意，上述代码中的`public event RestEventHandler Rest;`它不是委托属性，只有在去掉了event关键字，才相当于是定义了一个委托属性。
+
 - 事件不是委托，也不是以特殊方式声明的委托字段/实例，`public event RestEventHandler Rest;`这行代码，如果去掉了event关键字（event关键字更像是一个修饰符），就相当于是声明了一个委托的字段。而事件只是声明的时候“看起来像（对比委托字段与事件的简化声明，field-like）。委托可以在外部随意实现多播委托，并且被Invoke调用，而使用事件，不允许在事件所属类的外部进行Invoke操作，因此可以使程序的逻辑更加安全。
+
 - 属性是字段的包装器，而事件是委托字段的包装器，这个包装器用来保护委托字段不被滥用。包装器永远都不可能是被包装的内容本身。
 
 
