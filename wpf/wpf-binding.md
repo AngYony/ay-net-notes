@@ -302,7 +302,7 @@ this.txtName.SetBinding(TextBox.TextProperty,new Binding("/ProvinceList/CityList
 - 把ObjectDataProvider对象指定为Source
 - 把使用LinQ检索得到的数据作为Binding的Source
 
-### 
+
 
 ### 使用 DataContext 作为Binding的源
 
@@ -331,7 +331,7 @@ DataContext本身也是一个依赖属性，这意味着可以使用Binding把�
 </Window>
 ```
 
-
+> 当为一个Binding只指定Path不指定Source时，Binding会沿着逻辑树一直向上找、查看每个结点的DataContext属性，如果DataContext引用的对象具有Path指定的属性名，Binding就会把这个对象当作自己的数据源。
 
 ### 使用集合对象作为列表控件的ItemsSource
 
@@ -807,6 +807,11 @@ public class StateToNullableBoolConverter : IValueConverter
     }
 }
 ```
+
+在XAML代码中使用Converter的两种方式：
+
+- 把Converter以资源的形式放在资源词典中（本例使用的方式）
+- 为Converter准备一个静态属性，形成单件模式，在XAML代码里使用{x:Static}标签扩展来访问。
 
 在XAML中使用Converter：
 
