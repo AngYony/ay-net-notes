@@ -2,13 +2,185 @@
 
 事件与命令的区别？
 
-命令可以约束代码和步骤逻辑。
+事件的作用是发布、传播一些消息，消息送达接收者，事件的使命也就完成了，至于如何响应事件送来的消息事件并不做规定，每个接收者可以使用自己的行为来响应事件。也就是说，事件不具有约束力。而命令与事件的区别就在于命名是具有约束力的。命令可以约束代码和步骤逻辑。
+
+场景应用举例：打印操作有3种方式（窗体菜单、快捷键、右击），如果按照传统的事件来实现，需要进行3个事件方法的定义，而有了命令，只需要将单个命令挂接到这三个不同事件源即可。
 
 WPF的命令是实现了ICommand接口的类。
 
+在一定程度上，直接使用命令可以用来替代事件，更符合MVVM设计模式。WPF中的命令基本上是松散类型的事件，传统事件是要双击控件在后台编写事件处理程序，而命令意味着没有在按钮后面编写任何代码。
+
+命令的真正实现将发生在ViewModel上，因为命令最终作用在视图上面。
 
 
-## 命令系统的构造
+
+## 命令示例
+
+示例一：不使用事件仅使用命令在后台代码保持洁净的情况下进行ViewModel事件处理：
+
+```csharp
+public class WyCommand : ICommand
+{
+    Action<object> executeMethod;
+    Func<object, bool> canExecuteMethod;
+
+    public WyCommand(Action<object> executeMethod, Func<object, bool> canExecuteMethod)
+    {
+        this.executeMethod = executeMethod;
+        this.canExecuteMethod = canExecuteMethod;
+    }
+
+    public event EventHandler? CanExecuteChanged;
+
+
+    public bool CanExecute(object? parameter)
+    {
+        return canExecuteMethod(parameter);
+    }
+
+    public void Execute(object? parameter)
+    {
+        executeMethod?.Invoke(parameter);
+    }
+}
+public class ViewModel
+{
+    public ICommand MyCommand { get; set; }
+
+    public ViewModel()
+    {
+        MyCommand = new WyCommand(Execute, CanExecute);
+    }
+
+
+    private bool CanExecute(object? parameter)
+    {
+        return true;
+        //return false;
+    }
+
+    private void Execute(object? parameter)
+    {
+        MessageBox.Show("这是一个命令"); //当点击按钮时，该方法被触发
+    }
+}
+```
+
+将ViewModel与XAML进行绑定即可，XAML后台不需要任何C#代码：
+
+```xaml
+<Window.Resources>
+    <local:ViewModel x:Key="vm">
+    </local:ViewModel>
+</Window.Resources>
+<Grid>
+    <Button x:Name="btn1" Command="{Binding Source={StaticResource vm}, Path=MyCommand}" Content="Button" Height="40" Width="120" />
+</Grid>
+```
+
+示例二，使用内置的命令代替事件：
+
+```xaml
+<Window.CommandBindings>
+    <CommandBinding Command="Open" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
+</Window.CommandBindings>
+<Grid>
+    <Menu VerticalAlignment="Top" Height="25">
+        <MenuItem Header="文件" Height="25">
+            <!--使用内置的预先存在的命令-->
+            <MenuItem Command="Open"/>
+        </MenuItem>
+    </Menu>
+</Grid>
+```
+
+xaml后台代码：
+
+```csharp
+public partial class Sample2 : Window
+{
+    public Sample2()
+    {
+        InitializeComponent();
+    }
+
+    private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+    {
+        e.CanExecute = true;
+    }
+
+    private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        Sample1 sample1 = new Sample1();
+        sample1.Show();
+    }
+}
+```
+
+示例三，基于内置的命令库进行扩展使用
+
+```xaml
+<Window.CommandBindings>
+    <CommandBinding Command="Open" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
+    <CommandBinding Command="local:AyCommands.Hello" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
+</Window.CommandBindings>
+<Grid>
+    <Menu VerticalAlignment="Top" Height="25">
+        <MenuItem Header="文件" Height="25">
+            <!--使用内置的预先存在的命令-->
+             <MenuItem Header="打开" Command="Open" CommandParameter="P1"/>
+            <!--使用自己声明的命令-->
+			 <MenuItem Command="local:AyCommands.Hello" CommandParameter="P2"/>
+        </MenuItem>
+    </Menu>
+</Grid>
+```
+
+声明RoutedUICommand类型的命令，并使用：
+
+```csharp
+public partial class Sample2 : Window
+{
+    public Sample2()
+    {
+        InitializeComponent();
+    }
+
+    private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+    {
+        e.CanExecute = true;
+    }
+
+    private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        //获取命令参数
+        var obj =  e.Parameter as string;
+        MessageBox.Show(obj);
+        Sample1 sample1 = new Sample1();
+        sample1.Show();
+    }
+}
+
+public static class AyCommands
+{
+    public static RoutedUICommand Hello { get; set; }
+    static AyCommands()
+    {
+        //设置命令快捷键
+        InputGestureCollection inputs = new InputGestureCollection();
+        inputs.Add(new KeyGesture(Key.E, ModifierKeys.Control));
+        Hello = new RoutedUICommand(text: "Say Hi", "Hello", typeof(AyCommands),inputs);
+    }
+}
+```
+
+
+
+上述的三个示例中，虽然代码量各不相同，但核心都是应用了事件的4个核心要素（命令本身、命令源、命令目标、命令关联），当自定义命令时，需要显式的设置这四个要素，而使用WPF内置的命令时，这些都被隐式的设置好了。
+
+
+
+## 命令系统的构造和原理
 
 WPF的命令系统由以下几个基本要素构成：
 
@@ -16,6 +188,182 @@ WPF的命令系统由以下几个基本要素构成：
 - Command Source（命令源）：命令的发送者，实现了ICommandSource接口的类。常见的控件元素都实现了这个接口，如Button、ListBoxItems等。
 - Command Target（命令目标）：命令将作用在谁身上，命令目标必须是实现了IInputElement接口的类。
 - Command Binding（命令关联）：负责把一些外围逻辑与命令关联起来，比如执行之前 对命令是否可以执行 进行判断、命令执行之后还有哪些后续工作等。
+
+
+
+### 命令本身：RoutedCommand  和 ICommand 
+
+该接口的定义如下：
+
+```c#
+public interface ICommand
+{
+    event EventHandler? CanExecuteChanged;
+	bool CanExecute(object? parameter);
+    void Execute(object? parameter);
+}
+```
+
+WPF的命令是实现了ICommand接口的类。
+
+- Execute(...)：命令被执行。
+- CanExecute(...)：在执行之前用来探知命令是否可被执行。
+- CanExecuteChanged：当命令可执行状态发生改变时，可激发此事件来通知其他对象。
+
+RoutedCommand类实现了ICommand接口，但在实现时，并未向Execute 和 CanExecute 方法中添加任何逻辑，也就是说，RoutedCommand是通用的、与具体业务逻辑无关的。
+
+#### WPF的内置命令库
+
+在上述示例中，声明命令使用了如下代码：
+
+```C#
+ //声明并定义命令
+ private RoutedCommand clearCmd = new RoutedCommand("Clear", typeof(MainWindow));
+```
+
+命令本身具有“一处声明，处处使用”的特点，比如Save命令，在程序的任何地方它都表示要求命令目标保存数据。因此，WPF类库中包含了一些便捷的命令库：
+
+- ApplicationCommands
+- ComponentCommands
+- NavigationCommands
+- MediaCommands
+- EditingCommands
+
+这些都是静态类，命令通过这些类的静态只读属性以单件模式暴露出来。
+
+```c#
+public static class ApplicationCommands
+{
+...
+public static RoutedUICommand CancelPrint { get; }
+public static RoutedUICommand SelectAll { get; }
+public static RoutedUICommand SaveAs { get; }
+public static RoutedUICommand Save { get; }
+public static RoutedUICommand Replace { get; }
+...
+}
+```
+
+
+
+### 命令源：ICommandSource
+
+ICommandSource接口的定义如下：
+
+```csharp
+public interface ICommandSource
+{
+    ICommand Command { get; }
+    object CommandParameter { get; }
+    IInputElement CommandTarget { get; }
+}
+```
+
+命令源一定是实现了ICommandSource接口的类。WPF的大多数控件都实现了该接口，因此大多数控件都可以直接作为命令源。
+
+通常会在命令源中进行发送命令的操作（本质是调用ICommand的Execute方法），见下文自定义命令部分。
+
+各种控件发送命令的方法不尽相同，比如Button和MenuItem是在单击时发送命令，而ListBoxItem 单击时表示被选中所以双击时才发送命令。
+
+**Command**
+
+把命令赋值给命令源就是为ICommandSource的Command设置值。
+
+```csharp
+this.button1.Command = this.clearCmd;
+```
+
+一旦把命令指派给命令源，那么命令源就会受命令的影响，==当命令不能被执行的时候，作为命令源的控件将处在不可用状态==（即命令的CanExecute方法如果返回的为false，发送该命令的控件将处于不可用状态）。
+
+另外同一个命令可以有多个源。
+
+**CommandParameter**
+
+ICommandSource的CommandParameter属性用来携带命令参数，通过该属性可以区分同一个命令不同处理逻辑。
+
+XAML代码：
+
+```xaml
+<StackPanel>
+    <!--命令和命令参数-->
+    <TextBlock Text="Name:" VerticalAlignment="Center" HorizontalAlignment="Left" />
+    <TextBox x:Name="nameTextBox" Margin="60,0,0,0"  />
+    <Button Content="New Teacher" Command="New" CommandParameter="Teacher"  />
+    <Button Content="New Student" Command="New" CommandParameter="Student" />
+    <ListBox x:Name="listBoxNewItems" />
+</StackPanel>
+
+<!--为窗体添加CommandBinding-->
+<Window.CommandBindings>
+    <CommandBinding Command="New" 
+    CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
+</Window.CommandBindings>
+```
+
+C#代码：
+
+```c#
+private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+{
+    e.CanExecute = !string.IsNullOrEmpty(this.nameTextBox.Text);
+}
+
+private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+{
+    string name = this.nameTextBox.Text;
+    if (e.Parameter.ToString() == "Teacher")
+    {
+        this.listBoxNewItems.Items.Add("Teacher:" + name);
+    }
+    if (e.Parameter.ToString() == "Student")
+    {
+        this.listBoxNewItems.Items.Add("Student:" + name);
+    }
+}
+```
+
+
+
+### 命令目标（CommandTarget）：IInputElement
+
+ICommandSource的CommandTarget属性，其类型为IInputElement。
+
+为命令源的CommandTarget属性设置值，告诉命令源向哪个组件发送命令，无论这个组件是否拥有焦点它都会收到这个命令。
+
+如果没有为命令源指定命令目标，则WPF系统认为当前拥有焦点的对象就是命令目标。
+
+
+
+### 命令关联：CommandBinding
+
+CommandBinding用于命令在执行前来帮助判断是不是可以执行、在执行后做其他的事情。
+
+CommandBinding定义如下：
+
+```csharp
+public class CommandBinding
+{
+    public CommandBinding(); 
+    public CommandBinding(ICommand command); 
+    public CommandBinding(ICommand command, ExecutedRoutedEventHandler executed); 
+    public CommandBinding(ICommand command, ExecutedRoutedEventHandler executed, CanExecuteRoutedEventHandler canExecute);
+    public ICommand Command { get; set; }
+    public event CanExecuteRoutedEventHandler CanExecute;
+    public event ExecutedRoutedEventHandler Executed;
+    public event CanExecuteRoutedEventHandler PreviewCanExecute;
+    public event ExecutedRoutedEventHandler PreviewExecuted;
+}
+```
+
+它包含了4个事件：CanExecute、Executed、PreviewCanExecute、PreviewExecuted，需要特别注意这里的CanExecute、Executed事件和ICommand中的CanExecute、Execute方法的不同。
+
+**命令目标（CommandTarget）与命令关联（CommandBinding）之间的微妙关系**
+
+无论命令目标是由程序员指定，还是由WPF系统根据焦点所在地判断出来的，一旦某一个UI组件被命令源当成了命令目标，命令源就会不停地向命令目标”投石问路“，命令目标就会不停地发送出可路由的PreviewCanExecute和CanExecute附加事件，事件会沿着UI元素树向上传递并被命令关联所捕捉，命令关联捕捉到这些事件后会把命令能不能发送实时报告给命令。类似的，如果命令被发送出来并到达命令目标，命令目标就会发送PreviewExecuted和Executed两个附加事件，这两个事件也会沿着UI元素树向上传递并被命令关联所捕捉，命令关联会完成一些后续的任务。
+
+
+
+### 命令各要素之间的关系
 
 下面通过一个示例来说明这些要素之间的联系。
 
@@ -73,7 +421,7 @@ private void Cb_Executed(object sender, ExecutedRoutedEventArgs e)
 }
 ```
 
-### 第一步：创建命令类
+#### 第一步：创建命令类
 
 有两种方式：
 
@@ -82,7 +430,7 @@ private void Cb_Executed(object sender, ExecutedRoutedEventArgs e)
 
 
 
-### 第二步：声明命令实例
+#### 第二步：声明命令实例
 
 创建命令类的实例，如上述代码中的：
 
@@ -94,9 +442,9 @@ private RoutedCommand clearCmd = new RoutedCommand("Clear", typeof(MainWindow));
 
 
 
-### 第三步：指定命令的源
+#### 第三步：指定命令的源
 
-指定由谁来发送这个命令。同一个命令可以有多个源。
+指定由谁来发送这个命令。同一个命令可以有多个源。上文提到过命令源是实现了ICommandSource接口的类，大多数控件都实现了该接口。
 
 ```c#
 //把命令赋值给命令源（发送者）并指定快捷键
@@ -105,13 +453,13 @@ this.button1.Command = this.clearCmd;
 this.clearCmd.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));
 ```
 
-一旦把命令指派给命令源，那么命令源就会受命令的影响，当命令不能被执行的时候，作为命令源的控件将处在不可用状态。
+一旦把命令指派给命令源，那么命令源就会受命令的影响，==当命令不能被执行的时候，作为命令源的控件将处在不可用状态==（即命令的CanExecute方法如果返回的为false，发送该命令的控件将处于不可用状态）。
 
-==各种控件发送命令的方法不尽相同==，比如Button和MenuItem是在单击时发送命令，而ListBoxItem 单击时表示被选中所以双击时才发送命令。
+各种控件发送命令的方法不尽相同，比如Button和MenuItem是在单击时发送命令，而ListBoxItem 单击时表示被选中所以双击时才发送命令。
 
 
 
-### 第四步：指定命令的目标
+#### 第四步：指定命令的目标
 
 为命令源的CommandTarget属性设置值，告诉命令源向哪个组件发送命令，无论这个组件是否拥有焦点它都会收到这个命令。
 
@@ -122,7 +470,7 @@ this.clearCmd.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));
 this.button1.CommandTarget = this.textBoxA;
 ```
 
-### 第五步：设置命令关联
+#### 第五步：设置命令关联
 
 WPF 命令需要CommandBinding在执行前来帮助判断是不是可以执行；在执行后做一些后续操作。
 
@@ -153,114 +501,6 @@ private void Cb_Executed(object sender, ExecutedRoutedEventArgs e)
 ```
 
 因为CanExecute事件的激发频率比较高，为了避免降低性能，在处理完后建议把e.Handled设为true。
-
-
-
-
-
-## RoutedCommand  和 ICommand 
-
-WPF的命令是实现了ICommand接口的类。
-
-该接口的定义如下：
-
-```c#
-public interface ICommand
-{
-    event EventHandler? CanExecuteChanged;
-	bool CanExecute(object? parameter);
-    void Execute(object? parameter);
-}
-```
-
-- Execute(...)：命令被执行。
-- CanExecute(...)：在执行之前用来探知命令是否可被执行。
-- CanExecuteChanged：当命令可执行状态发生改变时，可激发此事件来通知其他对象。
-
-RoutedCommand类实现了ICommand接口，但在实现时，并未向Execute 和 CanExecute 方法中添加任何逻辑，也就是说，RoutedCommand是通用的、与具体业务逻辑无关的。
-
-
-
-## WPF的内置命令库
-
-在上述示例中，声明命令使用了如下代码：
-
-```C#
- //声明并定义命令
- private RoutedCommand clearCmd = new RoutedCommand("Clear", typeof(MainWindow));
-```
-
-命令本身具有“一处声明，处处使用”的特点，比如Save命令，在程序的任何地方它都表示要求命令目标保存数据。因此，WPF类库中包含了一些便捷的命令库：
-
-- ApplicationCommands
-- ComponentCommands
-- NavigationCommands
-- MediaCommands
-- EditingCommands
-
-这些都是静态类，命令通过这些类的静态只读属性以单件模式暴露出来。
-
-```c#
-public static class ApplicationCommands
-{
-...
-public static RoutedUICommand CancelPrint { get; }
-public static RoutedUICommand SelectAll { get; }
-public static RoutedUICommand SaveAs { get; }
-public static RoutedUICommand Save { get; }
-public static RoutedUICommand Replace { get; }
-...
-}
-```
-
-
-
-## ICommandSource
-
-命令源一定是实现了ICommandSource接口的类。
-
-ICommandSource的CommandParameter属性用来携带命令参数，通过该属性可以区分同一个命令不同处理逻辑。
-
-XAML代码：
-
-```xaml
-<StackPanel>
-    <!--命令和命令参数-->
-    <TextBlock Text="Name:" VerticalAlignment="Center" HorizontalAlignment="Left" />
-    <TextBox x:Name="nameTextBox" Margin="60,0,0,0"  />
-    <Button Content="New Teacher" Command="New" CommandParameter="Teacher"  />
-    <Button Content="New Student" Command="New" CommandParameter="Student" />
-    <ListBox x:Name="listBoxNewItems" />
-</StackPanel>
-
-<!--为窗体添加CommandBinding-->
-<Window.CommandBindings>
-    <CommandBinding Command="New" 
-    CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
-</Window.CommandBindings>
-```
-
-C#代码：
-
-```c#
-private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-{
-    e.CanExecute = !string.IsNullOrEmpty(this.nameTextBox.Text);
-}
-
-private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-{
-    string name = this.nameTextBox.Text;
-    if (e.Parameter.ToString() == "Teacher")
-    {
-        this.listBoxNewItems.Items.Add("Teacher:" + name);
-    }
-    if (e.Parameter.ToString() == "Student")
-    {
-        this.listBoxNewItems.Items.Add("Student:" + name);
-    }
-}
-```
 
 
 
@@ -325,6 +565,10 @@ public class MyCommandSource : UserControl, ICommandSource
         {
             this.Command.Execute(this.CommandTarget);
         }
+        //if(this.Command.CanExecute(CommandParameter))
+        //{
+        //    Command.Execute(CommandParameter);
+        //}
     }
 }
 ```
@@ -414,11 +658,13 @@ public partial class CusCommand : Window
 
 
 
+----
 
 
-参考资源：
+
+References:：
 
 - 《深入浅出WPF》
 
-
+Last updated：2025-05-20
 
