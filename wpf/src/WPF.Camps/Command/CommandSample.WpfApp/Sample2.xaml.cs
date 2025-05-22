@@ -52,4 +52,13 @@ namespace CommandSample.WpfApp
         }
 
     }
+
+    public class wy : ICommandSource
+    {
+        public ICommand Command => throw new NotImplementedException();
+
+        public object CommandParameter => throw new NotImplementedException();
+
+        public IInputElement CommandTarget => throw new NotImplementedException();
+    }
 }

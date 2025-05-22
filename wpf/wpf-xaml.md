@@ -4,6 +4,26 @@ XAML（读作 “zaml”）的全称是 Extensible Application Markup Language�
 
 WPF项目中的程序入口为App.xml文件。
 
+XAML文档最终被转换成BAML资源签入到DLL程序集当中，BAML为XAML的二进制形式，经过优化处理后，运行时更快解析。
+
+可以通过反编译工具查看该文件的内容。
+
+![image-20250521152421643](./assets/image-20250521152421643.png)
+
+当创建窗口类的实例时，在调用InitializeComponent()方法的内部获取程序集当中的BAML资源，通过解析BAML控件对象，设置属性等。
+
+示例：读取第三方程序集中的BAML资源文件核心代码
+
+![image-20250521164625016](./assets/image-20250521164625016.png)
+
+读取BAML的应用场景：
+
+当需要切换界面主题的时候，可以通过该方式读取到其他BAML中的样式，从而实现主题的切换。
+
+
+
+
+
 
 
 ## XAML 语法

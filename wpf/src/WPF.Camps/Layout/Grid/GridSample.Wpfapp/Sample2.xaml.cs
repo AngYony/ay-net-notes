@@ -1,5 +1,4 @@
-﻿using PrismWpfApp.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,20 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PrismWpfApp
+namespace GridSample.Wpfapp
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// Sample2.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Sample2 : Window
     {
-        public MainWindow()
+        public Sample2()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel();
         }
     }
 }

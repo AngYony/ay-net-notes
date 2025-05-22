@@ -6,11 +6,15 @@ WPF中的控件与布局的重要知识点：
 - 控件的内容属性，即控件的内容或子级元素
 - 布局元素的使用，尤其Grid和StackPanel的使用，其中控制宽度的带有“*”的用法。
 
+WPF中是数据驱动UI，数据是核心、是主动的；UI从属于数据并表达数据、是被动的。、
+
+学习控件的最好办法就是直接查看官方文档说明。
 
 
 
 
-WPF中是数据驱动UI，数据是核心、是主动的；UI从属于数据并表达数据、是被动的。
+
+## 树
 
 WPF中有两种树：逻辑树（Logical Tree）和可视元素树（Visual Tree）。
 
@@ -32,7 +36,11 @@ WPF把那些能够展示数据、响应用户操作的UI元素称为控件（Con
 
 WPF的控件都派生自FrameworkElement，这里的“Framework”指的是WPF Framework，它是在UIElement类的基础上添加了很多专门用于WPF开发的API，所以从这个类开始才算是进入WPF开发框架。
 
-### 内容属性
+![image-20250522125524931](./assets/image-20250522125524931.png)
+
+
+
+### 控件的内容属性
 
 控件相当于一个容器，容器里装的东西就是它的内容。控件的内容可以直接是数据，也可以是控件。
 
@@ -53,7 +61,9 @@ WPF的控件都派生自FrameworkElement，这里的“Framework”指的是WPF 
 </StackPanel>
 ```
 
-按照对标签语言的理解，控件的内容就应该是标签的内容、子级控件就应该是标签的子级元素，标签的内容是夹在起始标签和结束标签间的代码。换句话说，XAML标签的内容区域（起始标签和结束标签间的部分）专门映射了控件的内容属性，因此为具有内容属性的控件添加内容时，可以直接省略内容属性标签。上述代码可以直接简化为：
+按照对标签语言的理解，控件的内容就应该是标签的内容、子级控件就应该是标签的子级元素，标签的内容是夹在起始标签和结束标签间的代码。换句话说，XAML标签的内容区域（起始标签和结束标签间的部分）专门映射了控件的内容属性，==因此为具有内容属性的控件添加内容时，可以直接省略内容属性标签。==
+
+上述代码可以直接简化为：
 
 ```xaml
 <StackPanel>
@@ -81,7 +91,7 @@ WPF的控件都派生自FrameworkElement，这里的“Framework”指的是WPF 
 
 - 均派生自ContentControl类。
 - 它们都是Control。
-- 内容属性的名称为Content。
+- 内容属性的名称为Content（使用Content显示内容，而不是Text）。
 - 只能由单一元素充当其内容（只能接受一个元素作为它的Content，如果有多个元素可以使用容器控件包裹起来）。
 
 ContentControl包含的控件：
@@ -269,8 +279,18 @@ Panel是所有布局的基类。WPF中的布局元素有如下几个：
 - Canvas：画布。内部元素可以使用以像素为单位的绝对坐标进行定位，类似于winForm编程中的布局方式。
 - DockPanel：泊靠式面板，内部元素可以选择泊靠方向，类似于Winform编程中设置控件的Dock属性。
 - WrapPanel：自动折行面板。内部元素在排满一行后能够自动折行，类似于HTML中的流式布局。WrapPanel在空间不够的时候可以做到自适应换行，而StackPanel不可以自动换行，甚至空间不够，也不会出现滑块。
+- UniformGrid：提供一种在网格(网格中的所有单元格都具有相同的大小)中排列内容的方法。
 
+### 常用的布局属性
 
+- HorizontalAlignment：设置元素的水平位置
+- VerticalAlignment：设置元素的垂直位置
+- Margin：指定元素与容器的边距
+- Height：指定元素的高度
+- Width：指定元素的宽度
+- MinHeight、MinWidth：指定元素的最小高度和宽度
+- MaxHeight、MaxWidth：指定元素的最大高度和宽度
+- Padding：指定元素内部边距
 
 ### Grid
 
@@ -282,6 +302,11 @@ Grid特点：
 - 行的高度和列的宽度可以使用绝对数值、相对比例或自动调整的方式进行精确设定，并可设置最大和最小值。
 - 内部元素可以设置自己所在的行和列，还可以设置跨几行跨几列。
 - 可以设置Children元素的对齐方向。
+
+Grid常用属性：
+
+- ShowGridLines：是否显示行列的边距线
+- 
 
 #### 高度和宽度
 
@@ -351,7 +376,9 @@ DockPanel内的元素会被附加上DockPanel.Dock这个属性，这个属性的
 
 DockPanel有一个重要属性，Bool类型的LastChildFill，默认值为true。当LastChildFill 属性值为true时，DockPanel内最后一个元素的DockPanel.Dock属性值将会被忽略，这个元素会把DockPanel内部所有剩余空间充满。这也正好解释了为什么Dock枚举类型没有Fill这个值。
 
+DockPanel常用属性：
 
+- LastChildFill：如果将 属性设置为`true`（默认设置），则DockPanel的最后一个子元素始终填充剩余空间，而不考虑在最后一个 [DockPanel](https://learn.microsoft.com/zh-cn/dotnet/api/system.windows.controls.dockpanel?view=netframework-4.7.2) 子元素上设置的任何其他停靠值。 若要将子元素停靠到另一个方向，必须将 属性设置为 [LastChildFill](https://learn.microsoft.com/zh-cn/dotnet/api/system.windows.controls.dockpanel.lastchildfill?view=netframework-4.7.2)`false` ，并且还必须为最后一个子元素指定显式停靠方向。
 
 ### WrapPanel
 
@@ -361,7 +388,9 @@ WrapPanel使用Orientation属性来控制流延伸的方向，使用HorizontalAl
 
 
 
+### UniformGrid
 
+UniformGrid用于将内部控件均匀的分部在不同的空间中。
 
 
 
@@ -375,5 +404,6 @@ References:
 
 - 《深入浅出WPF》
 - 《C#码农笔记-WPF应用程序》
+- [微软官方WPF 控件库示例](https://go.microsoft.com/fwlink/?LinkID=160053)
 
 Last updated：2025-05-07

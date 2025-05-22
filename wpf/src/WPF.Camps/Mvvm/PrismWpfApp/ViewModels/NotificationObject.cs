@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace PrismWpfApp.ViewModels
 {
-    internal class NotificationObject : INotifyPropertyChanged
+    public class NotificationObject : INotifyPropertyChanged
     {
-
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void RaisePropertyChange(string propertyName)
+        public void RaisePropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)
             {
