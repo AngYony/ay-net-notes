@@ -55,9 +55,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AnimationUsingKeyFramesSample.xaml.cs">
+      <DependentUpon>AnimationUsingKeyFramesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DoubleAnimationUsingPathSample.xaml.cs">
+      <DependentUpon>DoubleAnimationUsingPathSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sample1.xaml.cs">
       <DependentUpon>Sample1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sample2.xaml.cs">
+      <DependentUpon>Sample2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SplineDoubleKeyFrameSample.xaml.cs">
+      <DependentUpon>SplineDoubleKeyFrameSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StoryboardSample.xaml.cs">
+      <DependentUpon>StoryboardSample.xaml</DependentUpon>
+    </Compile>
+    <Page Include="AnimationUsingKeyFramesSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DoubleAnimationUsingPathSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,6 +94,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Sample1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sample2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SplineDoubleKeyFrameSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StoryboardSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

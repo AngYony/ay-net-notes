@@ -1,13 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{59117AC9-0877-4AA6-A2C1-30F0E5474A4C}</ProjectGuid>
+    <ProjectGuid>{3C0DFF3C-7AC7-4644-AF17-743DA0D155C8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>GridSample.Wpfapp</RootNamespace>
-    <AssemblyName>GridSample.Wpfapp</AssemblyName>
+    <RootNamespace>ShapeSample.WpfApp</RootNamespace>
+    <AssemblyName>ShapeSample.WpfApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,12 +55,51 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Sample1.xaml.cs">
-      <DependentUpon>Sample1.xaml</DependentUpon>
+    <Compile Include="EllipseSample.xaml.cs">
+      <DependentUpon>EllipseSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sample2.xaml.cs">
-      <DependentUpon>Sample2.xaml</DependentUpon>
+    <Compile Include="LayoutTransformSample.xaml.cs">
+      <DependentUpon>LayoutTransformSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LineSample.xaml.cs">
+      <DependentUpon>LineSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PathSample.xaml.cs">
+      <DependentUpon>PathSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PathSample2.xaml.cs">
+      <DependentUpon>PathSample2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PathSample3.xaml.cs">
+      <DependentUpon>PathSample3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PathSample4.xaml.cs">
+      <DependentUpon>PathSample4.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PathSample5.xaml.cs">
+      <DependentUpon>PathSample5.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RectangleSample.xaml.cs">
+      <DependentUpon>RectangleSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RenderTransformSample.xaml.cs">
+      <DependentUpon>RenderTransformSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VisualBrushSample.xaml.cs">
+      <DependentUpon>VisualBrushSample.xaml</DependentUpon>
+    </Compile>
+    <Page Include="EllipseSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LayoutTransformSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LineSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,11 +112,35 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Sample1.xaml">
+    <Page Include="PathSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Sample2.xaml">
+    <Page Include="PathSample2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PathSample3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PathSample4.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PathSample5.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RectangleSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RenderTransformSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VisualBrushSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -107,6 +170,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="OIP.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

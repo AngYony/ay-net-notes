@@ -1,0 +1,29 @@
+﻿<Window x:Class="ShapeSample.WpfApp.LineSample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShapeSample.WpfApp"
+        mc:Ignorable="d"
+        Title="LineSample" Height="450" Width="800">
+    <Grid>
+        <!--虚线线点的间隔密度-->
+        <Line X1="10" Y1="20" X2="400" Y2="20" StrokeDashArray="2,4,6,8" Stroke="Red" StrokeThickness="2"/>
+
+        <!--线段末端的形状，可以是三角形、半圆形、矩形或无线帽-->
+        <Line X1="10" Y1="40" X2="400" Y2="40" Stroke="Green" StrokeThickness="10" StrokeEndLineCap="Triangle"/>
+
+        <!--渐变色线条-->
+        <Line X1="10" Y1="80" X2="400" Y2="80" StrokeThickness="20" StrokeEndLineCap="Round">
+            <Line.Stroke>
+                <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                    <GradientStop Color="Blue"/>
+                    <GradientStop Offset="1"/>
+                </LinearGradientBrush>
+            </Line.Stroke>
+        </Line>
+
+
+
+    </Grid>
+</Window>

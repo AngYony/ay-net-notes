@@ -6,21 +6,15 @@
         xmlns:local="clr-namespace:GridSample.Wpfapp"
         mc:Ignorable="d"
         Title="Sample2" Height="450" Width="800">
-    <Grid ShowGridLines="True">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
-        <Border Background="LightBlue" 
-        BorderBrush="Red" 
-        BorderThickness="2" 
-        CornerRadius="45" 
-        Padding="25" />
-    </Grid>
+    <Window.Resources>
+        
+    </Window.Resources>
+    <UniformGrid Margin="0,0,80,50" >
+        <Button/>
+        <Button/>
+        <Button/>
+        <Button/>
+        <Button/>
+       <
+    </UniformGrid>
 </Window>

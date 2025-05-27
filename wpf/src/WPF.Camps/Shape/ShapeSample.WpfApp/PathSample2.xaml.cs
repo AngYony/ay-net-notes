@@ -12,17 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace GridSample.Wpfapp
+namespace ShapeSample.WpfApp
 {
     /// <summary>
-    /// Sample2.xaml 的交互逻辑
+    /// PathSample2.xaml 的交互逻辑
     /// </summary>
-    public partial class Sample2 : Window
+    public partial class PathSample2 : Window
     {
-        public Sample2()
+        public PathSample2()
         {
             InitializeComponent();
-            Shape
         }
     }
 }

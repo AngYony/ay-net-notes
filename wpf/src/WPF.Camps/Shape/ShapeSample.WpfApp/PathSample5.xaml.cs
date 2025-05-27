@@ -12,17 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace GridSample.Wpfapp
+namespace ShapeSample.WpfApp
 {
     /// <summary>
-    /// Sample2.xaml 的交互逻辑
+    /// PathSample5.xaml 的交互逻辑
     /// </summary>
-    public partial class Sample2 : Window
+    public partial class PathSample5 : Window
     {
-        public Sample2()
+        public PathSample5()
         {
             InitializeComponent();
-            Shape
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            this.Clip = this.clipPath.Data;
+            
         }
     }
 }

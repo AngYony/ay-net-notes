@@ -9,12 +9,11 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AnimationSample.WpfApp
+namespace ShapeSample.WpfApp
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -28,32 +27,57 @@ namespace AnimationSample.WpfApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new Sample1().ShowDialog();
+            new LineSample().ShowDialog();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new Sample2().ShowDialog();
+            new RectangleSample().ShowDialog();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            new AnimationUsingKeyFramesSample().ShowDialog();
+            new VisualBrushSample().ShowDialog();
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            new SplineDoubleKeyFrameSample().ShowDialog();
+            new EllipseSample().ShowDialog();
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            new DoubleAnimationUsingPathSample().ShowDialog();
+            new PathSample().ShowDialog();
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
-            new StoryboardSample().ShowDialog();
+            new PathSample2().ShowDialog();
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            new PathSample3().ShowDialog();
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            new PathSample4().ShowDialog();
+        }
+
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            new PathSample5().ShowDialog();
+        }
+
+        private void Button_Click_9(object sender, RoutedEventArgs e)
+        {
+            new RenderTransformSample().ShowDialog();
+        }
+
+        private void Button_Click_10(object sender, RoutedEventArgs e)
+        {
+            new LayoutTransformSample().ShowDialog();
         }
     }
 }

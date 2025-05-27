@@ -1,0 +1,31 @@
+﻿<Window x:Class="ShapeSample.WpfApp.RenderTransformSample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShapeSample.WpfApp"
+        mc:Ignorable="d"
+        Title="RenderTransformSample" Height="450" Width="800">
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+        <!--第一行第一列将按照Button的宽高来决定-->
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Width="80" HorizontalAlignment="Left" VerticalAlignment="Top" Height="80" Content="hello">
+            <Button.RenderTransform>
+                <!--组合变形-->
+                <TransformGroup>
+                    <!--以0,0坐标点为中心旋转45度-->
+                    <RotateTransform CenterX="0" CenterY="0" Angle="45"/>
+                    <!--再向右平移300像素，向下移动200像素-->
+                    <TranslateTransform X="300" Y="200"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+    </Grid>
+</Window>

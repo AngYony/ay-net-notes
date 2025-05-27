@@ -1,0 +1,26 @@
+﻿<Window x:Class="ShapeSample.WpfApp.EllipseSample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShapeSample.WpfApp"
+        mc:Ignorable="d"
+        Title="EllipseSample" Height="450" Width="800">
+    <Grid>
+        <Ellipse Stroke="Gray" Width="140" Height="140" Cursor="Hand" ToolTip="球">
+            <Ellipse.Fill>
+                <RadialGradientBrush GradientOrigin="0.2,0.8" RadiusX="0.75" RadiusY="0.75">
+                    <RadialGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="90" CenterX="0.5" CenterY="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </RadialGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                    <GradientStop Color="#FF444444" Offset="0.66"/>
+                    <GradientStop Color="#FF999999" Offset="1"/>
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+    </Grid>
+</Window>

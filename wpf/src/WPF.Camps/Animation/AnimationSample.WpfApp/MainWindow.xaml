@@ -6,9 +6,21 @@
         xmlns:local="clr-namespace:AnimationSample.WpfApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <StackPanel>
-            <Button Content="示例1：动画基础" Width="120" Height="40" Click="Button_Click"/>
+            <Button Content="示例1：动画基础" Click="Button_Click"/>
+            <Button Content="简单动画" Click="Button_Click_1"/>
+            <Button Content="关键帧动画" Click="Button_Click_2"/>
+            <Button Content="关键帧动画:SplineDoubleKeyFrame" Click="Button_Click_3"/>
+            <Button Content="路径动画:DoubleAnimationUsingPath" Click="Button_Click_4"/>
+            <Button Content="Storyboard" Click="Button_Click_5"/>
         </StackPanel>
     </Grid>
 </Window>

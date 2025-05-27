@@ -1,0 +1,22 @@
+﻿<Window x:Class="ShapeSample.WpfApp.VisualBrushSample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShapeSample.WpfApp"
+        mc:Ignorable="d"
+        Title="VisualBrushSample" Height="300" Width="400" Background="Orange">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="160"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel x:Name="stackPanelLeft" Background="White">
+            <Button x:Name="realButton" Content="OK" Height="40"/>
+        </StackPanel>
+        <Button Content=">>>" Grid.Column="1" Margin="5" Click="Button_Click"/>
+        <StackPanel Grid.Column="2" x:Name="stackpanelRight" Background="White"/>
+    </Grid>
+</Window>

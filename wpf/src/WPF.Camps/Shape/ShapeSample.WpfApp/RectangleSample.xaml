@@ -1,0 +1,66 @@
+﻿<Window x:Class="ShapeSample.WpfApp.RectangleSample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShapeSample.WpfApp"
+        mc:Ignorable="d"
+        Title="RectangleSample" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--实心填充-->
+        <Rectangle Grid.Row="0" Grid.Column="0" Stroke="Blue" Fill="LightBlue"/>
+
+        <!--线性渐变-->
+        <Rectangle Grid.Column="1">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#FF0011" Offset="0"/>
+                    <GradientStop Color="#5ce8ff" Offset="0.25"/>
+                    <GradientStop Color="#FF9534" Offset="0.6"/>
+                    <GradientStop Color="#FF0398" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <!--图片填充-->
+        <Rectangle Grid.Column="2">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/OIP.jpg" Viewport="0,0,0.3,0.15" TileMode="Tile"/>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <!--矢量图填充-->
+        <Rectangle Grid.Row="1" Grid.Column="0">
+            <Rectangle.Fill>
+                    <DrawingBrush Viewport="0,0,0.2,0.2" TileMode="Tile">
+                    <DrawingBrush.Drawing>
+                        <GeometryDrawing Brush="LightBlue">
+                            <GeometryDrawing.Geometry>
+                                <EllipseGeometry RadiusX="10" RadiusY="10"/>
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingBrush.Drawing>
+                </DrawingBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <!--线性渐变填充边框-->
+        <Rectangle Grid.Column="1" Grid.Row="1" StrokeThickness="20">
+            <Rectangle.Stroke>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Yellow" Offset="0.3"/>
+                    <GradientStop Color="MediumSeaGreen" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Stroke>
+        </Rectangle>
+    </Grid>
+</Window>

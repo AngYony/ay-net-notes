@@ -66,7 +66,9 @@ Setter类的Property属性用来指明你想要为目标的哪个属性赋值；
 
 ### 样式中的触发器
 
-三种类型触发器：
+触发器可以理解为，当达到了触发的条件，那么就执行预期内的响应，可以是样式、数据变化、动画等。
+
+触发器通过Style.Triggers集合连接到样式中，每个样式都可以有任意多个触发器，并且每个触发器都是System.Windows.TriggerBase的派生类实例，包含三种类型触发器：
 
 - 属性触发器（Trigger、MultiTrigger）：通过监测依赖项属性的变化，使用设置器改变样式。Trigger类是最基本的触发器，类似于Setter，Trigger也有Property和Value这两个属性，Property是Trigger关注的属性名称，Value是触发条件。Trigger类还有一个Setters属性，此属性值是一组Setter，一旦触发条件被满足，这组Setter的“属性-值”就会被应用，触发条件不再满足后，各属性值会被还原。
 
@@ -78,7 +80,7 @@ Setter类的Property属性用来指明你想要为目标的哪个属性赋值；
   </DataTrigger>
   ```
 
-- 事件触发器（EventTrigger）：当需要制作一些动画，通常使用事件触发器。
+- 事件触发器（EventTrigger）：触发了某类事件时，触发器生效。当需要制作一些动画，通常使用事件触发器。
 
 一旦停止应用触发器，元素就会恢复到正常外观。也就是说不需要再为还原样式编写任何代码。
 

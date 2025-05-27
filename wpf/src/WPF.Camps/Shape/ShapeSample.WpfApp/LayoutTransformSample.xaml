@@ -1,0 +1,24 @@
+﻿<Window x:Class="ShapeSample.WpfApp.LayoutTransformSample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShapeSample.WpfApp"
+        mc:Ignorable="d"
+        Title="LayoutTransformSample" Height="450" Width="800">
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="titleBar" Background="LightBlue">
+            <TextBlock Text="Hello Transformer!" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <!--旋转60度之后，第一列的宽度也会跟着变化-->
+                <TextBlock.LayoutTransform>
+                    <RotateTransform Angle="-60"/>
+                </TextBlock.LayoutTransform>
+            </TextBlock>
+        </Grid>
+    </Grid>
+</Window>

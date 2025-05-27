@@ -1,0 +1,14 @@
+﻿<Window x:Class="ShapeSample.WpfApp.PathSample5"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShapeSample.WpfApp"
+        mc:Ignorable="d"
+        Title="PathSample5" Height="250" Width="300" Background="LightCoral" AllowsTransparency="True" WindowStyle="None">
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Path Visibility="Hidden" x:Name="clipPath"
+        Data="M 55,100 A 50,50 0 1 1 100,60 A 110,95 0 0 1 200,60 A 50,50 0 1 1 250,100 A 110,95 0 1 1 55,100 Z"/>
+        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" Height="25" Name="button1" Click="button1_Click">Clip</Button>
+    </Grid>
+</Window>

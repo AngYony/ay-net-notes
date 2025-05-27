@@ -1,0 +1,16 @@
+﻿<Window x:Class="AnimationSample.WpfApp.AnimationUsingKeyFramesSample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AnimationSample.WpfApp"
+        mc:Ignorable="d"
+        Title="AnimationUsingKeyFramesSample" Height="450" Width="800">
+    <Grid>
+        <Button Content="Move" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Height="80" Click="Button_Click">
+            <Button.RenderTransform>
+                <TranslateTransform x:Name="tt" X="0" Y="0"/>
+            </Button.RenderTransform>
+        </Button>
+    </Grid>
+</Window>
