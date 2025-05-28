@@ -25,7 +25,34 @@ DataTemplate是数据的外衣，常用的地方有3处：
 
 ## 数据模板示例
 
+示例一，直接通过ItemTemplate标签定义数据模板：
+
+```xaml
+<Grid>
+    <ListBox Name="list">
+        <!--定义数据模板-->
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="10" Height="10" Background="{Binding MyColor}"/>
+                    <TextBlock Margin="10,0" Text="{Binding Index}"/>
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+</Grid>
+```
+
+xaml后台代码：
+
+```csharp
+ var colors = new[] { "#FFA500", "#FFFFE0", "#F0FFFF", "#CD853F", "#5F9EA0", "#9370DB", "#EE82EE", "#FFB6C1", "#7FFFD4", "#D2B48C", "#FF69B4" };
+ list.ItemsSource = Enumerable.Range(1, 10).Select(a => new { Index = a, MyColor = colors[a] });
+```
+
 由于资源中的ResourcesDictionary可以存储任意类型的对象，因此可以把模板定义在资源标签中。
+
+示例二，定义在Resources中的可复用的数据模板：
 
 XAML的模板定义和界面布局：
 
@@ -141,6 +168,8 @@ public class CarImageToPathConverter : IValueConverter
 
 ## 控件模板（ControlTemplate）
 
+控件模板用于定义控件的外观、样式，还可以通过控件模板的触发器（ControlTemplate.Triggers）修改控件的行为、响应动画等。
+
 ControlTemplate主要有两大用武之地：
 
 - 通过更换ControlTemplate改变控件外观，使其具有更优的用户使用体验及外观。
@@ -187,6 +216,26 @@ ControlTemplate主要有两大用武之地：
 ```
 
 这里引入控件模板是使用Style属性，并通过DynamicResource绑定样式。
+
+除了定义在Style标签中外，也可以像DataTemplate一样，直接定义在Resources中：
+
+```csharp
+<Window.Resources>
+    <ControlTemplate x:Key="buttonTemplate" TargetType="Button">
+        <Border 
+            BorderBrush="{TemplateBinding BorderBrush}" 
+            BorderThickness="{TemplateBinding BorderThickness}">
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"  />
+        </Border>
+    </ControlTemplate>
+</Window.Resources>
+<Grid>
+    <Button Width="100" Height="40" Template="{StaticResource buttonTemplate}"
+    BorderThickness="3" BorderBrush="Blue"
+    HorizontalContentAlignment="Center" Content="确定"/>
+</Grid>
+```
 
 
 
@@ -459,6 +508,32 @@ private void Menu_Click(object sender, RoutedEventArgs e)
 运行效果：
 
 ![image-20250514144457863](./assets/image-20250514144457863.png)
+
+### 示例四：自定义下拉框选项
+
+```xaml
+<ComboBox x:Name="myCom" Width="100" Height="20">
+    <ComboBox.ItemTemplate>
+        <DataTemplate>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding UserName}"/>
+                <TextBlock Text="→"/>
+                <TextBlock Text="{Binding Age}"/>
+            </StackPanel>
+        </DataTemplate>
+    </ComboBox.ItemTemplate>
+</ComboBox>
+```
+
+xaml后台代码：
+
+```csharp
+myCom.ItemsSource = new List<object>()
+{
+    new {UserName="张三" ,Age=100},
+    new {UserName="张三" ,Age=100},
+};
+```
 
 
 
