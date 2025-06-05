@@ -39,5 +39,10 @@ namespace DataTemplateSample.WpfApp
         {
             new Sample3().ShowDialog();
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            new Sample4().ShowDialog();
+        }
     }
 }

@@ -79,6 +79,8 @@
 
             <Button Content="示例1" Click="Button_Click"/>
             <Button Content="xml数据源示例" Click="Button_Click_1"/>
+
+            <Button Content="简单控件模板示例" Click="Button_Click_2"/>
         </StackPanel>
     </Grid>
 

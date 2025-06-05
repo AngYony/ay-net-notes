@@ -74,7 +74,5 @@
                 </EventTrigger>
             </Button.Triggers>
         </Button>
-
-
     </Grid>
 </Window>

@@ -34,5 +34,10 @@ namespace ControlTemplateSample.WpfApp
         {
             new XmlSample().ShowDialog();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            new Sample2().ShowDialog();
+        }
     }
 }

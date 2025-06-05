@@ -12,17 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace GridSample.Wpfapp
+namespace DataTemplateSample.WpfApp
 {
     /// <summary>
-    /// Sample2.xaml 的交互逻辑
+    /// Sample4.xaml 的交互逻辑
     /// </summary>
-    public partial class Sample2 : Window
+    public partial class Sample4 : Window
     {
-        public Sample2()
+        public Sample4()
         {
             InitializeComponent();
-             
+            myCom.ItemsSource = new List<object>()
+            {
+                new {UserName="张三" ,Age=100},
+                new {UserName="张三" ,Age=100},
+            };
         }
     }
 }

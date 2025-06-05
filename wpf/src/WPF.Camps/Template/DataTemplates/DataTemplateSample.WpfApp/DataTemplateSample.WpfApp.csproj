@@ -66,6 +66,9 @@
     <Compile Include="Sample3.xaml.cs">
       <DependentUpon>Sample3.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sample4.xaml.cs">
+      <DependentUpon>Sample4.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,6 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Sample3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sample4.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

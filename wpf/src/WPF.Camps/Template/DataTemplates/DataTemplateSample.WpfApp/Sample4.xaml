@@ -1,22 +1,22 @@
-﻿<Window x:Class="DataTemplateSample.WpfApp.Sample1"
+﻿<Window x:Class="DataTemplateSample.WpfApp.Sample4"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataTemplateSample.WpfApp"
         mc:Ignorable="d"
-        Title="Sample1" Height="450" Width="800">
+        Title="Sample4" Height="450" Width="800">
     <Grid>
-        <ListBox Name="list">
-            <!--定义数据模板-->
-            <ListBox.ItemTemplate>
+        <ComboBox x:Name="myCom" Width="100" Height="20">
+            <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Border Width="10" Height="10" Background="{Binding MyColor}"/>
-                        <TextBlock Margin="10,0" Text="{Binding Index}"/>
+                        <TextBlock Text="{Binding UserName}"/>
+                        <TextBlock Text="→"/>
+                        <TextBlock Text="{Binding Age}"/>
                     </StackPanel>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </Grid>
 </Window>

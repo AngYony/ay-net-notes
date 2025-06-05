@@ -1,0 +1,61 @@
+﻿<Window
+    x:Class="PrismBlankApp.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    Title="{Binding Title}"
+    Width="525"
+    Height="350"
+    prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel
+            x:Name="myCtl"
+            Grid.Column="0"
+            prism:RegionManager.RegionName="ContentRegion" />
+        <DockPanel Grid.Column="1">
+            <StackPanel
+                HorizontalAlignment="Center"
+                DockPanel.Dock="Top"
+                Orientation="Horizontal">
+                <Button
+                    Width="100"
+                    Height="40"
+                    Margin="5"
+                    Command="{Binding OpenViewBCommand}"
+                    Content="ViewB" />
+                <Button
+                    Width="100"
+                    Height="40"
+                    Margin="5"
+                    Command="{Binding OpenViewCCommand}"
+                    Content="ViewC" />
+
+                <Button
+                    Width="100"
+                    Height="40"
+                    Margin="5"
+                    Command="{Binding GoForwordCommand}"
+                    Content="向前" />
+
+                <Button
+                    Width="100"
+                    Height="40"
+                    Margin="5"
+                    Command="{Binding GoBackCommand}"
+                    Content="返回" />
+
+                <Button
+                    Width="100"
+                    Height="40"
+                    Margin="5"
+                    Command="{Binding DialogCommand}"
+                    Content="弹窗" />
+            </StackPanel>
+            <ContentControl prism:RegionManager.RegionName="ViewBRegion" />
+        </DockPanel>
+    </Grid>
+</Window>

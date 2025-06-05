@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GridSample.Wpfapp
+namespace ModuleA.Views
 {
     /// <summary>
-    /// Sample2.xaml 的交互逻辑
+    /// Interaction logic for ViewA.xaml
     /// </summary>
-    public partial class Sample2 : Window
+    public partial class ViewA : UserControl
     {
-        public Sample2()
+        public ViewA()
         {
             InitializeComponent();
-             
         }
     }
 }

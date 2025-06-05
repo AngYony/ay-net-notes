@@ -11,6 +11,7 @@
             <Button Content="示例1" Width="100" Height="40" Click="Button_Click"/>
             <Button Content="示例2" Width="100" Height="40" Click="Button_Click_1"/>
             <Button Content="示例3" Width="100" Height="40" Click="Button_Click_2"/>
+            <Button Content="自定义下拉框选项" Width="120" Height="40" Click="Button_Click_3"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace GridSample.Wpfapp
+namespace ControlTemplateSample.WpfApp
 {
     /// <summary>
     /// Sample2.xaml 的交互逻辑
@@ -22,7 +22,6 @@ namespace GridSample.Wpfapp
         public Sample2()
         {
             InitializeComponent();
-             
         }
     }
 }

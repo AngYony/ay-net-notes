@@ -17,10 +17,6 @@ ViewModel 与 View 的沟通：
 
  
 
-
-
-
-
 ## 复杂示例绑定的应用
 
 最终效果：
@@ -226,5 +222,11 @@ class DishMenuItemViewModel:BindableBase
 
 
 
+## 场景的MVVM框架
 
+常见的MVVM框架当中，基本都围绕了ICommand、INotifyPropertyChanged封装实现绑定、通知等功能。
+
+而对于不同的框架之间，在实现相同功能上，大部分只是表现在写法不同，下图列举了几个常见的框架的区别：
+
+![image-20250603153648260](./assets/image-20250603153648260.png)
 
