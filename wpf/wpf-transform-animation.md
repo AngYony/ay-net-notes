@@ -135,7 +135,7 @@ WPF把简单动画称为AnimationTimeline，所谓的动画指的就是能够让
 
 上面表格中的这些类都带有AnimationBase后缀，它们也都是抽象基类，完整情况下，这些抽象基类又能派生出3种具体动画，以DoubleAnimationBase为例：
 
-1. 简单动画，名称以Animation后缀结尾，如DoubleAnimation。
+1. 简单线性动画，名称以Animation后缀结尾，如DoubleAnimation。
 2. 关键帧动画，名称以AnimationUsingKeyFrames后缀结尾，如DoubleAnimationUsingKeyFrames。
 3. 沿路径动画，名称以AnimationUsingPath后缀结尾，如DoubleAnimationUsingPath。
 

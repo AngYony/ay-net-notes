@@ -38,6 +38,8 @@ namespace StyleResourceSample.WpfApp
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             new Sample3().ShowDialog();
+
+            
         }
     }
 }

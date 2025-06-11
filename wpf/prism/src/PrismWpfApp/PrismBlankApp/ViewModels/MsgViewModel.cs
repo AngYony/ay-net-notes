@@ -11,30 +11,28 @@ namespace PrismBlankApp.ViewModels
 {
     public class MsgViewModel : BindableBase, IDialogAware
     {
-
         public DelegateCommand OkCommand { get; }
         public DelegateCommand CancelCommand { get; }
-        private string  title;
+        private string title;
 
-        public string  Title
+        public string Title
         {
             get { return title; }
             set { title = value; SetProperty(ref title, value); }
         }
 
-
         public MsgViewModel()
         {
-            OkCommand = new DelegateCommand(() => {
+            OkCommand = new DelegateCommand(() =>
+            {
                 var param = new DialogParameters();
                 param.Add("text", this.Title);
                 RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
-            
             });
 
-            CancelCommand = new DelegateCommand(() => {
+            CancelCommand = new DelegateCommand(() =>
+            {
                 RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel));
-
             });
         }
 

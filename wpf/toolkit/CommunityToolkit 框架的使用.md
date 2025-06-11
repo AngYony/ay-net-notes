@@ -6,6 +6,8 @@ Nuget包：
 
 官方文档：[MVVM 工具包简介 - Community Toolkits for .NET | Microsoft Learn](https://learn.microsoft.com/zh-cn/dotnet/communitytoolkit/mvvm/)
 
+官方示例：[CommunityToolkit/MVVM-Samples: Sample repo for MVVM package](https://github.com/CommunityToolkit/MVVM-Samples)
+
 
 
 ## ObservableObject

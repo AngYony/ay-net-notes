@@ -345,6 +345,15 @@ public class ModuleAModule : IModule
 }
 ```
 
+App.xaml.cs：
+
+```csharp
+ protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+ {
+     moduleCatalog.AddModule<ModuleA.ModuleAModule>();
+ }
+```
+
 
 
 ### MVVM 应用

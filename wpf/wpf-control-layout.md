@@ -270,6 +270,14 @@ TextBlock由于需要操纵格式，所以内容属性是Inlines（印刷中的�
 
 
 
+### DataGrid
+
+
+
+
+
+
+
 ## 布局
 
 Panel是所有布局的基类。WPF中的布局元素有如下几个：
@@ -306,7 +314,13 @@ Grid特点：
 Grid常用属性：
 
 - ShowGridLines：是否显示行列的边距线
-- 
+
+其他控件引用Grid的附加属性有：
+
+- Grid.RowSpan ：设置子内容跨越的行数
+- Grid.ColumnSpan ：设置子内容跨越的总列数
+
+
 
 #### 高度和宽度
 
@@ -372,6 +386,8 @@ Canvas适用场景：
 
 ### DockPanel
 
+停靠面板。
+
 DockPanel内的元素会被附加上DockPanel.Dock这个属性，这个属性的数据类型为Dock枚举，分别为Left、Top、Right和Bottom四个值。
 
 DockPanel有一个重要属性，Bool类型的LastChildFill，默认值为true。当LastChildFill 属性值为true时，DockPanel内最后一个元素的DockPanel.Dock属性值将会被忽略，这个元素会把DockPanel内部所有剩余空间充满。这也正好解释了为什么Dock枚举类型没有Fill这个值。
@@ -384,13 +400,15 @@ DockPanel常用属性：
 
 wrapPanel内部采用流式布局。
 
-WrapPanel使用Orientation属性来控制流延伸的方向，使用HorizontalAlignment和VerticalAlignment两个属性控制内部空间的对齐，在流延伸的方向上，WrapPanel会排列尽可能多的控件，排不下的控件将会新起一行或一列继续排列。
+WrapPanel使用Orientation属性来控制流延伸的方向，使用HorizontalAlignment和VerticalAlignment两个属性控制内部空间的对齐，在流延伸的方向上，WrapPanel会排列尽可能多的控件，**排不下的控件将会新起一行或一列继续排列**。
 
 
 
 ### UniformGrid
 
 UniformGrid用于将内部控件均匀的分部在不同的空间中。
+
+适用于需要平均分配空间的容器。
 
 
 

@@ -165,7 +165,7 @@ Style类公开了一个Triggers集合，允许向其中添加触发器。触发�
 
 
 
-## WPF资源或对象资源
+## WPF资源（对象资源）
 
 每个WPF的界面元素都具有一个名为Resources的属性，该属性继承自FrameworkElement类，其类型为ResourceDictionary。
 
@@ -239,7 +239,7 @@ this.mytxt.Text = (string)this.Resources["str"];
 
 静态资源在编译时被解析，即当使用XAML时设置值对象，不需要运行应用程序即可应用设置的值。
 
-动态资源是在运行时解析的，对象的值被评估并存储在表达式中，并且在运行时替换该值。
+动态资源是在运行时解析的，对象的值被评估并存储在表达式中，并且在运行时替换该值。例如：当单击按钮时，触发样式的改变就需要使用动态资源。
 
 因此大多数样式模板等被声明为静态资源，当应用程序正在运行时，用户想要更改值而不重新编译应用程序时使用动态资源。
 
@@ -268,6 +268,55 @@ private void Button_Click(object sender, RoutedEventArgs e)
     this.Resources["res1"] = new TextBlock { Text = "什么都不是" };
     this.Resources["res2"] = new TextBlock { Text = "什么都不是" };
 }
+```
+
+### 资源字典
+
+如果希望在多个项目之间共享资源，可创建资源字典。
+
+资源字典只是XAML文档，除了存储希望使用的资源外，不做其他任何事情。
+
+MyDictionary.xaml：	
+
+```xaml
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--第一步：添加资源字典文件，定义资源样式-->
+    <!--第二步：在App文件中，添加资源字典文件的引用-->
+    <!--第三步：全局应用字典，如果指定了x:Key，元素也必须显式指定才可以应用该样式-->
+    
+    <SolidColorBrush x:Key="SolidColor" Color="Red"/>
+    <Style TargetType="Button">
+        <Setter Property="Foreground" Value="Blue"/>
+        <Setter Property="FontSize" Value="15"/>
+    </Style>
+
+    <Style x:Key="DefaultButtonStyle" TargetType="Button">
+        <Setter Property="Foreground" Value="Yellow"/>
+        <Setter Property="FontSize" Value="15"/>
+    </Style>
+
+</ResourceDictionary>
+```
+
+App.xaml：
+
+```xaml
+<Application x:Class="StyleResourceSample.WpfApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:StyleResourceSample.WpfApp"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="MyDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
+
 ```
 
 

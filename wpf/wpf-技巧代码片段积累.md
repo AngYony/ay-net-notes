@@ -72,3 +72,28 @@
 
 ### 数据绑定时使用`ObservableCollection<T>`代替`List<T>`
 
+
+
+### 使用行为实现控件事件与命令的关联
+
+```xaml
+<ListBox
+    x:Name="menuBar"
+    ItemContainerStyle="{StaticResource myListBoxItemsStyle}"
+    ItemsSource="{Binding MenuBars}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="SelectionChanged">
+            <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="{Binding ElementName=menuBar, Path=SelectedItem}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <ListBox.ItemTemplate>
+        <DataTemplate>
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Margin="15,0" Kind="{Binding Icon}" />
+                <TextBlock Margin="10,0" Text="{Binding Title}" />
+            </StackPanel>
+        </DataTemplate>
+    </ListBox.ItemTemplate>
+</ListBox>
+```
+

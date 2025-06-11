@@ -70,7 +70,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WrapPanelSample.WpfApp", "L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayoutSample.WpfApp", "Layout\LayoutSample.WpfApp\LayoutSample.WpfApp.csproj", "{4BC9ECDD-A183-48DB-9685-C32CAF9A08F7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "样式与资源", "样式与资源", "{BA8A4D78-0549-47AA-92CB-1040D9098E33}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "样式", "样式", "{BA8A4D78-0549-47AA-92CB-1040D9098E33}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleResourceSample.WpfApp", "StyleResource\StyleResourceSample.WpfApp\StyleResourceSample.WpfApp.csproj", "{BAF3D284-DB37-420B-BDF6-B2B65A6D991F}"
 EndProject
