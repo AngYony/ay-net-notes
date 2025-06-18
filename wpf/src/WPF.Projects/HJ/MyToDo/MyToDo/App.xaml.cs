@@ -1,4 +1,5 @@
-﻿using MyToDo.ViewModels;
+﻿using DryIoc;
+using MyToDo.ViewModels;
 using MyToDo.Views;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -20,6 +21,12 @@ namespace MyToDo
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            //将构造函数需要的参数一同注入
+            containerRegistry.GetContainer()
+                .Register<HttpRestClient>(made: Parameters.Of.Type<string>(serviceKey: "apiUrl"));
+            containerRegistry.GetContainer().RegisterInstance(@"http://localhost:3389/", serviceKey: "apiUrl");
+
+
             containerRegistry.RegisterForNavigation<IndexView, IndexViewModel>();
             containerRegistry.RegisterForNavigation<MemoView, MemoViewModel>();
             containerRegistry.RegisterForNavigation<SettingsView, SettingsViewModel>();

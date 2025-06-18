@@ -97,3 +97,56 @@
 </ListBox>
 ```
 
+### DataTemplate和ControlTemplate的组合使用
+
+```xaml
+<ListBox BorderThickness="0" ItemsSource="{Binding MenuItems}">
+    <ListBox.ItemContainerStyle>
+        <Style TargetType="ListBoxItem">
+            <!--让ListBoxItem的内容都填充每一项的空间-->
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!--移除ListBox系统默认的鼠标悬浮样式-->
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Grid Background="Transparent">
+                            <Border x:Name="bd1"/>
+                            <Border x:Name="bd2"/>
+                            <ContentPresenter/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd1" Property="Background" Value="#ff99ff"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="{Binding BackColor}"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <!--设置纯颜色背景与透明度-->
+                                <Setter Property="Background" Value="{Binding BackColor}" TargetName="bd1"/>
+                                <Setter Property="Opacity" Value="0.1" TargetName="bd1"/>
+                                <Setter Property="BorderThickness" Value="5 0 0 0" TargetName="bd2"/>
+                                <Setter Property="BorderBrush" Value="{Binding BackColor}" TargetName="bd2"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </ListBox.ItemContainerStyle>
+
+    <!--左侧菜单进行数据绑定-->
+    <ListBox.ItemTemplate>
+        <DataTemplate>
+            <DockPanel LastChildFill="False" Margin="10 0 0 0">
+                <TextBlock Text="{Binding Icon}" Style="{StaticResource iconStyle}" />
+                <TextBlock Text="{Binding Name}"/>
+                <TextBlock Text="{Binding Count}" DockPanel.Dock="Right"/>
+            </DockPanel>
+        </DataTemplate>
+    </ListBox.ItemTemplate>
+</ListBox>
+```
+

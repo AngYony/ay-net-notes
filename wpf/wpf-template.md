@@ -1,11 +1,14 @@
 # 模板
 
+在WPF中，有三种类型的模板，这些模板都继承自FrameworkTemplate基类。
+
+- 控件模板（ControlTemplate）
+- 数据模板（DataTemplate 和 HierarchicalDataTemplate）：用于从对象中提取数据，并在内容控件或列表控件的各个项中显示数据，数据模板用于在已有控件的内部添加元素，常用于数据绑定中。
+- 面板模板（ItemsPanelTemplate）：用于控制列表控件（继承自ItemsControl类的控件）中各项的布局。
+
+完全可在同一个控件中组合使用各种类型的模板。
 
 
-WPF中的Template分为两大类：
-
-- ControlTemplate：一个控件怎样组织其内部结构才能让它更符合业务逻辑、让用户操作起来更舒服就是由它来控制的。ControlTemplate是算法内容的表现形式，它决定了控件“长成什么样子”，并让程序员有机会再控件原有的内部逻辑基础上扩展自己的逻辑。
-- DataTemplate：它是数据内容的表现形式，一条数据显示成什么样子，是简单的文本还是直观的图形动画就由它来决定。
 
 
 
@@ -533,6 +536,59 @@ myCom.ItemsSource = new List<object>()
     new {UserName="张三" ,Age=100},
     new {UserName="张三" ,Age=100},
 };
+```
+
+### 示例五：控件模板和数据模板的组合使用
+
+```xaml
+<ListBox BorderThickness="0" ItemsSource="{Binding MenuItems}">
+    <ListBox.ItemContainerStyle>
+        <Style TargetType="ListBoxItem">
+            <!--  让ListBoxItem的内容都填充每一项的空间  -->
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!--  移除ListBox系统默认的鼠标悬浮样式  -->
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Grid Background="Transparent">
+                            <Border x:Name="bd1" />
+                            <Border x:Name="bd2" />
+                            <ContentPresenter />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd1" Property="Background" Value="#ff99ff" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="{Binding BackColor}" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <!--  设置纯颜色背景与透明度  -->
+                                <Setter TargetName="bd1" Property="Background" Value="{Binding BackColor}" />
+                                <Setter TargetName="bd1" Property="Opacity" Value="0.1" />
+                                <Setter TargetName="bd2" Property="BorderThickness" Value="5,0,0,0" />
+                                <Setter TargetName="bd2" Property="BorderBrush" Value="{Binding BackColor}" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </ListBox.ItemContainerStyle>
+
+    <!--  左侧菜单进行数据绑定  -->
+    <ListBox.ItemTemplate>
+        <DataTemplate>
+            <DockPanel Margin="10,0,0,0" LastChildFill="False">
+                <TextBlock Style="{StaticResource iconStyle}" Text="{Binding Icon}" />
+                <TextBlock Text="{Binding Name}" />
+                <TextBlock DockPanel.Dock="Right" Text="{Binding Count}" />
+            </DockPanel>
+        </DataTemplate>
+    </ListBox.ItemTemplate>
+</ListBox>
 ```
 
 

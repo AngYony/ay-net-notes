@@ -8,6 +8,11 @@ Binding的两端分别是源（Source，数据从哪来）和目标（Target，�
 
 数据绑定生效的前提是一定要进行数据上下文的设置。
 
+应用绑定有两种方式：
+
+- 在XAML文件中，使用Binding标记扩展（本质是调用了BindingOperations.SetBinding方法）
+- 在C#代码中，使用BindingOperations.SetBinding方法（见下文）
+
 
 
 ## 绑定的实现

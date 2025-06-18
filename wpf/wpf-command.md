@@ -184,7 +184,7 @@ public static class AyCommands
 
 WPF的命令系统由以下几个基本要素构成：
 
-- Command（命令）：实现了ICommand接口的类，常用的如RoutedCommand类。
+- Command（命令）：实现了ICommand接口的类，常用的如RoutedCommand类。RoutedUICommand继承自RoutedCommand，多了一个Text属性。
 - Command Source（命令源）：命令的发送者，实现了ICommandSource接口的类。常见的控件元素都实现了这个接口，如Button、ListBoxItems等。
 - Command Target（命令目标）：命令将作用在谁身上，命令目标必须是实现了IInputElement接口的类。
 - Command Binding（命令关联）：负责把一些外围逻辑与命令关联起来，比如执行之前 对命令是否可以执行 进行判断、命令执行之后还有哪些后续工作等。
@@ -211,6 +211,10 @@ WPF的命令是实现了ICommand接口的类。
 - CanExecuteChanged：当命令可执行状态发生改变时，可激发此事件来通知其他对象。
 
 RoutedCommand类实现了ICommand接口，但在实现时，并未向Execute 和 CanExecute 方法中添加任何逻辑，也就是说，RoutedCommand是通用的、与具体业务逻辑无关的。
+
+Execute()和CanExecute()方法会引发遍历元素树查找具有 CommandBinding 的对象的事件。附加到 CommandBinding 的事件处理程序包含命令逻辑。
+
+
 
 #### WPF的内置命令库
 
@@ -402,7 +406,7 @@ public MainWindow()
     cb.Executed += new ExecutedRoutedEventHandler(Cb_Executed);
 
     //把命令关联安置在外围控件上
-    this.stackPanel.CommandBindings.Add(cb);
+    this.stackPanel.CommandBindings.Add(cb);//按钮被点击之后，Executed事件从按钮冒泡到StackPanel上
 }
 
 //当探测命令是否可以执行时，此方法被调用
@@ -425,7 +429,7 @@ private void Cb_Executed(object sender, ExecutedRoutedEventArgs e)
 
 有两种方式：
 
-- 直接使用RoutedCommand类，如上述代码。
+- 推荐直接使用RoutedCommand类，如上述代码。
 - 创建一个实现ICommand接口的类，或派生自RoutedCommand的类。
 
 
@@ -472,7 +476,7 @@ this.button1.CommandTarget = this.textBoxA;
 
 #### 第五步：设置命令关联
 
-WPF 命令需要CommandBinding在执行前来帮助判断是不是可以执行；在执行后做一些后续操作。
+WPF 命令需要CommandBinding在执行前来帮助判断是不是可以执行；在执行后做一些后续操作。简单点来说就是指定命令触发时对应的事件处理程序。
 
 ```c#
 //创建命令关联
@@ -504,9 +508,38 @@ private void Cb_Executed(object sender, ExecutedRoutedEventArgs e)
 
 
 
+### 命令各要素之间的关系总结
+
+- CommandManager中的[CanExecuteEvent](https://learn.microsoft.com/en-us/dotnet/api/system.windows.input.commandmanager.canexecuteevent?view=netframework-4.7.2#system-windows-input-commandmanager-canexecuteevent)、[ExecutedEvent](https://learn.microsoft.com/en-us/dotnet/api/system.windows.input.commandmanager.executedevent?view=netframework-4.7.2#system-windows-input-commandmanager-executedevent)、[PreviewCanExecuteEvent](https://learn.microsoft.com/en-us/dotnet/api/system.windows.input.commandmanager.previewcanexecuteevent?view=netframework-4.7.2#system-windows-input-commandmanager-previewcanexecuteevent)、[PreviewExecutedEvent](https://learn.microsoft.com/en-us/dotnet/api/system.windows.input.commandmanager.previewexecutedevent?view=netframework-4.7.2#system-windows-input-commandmanager-previewexecutedevent)均是**路由事件**。
+
+- CommandBinding中的[CanExecute](https://learn.microsoft.com/en-us/dotnet/api/system.windows.input.commandbinding.canexecute?view=netframework-4.7.2#system-windows-input-commandbinding-canexecute)、[Executed](https://learn.microsoft.com/en-us/dotnet/api/system.windows.input.commandbinding.executed?view=netframework-4.7.2#system-windows-input-commandbinding-executed)、[PreviewCanExecute](https://learn.microsoft.com/en-us/dotnet/api/system.windows.input.commandbinding.previewcanexecute?view=netframework-4.7.2#system-windows-input-commandbinding-previewcanexecute)、[PreviewExecuted](https://learn.microsoft.com/en-us/dotnet/api/system.windows.input.commandbinding.previewexecuted?view=netframework-4.7.2#system-windows-input-commandbinding-previewexecuted)均为**普通事件**。
+
+- CommandManager用于注册具有指定类型的CommandBinding和InputBinding，简单来说CommandManager只和CommandBinding或InputBinding打交道。
+
+-  CommandBinding将命令（RoutedCommand）与 PreviewExecuted/Executed 和 PreviewCanExecute/CanExecute 事件相关联。具体来说，调用 RoutedCommand 的 Execute 或 CanExecute 方法时，将在命令目标上引发 PreviewExecuted/Executed 或 PreviewCanExecute/CanExecute 事件。如果命令目标具有命令的 CommandBinding，则调用相应的处理程序。如果命令目标没有命令的 CommandBinding，则事件将通过元素树路由，直到找到具有 CommandBinding 的元素。（**CommandBinding是WPF专门为RoutedCommand提供的**）
+
+- CommandBinding 通常和RoutedCommand及其派生类一起使用，不建议直接使用派生自ICommand的非RoutedCommand类型。
+
+- 所有的WPF元素都实现了ICommandSource接口，因此都可以通过该接口的Command、CommandParameter、CommandTarget去指定作为命令源控件的命令、命令参数和命令目标控件。
+
+- >[深入浅出WPF的命令系统 - 叶落劲秋 - 博客园](https://www.cnblogs.com/tianlang358/p/17077102.html) 中的总结：
+  >
+  >1. 命令系统包含ICommand，ICommandSource，命令目标及CommandBinding 四个基本要素，但是ICommandSource中的CommandTarget属性只在命令是RoutedCommand时才有用，否则在命令执行时会被直接忽略；
+  >2. RoutedCommand顾名思义，其本质还是路由事件，但它只负责发起路由事件，并不执行命令逻辑，命令逻辑是由与具体命令关联的CommandBinding来执行的；
+  >3. 由于RoutedCommand是基于路由事件的，因此其发起路由事件、构建路由路径、沿路由路径执行命令处理程序等这一复杂的流程势必会对执行效率产生不好的影响，所以如果不需要命令进行路由，可以构建简单的自定义命令。
+  >4. 自定义命令时，如果希望通过命令系统来改变命令源的可执行状态，需要在实现时通过CanExecuteChanged事件对CommandManager的RequerySuggested事件进行封装
 
 
-## 自定义 Command
+
+
+
+
+
+## 自定义 Command（不常用，了解即可）
+
+注：该示例使用了直接派生自ICommand的非RoutedCommand的命令，因此无法与CommandBinding结合使用。见[CommandBinding 与非 RoutedCommand 的 ICommand 一起使用受到限制](https://learn.microsoft.com/en-us/dotnet/api/system.windows.input.commandbinding?view=netframework-4.7.2#remarks)。
+
+>CommandBinding 与非 RoutedCommand 的 ICommand 一起使用受到限制。这是因为 CommandBinding 将命令绑定到 ExecutedRoutedEventHandler 和 CanExecuteRoutedEventHandler，它们侦听在调用 RoutedCommand 的 Execute 和 CanExecute 方法时引发的 Executed 和 CanExecute 路由事件。
 
 定义命令目标的业务约束接口：
 
@@ -658,6 +691,8 @@ public partial class CusCommand : Window
 
 
 
+
+
 ----
 
 
@@ -665,6 +700,8 @@ public partial class CusCommand : Window
 References:：
 
 - 《深入浅出WPF》
+- [命令概述 - WPF | Microsoft Learn](https://learn.microsoft.com/zh-cn/dotnet/desktop/wpf/advanced/commanding-overview)
+- [深入浅出WPF的命令系统 - 叶落劲秋 - 博客园](https://www.cnblogs.com/tianlang358/p/17077102.html)
 
 Last updated：2025-05-20
 
