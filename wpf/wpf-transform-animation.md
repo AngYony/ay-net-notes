@@ -148,7 +148,7 @@ WPF把简单动画称为AnimationTimeline，所谓的动画指的就是能够让
 1. From：变化起点，如果没有指定变化起点，则以变化目标属性的当前值作为起点。
 2. To：变化终点，如果没有指定变化终点，程序将采用上一次动画的终点或默认值。
 3. By：变化幅度，如果同事指定了变化终点，变化幅度将被忽略。
-4. Duration：变化事件，必须指定，数据类型为Duration。
+4. Duration：变化时间，必须指定，数据类型为Duration。
 
 ```xaml
 <Grid>
@@ -597,7 +597,7 @@ private void Button_Click(object sender, RoutedEventArgs e)
 </Button>
 ```
 
-
+注意：如果要在XAML中定义动画，必须要把动画定义在故事板（Storyboard）中，故事板为动画提供了时间线。
 
 
 

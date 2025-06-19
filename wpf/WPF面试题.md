@@ -163,6 +163,8 @@ EventManager.RegisterRoutedEvent方法需要指定路由策略和事件处理程
 
 **WPF中的命令**
 
+WPF命令使得命令源(即命令发送者，也称调用程序)和命令目标（即命令执行者，也称处理程序）分离。
+
 命令本身：RoutedUICommand:RoutedCommand: ICommand
 
 命令源：ICommandSource，WPF的大多数控件都实现了该接口。通过该对象指定命令、命令参数、命令目标元素。
@@ -173,204 +175,111 @@ EventManager.RegisterRoutedEvent方法需要指定路由策略和事件处理程
 
 
 
+**什么是行为（Behavior）？**
+
+行为是一种附加到控件上的功能扩展，它可以在不修改控件本身的情况下，为控件添加新的交互逻辑或功能。行为通常用于 MVVM 模式中，帮助将 UI 逻辑与业务逻辑分离。
+
+行为有两个主要用途：
+
+- 封装UI功能，即将某些控件的共同特征进行封装。
+- 使用行为将控件元素的事件与命令进行关联响应。
 
 
 
+创建行为，继承自Behavior泛型抽象类，Behavior中的AssociatedObject属性表示放置行为的元素。在重写的OnAttached()和OnDetaching()方法中，通过该属性可关联各种控件事件处理程序。
+
+通过在XAML中使用Interaction.Behaviors来使用行为。
+
+当关联命令时，需要使用Interaction.Triggers，结合行为中的EventTrigger（InvokeCommandAction）实现某个控件事件关联命令。
 
 
 
+使用行为传值的思路？
 
+我们可以通过以下步骤实现页面之间的传值：
 
- public async void ExternalAsync(EventHandler<IEnumerable<(IEnumerable<byte>, string)>> processEvent, EventHandler<long> endEvent)
+定义一个行为：用于在控件上附加逻辑，监听某些事件（如按钮点击）。
 
-{
+在行为中触发数据传递：当事件发生时，将数据传递给目标页面。
 
-​    await Task.Run(async () =>
-
- {
-
-  
-
-});
-
-}
-
- 
-
- 
-
- 
-
-public void BtnRepeatedCollection()
-
-{
-
-   Task.Run(async () =>
-
-   {
-
-});
-
-}
-
- 
-
- 
-
- 
-
- 
-
- public async Task StartAutoSendSampleAsync(EventHandler<(IEnumerable<byte> a, string)> processEvent, Action<Exception> err, EventHandler<long> endEvent, int NUTimes, string IngrationTimes, byte? clk_div_num, string pn, OddOrEven odd)
-
-{
-
-   await Task.Run(() =>
-
-   {
-
- 
-
-});
-
-}
-
- 
-
-**在MVVM架构中，ViewModel所负责的工作有哪些?**
-
-在 MVVM（Model-View-ViewModel）架构中，ViewModel 是**连接** View（视图） 和 Model（模型） 的核心组件。它的**主要职责**是将数据从 Model 层**暴露**给 View 层，并处理 View 层的交互逻辑。ViewModel 的设计**目标是让 View 和 Model 解耦**，使代码更易于维护和测试。
-
-**ViewModel** **的主要职责包括**：
-
-1. 数据暴露：将 Model 层的数据暴露给 View 层。
-2. 数据验证：验证用户输入的数据。
-3. 命令处理：处理用户交互逻辑。
-4. 状态管理：管理 View 层的状态（如加载状态、错误状态等）。
-5. 数据转换：将 Model 层的数据转换为 View 层需要的格式。
-6. 事件聚合：处理多个 View 或 Model 之间的事件通信。
-
- 
+在目标页面中接收数据：通过绑定或事件接收传递的数据。
 
 
 
-
-
-
-
-
-
-
-**WPF** **中如何处理异步操作?如何在 UI 线程更新 UI控件?**
-
-WPF 的异步操作通常使用 async和await 关键字来处理长时间运行的任务，例如从网络获取数据或数据库查询。
+**WPF多线程**
 
 WPF的 UI控件只能在 UI线程中更新，因此在异步操作完成后，需要切换回 UI 线程。
 
-步骤:
-
-使用 Task.Run 或 async/await 进行异步操作。
- 2.在操作完成后，使用Dispatcher(迪丝帕恰).Invoke 或Dispatcher.Beginlnvoke 来更新 UI控件。
-
-**总结:**
-
-• UI 线程：负责处理所有 UI 相关的操作，是单线程的。
-
-• 后台线程：用于执行耗时操作，避免阻塞 UI 线程。
-
-• 跨线程访问 UI：必须通过 Dispatcher 来安全地更新 UI。
-
-• 异步编程：使用 async 和 await 可以更方便地处理异步任务。
-
- 
-
-异步操作：使用 async 和 await 来执行耗时操作，避免阻塞 UI 线程。
-
-更新 UI：在后台线程中更新 UI 时，使用 Dispatcher.Invoke 或直接通过 await 回到 UI 线程。
-
-最佳实践：
-
-避免阻塞 UI 线程（不要用 .Result 或 .Wait()）。
-
-直接调用异步方法时，直接用 await。
-
-需要报告进度时，使用 IProgress<T>。
-
- 
-
-**wpf****的页面渲染只能在UI线程里面**
-
-**Dispatchers**：**Dispatcher** 是 UI 线程的任务调度器，负责管理 UI 线程上的任务队列。
-
-**关系：**
+**Dispatchers**：**Dispatcher** 是 UI 线程的任务调度器，负责管理 UI 线程上的任务队列。每个WPF可视化对象都有该属性（WPF可视化对象都派生自DispatcherObject类），用于返回管理该对象的调度程序。
 
 UI 线程是 Dispatcher 的宿主，Dispatcher 依赖于 UI 线程。
 
 后台线程不能直接更新 UI，必须通过 UI 线程的 Dispatcher 来更新 UI。
 
-**跨线程操作(Dispatcher)**
+步骤:
 
-跨线程操作：在 WPF 中，UI 元素只能由 UI 线程操作，后台线程需要通过 Dispatcher 更新 UI。
+1. 使用 Task.Run 或 async/await 进行异步操作。
+2. 在操作完成后，使用Dispatcher.Invoke 或Dispatcher.Beginlnvoke 来更新 UI控件。
 
-Dispatcher 的作用：将任务“发送”到 UI 线程上执行。
+Invoke 和 BeginInvoke 区别：
 
-常用方法：
+Dispatcher.Invoke：以同步方式执行，调用线程会被阻塞，直到目标委托在Dispatcher线程中完成执行。适用于需要立即获取结果或确保操作顺序严格的场景。
+Dispatcher.BeginInvoke：以异步方式执行，调用线程不会被阻塞，提交任务后可继续执行其他代码。适用于非阻塞式操作或性能要求较高的场景。
 
-1、Dispatcher.Invoke：同步执行，阻塞调用线程。
+例如，在处理用户交互时，如果需要等待某个操作完成后再进行下一步，可以选择`Dispatcher.Invoke`。
 
-2、Dispatcher.BeginInvoke：异步执行，不阻塞调用线程。
+1. `Dispatcher.Invoke`：通过将任务加入Dispatcher队列并等待其执行完成来实现同步操作。
+2. `Dispatcher.BeginInvoke`：同样将任务加入Dispatcher队列，但不等待任务完成，直接返回一个`DispatcherOperation`对象。
 
-3、async 和 await：简化异步编程，避免阻塞 UI 线程。
+若任务需等待完成且依赖其结果，选择`Invoke`；若希望提高响应速度并允许任务在后台运行，则选择`BeginInvoke`。
 
-**注意事项：避免死锁，优先使用 Dispatcher.BeginInvoke，确保 Dispatcher 存在。**
 
-通过以上方法，你可以安全地在 WPF 中实现跨线程操作并更新 UI！
 
- 
+**如何在 WPF 中创建复杂的自定义控件（如复合控件）？**
 
-**await Task.Run(() => { })****与await Task.Run(async () => { })、Task.Run(async () =>{})区别？**
 
-1、**await Task.Run(() => { })**同步的 Lambda 表达式，它的返回类型是 void;代码块内部没有 await 关键字；适合执行纯 CPU 密集型或同步的耗时操作（比如计算、文件读写等）。
 
-2、**await Task.Run(async () => { })**异步的Lambda表达式，返回类型是Task；代码块内部可以包含 await 关键字；适合执行混合型操作，即既包含 CPU 密集型操作，又包含 I/O 密集型操作（比如网络请求、数据库查询等）。
+复合控件 是由多个现有控件组成的控件。创建自定义控件时，可以使用 UserControl 或完全从头继承 Control 来定义控件的行为和外观。
 
-3、**Task.Run(async () =>{});**
+UserControl 是一个将多个控件组合在一起的简单方法，适合需要快速封装多个控件的场景。
 
-任务内容：async () => { } 是一个 异步的 lambda 表达式，表示一个异步操作。
-
-执行方式：Task.Run 会将这个异步操作放到线程池中执行。
-
-是否等待：没有 await，因此不会等待任务完成。
-
-适用场景：适合 启动一个后台任务，但不立即等待其完成（例如“发后即忘”的场景）。
+继承 Control 则需要实现更多的模板和行为控制，适用于更复杂的控件。
 
  
 
- 
+**自定义控件（Custom Control）**：
 
+**自定义控件**在 WPF 中是一种非常强大的功能，可以创建符合自己需求的控件。通过继承 Control 类并实现自定义的 ControlTemplate 和依赖属性，你可以控制控件的外观和行为。
 
+创建自定义控件的流程：
 
- 
+1、创建继承自 Control 类的控件。
 
+2、使用 ControlTemplate 定义控件的外观。
 
-
-**如何在 WPF 中实现动画效果？**
-
-WPF 提供了强大的动画系统，支持 UI 元素的属性值在一段时间内的平滑变化。
-
-常见的动画类型：
-
-DoubleAnimation：用于动画化数值属性（如 Width、Height）。
-
-ColorAnimation：用于动画化颜色属性。
-
-ObjectAnimationUsingKeyFrames：用于动画化非数值的对象属性。
-
-动画的实现：
-
-可以使用 故事板（Storyboard） 将多个动画组合，使用 BeginStoryboard 触发动画。
+3、在 XAML 文件中引用和使用自定义控件。
 
  
+
+
+
+**WPF动画**
+
+1. 简单线性动画，名称以Animation后缀结尾，如DoubleAnimation，可以设置变化起点、终点、幅度和变化时间。
+2. 关键帧动画，名称以AnimationUsingKeyFrames后缀结尾，如DoubleAnimationUsingKeyFrames。可以创建和添加关键帧（KeyFrames）。
+3. 沿路径动画，名称以AnimationUsingPath后缀结尾，如DoubleAnimationUsingPath。
+
+这些动画都派生自引发动画效果的对应的类型的*AnimationBase基类。
+
+由这些动画对象组合到一起，就可以实现StoryBoard（故事板），通过storyboard.Children属性来添加动画对象来实现，并使用使用 BeginStoryboard 触发动画。
+
+storyboard派生自TimelineGroup抽象类，*AnimationBase派生自AnimationTimeline抽象类。
+
+
+
+
+
+
 
 **如何在 WPF 中使用 CompositionTarget.Rendering 进行高帧率动画？**
 
@@ -395,33 +304,28 @@ WPF 的动画系统基于 Storyboard 和 Animation 类，它们允许 UI 元素�
 
 2、使用不同类型的动画类（如 DoubleAnimation、ColorAnimation）来操作 UI 属性值。
 
- 
-
-**如何在 WPF 中创建复杂的自定义控件（如复合控件）？**
-
-复合控件 是由多个现有控件组成的控件。创建自定义控件时，可以使用 UserControl 或完全从头继承 Control 来定义控件的行为和外观。
-
-UserControl 是一个将多个控件组合在一起的简单方法，适合需要快速封装多个控件的场景。
-
-继承 Control 则需要实现更多的模板和行为控制，适用于更复杂的控件。
-
- 
-
-**自定义控件（Custom Control）**：
-
-**自定义控件**在 WPF 中是一种非常强大的功能，可以创建符合自己需求的控件。通过继承 Control 类并实现自定义的 ControlTemplate 和依赖属性，你可以控制控件的外观和行为。
-
-创建自定义控件的流程：
-
-1、创建继承自 Control 类的控件。
-
-2、使用 ControlTemplate 定义控件的外观。
-
-3、在 XAML 文件中引用和使用自定义控件。
+  
 
  
 
  
+
+**在MVVM架构中，ViewModel所负责的工作有哪些?**
+
+在 MVVM（Model-View-ViewModel）架构中，ViewModel 是**连接** View（视图） 和 Model（模型） 的核心组件。它的**主要职责**是将数据从 Model 层**暴露**给 View 层，并处理 View 层的交互逻辑。ViewModel 的设计**目标是让 View 和 Model 解耦**，使代码更易于维护和测试。
+
+**ViewModel** **的主要职责包括**：
+
+1. 数据暴露：将 Model 层的数据暴露给 View 层。
+2. 数据验证：验证用户输入的数据。
+3. 命令处理：处理用户交互逻辑。
+4. 状态管理：管理 View 层的状态（如加载状态、错误状态等）。
+5. 数据转换：将 Model 层的数据转换为 View 层需要的格式。
+6. 事件聚合：处理多个 View 或 Model 之间的事件通信。
+
+ 
+
+
 
 **WPF****中 有2个页面 这2个页面如何传值？**
 
@@ -439,19 +343,7 @@ UserControl 是一个将多个控件组合在一起的简单方法，适合需�
 
 **MVVM****中两个页面可以靠行为传值？**
 
-**1.** **什么是行为（Behavior）？**
 
-行为是一种附加到控件上的功能扩展，它可以在不修改控件本身的情况下，为控件添加新的交互逻辑或功能。行为通常用于 MVVM 模式中，帮助将 UI 逻辑与业务逻辑分离。
-
-**2.** **使用行为传值的思路**
-
-我们可以通过以下步骤实现页面之间的传值：
-
-定义一个行为：用于在控件上附加逻辑，监听某些事件（如按钮点击）。
-
-在行为中触发数据传递：当事件发生时，将数据传递给目标页面。
-
-在目标页面中接收数据：通过绑定或事件接收传递的数据。
 
  
 

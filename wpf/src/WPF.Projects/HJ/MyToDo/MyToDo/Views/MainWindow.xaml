@@ -21,9 +21,7 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
-    <Window.Resources>
-        
-    </Window.Resources>
+    <Window.Resources />
     <materialDesign:DialogHost DialogTheme="Inherit" Identifier="RootDialog">
 
         <materialDesign:DrawerHost x:Name="drawerHost" IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">

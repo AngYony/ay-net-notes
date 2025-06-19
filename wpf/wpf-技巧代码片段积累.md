@@ -77,6 +77,7 @@
 ### 使用行为实现控件事件与命令的关联
 
 ```xaml
+xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
 <ListBox
     x:Name="menuBar"
     ItemContainerStyle="{StaticResource myListBoxItemsStyle}"
