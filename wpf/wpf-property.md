@@ -16,7 +16,7 @@ WPF中的属性，指的不是CLR属性，而是依赖项属性（dependency  pr
 
 ## 定义依赖项属性（DependencyProperty）
 
-注意：只能为依赖对象（继承自DependencyObject的类）添加依赖项属性。WPF中的控件大部分都间接继承自了DependencyObject类。
+注意：**只能为依赖对象（继承自DependencyObject的类）添加依赖项属性。WPF中的控件大部分都间接继承自了DependencyObject类**。
 
 > 由于DependencyObject是WPF系统中相当底层的一个基类（FrameworkElement --> UIElement --> Visual --> DependencyObject），WPF的所有UI都继承自该类，因此WPF中的所有元素全是依赖对象，同时WPF的类库在设计时充分利用了依赖属性的优势，UI控件的绝大多数属性都已经依赖化，都是依赖属性。
 
