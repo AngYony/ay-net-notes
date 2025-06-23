@@ -4,24 +4,135 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:prism="http://prismlibrary.com/"
     Title="{Binding Title}"
-    Width="525"
-    Height="350"
+    Width="1024"
+    Height="768"
     prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
-        <ItemsControl ItemsSource="{Binding LearningWorks}">
-            <!--<ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>-->
+    <Window.Resources>
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <Style x:Key="menuListBoxItemStyle" TargetType="ListBoxItem">
+            <!--  让ListBoxItem的内容都填充每一项的空间  -->
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!--  移除ListBox系统默认的鼠标悬浮样式  -->
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Grid Background="Transparent">
+                            <Border x:Name="bd1" />
+                            <Border x:Name="bd2" />
+                            <ContentPresenter />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd1" Property="Background" Value="{Binding Color}" />
+                                <Setter TargetName="bd1" Property="Opacity" Value="0.1" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="{Binding Color}" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <!--  设置纯颜色背景与透明度  -->
+                                <Setter TargetName="bd1" Property="Background" Value="{Binding Color}" />
+                                <Setter TargetName="bd1" Property="Opacity" Value="0.1" />
+
+                                <Setter TargetName="bd2" Property="BorderThickness" Value="5,0,0,0" />
+                                <Setter TargetName="bd2" Property="BorderBrush" Value="{Binding Color}" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <ContentControl Grid.Row="0" prism:RegionManager.RegionName="HeaderRegion" />
+
+        <DockPanel Grid.Row="1">
+
+            <StackPanel Width="200" DockPanel.Dock="Left">
+
+                <ListBox
+                    BorderThickness="0"
+                    ItemContainerStyle="{StaticResource menuListBoxItemStyle}"
+                    ItemsSource="{Binding MenuInfos}"
+                    SelectedItem="{Binding SelectMenuInfo}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel Margin="10,0,0,0" LastChildFill="False">
+                                <!--<TextBlock Style="{StaticResource iconStyle}" Text="{Binding Icon}" />-->
+                                <TextBlock Text="{Binding Title}" />
+                                <TextBlock DockPanel.Dock="Right" Text="{Binding Count}" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+
+
+
+
+
+
+                <!--<ItemsControl ItemsSource="{Binding MenuInfos}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>-->
+
+                <!--<ItemsControl ItemsSource="{Binding MenuInfos}">
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>-->
+
+
+
+                <!--<ItemsControl ItemsSource="{Binding MenuInfos}">
+
+                    <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+            <WrapPanel />
+        </ItemsPanelTemplate>
+    </ItemsControl.ItemsPanel>
+
+
+                     <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding }" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>-->
+            </StackPanel>
+
+
+
+            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="ContentRegion" />
+
+
+
+
+
+        </DockPanel>
 
     </Grid>
+
 
 </Window>
