@@ -1,13 +1,65 @@
 # Prism - Navigation（导航）
 
-### Navigation（导航）
+当用户与丰富的客户端应用程序交互时，其用户界面（UI）将不断更新，以反映用户正在处理的当前任务和数据。随着时间的推移，随着用户与应用程序内的交互并完成各种任务，UI可能会发生相当大的变化。应用程序协调这些UI更改的过程（界面切换）通常称为导航，这一过程由INavigationAware做支撑。
+
+应用场景：
+
+- View之间传值
+- 需要在导航过程做操作（例如即使释放资源）。
 
 用于视图的动态切换、回退、以及参数传递等功能。
 
-导航功能相关的对象：
 
-- INavigationAware：需要进行导航的View对应的ViewModel要实现该接口。
-- IConfirmNavigationRequest：派生自INavigationAware的字接口，提供了触发导航前的确认导航服务。
+
+## INavigationAware
+
+INavigationAware：需要进行导航的View对应的ViewModel要实现该接口。
+
+Register -> RequestNavigate -> OnNavigatedTo -> IsNavigationTarget -> ResoleView -> OnNavigatedFrom -> NavigateComplete
+
+OnNavigatedFrom：导航离开当前页面前，此处可以传递过来的参数以及是否允许导航等动作的控制。
+
+IsNavigationTarget：是否创建新实例。为true的时候表示不创建新实例，页面还是之前的，如果为false，则创建新的页面。
+
+OnNavigationTo：导航到当前页面前，此处可以传递过来的参数以及是否允许导航等动作的控制。
+
+
+
+## IConfirmNavigationRequest
+
+IConfirmNavigationRequest：派生自INavigationAware的字接口，提供了触发导航前的确认导航服务。
+
+当需要在导航操作期间与用户进行交互，以便用户可以确认或取消它。例如，在许多应用程序中，用户可能会尝试在输入或编辑数据时进行导航。在这些情况下，您可能需要询问用户是否希望保存或丢弃在继续从页面中导航之前已输入的数据，或者用户是否希望完全取消导航操作。
+
+这些特性有IConfirmNavigationRequest做支撑，它融入了AOP的思想。
+
+应用场景：
+
+- 权限管理
+- 检测用户行为（页面停留多久，哪个模块访问次数最多等），日志记录等。
+
+RequestNavigate -> ConfirmNavigationRequest -> OnNavigatedFrom -> ContinueNavigationProcess
+
+
+
+## IRegionNavigationJournal
+
+导航日志其实就是对导航系统的一个管理功能，理论上来说，我们应该知道我们上一步导航的位置、以及下一步导航的位置，包括我们导航的历史记录。以便于我们使用导航对应用程序可以灵活的控制。类似于我们熟知的双向链表结构。
+
+导航日志由IRegionNavigationJournal提供支持。
+
+IRegionNavigationJournal接口有如下功能：
+
+- GoBack()：返回上一页；
+- CanGoBack：是否可以返回上一页；
+- GoForward()：返回后一页
+- CanGoForward：是否可以返回后一页；
+
+
+
+
+
+## 综合示例
 
 ViewB.xaml：
 

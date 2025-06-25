@@ -1,10 +1,12 @@
 # C# 多线程
 
+**线程**是操作系统中能够独立运行的最小单位，也是程序中能够并发执行的一段指令序列。
+
+线程是进程的一部分，一个进程可以包含多个线程，这些线程共享进程的资源。
+
 当程序启动时，进程需要启动第一个线程，以便执行代码，第一个启动的线程，一般称为**主线程**。
 
 与 C 语言等语言相比，C 语言程序启动时，是由操作系统注入线程的，而 C# 则是由 CLR 注入第一个线程，进程中的主线程只有一个。在 .NET 程序中，主线程会执行 `Main()` 中的代码，一旦 `Main()` 完成，程序便会结束，即主线程的结束，进程便会结束，因此**主线程的生命周期即进程的生命周期**。
-
-
 
 使用Thread.CurrentThread 获取当前正在执行的线程对象。
 
@@ -30,6 +32,10 @@ static void Main()
 是否为后台线程：False
 是否为线程池线程False
 ```
+
+注意：推荐使用Environment.CurrentManagedThreadId获取当前线程Id，而不是Thread.CurrentThread.ManagedThreadId；
+
+
 
 
 
@@ -411,20 +417,21 @@ Console.ReadLine();
 
 
 
-## 终止
+## 线程的终止
 
-`.Abort()` 方法不能在 .NET Core 上使用，不然会出现 `System.PlatformNotSupportedException:“Thread abort is not supported on this platform.”` 。
+可以使用以下方法终止线程：
 
-`.Abort()` 的 API：
-
-| 方法          | 说明                                                         |
-| ------------- | ------------------------------------------------------------ |
-| Abort()       | 在调用此方法的线程上引发 ThreadAbortException，以开始终止此线程的过程。 调用此方法通常会终止线程。 |
-| Abort(Object) | 引发在其上调用的线程中的 ThreadAbortException以开始处理终止线程，同时提供有关线程终止的异常信息。 调用此方法通常会终止线程。 |
+- [Join()](https://learn.microsoft.com/zh-cn/dotnet/api/system.threading.thread.join?view=net-9.0#system-threading-thread-join)：Join 是一种同步方法，它阻止调用线程 (即调用方法的线程) ，直到调用其方法的 Join 线程完成。 使用此方法可确保线程已终止。 如果线程未终止，调用方将无限期阻止。
+- [Interrupt()](https://learn.microsoft.com/zh-cn/dotnet/api/system.threading.thread.interrupt?view=net-9.0#system-threading-thread-interrupt)：中断处于 WaitSleepJoin 线程状态的线程。如果当前未在等待、睡眠或联接状态中阻止此线程，则下次开始阻塞时，该线程将中断。
+- Abort()：**已过时，不建议使用**。`Abort()` 方法不能在 .NET Core 上使用，不然会出现 `System.PlatformNotSupportedException:“Thread abort is not supported on this platform.”` 。
 
 `Abort()` 方法给线程注入 `ThreadAbortException` 异常，导致线程被终止。
 
 ==虽然 `.Abort()` 不能用，但是还有 `Thread.Interrupt()` 可以用，**它可以中断处于 `WaitSleepJoin` 线程状态的线程**。==
+
+除了Thread.Interrupt 之外，**更推荐使用CancellationToken来终止线程**。
+
+### Thread.Interrupt
 
 示例代码如下，在 Print 函数结束前，按下回车键，都会导致函数中止。
 
@@ -457,7 +464,7 @@ public static void Print()
 
 可见，当对另一个线程调用 `Interrupt` 时，会弹出 `System.Threading.ThreadInterruptedException` 异常，导致线程中止。在调试环境下，可能会导致 Vistual Studio 弹出异常，==直接启动编译后的程序，则不会弹出异常==。
 
-==注意，如果线程不会处于 `WaitSleepJoin` 状态，而是一直运行，则 `Interrupt()` 函数对线程无效。==
+==注意，如果线程不会处于 `WaitSleepJoin` 状态，而是一直运行，则 `Interrupt()` 函数对线程无效。==例如如果线程中包含一个while(true)循环，那么需要保证该循环包含等待方法，如**Thread.Sleep(0)**，使线程有机会处于WaitSleepJoin状态，否则将会认为线程忙得不得了，一刻也不能等待，根本得不到空档去抛出异常，无法导致线程终止。
 
 代码示例如下：
 
@@ -514,6 +521,15 @@ public static void Print()
 >  总结
 >
 > 通过 `.Interrupt()` 函数，可以让处于 `WaitSleepJoin` 状态的线程抛出异常而停止。可以使用 `Sleep()`、`Join()` 方式使得线程休眠，也可以让线程执行 IO 操作如读写文件、读取或输出控制台终端等发生中断导致线程挂起。
+
+### CancellationToken
+
+见3.1。
+
+## 线程的挂起与恢复
+
+- Thread.Suspend 以及 Thread.Resume：在新版.NET中已被标记为Obsolete，不建议使用。这是因为挂起可能导致线程处于你不希望的状态。
+- 推荐使用锁、信号量等方式实现（见 2.2 线程同步）
 
 
 
@@ -705,3 +721,10 @@ new Thread(() =>
     catch (Exception ex) { }
 }).Start();
 ```
+
+
+
+## 线程常用的方法
+
+- [Join()](https://learn.microsoft.com/zh-cn/dotnet/api/system.threading.thread.join?view=net-9.0#system-threading-thread-join)：Join 是一种同步方法，它阻止调用线程 (即调用方法的线程) ，直到调用其方法的 Join 线程完成。 使用此方法可确保线程已终止。 如果线程未终止，调用方将无限期阻止。
+- [Interrupt()](https://learn.microsoft.com/zh-cn/dotnet/api/system.threading.thread.interrupt?view=net-9.0#system-threading-thread-interrupt)：中断处于 WaitSleepJoin 线程状态的线程。如果当前未在等待、睡眠或联接状态中阻止此线程，则下次开始阻塞时，该线程将中断。

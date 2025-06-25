@@ -66,7 +66,7 @@
                         <DataTemplate>
                             <DockPanel Margin="10,0,0,0" LastChildFill="False">
                                 <!--<TextBlock Style="{StaticResource iconStyle}" Text="{Binding Icon}" />-->
-                                <TextBlock Text="{Binding Title}" />
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Title}" />
                                 <TextBlock DockPanel.Dock="Right" Text="{Binding Count}" />
                             </DockPanel>
                         </DataTemplate>
@@ -124,7 +124,7 @@
 
 
 
-            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="ContentRegion" />
+            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="MainContentRegion" />
 
 
 

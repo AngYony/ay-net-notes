@@ -697,7 +697,7 @@ public partial class CusCommand : Window
 
 
 
-References:：
+References：
 
 - 《深入浅出WPF》
 - [命令概述 - WPF | Microsoft Learn](https://learn.microsoft.com/zh-cn/dotnet/desktop/wpf/advanced/commanding-overview)

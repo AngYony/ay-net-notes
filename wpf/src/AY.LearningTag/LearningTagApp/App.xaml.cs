@@ -26,7 +26,6 @@ namespace LearningTagApp
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            //base.ConfigureModuleCatalog(moduleCatalog);
             moduleCatalog.AddModule<LearningTag.Setting.SettingModule>();
 
 
@@ -42,6 +41,7 @@ namespace LearningTagApp
 
         protected override IModuleCatalog CreateModuleCatalog()
         {
+            //添加About项目，通过目录+反射读取DLL文件中的Module
             return new DirectoryModuleCatalog() { ModulePath = @".\Modules" };
         }
 

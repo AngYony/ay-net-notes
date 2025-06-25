@@ -15,7 +15,7 @@ namespace LearningTag.About
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.RegisterForNavigation<AboutView>();
         }
     }
 }

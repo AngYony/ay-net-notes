@@ -31,9 +31,15 @@ namespace LearningTagApp.Dtos
 		public string Color
 		{
 			get { return _color; }
-			set { _color = value; }
+			set { _color = value; SetProperty(ref _color, value); }
 		}
 
+		public string _viewName;
+		public string ViewName
+		{
+			get { return _viewName; }
+			set { _viewName = value; SetProperty(ref _viewName, value); }
+		}
 
 	}
 }

@@ -11,4 +11,8 @@
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LearningTag.Utils\LearningTag.Utils.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -38,6 +38,57 @@ Prism 支持以下模块化应用程序开发功能：
 
 ### 通过目录加载DLL文件引入模块
 
+右击模块项目-属性-生成-事件-设置生成后事件：
+
+![image-20250623211054885](./assets/image-20250623211054885.png)
+
+脚本：
+
+```shell
+xcopy "$(TargetDir)$(TargetName)*$(TargetExt)" "$(SolutionDir)\LearningTagApp\bin\Debug\net6.0-windows\Modules\" /Y /S
+```
+
+设置好后，每次重新生成该模块项目，就会将项目DLL文件复制到指定的目录中。
+
+为了提高性能，通常指定ModuleName：
+
+```csharp
+[Module(ModuleName ="About")]
+public class AboutModule : IModule
+{
+    public void OnInitialized(IContainerProvider containerProvider)
+    {
+
+    }
+
+    public void RegisterTypes(IContainerRegistry containerRegistry)
+    {
+        containerRegistry.RegisterForNavigation<AboutView>();
+    }
+}
+```
+
+然后在主项目的app.xaml.cs文件中，重写下述方法，添加对应的路径即可：
+
+```csharp
+protected override IModuleCatalog CreateModuleCatalog()
+{
+    //添加About项目，通过目录+反射读取DLL文件中的Module
+    return new DirectoryModuleCatalog() { ModulePath = @".\Modules" };
+}
+```
+
+### 直接添加模块项目的引用
+
+也可以直接在主项目中添加模块项目的引用，然后在ConfigureModuleCatalog方法中，添加对应的模块即可：
+
+```csharp
+ protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+ {
+     //base.ConfigureModuleCatalog(moduleCatalog);
+     moduleCatalog.AddModule<LearningTag.Setting.SettingModule>();
+ }
+```
 
 
 
@@ -47,8 +98,7 @@ Prism 支持以下模块化应用程序开发功能：
 
 
 
-
-#### 视图注入
+## 视图注入
 
 应用程序模块后，每个子模块中的视图可以独立的进行依赖注入。再使用IRegionManager来实现页面导航。
 
