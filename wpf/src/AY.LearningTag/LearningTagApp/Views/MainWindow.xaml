@@ -73,7 +73,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-
+                <Button Click="Button_Click" Content="进度条测试" />
 
 
 

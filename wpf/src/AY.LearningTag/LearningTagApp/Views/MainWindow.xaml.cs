@@ -23,5 +23,10 @@ namespace LearningTagApp.Views
                 _vm.LoadModulesCommand.Execute();
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new ProgressSample().ShowDialog();
+        }
     }
 }
