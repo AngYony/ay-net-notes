@@ -1,4 +1,6 @@
-﻿using LearningTag.Shared.ViewModel;
+﻿using LearningTag.Shared.Events;
+using LearningTag.Shared.ViewModel;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +11,22 @@ namespace LearningTag.Setting.ViewModels
 {
     public class SettingBViewModel:TabBaseViewModel
     {
+        private readonly IEventAggregator _eventAggregator;
+
+        public SettingBViewModel(IEventAggregator eventAggregator)
+        {
+            this._eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<MessageEvent>().Subscribe(
+               OnSubscribeMessage,
+                ThreadOption.PublisherThread,
+                false,
+                msg => { return msg.MessageType == PubSubEventMessageType.SaveSettings; });
+            this._eventAggregator = eventAggregator;
+        }
+
+        private void OnSubscribeMessage(MassgeInfo info)
+        {
+
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
-namespace LearningTag.Utils
+namespace LearningTag.Utils.Extensions
 {
     public static class TaskExtensions
     {

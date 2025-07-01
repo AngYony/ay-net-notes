@@ -1,5 +1,16 @@
 # Prism - EventAggregator（事件聚合器）
 
+EventAggregator（聚合事件），在Prism框架当中是单独的一层，例如：可用于View或Model之间做消息通知（传值）。它是由PubSubEvent<T>和IEventAggregator支撑。
+
+聚合事件的使用分为：
+
+1. 发布消息
+2. 订阅消息
+
+![image-20250630120910640](./assets/image-20250630120910640.png)
+
+
+
 ### IEventAggregator
 
 ![image-20250603162416546](./assets/image-20250603162416546.png)
@@ -79,6 +90,14 @@ internal class MessageInfo : PubSubEvent<string>
 {
 }
 ```
+
+
+
+EventAggregator还有取消订阅、消息过滤功能。
+
+取消订阅：是为了管理pub/sub特性所占用的资源，富客户端应用随着业务、时间的变化而复杂。极大的可能会导致客户端里穿插上百个消息，会导致代码非常混乱。所以在代码中慎用pub/sub这个特性，或即时取消不用的订阅，因为这套机制存在强引用关系不会随着作用域的结束而结束（GC无法回收）。如果任由发展会导致客户端内存上涨，解决这个问题除了即时取消订阅，还可以在订阅时指定KeepSubcriberRefenceAlve参数为false。
+
+消息过滤：也是管理pub/sub的手段之一，通过指定特定的消息类型来细化区分pub/sub消息传递。
 
 
 

@@ -210,7 +210,7 @@ WPF命令使得命令源(即命令发送者，也称调用程序)和命令目标
 
 WPF的 UI控件只能在 UI线程中更新，因此在异步操作完成后，需要切换回 UI 线程。
 
-**Dispatchers**：**Dispatcher** 是 UI 线程的任务调度器，负责管理 UI 线程上的任务队列。每个WPF可视化对象都有该属性（WPF可视化对象都派生自DispatcherObject类），用于返回管理该对象的调度程序。
+**Dispatcher**：**Dispatcher** 是 UI 线程的任务调度器，负责管理 UI 线程上的任务队列。每个WPF可视化对象都有该属性（WPF可视化对象都派生自DispatcherObject类），用于返回管理该对象的调度程序。
 
 UI 线程是 Dispatcher 的宿主，Dispatcher 依赖于 UI 线程。
 

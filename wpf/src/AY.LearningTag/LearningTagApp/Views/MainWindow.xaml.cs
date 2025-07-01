@@ -26,7 +26,7 @@ namespace LearningTagApp.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new ProgressSample().ShowDialog();
+            new UserRegistWindow().ShowDialog();
         }
     }
 }

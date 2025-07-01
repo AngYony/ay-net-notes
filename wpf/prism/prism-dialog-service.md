@@ -1,6 +1,8 @@
-# Prism - Dialog
+# Prism - Dialog（对话服务）
 
+Prism 提供了一组对话服务，封装了常用的对话框组件的功能。例如：IDialogAware（注册对话及使用对话）打开对话框传递参数/关闭对话框返回参数回调通知结果。
 
+![image-20250630103504156](./assets/image-20250630103504156.png)
 
 ### Dialog
 

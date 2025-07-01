@@ -13,7 +13,7 @@ namespace LearningTagApp.Dtos
 		public string Title
 		{
 			get { return _title; }
-			set { _title = value; SetProperty(ref _title, value); }
+			set {SetProperty(ref _title, value); }
 		}
 
 
@@ -22,7 +22,7 @@ namespace LearningTagApp.Dtos
         public string Icon
         {
             get { return _icon; }
-            set { _icon = value; SetProperty(ref _icon, value); }
+            set {  SetProperty(ref _icon, value); }
         }
 
 
@@ -31,14 +31,14 @@ namespace LearningTagApp.Dtos
 		public string Color
 		{
 			get { return _color; }
-			set { _color = value; SetProperty(ref _color, value); }
+			set { SetProperty(ref _color, value); }
 		}
 
 		public string _viewName;
 		public string ViewName
 		{
 			get { return _viewName; }
-			set { _viewName = value; SetProperty(ref _viewName, value); }
+			set { SetProperty(ref _viewName, value); }
 		}
 
 	}

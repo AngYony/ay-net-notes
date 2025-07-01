@@ -28,15 +28,12 @@ namespace LearningTag.Setting
             (settingB.DataContext as TabBaseViewModel).Title = "设置B";
             region.Add(settingB);
 
-
-            //regionManager.RegisterViewWithRegion("LeftRegion", typeof(MessageView));
-            //IRegion region = regionManager.Regions["ContentRegion"];
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
 
-            containerRegistry.RegisterForNavigation<SettingMainView>();
+            containerRegistry.RegisterForNavigation<SettingMainView, SettingMainViewModel>();
 
             //containerRegistry.RegisterForNavigation<SettingAView, SettingAViewModel>();
             //containerRegistry.RegisterForNavigation<SettingBView, SettingBViewModel>();

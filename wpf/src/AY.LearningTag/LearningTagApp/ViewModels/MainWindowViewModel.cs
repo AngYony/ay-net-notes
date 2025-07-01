@@ -2,6 +2,7 @@
 using LearningTag.Shared;
 using LearningTagApp.Dtos;
 using LearningTagApp.Views;
+using Microsoft.Extensions.Logging;
 using Prism.Commands;
 using Prism.Modularity;
 using Prism.Mvvm;
@@ -17,15 +18,18 @@ namespace LearningTagApp.ViewModels
     {
         private readonly IRegionManager _regionManager;
         private readonly IModuleCatalog _moduleCatalog;
+        private readonly ILogger<MainWindowViewModel> _logger;
+        private IRegionNavigationJournal _navigationJournal;
         public string Title { get; set; } = "学习记录";
 
         public MainWindowViewModel(IRegionManager regionManager, IModuleCatalog moduleCatalog)
         {
             this._regionManager = regionManager;
             this._moduleCatalog = moduleCatalog;
+            //this._logger = logger;
             this._regionManager.RegisterViewWithRegion("HeaderRegion", typeof(HeaderView));
             LoadModulesCommand = new DelegateCommand(LoadMoudels);
-
+            //this._regionManager.RequestNavigate("MainContentRegion", "LearnMainView");
 
 
         }
@@ -41,8 +45,13 @@ namespace LearningTagApp.ViewModels
                 _selectMenuInfo = value;
                 if (!string.IsNullOrEmpty(_selectMenuInfo.ViewName))
                 {
+                    var parameter = new NavigationParameters();
+                    parameter.Add("FromMainWindowPar", _selectMenuInfo.ViewName);
                     //选择菜单项跳转
-                    _regionManager.RequestNavigate("MainContentRegion", _selectMenuInfo.ViewName);
+                    _regionManager.RequestNavigate("MainContentRegion", _selectMenuInfo.ViewName,arg=> {
+                         _navigationJournal = arg.Context.NavigationService.Journal;
+                    
+                    }, parameter);
                 }
             }
         }
