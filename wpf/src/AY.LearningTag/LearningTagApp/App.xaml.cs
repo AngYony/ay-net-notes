@@ -1,5 +1,5 @@
 ﻿
-using LearningTag.Shared.RegionAdapters;
+using LearningTag.Shared.Regions;
 using LearningTag.Utils;
 using LearningTagApp.ViewModels;
 using LearningTagApp.Views;
@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using Prism.Ioc;
 using Prism.Modularity;
+using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Threading.Tasks;
@@ -47,6 +48,12 @@ namespace LearningTagApp
             return Container.Resolve<MainWindow>();
         }
 
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+        }
+
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             //通常全局异常捕捉的都是致命信息
@@ -58,6 +65,8 @@ namespace LearningTagApp
             var factory = new NLogLoggerFactory();
             _logger = factory.CreateLogger("NLog");
             containerRegistry.RegisterInstance(_logger);
+
+            containerRegistry.RegisterForNavigation<LearnMainView, LearnMainViewModel>();
 
             containerRegistry.RegisterDialog<MessageDialogView, MessageDialogViewModel>();
         }
@@ -77,12 +86,28 @@ namespace LearningTagApp
 
         }
 
+        protected override void ConfigureDefaultRegionBehaviors(IRegionBehaviorFactory regionBehaviors)
+        {
+            base.ConfigureDefaultRegionBehaviors(regionBehaviors);
+            regionBehaviors.AddIfMissing("CusViewRegionBehavior", typeof(CusViewRegionBehavior));
+        }
+
         protected override IModuleCatalog CreateModuleCatalog()
         {
             //添加About项目，通过目录+反射读取DLL文件中的Module
             return new DirectoryModuleCatalog() { ModulePath = @".\Modules" };
         }
 
+        /// <summary>
+        /// 用于将ViewModel与View进行关联
+        /// </summary>
+        protected override void ConfigureViewModelLocator()
+        {
+            base.ConfigureViewModelLocator();
+            //ViewModelLocationProvider.Register(typeof(MainWindow).ToString(), typeof(MainWindowViewModel));
+            //ViewModelLocationProvider.Register<MainWindow, MainWindowViewModel>();
+
+        }
 
     }
 }

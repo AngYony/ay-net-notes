@@ -16,6 +16,16 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <TabControl prism:RegionManager.RegionName="SettingContentRegion" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Button
+            Width="200"
+            Margin="10"
+            HorizontalAlignment="Left"
+            Command="{Binding SettingApplicationCommands.SaveAllCompositeCommand}"
+            Content="保存全部" />
+        <TabControl Grid.Row="1" prism:RegionManager.RegionName="SettingContentRegion" />
     </Grid>
 </UserControl>

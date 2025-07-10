@@ -13,6 +13,12 @@ Binding的两端分别是源（Source，数据从哪来）和目标（Target，�
 - 在XAML文件中，使用Binding标记扩展（本质是调用了BindingOperations.SetBinding方法）
 - 在C#代码中，使用BindingOperations.SetBinding方法（见下文）
 
+WPF中的Binding有：
+
+- Binding
+- MultiBidding：有时候 UI 需要显示的信息由不止一个数据来源决定，这时候就需要使用 **MultiBinding** ，即多路 Binding。
+- PriorityBinding：用于在多个绑定源之间进行优先级绑定。PriorityBinding将多个Binding对象按照优先级顺序进行排列，并将数据绑定到第一个能够提供有效值的Binding对象上。
+
 
 
 ## 绑定的实现
@@ -89,7 +95,7 @@ private void Button_Click(object sender, RoutedEventArgs e)
 }
 ```
 
-#### BindingOperations.SetBinding(...)
+### BindingOperations.SetBinding(...)
 
 该方法用于将数据源和目标进行绑定。
 
@@ -113,7 +119,7 @@ this.txtName.SetBinding(TextBox.TextProperty, new Binding("Name") { Source = myS
 
 
 
-## Binding 标记扩展与Path
+## Binding 标记扩展
 
 上述是在C#代码中实现UI与数据源的绑定，如果要在XAML中实现同样的功能，就需要使用Binding标记扩展。
 
@@ -145,7 +151,11 @@ this.txtName.SetBinding(TextBox.TextProperty,new Binding("Value") { Source=mySli
 
 注意：在XAML中使用标记扩展进行绑定时，由于XAML不能访问C#代码中的成员，因此不能直接在标记扩展中使用Source属性来指定C#代码中的成员，即使设置了也无效。 
 
-### Binding对象的Mode属性（数据绑定的几种模式）
+
+
+
+
+## Binding 的Mode属性（数据绑定的几种模式）
 
 ![Data binding data flow](./assets/databinding-dataflow.pngview=netdesktop-7.png)
 
@@ -166,13 +176,15 @@ this.txtName.SetBinding(TextBox.TextProperty,new Binding("Value") { Source=mySli
 - TwoWay：源和目标一起更新
 - OnTime：仅在初始化绑定的时候更新
 
-### Binding对象的Path属性
+
+
+## Binding 的 Path属性
 
 Path用于获取或设置绑定源属性的路径，它的类型是System.Windows.PropertyPath，而不是字符串类型。
 
 数据源中只要是对外暴露的属性，都可以通过Path来指定。Path的有以下几种使用形式。
 
-#### 形式一：简单形式
+### 形式一：简单形式
 
 ```xaml
 <TextBox x:Name="textBox1" Text="{Binding Path=Value,ElementName=slider1}" />
@@ -186,7 +198,7 @@ Binding binding=new Binding(){Path=new PropertyPath("Value"), Source=this.slider
 this.textBox1.SetBinding(TextBox.TextProperty,binding);
 ```
 
-#### 形式二：多级形式
+### 形式二：多级形式
 
 允许指定属性的下级属性进行绑定，如下述代码中的TextBox的Text属性的Length属性。
 
@@ -201,7 +213,7 @@ this.textBox1.SetBinding(TextBox.TextProperty,binding);
 this.txtBox2.SetBinding(TextBox.TextProperty, new Binding("Text.Length"){ Source=this.txtName, Mode=BindingMode.OneWay});
 ```
 
-#### 形式三：集合类型的索引器形式
+### 形式三：集合类型的索引器形式
 
 集合类型的索引器也是属性，称为带参属性，因此同样可以通过Path来指定。
 
@@ -220,7 +232,7 @@ this.txtBox2.SetBinding(TextBox.TextProperty, new Binding("Text.[3]"){ Source=th
 
 也可以直接将Text.[3]中的“.”省掉，一样可以正常工作。
 
-#### 形式四：Path=. 或直接省略不写
+### 形式四：Path=. 或直接省略不写
 
 当绑定的数据源是一个基本类型，例如string、int这种数据，无法指出是通过它的哪种属性来访问数据的，此时可以将Path设置为.的形式。
 
@@ -292,7 +304,9 @@ this.txtName.SetBinding(TextBox.TextProperty,new Binding("/ProvinceList/CityList
 
 
 
-## Binding的数据源关联方式
+
+
+## Binding的 Source（数据源关联方式）
 
 数据源的来源有以下几种：
 
@@ -306,6 +320,34 @@ this.txtName.SetBinding(TextBox.TextProperty,new Binding("/ProvinceList/CityList
 - 通过Binding的RelativeSource属性相对的指定Source。
 - 把ObjectDataProvider对象指定为Source
 - 把使用LinQ检索得到的数据作为Binding的Source
+
+
+
+### 使用ElementName指定Source
+
+使用ElementName需要特别注意，该属性与可视化树息息相关，如果设置的元素脱离了可视化树，将不会被绑定。
+
+常见的ToolTip、和ContextMenu这些，都不适合。
+
+![image-20250707164923287](./assets/image-20250707164923287.png)
+
+#### ElementName 的局限性
+
+当界面的元素是通过C#程序动态添加到界面上时，ElementName形式就会绑定失败。
+
+例如：
+
+![image-20250710165040623](./assets/image-20250710165040623.png)
+
+txt是通过C#程序添加进去的：
+
+![image-20250710165106854](./assets/image-20250710165106854.png)
+
+虽然界面可以呈现文本框，但是绑定会失败，解决的办法是在后端调用RegisterName方法，将文本框名称注入到窗口中。
+
+![image-20250710165353670](./assets/image-20250710165353670.png)
+
+
 
 
 
@@ -337,6 +379,22 @@ DataContext本身也是一个依赖属性，这意味着可以使用Binding把�
 ```
 
 > 当为一个Binding只指定Path不指定Source时，Binding会沿着逻辑树一直向上找、查看每个结点的DataContext属性，如果DataContext引用的对象具有Path指定的属性名，Binding就会把这个对象当作自己的数据源。
+
+### 使用资源作为Binding源
+
+在Resources中定义的x:key，都可以用作Binding的源。
+
+![image-20250707163859570](./assets/image-20250707163859570.png)
+
+使用Binding绑定该类中的属性、常量和静态属性、枚举：
+
+![image-20250707164108302](./assets/image-20250707164108302.png)
+
+
+
+
+
+
 
 ### 使用集合对象作为列表控件的ItemsSource
 
@@ -584,9 +642,17 @@ xaml代码如下：
 </StackPanel>
 ```
 
+### 使用CollectionViewSource作为Binding源
 
 
-### 使用Binding的RelativeSource
+
+###  使用 Binding 的 RelativeSource通过相对位置来设置控件的数据源
+
+见下文。
+
+
+
+## Binding 的 RelativeSource
 
 通过相对位置来设置控件的数据源。
 
@@ -619,10 +685,46 @@ this.txtBox.SetBinding(TextBox.TextProperty,new Binding("Name"){ RelativeSource 
 
 RelativeSource的属性介绍：
 
+- Mode：元素查找的模式有以下四种：
+  - FindAncestor（默认）
+  - Self
+  - TemplatedParent
+  - PreviousData
+
 - AncestorType：告诉Binding寻找哪个类型的对象作为自己的源，不是这个类型的对象会被跳过。
-- AncestorLevel：指的是以Binding目标控件为起点的层级偏移量，依次向外找。上述代码中的第一个文本框AncestorLevel设置为2，表示找到的是第二层的Grid，因此文本框的结果是g1，而第二个文本框设置AncestorLevel=1，因此将会找到g3。
+- AncestorLevel：指的是以Binding目标控件为起点的层级偏移量，依次向外找。上述代码中的第一个文本框AncestorLevel设置为2，表示找到的是第二层的Grid，因此文本框的结果是g1，而第二个文本框设置AncestorLevel=1，因此将会找到g3。AncestorLevel从1开始。
 
 ![image-20240329160222989](./assets/image-20240329160222989.png)
+
+
+
+## Binding 的 StringFormat
+
+对于Text属性的绑定可以直接使用StringFormat：
+
+![image-20250707174840821](./assets/image-20250707174840821.png)
+
+对于Content属性的绑定，可以使用ContentStringFormat：
+
+![image-20250707175354985](./assets/image-20250707175354985.png)
+
+
+
+## Binding 的 TargetNullValue 和 FallbackValue
+
+TargetNullValue：当未绑定源时，显式的值。
+
+![image-20250707223220319](./assets/image-20250707223220319.png)
+
+FallbackValue：绑定失败时，显示的值。
+
+![image-20250707223311278](./assets/image-20250707223311278.png)
+
+设计的时候，可以使用d:Text来显示将要呈现的效果。
+
+
+
+
 
 
 

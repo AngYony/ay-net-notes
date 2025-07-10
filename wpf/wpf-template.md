@@ -250,6 +250,10 @@ ControlTemplate最终会应用到某一个目标控件上，这个目标控件�
 
 当为一个Binding只指定Path不指定Source时，Binding会沿着逻辑树一直向上找、查看每个结点的DataContext属性，如果DataContext引用的对象具有Path指定的属性名，Binding就会把这个对象当作自己的数据源。显然，如果把数据对象赋值给ContentPresenter的DataContext属性，由DataTemplate生成的控件自然会找到这个数据对象并把它当作自己的数据源。
 
+TemplateBinding的完整写法：
+
+![image-20250707174630013](./assets/image-20250707174630013.png)
+
 
 
 ### ContentPresenter

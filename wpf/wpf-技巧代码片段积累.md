@@ -151,3 +151,20 @@ xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
 </ListBox>
 ```
 
+
+
+### 使用x:Reference 引用界面元素实现绑定
+
+不能使用x:Reference绑定自己的父级。
+
+当更改文本框中的内容时，表头的列名跟着变化：
+
+```xaml
+<TextBox Name="txt" />
+<DataGrid>
+	<DataGrid.Columns>
+    	<DataGridTextColumn Header="{Binding Source={x:Reference Name=txt}, Path=Text}"/>
+    </DataGrid.Columns>
+</DataGrid>
+```
+

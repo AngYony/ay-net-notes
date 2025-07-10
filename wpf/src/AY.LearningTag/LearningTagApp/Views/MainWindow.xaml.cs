@@ -1,5 +1,7 @@
 ﻿using LearningTagApp.ViewModels;
+using Microsoft.Xaml.Behaviors;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace LearningTagApp.Views
 {
@@ -11,16 +13,15 @@ namespace LearningTagApp.Views
         public MainWindow()
         {
             InitializeComponent();
-            
-            this.Loaded += MainWindow_Loaded;
 
+            this.Loaded += MainWindow_Loaded;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var _vm = this.DataContext as MainWindowViewModel;
             if (_vm != null) {
-                _vm.LoadModulesCommand.Execute();
+                _vm.WindowLoadedCommand.Execute();
             }
         }
 

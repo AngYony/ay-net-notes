@@ -1,5 +1,6 @@
 ﻿using LearningTag.Setting.Views;
 using LearningTag.Shared;
+using LearningTag.Shared.Consts.Regions;
 using LearningTagApp.Dtos;
 using LearningTagApp.Views;
 using Microsoft.Extensions.Logging;
@@ -22,17 +23,62 @@ namespace LearningTagApp.ViewModels
         private IRegionNavigationJournal _navigationJournal;
         public string Title { get; set; } = "学习记录";
 
+        private ObservableCollection<MenuInfoDto> _menuInfos;
+        public ObservableCollection<MenuInfoDto> MenuInfos
+        {
+            get { return _menuInfos ?? (_menuInfos = new ObservableCollection<MenuInfoDto>()); }
+            set { SetProperty(ref _menuInfos, value); }
+        }
+
+        private DelegateCommand _windowLoadedCommand;
+        public DelegateCommand WindowLoadedCommand =>
+            _windowLoadedCommand ?? (_windowLoadedCommand = new DelegateCommand(OnWindowLoaded));
+
+        void OnWindowLoaded()
+        {
+            //加载模块
+            LoadMoudels();
+            //设置默认显示页
+            this._regionManager.RequestNavigate(AppRegions.MainContentRegion, nameof(LearnMainView));
+        }
+
+
+
+
+
+
+
         public MainWindowViewModel(IRegionManager regionManager, IModuleCatalog moduleCatalog)
         {
             this._regionManager = regionManager;
             this._moduleCatalog = moduleCatalog;
             //this._logger = logger;
-            this._regionManager.RegisterViewWithRegion("HeaderRegion", typeof(HeaderView));
-            LoadModulesCommand = new DelegateCommand(LoadMoudels);
-            //this._regionManager.RequestNavigate("MainContentRegion", "LearnMainView");
-
+            //添加头部区域
+            this._regionManager.RegisterViewWithRegion(AppRegions.HeaderRegion, typeof(HeaderView));
+            
 
         }
+
+
+     
+ 
+
+        private DelegateCommand<string> _navigateCommand;
+        public DelegateCommand<string> NavigateCommand =>
+            _navigateCommand ?? (_navigateCommand = new DelegateCommand<string>(ExecuteNavigateCommand));
+
+        void ExecuteNavigateCommand(string navPar)
+        {
+            if (!string.IsNullOrEmpty(navPar))
+            {
+                _regionManager.RequestNavigate(AppRegions.MainContentRegion, navPar, arg =>
+                {
+                    _navigationJournal = arg.Context.NavigationService.Journal;
+                });
+            }
+        }
+
+
 
 
         private MenuInfoDto _selectMenuInfo;
@@ -43,15 +89,21 @@ namespace LearningTagApp.ViewModels
             set
             {
                 _selectMenuInfo = value;
+
                 if (!string.IsNullOrEmpty(_selectMenuInfo.ViewName))
                 {
                     var parameter = new NavigationParameters();
                     parameter.Add("FromMainWindowPar", _selectMenuInfo.ViewName);
                     //选择菜单项跳转
-                    _regionManager.RequestNavigate("MainContentRegion", _selectMenuInfo.ViewName,arg=> {
-                         _navigationJournal = arg.Context.NavigationService.Journal;
-                    
+                    _regionManager.RequestNavigate(AppRegions.MainContentRegion, _selectMenuInfo.ViewName, arg =>
+                    {
+                        _navigationJournal = arg.Context.NavigationService.Journal;
+
                     }, parameter);
+                }
+                else
+                {
+                    this._regionManager.RequestNavigate(AppRegions.MainContentRegion, nameof(LearnMainView));
                 }
             }
         }
@@ -62,9 +114,7 @@ namespace LearningTagApp.ViewModels
         {
             this.MenuInfos.Add(new MenuInfoDto { Title = "测试3", Color = MyHelper.GetColor() });
             this.MenuInfos.Add(new MenuInfoDto { Title = "测试2", Color = MyHelper.GetColor() });
-
             this.MenuInfos.Add(new MenuInfoDto { Title = "设置", Color = MyHelper.GetColor(), ViewName = nameof(SettingMainView) });
-
             var dirModuleCatalog = _moduleCatalog as DirectoryModuleCatalog;
             foreach (var m in dirModuleCatalog.Modules)
             {
@@ -79,19 +129,15 @@ namespace LearningTagApp.ViewModels
                     });
                 }
             }
-
+            
 
         }
 
-        private ObservableCollection<MenuInfoDto> _menuInfos;
 
-        public ObservableCollection<MenuInfoDto> MenuInfos
-        {
-            get => _menuInfos ?? (_menuInfos = new ObservableCollection<MenuInfoDto>());
-            set { _menuInfos = value; }
-        }
 
-        public DelegateCommand LoadModulesCommand { get; }
+
+
+
 
 
         //private ObservableCollection<LearningWorkDto> _learningWorks;

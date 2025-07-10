@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace LearningTag.Shared.RegionAdapters
+namespace LearningTag.Shared.Regions
 {
     public class StackPanelRegionAdapter : RegionAdapterBase<StackPanel>
     {
@@ -28,15 +28,21 @@ namespace LearningTag.Shared.RegionAdapters
                         regionTarget.Children.Add(element);
                     }
                 }
-
-                //handle remove
+                else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+                {
+                    foreach (FrameworkElement element in e.OldItems)
+                    {
+                        regionTarget.Children.Remove(element);
+                    }
+                } 
             };
         }
 
         protected override IRegion CreateRegion()
         {
-            //return new AllActiveRegion();
-            return new Region();
+            //return new AllActiveRegion(); //所有视图都是活动的，选择该类型，不常用，也不推荐使用
+            //return new Region();
+            return new SingleActiveRegion(); //一次只能激活一个View，选择该类型
         }
     }
 }

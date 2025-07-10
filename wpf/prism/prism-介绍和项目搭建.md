@@ -110,11 +110,37 @@ Prism初始化过程可以查看Prism源码中的Prism/src/Wpf/Prism.Wpf/PrismAp
 
 
 
-### MVVM 应用
+### Prism MVVM 约定
+
+- 视图必须位于Views命名空间下，通常在Views目录中
+- 视图模型的名称必须以ViewModel结尾，且位于ViewModels命名空间下，通常位于ViewModels目录中
+
+可以使用下述方法实现不同文件夹的Model和View访问：
+
+![image-20250702121651586](./assets/image-20250702121651586.png)
+
+如果想要某个View和指定的Model进行绑定，也可以直接使用下述方法：
+
+```csharp
+ /// <summary>
+ /// 用于将ViewModel与View进行关联
+ /// </summary>
+ protected override void ConfigureViewModelLocator()
+ {
+     base.ConfigureViewModelLocator();
+     ViewModelLocationProvider.Register(typeof(MainWindow).ToString(), typeof(MainWindowViewModel));
+ }
+```
+
+
+
+
 
 - 需要ViewModel派生自BindableBase
 - 属性Set操作，需要调用SetProperty()方法
 - 使用DelegateCommand声明简单命令
 - 使用CompositeCommand声明复合命令
 - 使用IEventAggregator订阅和发布消息
+
+
 

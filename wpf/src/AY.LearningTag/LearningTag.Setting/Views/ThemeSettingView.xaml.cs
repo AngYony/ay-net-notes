@@ -18,9 +18,9 @@ namespace LearningTag.Setting.Views
     /// <summary>
     /// SettingBView.xaml 的交互逻辑
     /// </summary>
-    public partial class SettingBView : UserControl
+    public partial class ThemeSettingView : UserControl
     {
-        public SettingBView()
+        public ThemeSettingView()
         {
             InitializeComponent();
         }

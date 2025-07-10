@@ -14,6 +14,8 @@ WPF的属性系统：关联属性的内部实现都是通过WPF属性系统完�
 
 
 
+
+
 ## 实现关联属性
 
 实现关联属性分为两步：
@@ -292,6 +294,10 @@ static TextBlock()
 }
 ```
 
+上述代码中，FontStyle不属于TextBlock本身的依赖属性，而是在TextElement中定义的附加属性（AddOwner也可以实现附加属性的共用），这里通过AddOwner实现共用，这样就可以在TextBlock元素上，使用属性赋值的方式来设置值了。
+
+![image-20250707154725396](./assets/image-20250707154725396.png)
+
 AddOwner()的重载形式：
 
 ```csharp
@@ -300,6 +306,16 @@ public DependencyProperty AddOwner(Type ownerType, PropertyMetadata typeMetadata
 ```
 
 AddOwner()方法的参数刚好和注册依赖项属性的所需参数一样。
+
+注意：AddOwner()不仅适用于依赖属性，也适用于附加属性。
+
+
+
+## 只读依赖属性
+
+![image-20250707124213282](./assets/image-20250707124213282.png)
+
+只读属性可以用于样式、触发器等与属性相关的绑定。
 
 
 
@@ -425,28 +441,23 @@ public partial class MainWindow : Window
 
 附加属性的本质仍然是依赖属性，二者仅在注册和包装器上有一点区别。
 
+可以为已有的控件添加附加属性，这样就不需要通过派生类来完成。
+
+**附加属性不是必须要定义在DependencyObject派生类中**。
+
 定义附加属性，需要使用RegisterAttached()方法。
 
 创建附加属性快捷键：propa+ 两次Tab
 
-```c#
-public class School : DependencyObject
-{
-    public static int GetGrade(DependencyObject obj)
-    {
-        return (int)obj.GetValue(GradeProperty);
-    }
+![image-20250707125836446](./assets/image-20250707125836446.png)
 
-    public static void SetGrade(DependencyObject obj, int value)
-    {
-        obj.SetValue(GradeProperty, value);
-    }
+附加属性的作用是对其他类中的属性进行赋值，因此需要传递外部的DependencyObject对象作为参数。
 
-    // Using a DependencyProperty as the backing store for Grade.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty GradeProperty =
-        DependencyProperty.RegisterAttached("Grade", typeof(int), typeof(School), new UIPropertyMetadata(0));
-}
-```
+附加属性的绑定应用：
+
+![image-20250707130302100](./assets/image-20250707130302100.png)
+
+
 
 附加属性与依赖属性在创建时的相同点与区别：
 
@@ -454,7 +465,7 @@ public class School : DependencyObject
 - 附加属性使用DependencyProperty.RegisterAttached(...)来声明，但参数和DependencyProperty.Register(...)方法无异。
 - 依赖属性使用CLR属性对GetValue和SetValue两个方法进行包装，而附加属性则通过两个方法（非属性形式）分别进行包装。
 
-使用附加属性：
+C#程序中使用附加属性：
 
 ```c#
 class Human: DependencyObject
@@ -463,7 +474,7 @@ class Human: DependencyObject
 private void Button_Click(object sender, RoutedEventArgs e)
 {
     Human hu = new Human();
-    School.SetGrade(hu, 6);
+    School.SetGrade(hu, 6); //调用附加属性设置值
     int grade = School.GetGrade(hu);
     MessageBox.Show(grade.ToString());
 }
@@ -471,64 +482,15 @@ private void Button_Click(object sender, RoutedEventArgs e)
 
 由于上述SetGrade(..)的内部调用的依然是DependencyObject实例的SetValue(..)方法，而DependencyObject实例传入的为Human实例，==因此该附加属性最终还是作用在Human上，只是定义寄宿在了School类中而已==。
 
+### 只读附加属性
+
+DependencyProperty.RegisterAttachedReadOnly
+
 ### 附加属性的应用
 
-```xaml
-<Grid ShowGridLines="True">
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition/>
-        <ColumnDefinition/>
-        <ColumnDefinition/>
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-        <RowDefinition/>
-        <RowDefinition/>
-        <RowDefinition/>
-    </Grid.RowDefinitions>
-    <Button Content="OK" Grid.Column="1" Grid.Row="1"/>
-</Grid>
-```
+![image-20250707130933379](./assets/image-20250707130933379.png)
 
-与之等效的C#代码：
 
-```c#
-Grid g = new Grid() { ShowGridLines = true };
-
-g.ColumnDefinitions.Add(new ColumnDefinition());
-g.ColumnDefinitions.Add(new ColumnDefinition()); 
-g.ColumnDefinitions.Add(new ColumnDefinition());
-
-g.RowDefinitions.Add(new RowDefinition());
-g.RowDefinitions.Add(new RowDefinition());
-g.RowDefinitions.Add(new RowDefinition());
-
-Button button = new Button() { Content = "OK" };
-//关键代码
-Grid.SetColumn(button, 1);
-Grid.SetRow(button, 1);
-
-g.Children.Add(button);
-this.Content = g;
-```
-
-附加属性的本质就是依赖属性，附加属性也可以使用Binding依赖在其他对象的数据上。
-
-```xaml
-<Canvas>
-    <Slider x:Name="sliderX" Canvas.Top="10" Canvas.Left="10" Width="260" Minimum="50" Maximum="200"/>
-    <Slider x:Name="sliderY" Canvas.Top="40" Canvas.Left="10" Width="260" Minimum="50" Maximum="200"/>
-    <Rectangle x:Name="rect" Fill="Blue" Width="30" Height="30"
-    Canvas.Left="{Binding ElementName=sliderX,Path=Value}"
-    Canvas.Top="{Binding ElementName=sliderY,Path=Value}"/>
-</Canvas>
-```
-
-与之等效的c#代码：
-
-```c#
-this.rect.SetBinding(Canvas.LeftProperty, new Binding("Value") { Source = sliderX });
-this.rect.SetBinding(Canvas.TopProperty, new Binding("Value") { Source = sliderY });
-```
 
 
 

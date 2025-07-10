@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:region="clr-namespace:LearningTag.Shared.Consts.Regions;assembly=LearningTag.Shared"
     Title="{Binding Title}"
     Width="1024"
     Height="768"
@@ -51,7 +52,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ContentControl Grid.Row="0" prism:RegionManager.RegionName="HeaderRegion" />
+        <ContentControl Grid.Row="0" prism:RegionManager.RegionName="{x:Static region:AppRegions.HeaderRegion}" />
 
         <DockPanel Grid.Row="1">
 
@@ -124,7 +125,7 @@
 
 
 
-            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="MainContentRegion" />
+            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static region:AppRegions.MainContentRegion}" />
 
 
 

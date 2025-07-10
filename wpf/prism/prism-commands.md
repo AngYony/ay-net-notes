@@ -13,6 +13,33 @@
 
 
 
+## Command 
+
+用法一，不需要关注命令是否可用：
+
+```csharp
+SaveUserRegistCommand = new DelegateCommand(SaveUserRegist);
+```
+
+用法二，根据某个属性判断是否可用：
+
+```csharp
+SaveUserRegistCommand = new DelegateCommand(SaveUserRegist).ObservesCanExecute(() => IsInvalid);
+```
+
+用法三，监听某个属性的变化来判断命令是否可用：
+
+```csharp
+SaveUserRegistCommand = new DelegateCommand(SaveUserRegist, CanSaveUserRegist)
+               .ObservesProperty(() => User.Mail);
+```
+
+
+
+
+
+
+
 ## Composite Commands（复合命令）
 
 CompositeCommand（复合命令）的作用为执行一组Command。

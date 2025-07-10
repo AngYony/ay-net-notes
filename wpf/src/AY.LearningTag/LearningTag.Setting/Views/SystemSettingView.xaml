@@ -10,7 +10,9 @@
     d:DesignWidth="800"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
-    <TextBlock>
-        设置AAAA
-    </TextBlock>
+    <StackPanel>
+        <TextBlock Text="数据存储位置:" />
+        <TextBox Margin="0,5,0,0" Text="{Binding DataStoragePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=500}" />
+        <Button Command="{Binding SaveSystemSettingCommand}" Content="保存" />
+    </StackPanel>
 </UserControl>

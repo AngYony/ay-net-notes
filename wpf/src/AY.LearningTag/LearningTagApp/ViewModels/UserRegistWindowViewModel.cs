@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace LearningTagApp.ViewModels
 {
@@ -39,21 +40,24 @@ namespace LearningTagApp.ViewModels
         public DelegateCommand SaveUserRegistCommand { get; }
         public UserRegistWindowViewModel()
         {
-            SaveUserRegistCommand = new DelegateCommand(SaveUserRegist, CanSaveUserRegist)
-                .ObservesProperty(() => User);
+            //SaveUserRegistCommand = new DelegateCommand(SaveUserRegist, CanSaveUserRegist)
+            //    .ObservesProperty(() => User.Mail)
+            //    .ObservesProperty(() => User.Phone)
+            //    .ObservesProperty(() => User.UserName);
+
+            SaveUserRegistCommand = new DelegateCommand(SaveUserRegist).ObservesCanExecute(() => IsInvalid);
         }
 
         private void SaveUserRegist()
         {
 
             if (IsInvalid) return;
-            //insert data
+            
             this.View.Close();
         }
 
         private bool CanSaveUserRegist()
         {
-            //var u = this.User;
             if (string.IsNullOrEmpty(User.UserName))
                 return false;
             return !IsInvalid;

@@ -149,7 +149,7 @@ XAML编辑器也是靠这个CLR事件包装器来产生自动提示。
 public delegate void RoutedEventHandler(object sender, RoutedEventArgs e);
 ```
 
-该委托的作用是用来约束路由事件，
+该委托的作用是用来约束路由事件。
 
 #### AddHandler
 
