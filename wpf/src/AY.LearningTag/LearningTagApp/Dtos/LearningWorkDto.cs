@@ -6,34 +6,34 @@ using System.Threading.Tasks;
 
 namespace LearningTagApp.Dtos
 {
-    public  class LearningWorkDto : BaseDto
+    public class LearningWorkDto : BaseDto
     {
-        private int id;
+        private int _workId;
 
-        public int Id
+        public int WorkId
         {
-            get { return id; }
-            set { id = value; SetProperty(ref id, value); }
+            get { return _workId; }
+            set { SetProperty(ref _workId, value); }
         }
 
-        private string name;
+        private string _name;
         /// <summary>
         /// 学习的视频的名称
         /// </summary>
         public string Name
         {
-            get { return name; }
-            set { name = value; SetProperty(ref name, value); }
+            get { return _name; }
+            set { SetProperty(ref _name, value); }
         }
 
-        private string resourceLink;
+        private string _resourceLink;
         /// <summary>
         /// 视频的来源链接
         /// </summary>
         public string ResourceLink
         {
-            get { return resourceLink; }
-            set { resourceLink = value; SetProperty(ref resourceLink, value); }
+            get { return _resourceLink; }
+            set { SetProperty(ref _resourceLink, value); }
         }
 
     }

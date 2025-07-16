@@ -15,26 +15,21 @@ namespace LearningTag.Setting
         {
 
             var regionManager = containerProvider.Resolve<IRegionManager>();
-            
+            var contengRegion = regionManager.Regions["MainContentRegion"];
 
 
-            //var contengRegion = regionManager.Regions["MainContentRegion"];
-            
-            
-            ////初始化SettingMainView页面
-            //contengRegion.RequestNavigate(nameof(SettingMainView));
+            //初始化SettingMainView页面
+            contengRegion.RequestNavigate(nameof(SettingMainView));
 
 
+            IRegion region = regionManager.Regions["SettingContentRegion"];
+            var tabSystemSetting = containerProvider.Resolve<SystemSettingView>();
+            (tabSystemSetting.DataContext as TabBaseViewModel).Title = "系统设置";
+            region.Add(tabSystemSetting);
 
-
-            //IRegion region = regionManager.Regions["SettingContentRegion"];
-            //var tabSystemSetting = containerProvider.Resolve<SystemSettingView>();
-            //(tabSystemSetting.DataContext as TabBaseViewModel).Title = "系统设置";
-            //region.Add(tabSystemSetting);
-
-            //var tabThemeSetting = containerProvider.Resolve<ThemeSettingView>();
-            //(tabThemeSetting.DataContext as TabBaseViewModel).Title = "设置B";
-            //region.Add(tabThemeSetting);
+            var tabThemeSetting = containerProvider.Resolve<ThemeSettingView>();
+            (tabThemeSetting.DataContext as TabBaseViewModel).Title = "设置B";
+            region.Add(tabThemeSetting);
 
         }
 

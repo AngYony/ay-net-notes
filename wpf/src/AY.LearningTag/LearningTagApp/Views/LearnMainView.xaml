@@ -5,6 +5,6 @@
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-        <TextBlock FontSize="40" Text="学习集列表" />
+        <ListBox ItemsSource="{Binding LearningWorkDtos}" />
     </Grid>
 </UserControl>

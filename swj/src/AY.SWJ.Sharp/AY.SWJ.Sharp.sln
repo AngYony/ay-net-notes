@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.SWJ.Util", "AY.SWJ.Util\AY.SWJ.Util.csproj", "{6F2E2951-0811-4D8B-A0C4-52E15C388B9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.SWJ.Shared", "AY.SWJ.Shared\AY.SWJ.Shared.csproj", "{C7143DB2-67EF-4C7F-98F5-87574DA339A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F2E2951-0811-4D8B-A0C4-52E15C388B9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F2E2951-0811-4D8B-A0C4-52E15C388B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F2E2951-0811-4D8B-A0C4-52E15C388B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F2E2951-0811-4D8B-A0C4-52E15C388B9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7143DB2-67EF-4C7F-98F5-87574DA339A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7143DB2-67EF-4C7F-98F5-87574DA339A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7143DB2-67EF-4C7F-98F5-87574DA339A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7143DB2-67EF-4C7F-98F5-87574DA339A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E363B69-9998-44A8-8791-239D5240094E}
+	EndGlobalSection
+EndGlobal

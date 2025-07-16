@@ -11,7 +11,15 @@ namespace LearningTag.Entity
     /// </summary>
     public class LearningRecord
     {
-        public int Id { get; set; }
+        /// <summary>
+        /// 记录Id
+        /// </summary>
+        public int RecordId { get; set; }
+
+        /// <summary>
+        /// 学习集Id
+        /// </summary>
+        public int WorkId { get; set; }
         /// <summary>
         /// 标题
         /// </summary>

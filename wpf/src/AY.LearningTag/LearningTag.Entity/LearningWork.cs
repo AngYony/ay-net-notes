@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace LearningTag.Entity
 {
+    /// <summary>
+    /// 学习集
+    /// </summary>
     public class LearningWork
     {
-        public int Id { get; set; }
+
+        public int WorkId { get; set; }
 
         /// <summary>
         /// 学习的视频的名称

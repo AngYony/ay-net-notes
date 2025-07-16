@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="NLog" Version="6.0.1" />
     <PackageReference Include="NLog.Extensions.Logging" Version="6.0.1" />
+    <PackageReference Include="ObservableCollections" Version="3.3.4" />
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
   </ItemGroup>
 

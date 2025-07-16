@@ -8,40 +8,49 @@ namespace LearningTagApp.Dtos
 {
     public class LearningRecordDto : BaseDto
     {
-        private int id;
+        private int _recordId;
 
-        public int Id
+        public int RecordId
         {
-            get { return id; }
-            set { id = value; SetProperty(ref id, value); }
+            get { return _recordId; }
+            set { SetProperty(ref _recordId, value); }
         }
 
-        private string title;
+        private int _workId;
+        public int WorkId
+        {
+            get { return _workId; }
+            set { SetProperty(ref _workId, value); }
+        }
+
+
+
+        private string _title;
         /// <summary>
         /// 标题
         /// </summary>
         public string Title
         {
-            get { return title; }
-            set { title = value; SetProperty(ref title, value); }
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
         }
-        private DateTime beginTime;
+        private DateTime _beginTime;
         /// <summary>
         /// 学习开始时间
         /// </summary>
         public DateTime BeginTime
         {
-            get { return beginTime; }
-            set { beginTime = value; }
+            get { return _beginTime; }
+            set { SetProperty(ref _beginTime, value); }
         }
-        private DateTime endTime;
+        private DateTime _endTime;
         /// <summary>
         /// 学习结束时间
         /// </summary>
         public DateTime EndTime
         {
-            get { return endTime; }
-            set { endTime = value; }
+            get { return _endTime; }
+            set { SetProperty(ref _endTime, value); }
         }
 
         /// <summary>
@@ -55,23 +64,23 @@ namespace LearningTagApp.Dtos
             }
         }
 
-        private decimal videoDuration;
+        private decimal _videoDuration;
         /// <summary>
         /// 视频时长
         /// </summary>
         public decimal VideoDuration
         {
-            get { return videoDuration; }
-            set { videoDuration = value; }
+            get { return _videoDuration; }
+            set { SetProperty(ref _videoDuration, value); }
         }
-        private decimal studiedDuration;
+        private decimal _studiedDuration;
         /// <summary>
         /// 已学时长
         /// </summary>
         public decimal StudiedDuration
         {
-            get { return studiedDuration; }
-            set { studiedDuration = value; }
+            get { return _studiedDuration; }
+            set { SetProperty(ref _studiedDuration, value); }
         }
 
     }

@@ -331,24 +331,6 @@ this.txtName.SetBinding(TextBox.TextProperty,new Binding("/ProvinceList/CityList
 
 ![image-20250707164923287](./assets/image-20250707164923287.png)
 
-#### ElementName 的局限性
-
-当界面的元素是通过C#程序动态添加到界面上时，ElementName形式就会绑定失败。
-
-例如：
-
-![image-20250710165040623](./assets/image-20250710165040623.png)
-
-txt是通过C#程序添加进去的：
-
-![image-20250710165106854](./assets/image-20250710165106854.png)
-
-虽然界面可以呈现文本框，但是绑定会失败，解决的办法是在后端调用RegisterName方法，将文本框名称注入到窗口中。
-
-![image-20250710165353670](./assets/image-20250710165353670.png)
-
-
-
 
 
 ### 使用 DataContext 作为Binding的源
@@ -695,6 +677,65 @@ RelativeSource的属性介绍：
 - AncestorLevel：指的是以Binding目标控件为起点的层级偏移量，依次向外找。上述代码中的第一个文本框AncestorLevel设置为2，表示找到的是第二层的Grid，因此文本框的结果是g1，而第二个文本框设置AncestorLevel=1，因此将会找到g3。AncestorLevel从1开始。
 
 ![image-20240329160222989](./assets/image-20240329160222989.png)
+
+
+
+## ElementName 和 RelativeSource 的局限性
+
+> 本小节来自于[十月的寒潮的视频](https://www.bilibili.com/video/BV1wV4y187JQ?spm_id_from=333.788.videopod.sections&vd_source=e3d65fed6c5d2bee448a9a010e7d9a81)讲解。
+
+ElementName 和 RelativeSource 的存在的局限性：
+
+- ElementName 要求 Visual Tree（可视化树） 以及 NameScope（命名范围）。
+- RelativeSource 要求 Visual Tree。
+
+它们在特殊情况下会存在局限性，例如：
+
+1. 代码后台生成的控件，不会被自动添加到当前根节点所在的NameScope中，当界面的元素是通过C#程序动态添加到界面上时，ElementName形式就会绑定失败。
+
+   <img src="./assets/image-20250710165106854.png" alt="image-20250710165106854" style="display:inline;" />
+
+   ![image-20250710165040623](./assets/image-20250710165040623.png)
+
+2. 目标并没有Visual Tree（比如 Tag 或 DataGridTextColumn，这两个指定的值不会出现在Visual Tree上面，因此在这两个上面进行绑定会失败）
+
+   ![image-20250714134650923](./assets/image-20250714134650923.png)
+
+   ![image-20250714134913011](./assets/image-20250714134913011.png)
+
+3. 目标在运行时会跑到“别处”（比如 Tooltip 或 ContextMenu），目标与源不在同一个Visual Tree结构上，将会绑定失败。
+
+   ![image-20250707164923287](./assets/image-20250707164923287.png)
+
+解决方案：
+
+1. 使用RegisterName方法，为控件添加NameScope。
+
+   <img src="./assets/image-20250710165353670.png" alt="image-20250710165353670" style="display:inline;" />
+
+2. 后台通过引用依赖属性来建立绑定。
+
+   ![image-20250714143555401](./assets/image-20250714143555401.png)
+
+3. 如果条件允许，那么可以使用{x:Reference} 或 RelativeSource。x:Reference是从XAML文档中搜索对应名称的对象，注意搜素的对象不能是自己的父级，会导致循环依赖错误。例如不能使用x:Reference指定为Window，Window是所有控件的父级。
+
+   ![image-20250714135132946](./assets/image-20250714135132946.png)
+
+   ![image-20250714135222002](./assets/image-20250714135222002.png)
+
+4. 想办法接力（Tooltip 与 ContextMenu 都拥有 PlacementTarget 属性）
+
+   ![image-20250714141057641](./assets/image-20250714141057641.png)
+
+   ![image-20250714141214023](./assets/image-20250714141214023.png)
+
+5. ==使用 BindingProxy==，自定义一个派生自Freezable的子类（推荐，万解方案），Freezable常用于动画。
+
+   <img src="./assets/image-20250714132015660.png" alt="image-20250714132015660" style="display:inline;" />
+
+   ![image-20250714132147805](./assets/image-20250714132147805.png)
+
+
 
 
 

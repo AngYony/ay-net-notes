@@ -152,7 +152,7 @@ private static readonly DependencyProperty TriggersProperty = DependencyProperty
 有点类似WPF的原生 Triggers，在触发某些条件时会发生一些变化，但是比原生Triggers更为灵活，可以做的事情也更多，通常与Action结合使用，常用的Action有：
 
 - InvokeCommandAction：用于WPF中的事件和命令进行关联，多用于mvvm。
-- ChangePropertyAction：原生的属性触发器的另一种写法，但不能自动撤销变化。
+- ChangePropertyAction：原生的属性触发器的另一种写法，但不能自动撤销变化，且只能应用依赖属性，不能应用附加属性。
 - CallMethodAction：调用指定对象的某个方法。
 
 
@@ -195,7 +195,9 @@ xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
 
 ![image-20250707152049975](./assets/image-20250707152049975.png)
 
+示例四，ChangePropertyAction的应用二，实现点击按钮更改其他控件上面的内容：
 
+![image-20250714145410601](./assets/image-20250714145410601.png)
 
 
 
