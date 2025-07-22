@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D95ED733-CF03-4636-A414-3882D3FA8CAB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>xbd.ControlLib</RootNamespace>
+    <AssemblyName>xbd.ControlLib</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="xbdControlBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdControlBase.designer.cs">
+      <DependentUpon>xbdControlBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdValve.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdValve.Designer.cs">
+      <DependentUpon>xbdValve.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdWave.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdWave.designer.cs">
+      <DependentUpon>xbdWave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdAnalogMeter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdAnalogMeter.designer.cs">
+      <DependentUpon>xbdAnalogMeter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdDashBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdDashBoard.designer.cs">
+      <DependentUpon>xbdDashBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdDialPlate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdDialPlate.designer.cs">
+      <DependentUpon>xbdDialPlate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdGaugeLinear.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdGaugeLinear.designer.cs">
+      <DependentUpon>xbdGaugeLinear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdHeadPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="xbdHeadPanel.designer.cs">
+      <DependentUpon>xbdHeadPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdLed.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdLed.designer.cs">
+      <DependentUpon>xbdLed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdProgress.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdProgress.designer.cs">
+      <DependentUpon>xbdProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdMotor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdMotor.designer.cs">
+      <DependentUpon>xbdMotor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdPump.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdPump.designer.cs">
+      <DependentUpon>xbdPump.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdBattery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdBattery.designer.cs">
+      <DependentUpon>xbdBattery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdSwitch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdSwitch.designer.cs">
+      <DependentUpon>xbdSwitch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdThermometer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdThermometer.designer.cs">
+      <DependentUpon>xbdThermometer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdToggle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdToggle.designer.cs">
+      <DependentUpon>xbdToggle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdGauge.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdGauge.designer.cs">
+      <DependentUpon>xbdGauge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdFlowControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdFlowControl.designer.cs">
+      <DependentUpon>xbdFlowControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xbdState.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="xbdState.Designer.cs">
+      <DependentUpon>xbdState.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdValve.resx">
+      <DependentUpon>xbdValve.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdWave.resx">
+      <DependentUpon>xbdWave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdAnalogMeter.resx">
+      <DependentUpon>xbdAnalogMeter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdDashBoard.resx">
+      <DependentUpon>xbdDashBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdDialPlate.resx">
+      <DependentUpon>xbdDialPlate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdGaugeLinear.resx">
+      <DependentUpon>xbdGaugeLinear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdHeadPanel.resx">
+      <DependentUpon>xbdHeadPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdLed.resx">
+      <DependentUpon>xbdLed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdProgress.resx">
+      <DependentUpon>xbdProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdMotor.resx">
+      <DependentUpon>xbdMotor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdPump.resx">
+      <DependentUpon>xbdPump.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdBattery.resx">
+      <DependentUpon>xbdBattery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdSwitch.resx">
+      <DependentUpon>xbdSwitch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdThermometer.resx">
+      <DependentUpon>xbdThermometer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdToggle.resx">
+      <DependentUpon>xbdToggle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdGauge.resx">
+      <DependentUpon>xbdGauge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdFlowControl.resx">
+      <DependentUpon>xbdFlowControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xbdState.resx">
+      <DependentUpon>xbdState.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PumpFault.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PumpRun.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PumpStop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PumpStop2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Run.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\valveOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\valveOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VvalveOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VvalveOn.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

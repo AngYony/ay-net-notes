@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.SWJ.Util", "AY.SWJ.Util\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.SWJ.Shared", "AY.SWJ.Shared\AY.SWJ.Shared.csproj", "{C7143DB2-67EF-4C7F-98F5-87574DA339A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.SWJ.ControlLib", "AY.SWJ.ControlLib\AY.SWJ.ControlLib.csproj", "{775FD23D-23C7-4607-81A6-09FC557F8780}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C7143DB2-67EF-4C7F-98F5-87574DA339A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7143DB2-67EF-4C7F-98F5-87574DA339A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7143DB2-67EF-4C7F-98F5-87574DA339A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{775FD23D-23C7-4607-81A6-09FC557F8780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{775FD23D-23C7-4607-81A6-09FC557F8780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{775FD23D-23C7-4607-81A6-09FC557F8780}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{775FD23D-23C7-4607-81A6-09FC557F8780}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
