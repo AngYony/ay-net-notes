@@ -47,7 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HistoryDataService.cs" />
-    <Compile Include="PlcDataService.cs" />
+    <Compile Include="PlcDataService.ModbusTCP.cs" />
+    <Compile Include="PlcDataService.S7Net.cs" />
     <Compile Include="SQLiteService.cs" />
     <Compile Include="SysAdminService.cs" />
     <Compile Include="SysInfoService.cs" />
@@ -69,6 +70,10 @@
     <ProjectReference Include="..\xbd.DataConvertLib\xbd.DataConvertLib.csproj">
       <Project>{867237AD-51F4-4CA5-AD32-D68844CC9101}</Project>
       <Name>xbd.DataConvertLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\xbd.ModbusLib\xbd.ModbusLib.csproj">
+      <Project>{5AA4633F-B933-4BA5-97C6-68A854C73ACE}</Project>
+      <Name>xbd.ModbusLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\xbd.s7netplus\xbd.s7netplus.csproj">
       <Project>{87DCA77D-A82C-4CCD-8792-5E6CFB0CC765}</Project>

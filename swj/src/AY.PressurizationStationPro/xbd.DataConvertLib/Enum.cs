@@ -15,7 +15,7 @@ namespace xbd.DataConvertLib
     public enum DataFormat
     {
         /// <summary>
-        /// 按照顺序排序
+        /// 按照顺序排序，大端（西门子）
         /// </summary>
         [Description("按照顺序排序")]
         ABCD = 0,
@@ -25,7 +25,7 @@ namespace xbd.DataConvertLib
         [Description("按照单字反转")] 
         BADC = 1,
         /// <summary>
-        /// 按照双字反转
+        /// 按照双字反转（三菱）
         /// </summary>
         [Description("按照双字反转")] 
         CDAB = 2,

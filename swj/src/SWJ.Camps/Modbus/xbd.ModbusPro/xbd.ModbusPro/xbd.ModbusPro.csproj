@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmModbusTCP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmModbusTCP.Designer.cs">
+      <DependentUpon>FrmModbusTCP.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmModbusRTU.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +60,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmModbusTCP.resx">
+      <DependentUpon>FrmModbusTCP.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmModbusRTU.resx">
       <DependentUpon>FrmModbusRTU.cs</DependentUpon>
     </EmbeddedResource>

@@ -16,7 +16,7 @@ namespace xbd.ModbusPro
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmModbusRTU());
+            Application.Run(new FrmModbusTCP());
         }
     }
 }
