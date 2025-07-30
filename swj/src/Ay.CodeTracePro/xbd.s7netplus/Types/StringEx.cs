@@ -1,0 +1,22 @@
+//信必达，版权所有，关注微信公众号：上位机Guide
+//信必达，版权所有，关注微信公众号：上位机Guide
+//信必达，版权所有，关注微信公众号：上位机Guide
+//信必达，版权所有，关注微信公众号：上位机Guide
+//信必达，版权所有，关注微信公众号：上位机Guide
+//信必达，版权所有，关注微信公众号：上位机Guide
+//信必达，版权所有，关注微信公众号：上位机Guide
+using System;
+
+namespace xbd.s7netplus.Types
+{
+    /// <inheritdoc cref="S7String"/>
+    [Obsolete("Please use S7String class")]
+    public static class StringEx
+    {
+        /// <inheritdoc cref="S7String.FromByteArray(byte[])"/>
+        public static string FromByteArray(byte[] bytes) => S7String.FromByteArray(bytes);
+
+        /// <inheritdoc cref="S7String.ToByteArray(string, int)"/>
+        public static byte[] ToByteArray(string value, int reservedLength) => S7String.ToByteArray(value, reservedLength);
+    }
+}

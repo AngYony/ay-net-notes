@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{09C84E10-E44B-4488-A2C9-03B949085067}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AY.CommunicationLib</RootNamespace>
+    <AssemblyName>AY.CommunicationLib</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\SerialBase.cs" />
+    <Compile Include="Base\TCPBase.cs" />
+    <Compile Include="DataConvert\BitLib.cs" />
+    <Compile Include="DataConvert\ByteArray.cs" />
+    <Compile Include="DataConvert\ByteArrayLib.cs" />
+    <Compile Include="DataConvert\ByteLib.cs" />
+    <Compile Include="DataConvert\DoubleLib.cs" />
+    <Compile Include="DataConvert\Enums.cs" />
+    <Compile Include="DataConvert\FloatLib.cs" />
+    <Compile Include="DataConvert\IntLib.cs" />
+    <Compile Include="DataConvert\LongLib.cs" />
+    <Compile Include="DataConvert\MigrationLib.cs" />
+    <Compile Include="FunctionCode.cs" />
+    <Compile Include="Modbus\IModbusRW.cs" />
+    <Compile Include="Modbus\ModbusRTU.cs" />
+    <Compile Include="Modbus\ModbusTCP.cs" />
+    <Compile Include="OperateResult.cs" />
+    <Compile Include="DataConvert\ShortLib.cs" />
+    <Compile Include="DataConvert\StringLib.cs" />
+    <Compile Include="DataConvert\UIntLib.cs" />
+    <Compile Include="DataConvert\ULongLib.cs" />
+    <Compile Include="DataConvert\UShortLib.cs" />
+    <Compile Include="PLC\Siemens\Compat\TcpClientMixins.cs" />
+    <Compile Include="PLC\Siemens\Conversion.cs" />
+    <Compile Include="PLC\Siemens\COTP.cs" />
+    <Compile Include="PLC\Siemens\Enums.cs" />
+    <Compile Include="PLC\Siemens\Helper\MemoryStreamExtension.cs" />
+    <Compile Include="PLC\Siemens\Internal\TaskQueue.cs" />
+    <Compile Include="PLC\Siemens\InvalidDataException.cs" />
+    <Compile Include="PLC\Siemens\PLC.cs" />
+    <Compile Include="PLC\Siemens\PLCAddress.cs" />
+    <Compile Include="PLC\Siemens\PlcAsynchronous.cs" />
+    <Compile Include="PLC\Siemens\PlcException.cs" />
+    <Compile Include="PLC\Siemens\PLCExceptions.cs" />
+    <Compile Include="PLC\Siemens\PLCHelpers.cs" />
+    <Compile Include="PLC\Siemens\PlcSynchronous.cs" />
+    <Compile Include="PLC\Siemens\Protocol\ConnectionRequest.cs" />
+    <Compile Include="PLC\Siemens\Protocol\ReadWriteErrorCode.cs" />
+    <Compile Include="PLC\Siemens\Protocol\S7WriteMultiple.cs" />
+    <Compile Include="PLC\Siemens\Protocol\S7\DataItemAddress.cs" />
+    <Compile Include="PLC\Siemens\Protocol\Serialization.cs" />
+    <Compile Include="PLC\Siemens\Protocol\Tsap.cs" />
+    <Compile Include="PLC\Siemens\Protocol\TsapPair.cs" />
+    <Compile Include="PLC\Siemens\StreamExtensions.cs" />
+    <Compile Include="PLC\Siemens\TPKT.cs" />
+    <Compile Include="PLC\Siemens\Types\Bit.cs" />
+    <Compile Include="PLC\Siemens\Types\Boolean.cs" />
+    <Compile Include="PLC\Siemens\Types\Byte.cs" />
+    <Compile Include="PLC\Siemens\Types\ByteArray.cs" />
+    <Compile Include="PLC\Siemens\Types\Class.cs" />
+    <Compile Include="PLC\Siemens\Types\Counter.cs" />
+    <Compile Include="PLC\Siemens\Types\DataItem.cs" />
+    <Compile Include="PLC\Siemens\Types\DateTime.cs" />
+    <Compile Include="PLC\Siemens\Types\DateTimeLong.cs" />
+    <Compile Include="PLC\Siemens\Types\DInt.cs" />
+    <Compile Include="PLC\Siemens\Types\Double.cs" />
+    <Compile Include="PLC\Siemens\Types\DWord.cs" />
+    <Compile Include="PLC\Siemens\Types\Int.cs" />
+    <Compile Include="PLC\Siemens\Types\LReal.cs" />
+    <Compile Include="PLC\Siemens\Types\Real.cs" />
+    <Compile Include="PLC\Siemens\Types\S7String.cs" />
+    <Compile Include="PLC\Siemens\Types\S7StringAttribute.cs" />
+    <Compile Include="PLC\Siemens\Types\S7WString.cs" />
+    <Compile Include="PLC\Siemens\Types\Single.cs" />
+    <Compile Include="PLC\Siemens\Types\String.cs" />
+    <Compile Include="PLC\Siemens\Types\StringEx.cs" />
+    <Compile Include="PLC\Siemens\Types\Struct.cs" />
+    <Compile Include="PLC\Siemens\Types\Timer.cs" />
+    <Compile Include="PLC\Siemens\Types\TypeHelper.cs" />
+    <Compile Include="PLC\Siemens\Types\Word.cs" />
+    <Compile Include="PLC\SiementsS7.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleHybirdLock.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

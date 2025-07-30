@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{87DCA77D-A82C-4CCD-8792-5E6CFB0CC765}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>xbd.s7netplus</RootNamespace>
+    <AssemblyName>xbd.s7netplus</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Compat\TcpClientMixins.cs" />
+    <Compile Include="Conversion.cs" />
+    <Compile Include="COTP.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Helper\MemoryStreamExtension.cs" />
+    <Compile Include="Internal\TaskQueue.cs" />
+    <Compile Include="InvalidDataException.cs" />
+    <Compile Include="PLC.cs" />
+    <Compile Include="PLCAddress.cs" />
+    <Compile Include="PlcAsynchronous.cs" />
+    <Compile Include="PlcException.cs" />
+    <Compile Include="PLCExceptions.cs" />
+    <Compile Include="PLCHelpers.cs" />
+    <Compile Include="PlcSynchronous.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocol\ConnectionRequest.cs" />
+    <Compile Include="Protocol\ReadWriteErrorCode.cs" />
+    <Compile Include="Protocol\S7WriteMultiple.cs" />
+    <Compile Include="Protocol\S7\DataItemAddress.cs" />
+    <Compile Include="Protocol\Serialization.cs" />
+    <Compile Include="Protocol\Tsap.cs" />
+    <Compile Include="Protocol\TsapPair.cs" />
+    <Compile Include="StreamExtensions.cs" />
+    <Compile Include="TPKT.cs" />
+    <Compile Include="Types\Bit.cs" />
+    <Compile Include="Types\Boolean.cs" />
+    <Compile Include="Types\Byte.cs" />
+    <Compile Include="Types\ByteArray.cs" />
+    <Compile Include="Types\Class.cs" />
+    <Compile Include="Types\Counter.cs" />
+    <Compile Include="Types\DataItem.cs" />
+    <Compile Include="Types\DateTime.cs" />
+    <Compile Include="Types\DateTimeLong.cs" />
+    <Compile Include="Types\DInt.cs" />
+    <Compile Include="Types\Double.cs" />
+    <Compile Include="Types\DWord.cs" />
+    <Compile Include="Types\Int.cs" />
+    <Compile Include="Types\LReal.cs" />
+    <Compile Include="Types\Real.cs" />
+    <Compile Include="Types\S7String.cs" />
+    <Compile Include="Types\S7StringAttribute.cs" />
+    <Compile Include="Types\S7WString.cs" />
+    <Compile Include="Types\Single.cs" />
+    <Compile Include="Types\String.cs" />
+    <Compile Include="Types\StringEx.cs" />
+    <Compile Include="Types\Struct.cs" />
+    <Compile Include="Types\Timer.cs" />
+    <Compile Include="Types\TypeHelper.cs" />
+    <Compile Include="Types\Word.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
