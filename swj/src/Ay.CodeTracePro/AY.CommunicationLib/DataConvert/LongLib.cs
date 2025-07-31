@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AY.CommunicationLib.DataConvert
 {
     /// <summary>
-    /// Long类型数据转换类
+    /// Long类型数据转换类，用于将字节数组转换为64位整型或整型数组
     /// </summary>
     [Description("Long类型数据转换类")]
     public class LongLib
@@ -21,7 +18,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回一个Long类型</returns>
         [Description("字节数组中截取转成64位整型")]
-        public static long GetLongFromByteArray(byte[] value, int start = 0, DataFormat dataFormat = DataFormat.ABCD)
+        public static long GetLongFromByteArray(byte[] value, int start = 0, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] data = ByteArrayLib.Get8BytesFromByteArray(value, start, dataFormat);
             return BitConverter.ToInt64(data, 0);
@@ -34,7 +31,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回Long数组</returns>
         [Description("将字节数组中截取转成64位整型数组")]
-        public static long[] GetLongArrayFromByteArray(byte[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static long[] GetLongArrayFromByteArray(byte[] value, EndianType dataFormat = EndianType.ABCD)
         {
             if (value == null) throw new ArgumentNullException("检查数组长度是否为空");
 
@@ -84,7 +81,6 @@ namespace AY.CommunicationLib.DataConvert
             {
                 throw new ArgumentNullException("数据转换失败：" + ex.Message);
             }
-
         }
     }
 }

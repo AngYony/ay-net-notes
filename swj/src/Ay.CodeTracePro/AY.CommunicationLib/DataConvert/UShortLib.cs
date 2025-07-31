@@ -22,7 +22,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回UShort结果</returns>
         [Description("字节数组中截取转成16位无符号整型")]
-        public static ushort GetUShortFromByteArray(byte[] value, int start = 0, DataFormat dataFormat = DataFormat.ABCD)
+        public static ushort GetUShortFromByteArray(byte[] value, int start = 0, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] data = ByteArrayLib.Get2BytesFromByteArray(value, start, dataFormat);
             return BitConverter.ToUInt16(data, 0);
@@ -35,7 +35,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="type">数据格式</param>
         /// <returns>返回UShort数组</returns>
         [Description("将字节数组中截取转成16位无符号整型数组")]
-        public static ushort[] GetUShortArrayFromByteArray(byte[] value, DataFormat type = DataFormat.ABCD)
+        public static ushort[] GetUShortArrayFromByteArray(byte[] value, EndianType type = EndianType.ABCD)
         {
             if (value == null) throw new ArgumentNullException("检查数组长度是否为空");
 
@@ -96,7 +96,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回UShort结果</returns>
         [Description("设置字节数组某个位")]
-        public static ushort SetBitValueFrom2ByteArray(byte[] value, int offset, bool bitVal, DataFormat dataFormat = DataFormat.ABCD)
+        public static ushort SetBitValueFrom2ByteArray(byte[] value, int offset, bool bitVal, EndianType dataFormat = EndianType.ABCD)
         {
             if (offset >= 0 && offset <= 7)
             {
@@ -118,7 +118,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回UShort结果</returns>
         [Description("设置16位整型某个位")]
-        public static ushort SetBitValueFromUShort(ushort value, int offset, bool bitVal, DataFormat dataFormat = DataFormat.ABCD)
+        public static ushort SetBitValueFromUShort(ushort value, int offset, bool bitVal, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] data = ByteArrayLib.GetByteArrayFromUShort(value, dataFormat);
 

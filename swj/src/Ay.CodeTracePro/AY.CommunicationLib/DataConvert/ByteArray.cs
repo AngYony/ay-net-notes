@@ -1,22 +1,16 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AY.CommunicationLib.DataConvert
 {
     /// <summary>
-    /// 非常好用的字节集合类
+    /// 字节集合类
     /// </summary>
-    [Description("非常好用的字节集合类")]
     public class ByteArray
     {
-
         #region 初始化
 
-        private List<byte> list = new List<byte>();
+        private List<byte> _list = new List<byte>();
 
         /// <summary>
         /// 通过索引获取值
@@ -25,36 +19,38 @@ namespace AY.CommunicationLib.DataConvert
         /// <returns>返回字节</returns>
         public byte this[int index]
         {
-            get => list[index];
-            set => list[index] = value;
+            get => _list[index];
+            set => _list[index] = value;
         }
 
         /// <summary>
         /// 返回长度
         /// </summary>
-        public int Length => list.Count;
+        public int Length => _list.Count;
 
-        #endregion
+        #endregion 初始化
 
         #region 获取字节数组
 
         /// <summary>
         /// 属性，返回字节数组
         /// </summary>
-        public byte[] array
+        public byte[] Array
         {
-            get { return list.ToArray(); }
+            get { return _list.ToArray(); }
         }
-        #endregion
+
+        #endregion 获取字节数组
 
         #region 相关方法
+
         /// <summary>
         /// 清空字节数组
         /// </summary>
         [Description("清空字节数组")]
         public void Clear()
         {
-            list = new List<byte>();
+            _list = new List<byte>();
         }
 
         /// <summary>
@@ -74,7 +70,7 @@ namespace AY.CommunicationLib.DataConvert
         [Description("添加一个字节数组")]
         public void Add(byte[] items)
         {
-           list.AddRange(items);
+            _list.AddRange(items);
         }
 
         /// <summary>
@@ -127,7 +123,6 @@ namespace AY.CommunicationLib.DataConvert
             Add(new byte[] { item1, item2, item3, item4, item5 });
         }
 
-
         /// <summary>
         /// 添加一个ByteArray对象
         /// </summary>
@@ -135,7 +130,7 @@ namespace AY.CommunicationLib.DataConvert
         [Description("添加一个ByteArray对象")]
         public void Add(ByteArray byteArray)
         {
-            Add(byteArray.array);
+            Add(byteArray.Array);
         }
 
         /// <summary>
@@ -145,8 +140,8 @@ namespace AY.CommunicationLib.DataConvert
         [Description("添加一个ushort类型数值")]
         public void Add(ushort value)
         {
-            list.Add((byte)(value >> 8));
-            list.Add((byte)value);
+            _list.Add((byte)(value >> 8));
+            _list.Add((byte)value);
         }
 
         /// <summary>
@@ -156,11 +151,10 @@ namespace AY.CommunicationLib.DataConvert
         [Description("添加一个short类型数值")]
         public void Add(short value)
         {
-            list.Add((byte)(value >> 8));
-            list.Add((byte)value);
+            _list.Add((byte)(value >> 8));
+            _list.Add((byte)value);
         }
 
-        #endregion
-
+        #endregion 相关方法
     }
 }

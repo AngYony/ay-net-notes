@@ -5,6 +5,9 @@ using System.Net.Sockets;
 
 namespace AY.CommunicationLib
 {
+    /// <summary>
+    /// TCP通信类基类
+    /// </summary>
     public class TCPBase
     {
         /// <summary>

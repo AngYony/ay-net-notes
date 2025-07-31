@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace AY.CommunicationLib.DataConvert
 {
     /// <summary>
-    /// Int类型数据转换类
+    /// Int类型数据转换类，用于将字节数组转换为32位整型或整型数组
     /// </summary>
     [Description("Int类型数据转换类")]
     public class IntLib
@@ -21,7 +21,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回int类型</returns>
         [Description("字节数组中截取转成32位整型")]
-        public static int GetIntFromByteArray(byte[] value, int start = 0, DataFormat dataFormat = DataFormat.ABCD)
+        public static int GetIntFromByteArray(byte[] value, int start = 0, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] data = ByteArrayLib.Get4BytesFromByteArray(value, start, dataFormat);
             return BitConverter.ToInt32(data, 0);
@@ -34,7 +34,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回int数组</returns>
         [Description("将字节数组中截取转成32位整型数组")]
-        public static int[] GetIntArrayFromByteArray(byte[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static int[] GetIntArrayFromByteArray(byte[] value, EndianType dataFormat = EndianType.ABCD)
         {
             if (value == null) throw new ArgumentNullException("检查数组长度是否为空");
 

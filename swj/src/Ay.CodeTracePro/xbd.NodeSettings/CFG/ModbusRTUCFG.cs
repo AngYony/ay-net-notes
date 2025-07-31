@@ -92,7 +92,7 @@ namespace xbd.NodeSettings
                         Parity = (Parity)Enum.Parse(typeof(Parity), info[3], true),
                         DataBits = Convert.ToInt32(info[4]),
                         StopBits = (StopBits)Enum.Parse(typeof(StopBits), info[5], true),
-                        DataFormat = DataFormat.ABCD
+                        DataFormat = EndianType.ABCD
                     };
                 }
             }

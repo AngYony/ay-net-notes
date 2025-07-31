@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AY.CommunicationLib.DataConvert
 {
     /// <summary>
-    /// Byte类型数据转换类
+    /// Byte类型数据转换类，用于将其他数据类型转换成字节或从字节中提取数据
     /// </summary>
     [Description("Byte类型数据转换类")]
     public class ByteLib
@@ -41,11 +37,11 @@ namespace AY.CommunicationLib.DataConvert
         }
 
         /// <summary>
-        /// 将布尔数组转换成字节数组
+        /// 将布尔数组转换成字节
         /// </summary>
         /// <param name="value">布尔数组</param>
         /// <returns>字节数组</returns>
-        [Description("将布尔数组转换成字节数组")]
+        [Description("将布尔数组转换成字节")]
         public static byte GetByteFromBoolArray(bool[] value)
         {
             if (value.Length != 8) throw new ArgumentNullException("检查数组长度是否为8");

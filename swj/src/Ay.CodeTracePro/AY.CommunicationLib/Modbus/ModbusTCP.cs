@@ -477,7 +477,7 @@ namespace AY.CommunicationLib.Modbus
             //ÊýÁ¿
             sendCommand.Add(count);
 
-            return sendCommand.array;
+            return sendCommand.Array;
         }
 
         private byte[] BuildWriteMessageFrame(ushort start, byte[] value, byte slaveId, FunctionCode functionCode, ushort coilLength = 0)
@@ -538,7 +538,7 @@ namespace AY.CommunicationLib.Modbus
                 sendCommand.Add(value);
             }
 
-            return sendCommand.array;
+            return sendCommand.Array;
         }
 
         private OperateResult CheckResponse(byte[] response, byte slaveId, bool isRead, ushort bytelength = 0)

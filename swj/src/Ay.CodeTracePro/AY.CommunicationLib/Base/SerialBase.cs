@@ -5,7 +5,9 @@ using System.Threading;
 
 namespace AY.CommunicationLib
 {
-    //串口通信类基类
+    /// <summary>
+    /// 串口通信类基类
+    /// </summary>
     public class SerialBase
     {
         /// <summary>

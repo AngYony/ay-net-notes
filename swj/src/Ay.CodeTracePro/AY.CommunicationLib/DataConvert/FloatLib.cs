@@ -21,7 +21,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回一个浮点数</returns>
         [Description("将字节数组中某4个字节转换成Float类型")]
-        public static float GetFloatFromByteArray(byte[] value, int start = 0, DataFormat dataFormat = DataFormat.ABCD)
+        public static float GetFloatFromByteArray(byte[] value, int start = 0, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] b = ByteArrayLib.Get4BytesFromByteArray(value, start, dataFormat);
             return BitConverter.ToSingle(b, 0);
@@ -34,7 +34,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回浮点数组</returns>
         [Description("将字节数组转换成Float数组")]
-        public static float[] GetFloatArrayFromByteArray(byte[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static float[] GetFloatArrayFromByteArray(byte[] value, EndianType dataFormat = EndianType.ABCD)
         {
             if (value == null) throw new ArgumentNullException("检查数组长度是否为空");
 

@@ -58,7 +58,7 @@ namespace Ay.CodeTracePro
                 Global.A5A6 = result3.Content;
                 Global.A5A6.ForEach(c =>
                 {
-                    c.DataFormat = AY.CommunicationLib.DataConvert.DataFormat.CDAB;
+                    c.DataFormat = AY.CommunicationLib.DataConvert.EndianType.CDAB;
                     c.AlarmEvent += PLC_AlarmEvent;
                     c.Start();
                 });

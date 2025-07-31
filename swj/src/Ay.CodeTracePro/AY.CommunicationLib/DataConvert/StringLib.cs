@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,12 +8,11 @@ using System.Threading.Tasks;
 namespace AY.CommunicationLib.DataConvert
 {
     /// <summary>
-    /// 字符串类型数据转换类
+    /// 字符串类型数据转换类，用于将字节数组转换为字符串或将各种类型数组转换为字符串
     /// </summary>
     [Description("字符串类型数据转换类")]
     public class StringLib
     {
-
         /// <summary>
         /// 将字节数组转换成字符串
         /// </summary>
@@ -60,7 +58,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="encoding">编码格式</param>
         /// <returns>转换结果</returns>
         [Description("将字节数组转换成带编码格式字符串")]
-        public static string GetStringFromByteArrayByEncoding(byte[] value,  Encoding encoding)
+        public static string GetStringFromByteArrayByEncoding(byte[] value, Encoding encoding)
         {
             return encoding.GetString(ByteArrayLib.GetByteArrayFromByteArray(value, 0, value.Length));
         }
@@ -123,10 +121,10 @@ namespace AY.CommunicationLib.DataConvert
         [Description("将字节数组转换成西门子字符串")]
         public static string GetSiemensStringFromByteArray(byte[] data, int start)
         {
-            int valid = data[start+1];
+            int valid = data[start + 1];
             if (valid > 0)
             {
-                return Encoding.GetEncoding("GBK").GetString(ByteArrayLib.GetByteArrayFromByteArray(data, start+2, valid));
+                return Encoding.GetEncoding("GBK").GetString(ByteArrayLib.GetByteArrayFromByteArray(data, start + 2, valid));
             }
             else
             {
@@ -146,7 +144,6 @@ namespace AY.CommunicationLib.DataConvert
         [Description("根据起始地址和长度将各种类型数组转换成字符串")]
         public static string GetStringFromValueArray<T>(T[] value, int start, int length, string segment = " ")
         {
-
             if (start < 0) throw new ArgumentException("开始索引不能为负数");
 
             if (length <= 0) throw new ArgumentException("长度必须为正数");
@@ -158,7 +155,6 @@ namespace AY.CommunicationLib.DataConvert
             Array.Copy(value, start, result, 0, length);
 
             return GetStringFromValueArray(result, segment);
-
         }
 
         /// <summary>
@@ -195,6 +191,5 @@ namespace AY.CommunicationLib.DataConvert
 
             return stringBuilder.ToString();
         }
-
     }
 }

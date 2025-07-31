@@ -21,7 +21,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>Double类型数值</returns>
         [Description("将字节数组中某8个字节转换成Double类型")]
-        public static double GetDoubleFromByteArray(byte[] value, int start = 0, DataFormat dataFormat = DataFormat.ABCD)
+        public static double GetDoubleFromByteArray(byte[] value, int start = 0, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] data = ByteArrayLib.Get8BytesFromByteArray(value, start, dataFormat);
             return BitConverter.ToDouble(data, 0);
@@ -34,7 +34,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>Double数组</returns>
         [Description("将字节数组转换成Double数组")]
-        public static double[] GetDoubleArrayFromByteArray(byte[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static double[] GetDoubleArrayFromByteArray(byte[] value, EndianType dataFormat = EndianType.ABCD)
         {
             if (value == null) throw new ArgumentNullException("检查数组长度是否为空");
 

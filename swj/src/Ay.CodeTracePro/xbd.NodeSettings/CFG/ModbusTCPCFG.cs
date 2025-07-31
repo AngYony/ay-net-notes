@@ -89,7 +89,7 @@ namespace xbd.NodeSettings
                         DeviceName = info[0],
                         IPAddress = info[1],
                         Port = Convert.ToInt32(info[2]),
-                        DataFormat = DataFormat.ABCD
+                        DataFormat = EndianType.ABCD
                     };
                 }
             }

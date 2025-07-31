@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AY.CommunicationLib.DataConvert
 {
     /// <summary>
-    /// Short类型数据转换类
+    /// Short类型数据转换类，用于将其他数据类型转换为16位整型(short)或从字节数组中提取16位整型数据。
     /// </summary>
     [Description("Short类型数据转换类")]
     public class ShortLib
@@ -21,7 +18,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回Short结果</returns>
         [Description("字节数组中截取转成16位整型")]
-        public static short GetShortFromByteArray(byte[] value, int start = 0, DataFormat dataFormat = DataFormat.ABCD)
+        public static short GetShortFromByteArray(byte[] value, int start = 0, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] data = ByteArrayLib.Get2BytesFromByteArray(value, start, dataFormat);
             return BitConverter.ToInt16(data, 0);
@@ -34,7 +31,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="type">数据格式</param>
         /// <returns>返回Short数组</returns>
         [Description("将字节数组中截取转成16位整型数组")]
-        public static short[] GetShortArrayFromByteArray(byte[] value, DataFormat type = DataFormat.ABCD)
+        public static short[] GetShortArrayFromByteArray(byte[] value, EndianType type = EndianType.ABCD)
         {
             if (value == null) throw new ArgumentNullException("检查数组长度是否为空");
 
@@ -95,7 +92,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回short结果</returns>
         [Description("设置字节数组某个位")]
-        public static short SetBitValueFrom2ByteArray(byte[] value, int offset, bool bitVal, DataFormat dataFormat = DataFormat.ABCD)
+        public static short SetBitValueFrom2ByteArray(byte[] value, int offset, bool bitVal, EndianType dataFormat = EndianType.ABCD)
         {
             if (offset >= 0 && offset <= 7)
             {
@@ -117,7 +114,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回Short结果</returns>
         [Description("设置16位整型某个位")]
-        public static short SetBitValueFromShort(short value, int offset, bool bitVal, DataFormat dataFormat = DataFormat.ABCD)
+        public static short SetBitValueFromShort(short value, int offset, bool bitVal, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] data = ByteArrayLib.GetByteArrayFromShort(value, dataFormat);
 

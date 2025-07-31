@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AY.CommunicationLib.DataConvert
 {
     /// <summary>
-    /// Bit类型数据转换类
+    /// Bit类型数据转换类，用于将其他数据类型转换为布尔值或布尔数组。
     /// </summary>
     [Description("Bit类型数据转换类")]
     public class BitLib

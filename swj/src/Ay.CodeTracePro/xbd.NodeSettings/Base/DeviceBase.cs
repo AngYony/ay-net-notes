@@ -26,7 +26,7 @@ namespace xbd.NodeSettings
         /// <summary>
         /// 大小端
         /// </summary>
-        public DataFormat DataFormat { get; set; } = DataFormat.ABCD;
+        public EndianType DataFormat { get; set; } = EndianType.ABCD;
 
         /// <summary>
         /// 连接状态

@@ -221,7 +221,7 @@ namespace xbd.NodeSettings
                             switch (variable.DataType)
                             {
                                 case DataType.Bool:
-                                    variable.VarValue = BitLib.GetBitFrom2BytesArray(rResult.Content, start, offsetOrLength, DataFormat == DataFormat.BADC || DataFormat == DataFormat.DCBA);
+                                    variable.VarValue = BitLib.GetBitFrom2BytesArray(rResult.Content, start, offsetOrLength, DataFormat == EndianType.BADC || DataFormat == EndianType.DCBA);
                                     break;
                                 case DataType.Short:
                                     variable.VarValue = ShortLib.GetShortFromByteArray(rResult.Content, start, DataFormat);
@@ -252,7 +252,7 @@ namespace xbd.NodeSettings
                                     byte[] bytes = ByteArrayLib.GetByteArrayFromByteArray(rResult.Content, start, offsetOrLength * 2);
 
                                     //小端处理
-                                    if (this.DataFormat == DataFormat.BADC || this.DataFormat == DataFormat.DCBA)
+                                    if (this.DataFormat == EndianType.BADC || this.DataFormat == EndianType.DCBA)
                                     {
                                         variable.VarValue = StringLib.GetStringFromByteArrayByEncoding(bytes, 0, bytes.Length, Encoding.ASCII).Replace("\0", "");
                                     }
@@ -409,7 +409,7 @@ namespace xbd.NodeSettings
 
                     varValue = varValue.PadRight(result.Content2 * 2, ' ');
                     byte[] bytes = ByteArrayLib.GetByteArrayFromString(varValue, Encoding.ASCII);
-                    if(this.DataFormat==DataFormat.BADC || this.DataFormat==DataFormat.DCBA)
+                    if(this.DataFormat==EndianType.BADC || this.DataFormat==EndianType.DCBA)
                     {
                         return modbus.WriteMultipleRegisters(start, bytes);
                     }

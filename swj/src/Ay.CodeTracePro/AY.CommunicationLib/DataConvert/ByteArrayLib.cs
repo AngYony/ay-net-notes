@@ -9,68 +9,66 @@ using System.Threading.Tasks;
 namespace AY.CommunicationLib.DataConvert
 {
     /// <summary>
-    /// 字节数组类型数据转换类
+    /// 字节数组类型数据转换类，用于将其他数据类型转换成字节数组或从字节数组中提取数据
     /// </summary>
     [Description("字节数组类型数据转换类")]
     public class ByteArrayLib
     {
+        #region 从目标字节数组中截取字节，并按指定大小端字节顺序返回
+
         /// <summary>
         /// 根据起始地址和长度自定义截取字节数组
         /// </summary>
-        /// <param name="data">字节数组</param>
-        /// <param name="start">开始字节</param>
-        /// <param name="length">截取长度</param>
+        /// <param name="sourceArray">包含要复制的数据的字节数组</param>
+        /// <param name="sourceIndex">表示 sourceArray 中复制开始处的索引，从0开始</param>
+        /// <param name="length">表示要复制（截取）的元素数目</param>
         /// <returns>字节数组</returns>
         [Description("根据起始地址和长度自定义截取字节数组")]
-        public static byte[] GetByteArrayFromByteArray(byte[] data, int start, int length)
+        public static byte[] GetByteArrayFromByteArray(byte[] sourceArray, int sourceIndex, int length)
         {
-            if (start < 0) throw new ArgumentException("开始索引不能为负数");
-
+            if (sourceIndex < 0) throw new ArgumentException("开始索引不能为负数");
             if (length <= 0) throw new ArgumentException("长度必须为正数");
-
-            if (data.Length < (start + length)) throw new ArgumentException("字节数组长度不够或开始索引太大");
-
-            byte[] result = new byte[length];
-
-            Array.Copy(data, start, result, 0, length);
-
-            return result;
+            if (sourceArray.Length < (sourceIndex + length)) throw new ArgumentException("字节数组长度不够或开始索引太大");
+            //接收数据的字节数组
+            byte[] destinationArray = new byte[length];
+            //使用Copy不影响源字节数组
+            Array.Copy(sourceArray, sourceIndex, destinationArray, 0, length);
+            return destinationArray;
         }
 
 
         /// <summary>
         /// 根据起始地址自定义截取字节数组
         /// </summary>
-        /// <param name="data">字节数组</param>
-        /// <param name="start">开始字节</param>
+        /// <param name="sourceArray">字节数组</param>
+        /// <param name="sourceIndex">开始字节</param>
         /// <returns>字节数组</returns>
         [Description("根据起始地址自定义截取字节数组")]
-        public static byte[] GetByteArrayFromByteArray(byte[] data, int start)
+        public static byte[] GetByteArrayFromByteArray(byte[] sourceArray, int sourceIndex)
         {
-            return GetByteArrayFromByteArray(data, start, data.Length - start);
+            return GetByteArrayFromByteArray(sourceArray, sourceIndex, sourceArray.Length - sourceIndex);
         }
-
 
 
         /// <summary>
         /// 从字节数组中截取2个字节,并按指定字节序返回
         /// </summary>
-        /// <param name="value">字节数组</param>
-        /// <param name="start">开始索引</param>
+        /// <param name="sourceArray">字节数组</param>
+        /// <param name="sourceIndex">开始索引</param>
         /// <param name="dataFormat">字节顺序，默认为ABCD</param>
         /// <returns>字节数组</returns> 
         [Description("从字节数组中截取2个字节,并按指定字节序返回")]
-        public static byte[] Get2BytesFromByteArray(byte[] value, int start, DataFormat dataFormat = DataFormat.ABCD)
+        public static byte[] Get2BytesFromByteArray(byte[] sourceArray, int sourceIndex, EndianType dataFormat = EndianType.ABCD)
         {
-            byte[] res = GetByteArrayFromByteArray(value, start, 2);
+            byte[] res = GetByteArrayFromByteArray(sourceArray, sourceIndex, 2);
 
             switch (dataFormat)
             {
-                case DataFormat.ABCD:
-                case DataFormat.CDAB:
+                case EndianType.ABCD:
+                case EndianType.CDAB:
                     return res.Reverse().ToArray();
-                case DataFormat.BADC:
-                case DataFormat.DCBA:
+                case EndianType.BADC:
+                case EndianType.DCBA:
                     return res;
             }
             return res;
@@ -80,38 +78,38 @@ namespace AY.CommunicationLib.DataConvert
         /// <summary>
         /// 从字节数组中截取4个字节,并按指定字节序返回
         /// </summary>
-        /// <param name="value">字节数组</param>
-        /// <param name="start">开始索引</param>
+        /// <param name="sourceArray">字节数组</param>
+        /// <param name="sourceIndex">开始索引</param>
         /// <param name="dataFormat">字节顺序，默认为ABCD</param>
         /// <returns>字节数组</returns>
         [Description("从字节数组中截取4个字节,并按指定字节序返回")]
-        public static byte[] Get4BytesFromByteArray(byte[] value, int start, DataFormat dataFormat = DataFormat.ABCD)
+        public static byte[] Get4BytesFromByteArray(byte[] sourceArray, int sourceIndex, EndianType dataFormat = EndianType.ABCD)
         {
-            byte[] resTemp = GetByteArrayFromByteArray(value, start, 4);
+            byte[] resTemp = GetByteArrayFromByteArray(sourceArray, sourceIndex, 4);
 
             byte[] res = new byte[4];
 
             switch (dataFormat)
             {
-                case DataFormat.ABCD:
+                case EndianType.ABCD:
                     res[0] = resTemp[3];
                     res[1] = resTemp[2];
                     res[2] = resTemp[1];
                     res[3] = resTemp[0];
                     break;
-                case DataFormat.CDAB:
+                case EndianType.CDAB:
                     res[0] = resTemp[1];
                     res[1] = resTemp[0];
                     res[2] = resTemp[3];
                     res[3] = resTemp[2];
                     break;
-                case DataFormat.BADC:
+                case EndianType.BADC:
                     res[0] = resTemp[2];
                     res[1] = resTemp[3];
                     res[2] = resTemp[0];
                     res[3] = resTemp[1];
                     break;
-                case DataFormat.DCBA:
+                case EndianType.DCBA:
                     res = resTemp;
                     break;
             }
@@ -122,22 +120,22 @@ namespace AY.CommunicationLib.DataConvert
         /// <summary>
         /// 从字节数组中截取8个字节,并按指定字节序返回
         /// </summary>
-        /// <param name="value">字节数组</param>
-        /// <param name="start">开始索引</param>
+        /// <param name="sourceArray">字节数组</param>
+        /// <param name="sourceIndex">开始索引</param>
         /// <param name="dataFormat">字节顺序，默认为ABCD</param>
         /// <returns>字节数组</returns>
         [Description("从字节数组中截取8个字节,并按指定字节序返回")]
-        public static byte[] Get8BytesFromByteArray(byte[] value, int start, DataFormat dataFormat = DataFormat.ABCD)
+        public static byte[] Get8BytesFromByteArray(byte[] sourceArray, int sourceIndex, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] res = new byte[8];
 
-            byte[] resTemp = GetByteArrayFromByteArray(value, start, 8);
+            byte[] resTemp = GetByteArrayFromByteArray(sourceArray, sourceIndex, 8);
 
             if (resTemp == null) return null;
 
             switch (dataFormat)
             {
-                case DataFormat.ABCD:
+                case EndianType.ABCD:
                     res[0] = resTemp[7];
                     res[1] = resTemp[6];
                     res[2] = resTemp[5];
@@ -147,7 +145,7 @@ namespace AY.CommunicationLib.DataConvert
                     res[6] = resTemp[1];
                     res[7] = resTemp[0];
                     break;
-                case DataFormat.CDAB:
+                case EndianType.CDAB:
                     res[0] = resTemp[1];
                     res[1] = resTemp[0];
                     res[2] = resTemp[3];
@@ -157,7 +155,7 @@ namespace AY.CommunicationLib.DataConvert
                     res[6] = resTemp[7];
                     res[7] = resTemp[6];
                     break;
-                case DataFormat.BADC:
+                case EndianType.BADC:
                     res[0] = resTemp[6];
                     res[1] = resTemp[7];
                     res[2] = resTemp[4];
@@ -167,12 +165,15 @@ namespace AY.CommunicationLib.DataConvert
                     res[6] = resTemp[0];
                     res[7] = resTemp[1];
                     break;
-                case DataFormat.DCBA:
+                case EndianType.DCBA:
                     res = resTemp;
                     break;
             }
             return res;
         }
+
+        #endregion
+
 
         /// <summary>
         /// 比较两个字节数组是否完全相同
@@ -206,28 +207,27 @@ namespace AY.CommunicationLib.DataConvert
             return new byte[] { value };
         }
 
+        #region  将其他类型数值转换成字节数组
         /// <summary>
-        /// 将Short类型数值转换成字节数组
+        /// 将Short类型数值转换成长度为2的字节数组
         /// </summary>
         /// <param name="value">Short类型数值</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
-        [Description("将Short类型数值转换成字节数组")]
-        public static byte[] GetByteArrayFromShort(short value, DataFormat dataFormat = DataFormat.ABCD)
+        [Description("将Short类型数值转换成长度为2的字节数组")]
+        public static byte[] GetByteArrayFromShort(short value, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] resTemp = BitConverter.GetBytes(value);
-
             byte[] res = new byte[2];
-
             switch (dataFormat)
             {
-                case DataFormat.ABCD:
-                case DataFormat.CDAB:
+                case EndianType.ABCD:
+                case EndianType.CDAB:
                     res[0] = resTemp[1];
                     res[1] = resTemp[0];
                     break;
-                case DataFormat.BADC:
-                case DataFormat.DCBA:
+                case EndianType.BADC:
+                case EndianType.DCBA:
                     res = resTemp;
                     break;
                 default:
@@ -237,27 +237,25 @@ namespace AY.CommunicationLib.DataConvert
         }
 
         /// <summary>
-        /// 将UShort类型数值转换成字节数组
+        /// 将UShort类型数值转换成长度为2的字节数组
         /// </summary>
         /// <param name="value">UShort类型数值</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
-        [Description("将UShort类型数值转换成字节数组")]
-        public static byte[] GetByteArrayFromUShort(ushort value, DataFormat dataFormat = DataFormat.ABCD)
+        [Description("将UShort类型数值转换成长度为2的字节数组")]
+        public static byte[] GetByteArrayFromUShort(ushort value, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] resTemp = BitConverter.GetBytes(value);
-
             byte[] res = new byte[2];
-
             switch (dataFormat)
             {
-                case DataFormat.ABCD:
-                case DataFormat.CDAB:
+                case EndianType.ABCD:
+                case EndianType.CDAB:
                     res[0] = resTemp[1];
                     res[1] = resTemp[0];
                     break;
-                case DataFormat.BADC:
-                case DataFormat.DCBA:
+                case EndianType.BADC:
+                case EndianType.DCBA:
                     res = resTemp;
                     break;
                 default:
@@ -272,73 +270,70 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="value">Int类型数值</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
-        [Description("将Int类型数值转换成字节数组")]
-        public static byte[] GetByteArrayFromInt(int value, DataFormat dataFormat = DataFormat.ABCD)
+        [Description("将Int类型数值转换成长度为4的字节数组")]
+        public static byte[] GetByteArrayFromInt(int value, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] resTemp = BitConverter.GetBytes(value);
-
             byte[] res = new byte[4];
-
             switch (dataFormat)
             {
-                case DataFormat.ABCD:
+                case EndianType.ABCD:
                     res[0] = resTemp[3];
                     res[1] = resTemp[2];
                     res[2] = resTemp[1];
                     res[3] = resTemp[0];
                     break;
-                case DataFormat.CDAB:
+                case EndianType.CDAB:
                     res[0] = resTemp[1];
                     res[1] = resTemp[0];
                     res[2] = resTemp[3];
                     res[3] = resTemp[2];
                     break;
-                case DataFormat.BADC:
+                case EndianType.BADC:
                     res[0] = resTemp[2];
                     res[1] = resTemp[3];
                     res[2] = resTemp[0];
                     res[3] = resTemp[1];
                     break;
-                case DataFormat.DCBA:
+                case EndianType.DCBA:
                     res = resTemp;
                     break;
             }
             return res;
         }
+
         /// <summary>
-        /// 将UInt类型数值转换成字节数组
+        /// 将UInt类型数值转换成长度为4的字节数组
         /// </summary>
         /// <param name="value">UInt类型数值</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
-        [Description("将UInt类型数值转换成字节数组")]
-        public static byte[] GetByteArrayFromUInt(uint value, DataFormat dataFormat = DataFormat.ABCD)
+        [Description("将UInt类型数值转换成长度为4的字节数组")]
+        public static byte[] GetByteArrayFromUInt(uint value, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] resTemp = BitConverter.GetBytes(value);
-
             byte[] res = new byte[4];
-
             switch (dataFormat)
             {
-                case DataFormat.ABCD:
+                case EndianType.ABCD:
                     res[0] = resTemp[3];
                     res[1] = resTemp[2];
                     res[2] = resTemp[1];
                     res[3] = resTemp[0];
                     break;
-                case DataFormat.CDAB:
+                case EndianType.CDAB:
                     res[0] = resTemp[1];
                     res[1] = resTemp[0];
                     res[2] = resTemp[3];
                     res[3] = resTemp[2];
                     break;
-                case DataFormat.BADC:
+                case EndianType.BADC:
                     res[0] = resTemp[2];
                     res[1] = resTemp[3];
                     res[2] = resTemp[0];
                     res[3] = resTemp[1];
                     break;
-                case DataFormat.DCBA:
+                case EndianType.DCBA:
                     res = resTemp;
                     break;
             }
@@ -346,60 +341,58 @@ namespace AY.CommunicationLib.DataConvert
         }
 
         /// <summary>
-        /// 将Float数值转换成字节数组
+        /// 将Float数值转换成长度为4的字节数组
         /// </summary>
         /// <param name="value">Float类型数值</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
-        [Description("将Float数值转换成字节数组")]
-        public static byte[] GetByteArrayFromFloat(float value, DataFormat dataFormat = DataFormat.ABCD)
+        [Description("将Float数值转换成长度为4的字节数组")]
+        public static byte[] GetByteArrayFromFloat(float value, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] resTemp = BitConverter.GetBytes(value);
-
             byte[] res = new byte[4];
-
             switch (dataFormat)
             {
-                case DataFormat.ABCD:
+                case EndianType.ABCD:
                     res[0] = resTemp[3];
                     res[1] = resTemp[2];
                     res[2] = resTemp[1];
                     res[3] = resTemp[0];
                     break;
-                case DataFormat.CDAB:
+                case EndianType.CDAB:
                     res[0] = resTemp[1];
                     res[1] = resTemp[0];
                     res[2] = resTemp[3];
                     res[3] = resTemp[2];
                     break;
-                case DataFormat.BADC:
+                case EndianType.BADC:
                     res[0] = resTemp[2];
                     res[1] = resTemp[3];
                     res[2] = resTemp[0];
                     res[3] = resTemp[1];
                     break;
-                case DataFormat.DCBA:
+                case EndianType.DCBA:
                     res = resTemp;
                     break;
             }
             return res;
         }
+
         /// <summary>
-        /// 将Double类型数值转换成字节数组
+        /// 将Double类型数值转换成长度为8的字节数组
         /// </summary>
         /// <param name="value">Double类型数值</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
-        [Description("将Double类型数值转换成字节数组")]
-        public static byte[] GetByteArrayFromDouble(double value, DataFormat dataFormat = DataFormat.ABCD)
+        [Description("将Double类型数值转换成长度为8的字节数组")]
+        public static byte[] GetByteArrayFromDouble(double value, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] resTemp = BitConverter.GetBytes(value);
-
             byte[] res = new byte[8];
 
             switch (dataFormat)
             {
-                case DataFormat.ABCD:
+                case EndianType.ABCD:
                     res[0] = resTemp[7];
                     res[1] = resTemp[6];
                     res[2] = resTemp[5];
@@ -409,7 +402,7 @@ namespace AY.CommunicationLib.DataConvert
                     res[6] = resTemp[1];
                     res[7] = resTemp[0];
                     break;
-                case DataFormat.CDAB:
+                case EndianType.CDAB:
                     res[0] = resTemp[1];
                     res[1] = resTemp[0];
                     res[2] = resTemp[3];
@@ -419,7 +412,7 @@ namespace AY.CommunicationLib.DataConvert
                     res[6] = resTemp[7];
                     res[7] = resTemp[6];
                     break;
-                case DataFormat.BADC:
+                case EndianType.BADC:
                     res[0] = resTemp[6];
                     res[1] = resTemp[7];
                     res[2] = resTemp[4];
@@ -429,7 +422,7 @@ namespace AY.CommunicationLib.DataConvert
                     res[6] = resTemp[0];
                     res[7] = resTemp[1];
                     break;
-                case DataFormat.DCBA:
+                case EndianType.DCBA:
                     res = resTemp;
                     break;
             }
@@ -437,21 +430,19 @@ namespace AY.CommunicationLib.DataConvert
         }
 
         /// <summary>
-        /// 将Long类型数值转换成字节数组
+        /// 将Long类型数值转换成长度为8的字节数组
         /// </summary>
         /// <param name="value">Long类型数值</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
-        [Description("将Long类型数值转换成字节数组")]
-        public static byte[] GetByteArrayFromLong(long value, DataFormat dataFormat = DataFormat.ABCD)
+        [Description("将Long类型数值转换成长度为8的字节数组")]
+        public static byte[] GetByteArrayFromLong(long value, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] resTemp = BitConverter.GetBytes(value);
-
             byte[] res = new byte[8];
-
             switch (dataFormat)
             {
-                case DataFormat.ABCD:
+                case EndianType.ABCD:
                     res[0] = resTemp[7];
                     res[1] = resTemp[6];
                     res[2] = resTemp[5];
@@ -461,7 +452,7 @@ namespace AY.CommunicationLib.DataConvert
                     res[6] = resTemp[1];
                     res[7] = resTemp[0];
                     break;
-                case DataFormat.CDAB:
+                case EndianType.CDAB:
                     res[0] = resTemp[1];
                     res[1] = resTemp[0];
                     res[2] = resTemp[3];
@@ -471,7 +462,7 @@ namespace AY.CommunicationLib.DataConvert
                     res[6] = resTemp[7];
                     res[7] = resTemp[6];
                     break;
-                case DataFormat.BADC:
+                case EndianType.BADC:
                     res[0] = resTemp[6];
                     res[1] = resTemp[7];
                     res[2] = resTemp[4];
@@ -481,7 +472,7 @@ namespace AY.CommunicationLib.DataConvert
                     res[6] = resTemp[0];
                     res[7] = resTemp[1];
                     break;
-                case DataFormat.DCBA:
+                case EndianType.DCBA:
                     res = resTemp;
                     break;
             }
@@ -489,21 +480,19 @@ namespace AY.CommunicationLib.DataConvert
         }
 
         /// <summary>
-        /// 将ULong类型数值转换成字节数组
+        /// 将ULong类型数值转换成长度为8的字节数组
         /// </summary>
         /// <param name="value">ULong类型数值</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
-        [Description("将ULong类型数值转换成字节数组")]
-        public static byte[] GetByteArrayFromULong(ulong value, DataFormat dataFormat = DataFormat.ABCD)
+        [Description("将ULong类型数值转换成长度为8的字节数组")]
+        public static byte[] GetByteArrayFromULong(ulong value, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] resTemp = BitConverter.GetBytes(value);
-
             byte[] res = new byte[8];
-
             switch (dataFormat)
             {
-                case DataFormat.ABCD:
+                case EndianType.ABCD:
                     res[0] = resTemp[7];
                     res[1] = resTemp[6];
                     res[2] = resTemp[5];
@@ -513,7 +502,7 @@ namespace AY.CommunicationLib.DataConvert
                     res[6] = resTemp[1];
                     res[7] = resTemp[0];
                     break;
-                case DataFormat.CDAB:
+                case EndianType.CDAB:
                     res[0] = resTemp[1];
                     res[1] = resTemp[0];
                     res[2] = resTemp[3];
@@ -523,7 +512,7 @@ namespace AY.CommunicationLib.DataConvert
                     res[6] = resTemp[7];
                     res[7] = resTemp[6];
                     break;
-                case DataFormat.BADC:
+                case EndianType.BADC:
                     res[0] = resTemp[6];
                     res[1] = resTemp[7];
                     res[2] = resTemp[4];
@@ -533,7 +522,7 @@ namespace AY.CommunicationLib.DataConvert
                     res[6] = resTemp[0];
                     res[7] = resTemp[1];
                     break;
-                case DataFormat.DCBA:
+                case EndianType.DCBA:
                     res = resTemp;
                     break;
             }
@@ -541,13 +530,13 @@ namespace AY.CommunicationLib.DataConvert
         }
 
         /// <summary>
-        /// 将Short数组转换成字节数组
+        /// 将Short数组转换成字节数组，返回的字节数组长度为2 * 数组长度
         /// </summary>
         /// <param name="value">Short数组</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
         [Description("将Short数组转换成字节数组")]
-        public static byte[] GetByteArrayFromShortArray(short[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static byte[] GetByteArrayFromShortArray(short[] value, EndianType dataFormat = EndianType.ABCD)
         {
             ByteArray array = new ByteArray();
 
@@ -555,17 +544,17 @@ namespace AY.CommunicationLib.DataConvert
             {
                 array.Add(GetByteArrayFromShort(item, dataFormat));
             }
-            return array.array;
+            return array.Array;
         }
 
         /// <summary>
-        /// 将UShort数组转换成字节数组
+        /// 将UShort数组转换成字节数组，返回的字节数组长度为2 * 数组长度
         /// </summary>
         /// <param name="value">UShort数组</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
         [Description("将UShort数组转换成字节数组")]
-        public static byte[] GetByteArrayFromUShortArray(ushort[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static byte[] GetByteArrayFromUShortArray(ushort[] value, EndianType dataFormat = EndianType.ABCD)
         {
             ByteArray array = new ByteArray();
 
@@ -573,17 +562,17 @@ namespace AY.CommunicationLib.DataConvert
             {
                 array.Add(GetByteArrayFromUShort(item, dataFormat));
             }
-            return array.array;
+            return array.Array;
         }
 
         /// <summary>
-        /// 将Int类型数组转换成字节数组
+        /// 将Int类型数组转换成字节数组，返回的字节数组长度为4 * 数组长度
         /// </summary>
         /// <param name="value">Int类型数组</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
         [Description("将Int类型数组转换成字节数组")]
-        public static byte[] GetByteArrayFromIntArray(int[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static byte[] GetByteArrayFromIntArray(int[] value, EndianType dataFormat = EndianType.ABCD)
         {
             ByteArray array = new ByteArray();
 
@@ -591,16 +580,16 @@ namespace AY.CommunicationLib.DataConvert
             {
                 array.Add(GetByteArrayFromInt(item, dataFormat));
             }
-            return array.array;
+            return array.Array;
         }
         /// <summary>
-        /// 将UInt类型数组转换成字节数组
+        /// 将UInt类型数组转换成字节数组，返回的字节数组长度为4 * 数组长度
         /// </summary>
         /// <param name="value">UInt类型数组</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
         [Description("将UInt类型数组转换成字节数组")]
-        public static byte[] GetByteArrayFromUIntArray(uint[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static byte[] GetByteArrayFromUIntArray(uint[] value, EndianType dataFormat = EndianType.ABCD)
         {
             ByteArray array = new ByteArray();
 
@@ -608,17 +597,17 @@ namespace AY.CommunicationLib.DataConvert
             {
                 array.Add(GetByteArrayFromUInt(item, dataFormat));
             }
-            return array.array;
+            return array.Array;
         }
 
         /// <summary>
-        /// 将Float类型数组转成字节数组
+        /// 将Float类型数组转成字节数组，返回的字节数组长度为4 * 数组长度
         /// </summary>
         /// <param name="value">Float类型数组</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
         [Description("将Float类型数组转成字节数组")]
-        public static byte[] GetByteArrayFromFloatArray(float[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static byte[] GetByteArrayFromFloatArray(float[] value, EndianType dataFormat = EndianType.ABCD)
         {
             ByteArray array = new ByteArray();
 
@@ -626,17 +615,17 @@ namespace AY.CommunicationLib.DataConvert
             {
                 array.Add(GetByteArrayFromFloat(item, dataFormat));
             }
-            return array.array;
+            return array.Array;
         }
 
         /// <summary>
-        /// 将Double类型数组转成字节数组
+        /// 将Double类型数组转成字节数组，返回的字节数组长度为8 * 数组长度
         /// </summary>
         /// <param name="value">Double类型数组</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
         [Description("将Double类型数组转成字节数组")]
-        public static byte[] GetByteArrayFromDoubleArray(double[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static byte[] GetByteArrayFromDoubleArray(double[] value, EndianType dataFormat = EndianType.ABCD)
         {
             ByteArray array = new ByteArray();
 
@@ -644,17 +633,17 @@ namespace AY.CommunicationLib.DataConvert
             {
                 array.Add(GetByteArrayFromDouble(item, dataFormat));
             }
-            return array.array;
+            return array.Array;
         }
 
         /// <summary>
-        /// 将Long类型数组转换成字节数组
+        /// 将Long类型数组转换成字节数组，返回的字节数组长度为8 * 数组长度
         /// </summary>
         /// <param name="value">Long类型数组</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
         [Description("将Long类型数组转换成字节数组")]
-        public static byte[] GetByteArrayFromLongArray(long[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static byte[] GetByteArrayFromLongArray(long[] value, EndianType dataFormat = EndianType.ABCD)
         {
             ByteArray array = new ByteArray();
 
@@ -662,17 +651,17 @@ namespace AY.CommunicationLib.DataConvert
             {
                 array.Add(GetByteArrayFromDouble(item, dataFormat));
             }
-            return array.array;
+            return array.Array;
         }
 
         /// <summary>
-        /// 将ULong类型数组转换成字节数组
+        /// 将ULong类型数组转换成字节数组，返回的字节数组长度为8 * 数组长度
         /// </summary>
         /// <param name="value">ULong类型数组</param>
         /// <param name="dataFormat">字节顺序</param>
         /// <returns>字节数组</returns>
         [Description("将ULong类型数组转换成字节数组")]
-        public static byte[] GetByteArrayFromULongArray(ulong[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static byte[] GetByteArrayFromULongArray(ulong[] value, EndianType dataFormat = EndianType.ABCD)
         {
             ByteArray array = new ByteArray();
 
@@ -680,8 +669,10 @@ namespace AY.CommunicationLib.DataConvert
             {
                 array.Add(GetByteArrayFromULong(item, dataFormat));
             }
-            return array.array;
+            return array.Array;
         }
+        #endregion
+
 
         /// <summary>
         /// 将指定编码格式的字符串转换成字节数组
@@ -727,7 +718,7 @@ namespace AY.CommunicationLib.DataConvert
             }
             catch (Exception ex)
             {
-                throw new ArgumentNullException("数据转换失败："+ex.Message);
+                throw new ArgumentNullException("数据转换失败：" + ex.Message);
             }
         }
 
@@ -739,8 +730,8 @@ namespace AY.CommunicationLib.DataConvert
         [Description("将16进制字符串不用分隔符转换成字节数组（每2个字符为1个字节）")]
         public static byte[] GetByteArrayFromHexStringWithoutSpilt(string value)
         {
-            if (value.Length % 2 != 0) throw new ArgumentNullException("检查字符串长度是否为偶数"); 
-            
+            if (value.Length % 2 != 0) throw new ArgumentNullException("检查字符串长度是否为偶数");
+
             List<byte> result = new List<byte>();
             try
             {
@@ -811,7 +802,7 @@ namespace AY.CommunicationLib.DataConvert
         public static byte[] GetByteArrayFromBoolArray(bool[] data)
         {
 
-            if (data == null || data.Length == 0)  throw new ArgumentNullException("检查数组长度是否正确"); ;
+            if (data == null || data.Length == 0) throw new ArgumentNullException("检查数组长度是否正确"); ;
 
             byte[] result = new byte[data.Length % 8 != 0 ? data.Length / 8 + 1 : data.Length / 8];
 
@@ -874,7 +865,7 @@ namespace AY.CommunicationLib.DataConvert
         {
             if (data == null) return new byte[0];
 
-            if (data.Length % 2 !=0)
+            if (data.Length % 2 != 0)
                 return GetFixedLengthByteArray(data, data.Length + 1);
             else
                 return data;

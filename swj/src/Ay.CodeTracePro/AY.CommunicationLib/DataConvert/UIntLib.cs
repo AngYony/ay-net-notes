@@ -22,7 +22,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回UInt类型</returns>
         [Description("字节数组中截取转成32位无符号整型")]
-        public static uint GetUIntFromByteArray(byte[] value, int start = 0, DataFormat dataFormat = DataFormat.ABCD)
+        public static uint GetUIntFromByteArray(byte[] value, int start = 0, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] data = ByteArrayLib.Get4BytesFromByteArray(value, start, dataFormat);
             return BitConverter.ToUInt32(data, 0);
@@ -35,7 +35,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回int数组</returns>
         [Description("将字节数组中截取转成32位无符号整型数组")]
-        public static uint[] GetUIntArrayFromByteArray(byte[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static uint[] GetUIntArrayFromByteArray(byte[] value, EndianType dataFormat = EndianType.ABCD)
         {
             if (value == null) throw new ArgumentNullException("检查数组长度是否为空");
 

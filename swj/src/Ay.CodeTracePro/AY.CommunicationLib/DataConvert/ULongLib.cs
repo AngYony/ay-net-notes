@@ -21,7 +21,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回一个ULong类型</returns>
         [Description("字节数组中截取转成64位无符号整型")]
-        public static ulong GetULongFromByteArray(byte[] value, int start = 0, DataFormat dataFormat = DataFormat.ABCD)
+        public static ulong GetULongFromByteArray(byte[] value, int start = 0, EndianType dataFormat = EndianType.ABCD)
         {
             byte[] data = ByteArrayLib.Get8BytesFromByteArray(value, start, dataFormat);
             return BitConverter.ToUInt64(data, 0);
@@ -34,7 +34,7 @@ namespace AY.CommunicationLib.DataConvert
         /// <param name="dataFormat">数据格式</param>
         /// <returns>返回Long数组</returns>
         [Description("将字节数组中截取转成64位无符号整型数组")]
-        public static ulong[] GetULongArrayFromByteArray(byte[] value, DataFormat dataFormat = DataFormat.ABCD)
+        public static ulong[] GetULongArrayFromByteArray(byte[] value, EndianType dataFormat = EndianType.ABCD)
         {
             if (value == null) throw new ArgumentNullException("检查数组长度是否为空");
 
