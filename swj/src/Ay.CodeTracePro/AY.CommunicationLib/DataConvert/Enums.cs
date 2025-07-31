@@ -22,12 +22,12 @@ namespace AY.CommunicationLib.DataConvert
         /// <summary>
         /// 按照单字反转
         /// </summary>
-        [Description("按照单字反转，小端反转")] 
+        [Description("按照单字反转，大端反转")] 
         BADC = 1,
         /// <summary>
         /// 按照双字反转
         /// </summary>
-        [Description("按照双字反转，大端反转")] 
+        [Description("按照双字反转，小端反转")] 
         CDAB = 2,
         /// <summary>
         /// 按照倒序排序

@@ -49,6 +49,18 @@
     <Compile Include="extensions\DataGridViewExtension.cs" />
     <Compile Include="extensions\FormExtension.cs" />
     <Compile Include="FormNames.cs" />
+    <Compile Include="FrmMsgNoAck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMsgNoAck.Designer.cs">
+      <DependentUpon>FrmMsgNoAck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMsgWithAck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMsgWithAck.Designer.cs">
+      <DependentUpon>FrmMsgWithAck.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmRecord.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +88,12 @@
     <Compile Include="Global.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmMsgNoAck.resx">
+      <DependentUpon>FrmMsgNoAck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMsgWithAck.resx">
+      <DependentUpon>FrmMsgWithAck.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmRecord.resx">
       <DependentUpon>FrmRecord.cs</DependentUpon>
     </EmbeddedResource>

@@ -31,7 +31,7 @@ namespace Ay.CodeTracePro
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         private void FrmMain_Load(object sender, EventArgs e)
@@ -42,9 +42,15 @@ namespace Ay.CodeTracePro
                 Global.A3A4 = result2.Content;
                 Global.A3A4.ForEach(c =>
                 {
+
                     c.AlarmEvent += PLC_AlarmEvent;
                     c.Start();
                 });
+            }
+            else
+            {
+                FrmMsgNoAck.Show("加载A3A4设备配置失败：" + result2.Message, "错误");
+                return;
             }
             var result3 = ModbusTCPCFG.LoadDevice(A5A6Path);
             if (result3.IsSuccess)
@@ -52,16 +58,95 @@ namespace Ay.CodeTracePro
                 Global.A5A6 = result3.Content;
                 Global.A5A6.ForEach(c =>
                 {
+                    c.DataFormat = AY.CommunicationLib.DataConvert.DataFormat.CDAB;
                     c.AlarmEvent += PLC_AlarmEvent;
                     c.Start();
                 });
             }
+            else
+            {
+                FrmMsgNoAck.Show("加载A5A6设备配置失败：" + result3.Message, "错误");
+                return;
+            }
 
         }
 
+        private Action<SiemensDevice, string, bool> A3A4Handle; 
+        private Action<ModbusTCPDevice, string, bool> A5A6Handle;
+
+        /// <summary>
+        /// 业务处理
+        /// </summary>
+        /// <param name="variable"></param>
+        /// <param name="e"></param>
+        /// <exception cref="NotImplementedException"></exception>
         private void PLC_AlarmEvent(VariableBase variable, AlarmEventArgs e)
         {
-            throw new NotImplementedException();
+            //检查触发
+            if (e.IsTriggered)
+            {
+                if (e.VarName == "完成信号")
+                {
+                    if (e.CurrentValue == "1")
+                    {
+                        switch (e.DeviceName)
+                        {
+                            case "机台A3":
+                            case "机台A4":
+                                var device2 = Global.A3A4.FirstOrDefault(c => c.DeviceName == e.DeviceName);
+                                if (device2 != null)
+                                {
+                                    string code = device2["电机条码"]?.ToString();
+                                    if (code.Length > 0)
+                                    {
+                                        bool result = device2["检测结果"]?.ToString() == "1";
+                                        this.A3A4Handle?.Invoke(device2, code, result);
+
+
+                                        var write = device2.Write("完成信号", "0");
+                                        if (write.IsSuccess)
+                                        {
+                                            //记录日志，复位成功
+                                        }
+                                    }
+                                    else
+                                    {
+                                        FrmMsgNoAck.Show($"机台{e.DeviceName}完成，但未获取到电机条码", "提示");
+                                    }
+                                }
+                                break;
+
+                            case "机台A5":
+                            case "机台A6":
+                                var device3 = Global.A5A6.FirstOrDefault(c => c.DeviceName == e.DeviceName);
+                                if (device3!= null)
+                                {
+                                    string code = device3["电机条码"]?.ToString();
+                                    if (code.Length > 0)
+                                    {
+                                        bool result = device3["检测结果"]?.ToString() == "1";
+                                        this.A5A6Handle?.Invoke(device3, code, result);
+
+
+                                        var write = device3.Write("完成信号", "0");
+                                        if (write.IsSuccess)
+                                        {
+                                            //记录日志，复位成功
+                                        }
+                                    }
+                                    else
+                                    {
+                                        FrmMsgNoAck.Show($"机台{e.DeviceName}完成，但未获取到电机条码", "提示");
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+
         }
 
         private void UpdateTimer_Tick(object sender, EventArgs e)

@@ -406,10 +406,8 @@ namespace xbd.NodeSettings
                 case DataType.ULong:
                     return modbus.WriteSingleRegister(start, ByteArrayLib.GetByteArrayFromULong(Convert.ToUInt64(varValue), this.DataFormat));
                 case DataType.String:
-                    if(varValue.Length%2!=0)
-                    {
-                        varValue += " ";
-                    }
+
+                    varValue = varValue.PadRight(result.Content2 * 2, ' ');
                     byte[] bytes = ByteArrayLib.GetByteArrayFromString(varValue, Encoding.ASCII);
                     if(this.DataFormat==DataFormat.BADC || this.DataFormat==DataFormat.DCBA)
                     {
