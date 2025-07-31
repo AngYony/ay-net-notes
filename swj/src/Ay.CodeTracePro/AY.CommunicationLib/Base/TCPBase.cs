@@ -1,27 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AY.CommunicationLib
 {
     public class TCPBase
     {
-        //创建一个Tcp通信对象
-        private TcpClient tcpClient;
-
         /// <summary>
-        /// 发送超时时间
+        /// 发送超时值（以毫秒为单位），0表示永不超时
         /// </summary>
         public int SendTimeOut { get; set; } = 500;
 
         /// <summary>
-        /// 接收超时时间
+        /// 连接的超时值（以毫秒为单位）,0表示永不超时
         /// </summary>
         public int ReceiveTimeOut { get; set; } = 500;
 
@@ -38,11 +30,14 @@ namespace AY.CommunicationLib
         //锁对象
         private SimpleHybirdLock simpleHybirdLock = new SimpleHybirdLock();
 
+        //创建一个Tcp通信对象
+        private TcpClient tcpClient = null;
+
         /// <summary>
         /// 建立连接
         /// </summary>
-        /// <param name="ip"></param>
-        /// <param name="port"></param>
+        /// <param name="ip">ip地址</param>
+        /// <param name="port">端口号</param>
         /// <returns></returns>
         public OperateResult Connect(string ip, int port)
         {
@@ -78,16 +73,7 @@ namespace AY.CommunicationLib
         {
             if (this.tcpClient != null)
             {
-                try
-                {
-                    this.tcpClient.Close();
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-
+                this.tcpClient.Close();
             }
         }
 
@@ -99,50 +85,37 @@ namespace AY.CommunicationLib
         public OperateResult<byte[]> SendAndReceive(byte[] request)
         {
             simpleHybirdLock.Enter();
-
             MemoryStream memoryStream = new MemoryStream();
-
             try
             {
-                this.tcpClient.GetStream().Write(request, 0, request.Length);
-
+                var tcpStream = this.tcpClient.GetStream();
+                tcpStream.Write(request, 0, request.Length);
                 DateTime start = DateTime.Now;
-
                 byte[] buffer = new byte[1024];
-
                 while (true)
                 {
                     if (this.tcpClient.Available > 0)
                     {
-                        int count = this.tcpClient.GetStream().Read(buffer, 0, this.tcpClient.Available);
-
+                        int count = tcpStream.Read(buffer, 0, buffer.Length);
                         memoryStream.Write(buffer, 0, count);
                     }
                     else
                     {
-                        //判断是否超时
+                        //判断是否超时：注意此处的超时最好的解决方案是使用TokenCancel来实现
                         if ((DateTime.Now - start).TotalMilliseconds > this.MaxWaitTime)
                         {
                             memoryStream.Dispose();
                             return OperateResult.CreateFailResult<byte[]>("请求超时");
                         }
-                        //读取完了
                         else if (memoryStream.Length > 0)
                         {
                             break;
-                        }
-                        //继续读取
-                        else
-                        {
-                            continue;
                         }
                     }
                 }
 
                 byte[] response = memoryStream.ToArray();
-
                 memoryStream.Dispose();
-
                 return OperateResult.CreateSuccessResult(response);
             }
             catch (Exception ex)
@@ -154,6 +127,5 @@ namespace AY.CommunicationLib
                 simpleHybirdLock.Leave();
             }
         }
-
     }
 }

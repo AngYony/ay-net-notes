@@ -1,24 +1,18 @@
-
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace AY.CommunicationLib
 {
     //串口通信类基类
     public class SerialBase
     {
-
         /// <summary>
         /// 操作未完成时发生超时之前的毫秒数
         /// </summary>
         public int ReadTimeOut { get; set; } = 500;
-        
+
         /// <summary>
         /// 获取或设置写入操作未完成时发生超时之前的毫秒数。
         /// </summary>
@@ -34,14 +28,11 @@ namespace AY.CommunicationLib
         /// </summary>
         public int ReceiveTimeOut { get; set; } = 3000;
 
-
-
         //创建一个串口通信对象
         private SerialPort serialPort = null;
 
         //创建一个互斥锁对象
         private SimpleHybirdLock hybirdLock = new SimpleHybirdLock();
-
 
         /// <summary>
         /// 打开串口方法
@@ -85,7 +76,6 @@ namespace AY.CommunicationLib
             }
         }
 
-
         /// <summary>
         /// 关闭串口
         /// </summary>
@@ -97,7 +87,6 @@ namespace AY.CommunicationLib
             }
         }
 
-
         /// <summary>
         /// 串口发送并接收数据
         /// </summary>
@@ -105,7 +94,6 @@ namespace AY.CommunicationLib
         /// <returns></returns>
         public OperateResult<byte[]> SendAndReceive(byte[] request)
         {
-
             MemoryStream stream = new MemoryStream();
             hybirdLock.Enter();
             try
@@ -143,7 +131,6 @@ namespace AY.CommunicationLib
                             break; //没有更多数据可读，退出循环
                         }
                     }
-
                 }
 
                 byte[] response = stream.ToArray();
