@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTag.About", "Learni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningTag.Utils", "LearningTag.Utils\LearningTag.Utils.csproj", "{14A224D0-B8BB-4032-A28B-16C39DCD75B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.LearningTag.Shared", "AY.LearningTag.Shared\AY.LearningTag.Shared.csproj", "{AB6F8552-C668-4199-AC25-B907D8112A33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.LearningTag.App", "AY.LearningTag.App\AY.LearningTag.App.csproj", "{FC6BECD1-3683-47A6-8058-90E07CC4F1ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{14A224D0-B8BB-4032-A28B-16C39DCD75B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14A224D0-B8BB-4032-A28B-16C39DCD75B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14A224D0-B8BB-4032-A28B-16C39DCD75B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB6F8552-C668-4199-AC25-B907D8112A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB6F8552-C668-4199-AC25-B907D8112A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB6F8552-C668-4199-AC25-B907D8112A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB6F8552-C668-4199-AC25-B907D8112A33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC6BECD1-3683-47A6-8058-90E07CC4F1ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC6BECD1-3683-47A6-8058-90E07CC4F1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC6BECD1-3683-47A6-8058-90E07CC4F1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC6BECD1-3683-47A6-8058-90E07CC4F1ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

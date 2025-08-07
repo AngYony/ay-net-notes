@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace LearningTag.Setting.ViewModels
 {
-    public class SettingMainViewModel :ViewModelBase
+    public class SettingMainViewModel :BaseNavigationViewModel
     {
         private readonly IRegionManager _regionManager;
         private readonly IEventAggregator _eventAggregator; 

@@ -1,5 +1,9 @@
-﻿using LearningTag.Shared.ViewModel;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using Dumpify;
+using LearningTag.Shared.ViewModel;
 using LearningTagApp.Dtos;
+using LearningTagApp.Messages;
 using ObservableCollections;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -9,7 +13,7 @@ using System.Linq;
 
 namespace LearningTagApp.ViewModels
 {
-    public class LearnMainViewModel : ViewModelBase
+    public class LearnMainViewModel : BaseNavigationViewModel
     {
 
 
@@ -21,10 +25,14 @@ namespace LearningTagApp.ViewModels
             LearningWorkDtos = new ObservableList<LearningWorkDto>();
             LearningWorkDtos.AddRange(GetLearningWorkDto());
             View = LearningWorkDtos.ToNotifyCollectionChanged();
-
+            WeakReferenceMessenger.Default.Register<ValueChangedMessage<RecordMessage>>(this,Receive);
 
         }
 
+        private void Receive(object recipient, ValueChangedMessage<RecordMessage> message)
+        {
+            message.Value.RecordTitle.Dump();
+        }
 
         private LearningWorkDto[] GetLearningWorkDto()
         {

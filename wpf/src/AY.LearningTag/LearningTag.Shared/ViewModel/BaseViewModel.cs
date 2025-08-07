@@ -1,4 +1,4 @@
-﻿using Prism.Regions;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,25 +7,10 @@ using System.Threading.Tasks;
 
 namespace LearningTag.Shared.ViewModel
 {
-    public class ViewModelBase : Prism.Mvvm.BindableBase, IConfirmNavigationRequest
+    /// <summary>
+    /// 
+    /// </summary>
+    public class BaseViewModel :CommunityToolkit.Mvvm.ComponentModel.ObservableObject
     {
-        public virtual void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
-        {
-            continuationCallback(true);
-        }
-
-        public virtual bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            return true;
-        }
-
-        public virtual void OnNavigatedFrom(NavigationContext navigationContext)
-        {
-            
-        }
-
-        public virtual void OnNavigatedTo(NavigationContext navigationContext)
-        { 
-        }
     }
 }

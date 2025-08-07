@@ -5,6 +5,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Dumpify" Version="0.6.6" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\LearningTag.Setting\LearningTag.Setting.csproj" />
     <ProjectReference Include="..\LearningTag.Shared\LearningTag.Shared.csproj" />
   </ItemGroup>

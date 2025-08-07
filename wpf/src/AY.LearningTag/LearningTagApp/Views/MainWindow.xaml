@@ -76,6 +76,8 @@
 
                 <Button Click="Button_Click" Content="用户注册测试" />
 
+                <Button Click="Button_Click_1" Content="学习记录" />
+
 
 
 

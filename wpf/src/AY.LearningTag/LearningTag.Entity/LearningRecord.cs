@@ -9,21 +9,12 @@ namespace LearningTag.Entity
     /// <summary>
     /// 学习记录（学习任务）
     /// </summary>
-    public class LearningRecord
+    public class LearningRecord:BaseEntity
     {
         /// <summary>
-        /// 记录Id
+        /// 小节信息Id
         /// </summary>
-        public int RecordId { get; set; }
-
-        /// <summary>
-        /// 学习集Id
-        /// </summary>
-        public int WorkId { get; set; }
-        /// <summary>
-        /// 标题
-        /// </summary>
-        public string Title { get; set; }
+        public int SectionId { get; set; }
 
         /// <summary>
         /// 学习开始时间
@@ -35,25 +26,12 @@ namespace LearningTag.Entity
         /// </summary>
         public DateTime EndTime { get; set; }
 
-        /// <summary>
-        /// 学习用时
-        /// </summary>
-        public TimeSpan UseTime
-        {
-            get
-            {
-                return EndTime - BeginTime;
-            }
-        }
-
-        /// <summary>
-        /// 视频时长
-        /// </summary>
-        public decimal VideoDuration { get; set; }
-
+        
         /// <summary>
         /// 已学时长
         /// </summary>
-        public decimal StudiedDuration { get; set; }
+        public int TakeDuration { get; set; }
+
+
     }
 }

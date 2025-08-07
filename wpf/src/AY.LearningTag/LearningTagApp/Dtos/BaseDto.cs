@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,12 @@ using System.Threading.Tasks;
 
 namespace LearningTagApp.Dtos
 {
-   public class BaseDto : BindableBase
+    //public class BaseDto : BindableBase
+    // {
+
+    // }
+
+    public class BaseDto : CommunityToolkit.Mvvm.ComponentModel.ObservableObject
     {
 
     }

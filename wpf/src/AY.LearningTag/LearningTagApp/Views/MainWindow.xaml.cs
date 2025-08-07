@@ -29,5 +29,10 @@ namespace LearningTagApp.Views
         {
             new UserRegistWindow().ShowDialog();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            new LearningRecordView().ShowDialog();
+        }
     }
 }

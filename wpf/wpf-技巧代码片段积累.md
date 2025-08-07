@@ -168,3 +168,13 @@ xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
 </DataGrid>
 ```
 
+
+
+### 文本框内容动态变化触发ViewModel响应
+
+不应该使用类似winform中的TextChanged事件，而是通过绑定的方式，在ViewModel中进行处理。XAML中需要指定UpdateSourceTrigger=PropertyChanged：
+
+```xaml
+<TextBox Text="{Binding Name, UpdateSourceTrigger = PropertyChanged}"/>
+```
+

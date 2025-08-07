@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,82 +7,53 @@ using System.Threading.Tasks;
 
 namespace LearningTagApp.Dtos
 {
-    public class LearningRecordDto : BaseDto
+    /// <summary>
+    /// 学习记录表
+    /// </summary>
+    public partial class LearningRecordDto : BaseDto
     {
-        private int _recordId;
-
-        public int RecordId
-        {
-            get { return _recordId; }
-            set { SetProperty(ref _recordId, value); }
-        }
-
-        private int _workId;
-        public int WorkId
-        {
-            get { return _workId; }
-            set { SetProperty(ref _workId, value); }
-        }
-
-
-
-        private string _title;
         /// <summary>
-        /// 标题
+        /// 章节标题
         /// </summary>
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
-        private DateTime _beginTime;
+        [ObservableProperty]
+        private string chapterTitle;
+
+        /// <summary>
+        /// 小节标题
+        /// </summary>
+        [ObservableProperty]
+        private string sectionTitle;
+
+        /// <summary>
+        /// 小节链接
+        /// </summary>
+        [ObservableProperty]
+        private string sectionLinkUrl;
+
+        /// <summary>
+        /// 小节时长
+        /// </summary>
+        [ObservableProperty]
+        private int sectionDuration;
+
         /// <summary>
         /// 学习开始时间
         /// </summary>
-        public DateTime BeginTime
-        {
-            get { return _beginTime; }
-            set { SetProperty(ref _beginTime, value); }
-        }
-        private DateTime _endTime;
+        [ObservableProperty]
+        private DateTime learngingBeginTime;
+
         /// <summary>
         /// 学习结束时间
         /// </summary>
-        public DateTime EndTime
-        {
-            get { return _endTime; }
-            set { SetProperty(ref _endTime, value); }
-        }
+        [ObservableProperty]
+        private DateTime learngingEndTime;
+
 
         /// <summary>
-        /// 学习用时
+        /// 已学习小节时长，单位秒
         /// </summary>
-        public TimeSpan UseTime
-        {
-            get
-            {
-                return EndTime - BeginTime;
-            }
-        }
-
-        private decimal _videoDuration;
-        /// <summary>
-        /// 视频时长
-        /// </summary>
-        public decimal VideoDuration
-        {
-            get { return _videoDuration; }
-            set { SetProperty(ref _videoDuration, value); }
-        }
-        private decimal _studiedDuration;
-        /// <summary>
-        /// 已学时长
-        /// </summary>
-        public decimal StudiedDuration
-        {
-            get { return _studiedDuration; }
-            set { SetProperty(ref _studiedDuration, value); }
-        }
+        [ObservableProperty]
+        private int takeDuration;
 
     }
 }

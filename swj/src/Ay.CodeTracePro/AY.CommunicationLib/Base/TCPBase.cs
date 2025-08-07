@@ -35,6 +35,7 @@ namespace AY.CommunicationLib
 
         //创建一个Tcp通信对象
         private TcpClient tcpClient = null;
+        
 
         /// <summary>
         /// 建立连接

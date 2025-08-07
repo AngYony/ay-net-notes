@@ -7,6 +7,11 @@ ViewModel 与 View 的沟通：
 - 传递数据：依靠数据属性（DataBinding）
 - 传递操作：依靠命令属性（ICommand）
 
+ViewModel之间的沟通：
+
+- MVVM框架，使用事件聚合器，发送消息
+- 
+
 
 
 ## MVVM的实现

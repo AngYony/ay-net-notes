@@ -1,0 +1,31 @@
+﻿<Window
+    x:Class="LearningTagApp.Views.LearningRecordView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Style.Triggers>
+                <Trigger Property="Text" Value="True">
+                    <Setter Property="Foreground" Value="Red" />
+                    <Setter Property="FontWeight" Value="Bold" />
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="{Binding ProjectTitleName}" />
+            <TextBlock Text="{Binding SaveLearningRecordCommand.IsRunning, Mode=OneWay}" />
+            <Button Command="{Binding SaveLearningRecordCommand}" Content="改变文字" />
+            <CheckBox
+                VerticalContentAlignment="Center"
+                Content="IsRunning"
+                IsChecked="{Binding SaveLearningRecordCommand.IsRunning, Mode=OneWay}" />
+        </StackPanel>
+    </Grid>
+</Window>

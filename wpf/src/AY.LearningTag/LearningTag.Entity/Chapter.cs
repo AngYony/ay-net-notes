@@ -7,22 +7,21 @@ using System.Threading.Tasks;
 namespace LearningTag.Entity
 {
     /// <summary>
-    /// 学习集
+    /// 章节信息
     /// </summary>
-    public class LearningWork
+    public class Chapter : BaseEntity
     {
+        /// <summary>
+        /// 所属课题Id
+        /// </summary>
+        public int ProjectId { get; set; }
 
-        public int WorkId { get; set; }
 
         /// <summary>
-        /// 学习的视频的名称
+        /// 章节标题
         /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// 视频的来源链接
-        /// </summary>
-        public string ResourceLink{get;set;}
-
+        public string ChapterTitle { get; set; }
     }
+
+
 }
