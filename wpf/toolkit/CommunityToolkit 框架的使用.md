@@ -88,7 +88,11 @@ RequestMessage示例：
 
 ![image-20250806165237547](./assets/image-20250806165237547.png)
 
-Event Aggregator（事件聚合者）
+![image-20250807230529487](./assets/image-20250807230529487.png)
+
+
+
+类似于Prism中的Event Aggregator（事件聚合者）
 
 
 
