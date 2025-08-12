@@ -439,7 +439,7 @@ public partial class MainWindow : Window
 
 附加属性的作用是将属性与数据类型（宿主或依赖对象）解耦，让数据类型的设计更加灵活。
 
-附加属性的本质仍然是依赖属性，二者仅在注册和包装器上有一点区别。
+附加属性的本质仍然是依赖属性，二者仅在注册和包装器上有一点区别。核心都是调用的DependencyObject的SetValue和GetValue，附加属性实在其他类中传入DependencyObject对象，而依赖属性是在当前派生自DependencyObject的类中直接调用SetValue和GetValue。
 
 可以为已有的控件添加附加属性，这样就不需要通过派生类来完成。
 
@@ -463,7 +463,7 @@ public partial class MainWindow : Window
 
 - 都使用 public static readonly 三个关键字修饰。
 - 附加属性使用DependencyProperty.RegisterAttached(...)来声明，但参数和DependencyProperty.Register(...)方法无异。
-- 依赖属性使用CLR属性对GetValue和SetValue两个方法进行包装，而附加属性则通过两个方法（非属性形式）分别进行包装。
+- 依赖属性使用CLR属性对GetValue和SetValue两个方法进行包装，而附加属性则通过两个方法（非属性形式）直接调用DependencyObject对象的GetValue和SetValue方法。
 
 C#程序中使用附加属性：
 
@@ -481,6 +481,8 @@ private void Button_Click(object sender, RoutedEventArgs e)
 ```
 
 由于上述SetGrade(..)的内部调用的依然是DependencyObject实例的SetValue(..)方法，而DependencyObject实例传入的为Human实例，==因此该附加属性最终还是作用在Human上，只是定义寄宿在了School类中而已==。
+
+
 
 ### 只读附加属性
 

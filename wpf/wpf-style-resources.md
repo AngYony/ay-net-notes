@@ -62,6 +62,14 @@ Setter类的Property属性用来指明你想要为目标的哪个属性赋值；
 <TextBlock Text="abc" Style="{X:Null}" />
 ```
 
+也可以不指定TargetType，直接设置元素的依赖属性的样式（不推荐）：
+
+![image-20250812143645201](./assets/image-20250812143645201.png)
+
+C#程序设置样式：
+
+![image-20250812144335073](./assets/image-20250812144335073.png)
+
 
 
 ### 样式中的触发器

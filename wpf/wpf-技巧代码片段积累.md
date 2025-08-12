@@ -178,3 +178,8 @@ xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
 <TextBox Text="{Binding Name, UpdateSourceTrigger = PropertyChanged}"/>
 ```
 
+
+
+### C#程序添加控件时，需要显式注册到可视化树中
+
+![image-20250812162310474](./assets/image-20250812162310474.png)

@@ -40,6 +40,8 @@ WPF中的Binding有：
 
 在定义数据模型时，为了实现属性值变化后能够通知Binding，让Binding把变化传递给UI，需要将该类实现INotifyPropertyChanged接口，并且在需要进行变化通知的属性中，显式触发该接口的PropertyChanged事件，这个属性即为Binding的路径（Path）。
 
+INotifyPropertyChanged的主要目的是实现后台对前台的通知。
+
 ```c#
 public class Student : INotifyPropertyChanged
 {
@@ -678,6 +680,40 @@ RelativeSource的属性介绍：
 
 ![image-20240329160222989](./assets/image-20240329160222989.png)
 
+在ControlTemplate中使用Mode=TemplatedParent：
+
+![image-20250812160330188](./assets/image-20250812160330188.png)
+
+使用TemplateBinding可以达到同样的目的：
+
+```xaml
+<ContentPressenter Margin="{TemplateBinding Padding}" />
+```
+
+在某些特殊属性不能使用TemplateBinding时，只能通过RelativeSource来进行绑定。
+
+
+
+### 使用RelativeSource绑定自己的几种方式
+
+方式一：
+
+```xaml
+<TextBlock Text="{Binding RelativeSource={RelatevieSource Mode=Self},Path=ActualWidth}" />
+```
+
+方式二：
+
+```xaml
+<TextBlock Text="{Binding RelativeSource={x:Static RelatevieSource.Self},Path=ActualWidth}" />
+```
+
+方式三，原理是Mode=Self的枚举值为2，所以下述等同方式一，不推荐：
+
+```xaml
+<TextBlock Text="{Binding RelativeSource={RelatevieSource 2},Path=ActualWidth}" />
+```
+
 
 
 ## ElementName 和 RelativeSource 的局限性
@@ -697,7 +733,7 @@ ElementName 和 RelativeSource 的存在的局限性：
 
    ![image-20250710165040623](./assets/image-20250710165040623.png)
 
-2. 目标并没有Visual Tree（比如 Tag 或 DataGridTextColumn，这两个指定的值不会出现在Visual Tree上面，因此在这两个上面进行绑定会失败）
+2. 目标并没有Visual Tree（比如 Tag 或 DataGridTextColumn，这两个指定的值不会出现在Visual Tree上面，因此在这两个上面进行绑定会失败）。注意：==Tag绑定不能使用ElementName指定绑定源，可以使用Source={x:Reference}来解决（见下文）==。
 
    ![image-20250714134650923](./assets/image-20250714134650923.png)
 
@@ -717,7 +753,7 @@ ElementName 和 RelativeSource 的存在的局限性：
 
    ![image-20250714143555401](./assets/image-20250714143555401.png)
 
-3. 如果条件允许，那么可以使用{x:Reference} 或 RelativeSource。x:Reference是从XAML文档中搜索对应名称的对象，注意搜素的对象不能是自己的父级，会导致循环依赖错误。例如不能使用x:Reference指定为Window，Window是所有控件的父级。
+3. 如果条件允许，那么可以使用{x:Reference} 或 RelativeSource。x:Reference是从XAML文档中搜索对应名称的对象，注意==搜素的对象不能是自己的父级，会导致循环依赖错误==。例如不能使用x:Reference指定为Window，Window是所有控件的父级。
 
    ![image-20250714135132946](./assets/image-20250714135132946.png)
 
@@ -739,11 +775,15 @@ ElementName 和 RelativeSource 的存在的局限性：
 
 
 
-## Binding 的 StringFormat
+## Binding 的 StringFormat、ContentStringFormat
 
 对于Text属性的绑定可以直接使用StringFormat：
 
 ![image-20250707174840821](./assets/image-20250707174840821.png)
+
+上述直接同时将两个属性的值通过绑定显示到Text上：
+
+![image-20250812161153322](./assets/image-20250812161153322.png)
 
 对于Content属性的绑定，可以使用ContentStringFormat：
 

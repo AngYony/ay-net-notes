@@ -3,12 +3,14 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
 
-namespace AY.Shared
+namespace AY.Shared.Core
 {
     /// <summary>
-    /// 使用行为改变附加属性的值
+    /// 自定义行为Action，用于实现对附加属性的支持
+    /// 是对ChangePropertyAction不支持附加属性的补充
     /// https://www.bilibili.com/video/BV1aM4m127HT?spm_id_from=333.788.videopod.sections&vd_source=e3d65fed6c5d2bee448a9a010e7d9a81
-    ///<b:Interation.Triggers>
+    ///用法：
+    /// <b:Interation.Triggers>
     ///     <b:EventTrigger EventName="Click">
     ///         <local:ChangeAttachedPropertyAction PropertyName="ToolTip" ClassType="{x:Type ToolTipService}" Value="Hello World"/>
     ///     </ b:EventTrigger>
@@ -68,14 +70,15 @@ namespace AY.Shared
             //ArgumentNullException.ThrowIfNullOrEmpty(PropertyName, nameof(PropertyName));
             MethodInfo setter =
                 ClassType.GetMethod($"Set{PropertyName}", BindingFlags.Static | BindingFlags.Public)
-                ?? throw new ArgumentException($"Method {PropertyName} not found in {ClassType}");
+                ?? throw new ArgumentException($"Method Set{PropertyName} not found in {ClassType}");
+
             Type parameterType = setter.GetParameters()[1].ParameterType;
             if (parameterType.IsAssignableFrom(Value.GetType()))
             {
                 setter.Invoke(null, new[] { Target, Value });
                 return;
             }
-            var tc = TypeDescriptor.GetConverter(parameterType);
+            TypeConverter tc = TypeDescriptor.GetConverter(parameterType);
             if (Value != null && tc.CanConvertFrom(Value.GetType()))
             {
                 setter.Invoke(null, new[] { Target, tc.ConvertFrom(Value) });

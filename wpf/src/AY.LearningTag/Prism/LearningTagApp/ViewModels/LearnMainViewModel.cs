@@ -1,25 +1,28 @@
 ﻿
-using Dumpify;
 using LearningTag.PrismShared.ViewModel;
 using LearningTagApp.Dtos;
+using ObservableCollections;
 
 
 namespace LearningTagApp.ViewModels
 {
     public class LearnMainViewModel : BaseNavigationViewModel
     {
-        //public ObservableList<LearningWorkDto> LearningWorkDtos { get; set; }
-        //public NotifyCollectionChangedSynchronizedViewList<LearningWorkDto> View { get; }
+        private ObservableList<LearningWorkDto> _learningWorkDtos;
+        public NotifyCollectionChangedSynchronizedViewList<LearningWorkDto> View { get; }
+
+
 
         public LearnMainViewModel()
         {
-            //LearningWorkDtos = new ObservableList<LearningWorkDto>();
-            //LearningWorkDtos.AddRange(GetLearningWorkDto());
-            //View = LearningWorkDtos.ToNotifyCollectionChanged();
-           
+
+            _learningWorkDtos = new ObservableList<LearningWorkDto>();
+            _learningWorkDtos.AddRange(GetLearningWorkDto());
+            View = _learningWorkDtos.ToNotifyCollectionChanged();
+
         }
 
-        
+
 
         private LearningWorkDto[] GetLearningWorkDto()
         {

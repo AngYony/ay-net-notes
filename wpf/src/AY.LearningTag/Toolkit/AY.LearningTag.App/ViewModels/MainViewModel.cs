@@ -16,6 +16,8 @@ namespace AY.LearningTag.App.ViewModels
         [ObservableProperty]
         string title = "Learning Tag App";
 
+
+
         public MainViewModel(ILogger<MainViewModel> logger)
         {
             logger.LogInformation(Title);

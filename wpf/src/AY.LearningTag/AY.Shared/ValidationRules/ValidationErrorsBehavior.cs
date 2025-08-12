@@ -9,6 +9,9 @@ using System.Windows.Controls;
 
 namespace AY.Shared.ValidationRules
 {
+    /// <summary>
+    /// 自定义行为，用于处理验证错误
+    /// </summary>
     public class ValidationErrorsBehavior : Behavior<FrameworkElement>
     {
         public static readonly DependencyProperty ValidationErrorsProperty =
@@ -42,7 +45,9 @@ namespace AY.Shared.ValidationRules
         }
 
 
-
+        /// <summary>
+        /// 当行为附加到对象时调用，类似于OnLoad方法，可以对附加的对象进行初始化和事件绑定等等操作
+        /// </summary>
         protected override void OnAttached()
         {
             base.OnAttached();
@@ -51,6 +56,9 @@ namespace AY.Shared.ValidationRules
             Validation.AddErrorHandler(this.AssociatedObject, OnValidationError);
         }
 
+        /// <summary>
+        /// 当行为从对象中分离时调用，类似于OnUnload方法，可以对附加的对象进行清理
+        /// </summary>
         protected override void OnDetaching()
         {
             base.OnDetaching();

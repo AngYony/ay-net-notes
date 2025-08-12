@@ -47,6 +47,8 @@ public sealed class TriggerCollection : System.Collections.ObjectModel.Collectio
 
 ## Interaction.Behaviors
 
+使用行为，需要安装 Microsoft.Xaml.Behaviors.Wpf包。
+
 Interaction中定义了Behaviors附加属性：
 
 ```csharp

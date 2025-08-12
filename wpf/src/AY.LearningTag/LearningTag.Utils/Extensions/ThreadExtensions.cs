@@ -20,7 +20,7 @@ namespace LearningTag.Utils.Extensions
                 catch (ThreadInterruptedException tie)
                 {
                     //interupted
-                    tie.Dump();
+                    tie.DumpDebug();
                 }
             });
 
