@@ -5,5 +5,22 @@
     xmlns:local="clr-namespace:DZTApp"
     xmlns:prism="http://prismlibrary.com/">
 
-    <Application.Resources />
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+                <ResourceDictionary Source="/ListBoxStyle.xaml" />
+                <ResourceDictionary Source="/ScrollViewerStyle.xaml" />
+                <ResourceDictionary Source="/ButtonStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Color x:Key="FontColorKey">#f6fafd</Color>
+        </ResourceDictionary>
+
+
+    </Application.Resources>
 </prism:PrismApplication>
