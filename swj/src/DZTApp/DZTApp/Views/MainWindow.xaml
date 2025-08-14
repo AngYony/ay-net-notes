@@ -1,0 +1,395 @@
+﻿<Window
+    x:Class="DZTApp.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:prism="http://prismlibrary.com/"
+    Title="{Binding Title}"
+    Width="1920px"
+    Height="1080px"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="#1e2337">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="18px" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="BtnVersionSelectStyle" TargetType="Button">
+            <Setter Property="Width" Value="274px" />
+            <Setter Property="Height" Value="119px" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="#454e6d" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{TemplateBinding Foreground}"
+                                Text="{TemplateBinding Content}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#1196ff" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#1196ff" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+
+
+        <Style x:Key="BtnStyle" TargetType="Button">
+            <Setter Property="Width" Value="183px" />
+            <Setter Property="Height" Value="58px" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="#1196ff" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5"
+                            SnapsToDevicePixels="True">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{TemplateBinding Foreground}"
+                                Text="{TemplateBinding Content}" />
+                        </Border>
+                        <!--<ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#1196ff" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#1196ff" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>-->
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <DockPanel
+            Grid.Row="0"
+            Height="80px"
+            Background="#2b3046">
+            <TextBlock
+                x:Name="TitleTextBlock"
+                Margin="20,0"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left"
+                FontSize="18"
+                Text="客番番自动更新工具" />
+        </DockPanel>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--  节点行  -->
+            <DockPanel
+                Grid.Row="0"
+                Height="50"
+                LastChildFill="True">
+                <TextBlock
+                    Margin="20,0"
+                    DockPanel.Dock="Left"
+                    Text="节点选择" />
+                <ComboBox
+                    x:Name="NodeComboBox"
+                    Width="150"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    ItemsSource="{Binding Nodes}"
+                    SelectedItem="{Binding SelectedNode}" />
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <TextBlock DockPanel.Dock="Right" Text="当前版本：V1.0.9" />
+                    <TextBlock DockPanel.Dock="Right" Text="当前版本：V1.0.9" />
+                </StackPanel>
+                <StackPanel />
+            </DockPanel>
+
+            <Grid Grid.Row="1">
+                <!--  中间主体部分  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="602px" />
+                    <ColumnDefinition Width="1248px" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="612px" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="版本选择" />
+                    <UniformGrid Columns="2">
+                        <Button Content="正式版" Style="{StaticResource BtnVersionSelectStyle}" />
+                        <Button Content="内测版" Style="{StaticResource BtnVersionSelectStyle}" />
+                        <Button Content="开发版" Style="{StaticResource BtnVersionSelectStyle}" />
+                        <Button Content="代理商版" Style="{StaticResource BtnVersionSelectStyle}" />
+                    </UniformGrid>
+                    <TextBlock Margin="10" Text="下载路径" />
+                    <DockPanel Margin="10,0,0,10" LastChildFill="False">
+                        <TextBox
+                            Width="436px"
+                            Height="36px"
+                            DockPanel.Dock="Left" />
+                        <Button
+                            Width="118px"
+                            Height="36px"
+                            Margin="0,0,10,0"
+                            Content="浏览"
+                            DockPanel.Dock="Right"
+                            Style="{StaticResource BtnStyle}" />
+                    </DockPanel>
+                    <UniformGrid Columns="3">
+                        <Button
+                            Margin="5"
+                            Content="上传"
+                            Style="{StaticResource BtnStyle}" />
+                        <Button
+                            Margin="5"
+                            Content="上传"
+                            Style="{StaticResource BtnStyle}" />
+                        <Button
+                            Margin="5"
+                            Content="上传"
+                            Style="{StaticResource BtnStyle}" />
+                    </UniformGrid>
+                    <StackPanel Margin="10" Orientation="Horizontal">
+                        <StackPanel Margin="0,10,10,0" VerticalAlignment="Center">
+                            <TextBlock Text="用户名" />
+                            <TextBox Width="162px" Height="32px" />
+                        </StackPanel>
+                        <StackPanel Margin="0,10,10,0" VerticalAlignment="Center">
+                            <TextBlock Text="备注" />
+                            <TextBox Width="260px" Height="32px" />
+                        </StackPanel>
+                        <StackPanel Margin="0,10,10,0" VerticalAlignment="Center">
+                            <TextBlock Text="" />
+                            <Button
+                                Width="118px"
+                                Height="36px"
+                                Content="提交"
+                                Style="{StaticResource BtnStyle}" />
+                        </StackPanel>
+
+
+                    </StackPanel>
+
+
+
+                </StackPanel>
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="887px" />
+                    </Grid.ColumnDefinitions>
+
+                    <DockPanel
+                        Grid.Column="0"
+                        Margin="10,0"
+                        Background="#2a2f46">
+                        <TextBlock DockPanel.Dock="Top" Text="日期列表" />
+
+                        <ListBox
+                            x:Name="dateListBox"
+                            Background="#2a2f46"
+                            BorderThickness="0"
+                            ItemsSource="{Binding DateList}">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Setter Property="Height" Value="50px" />
+                                    <Setter Property="Margin" Value="10" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <!--  移除ListBox系统默认的鼠标悬浮样式  -->
+                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                <Grid Background="#454e6d">
+                                                    <Border x:Name="bd1" CornerRadius="5" />
+                                                    <ContentPresenter />
+                                                </Grid>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="bd1" Property="Background" Value="#1196ff" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsSelected" Value="True">
+
+                                                        <!--  设置纯颜色背景与透明度  -->
+                                                        <Setter TargetName="bd1" Property="Background" Value="#1196ff" />
+
+                                                        <!--<Setter Property="BorderThickness" Value="5 0 0 0" TargetName="bd2"/>
+                                                        <Setter Property="BorderBrush" Value="{Binding BackColor}" TargetName="bd2"/>-->
+                                                    </Trigger>
+
+                                                </ControlTemplate.Triggers>
+
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding ShowDetailCommand}" CommandParameter="{Binding ElementName=dateListBox, Path=SelectedItem}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock
+                                            Margin="10"
+                                            Foreground="White"
+                                            Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+
+
+                        </ListBox>
+
+                    </DockPanel>
+
+                    <DockPanel
+                        Grid.Column="1"
+                        Background="#2a2f46"
+                        LastChildFill="True">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                            <Button Content="前端" />
+                            <Button Content="后端" />
+                            <Button Content="客户端" />
+                        </StackPanel>
+
+
+                        <ListView
+                            Background="#454e6d"
+                            BorderThickness="0"
+                            Foreground="White"
+                            ItemsSource="{Binding MyView}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListBoxItem">
+                                                <ContentPresenter />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+
+                                    </Setter>
+                                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                                </Style>
+
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel
+                                        VerticalAlignment="Center"
+                                        Background="#6d7492"
+                                        LastChildFill="True">
+                                        <TextBlock Margin="10" Text="{Binding Time}" />
+                                        <TextBlock Margin="10" Text="{Binding UserName}" />
+                                        <TextBlock Margin="10" Text="{Binding FileName}" />
+                                        <TextBlock
+                                            Width="400px"
+                                            Margin="5"
+                                            Text="{Binding Text}" />
+
+                                        <Button
+                                            x:Name="btnDown"
+                                            Width="85px"
+                                            Height="36px"
+                                            Content="下载版本"
+                                            DockPanel.Dock="Right"
+                                            Style="{StaticResource BtnStyle}"
+                                            Visibility="Hidden" />
+
+
+
+
+                                    </DockPanel>
+                                    <DataTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="btnDown" Property="Visibility" Value="Visible" />
+                                        </Trigger>
+
+                                    </DataTemplate.Triggers>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Margin="10"
+                                                FontSize="14px"
+                                                Text="{Binding Name}" />
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                        </ListView>
+
+                    </DockPanel>
+
+                </Grid>
+
+
+
+
+            </Grid>
+        </Grid>
+        <StackPanel Grid.Row="2" Orientation="Vertical">
+            <!--  更新进度  -->
+            <StackPanel Orientation="Vertical">
+
+                <TextBlock />
+
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+    <!--<ContentControl prism:RegionManager.RegionName="ContentRegion" />-->
+
+</Window>

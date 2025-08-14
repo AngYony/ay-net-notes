@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\vue.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
   </ItemGroup>
 
@@ -22,7 +26,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\AY.Shared\AY.Shared.csproj" />
+    <ProjectReference Include="..\..\AY.Styles\AY.Styles.csproj" />
     <ProjectReference Include="..\AY.LearningTag.ToolKitShared\AY.LearningTag.ToolKitShared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\vue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
