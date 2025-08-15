@@ -7,6 +7,7 @@ using System.Data;
 using System.Windows;
 using System;
 using AY.LearningTag.ToolKitShared;
+using AY.LearningTag.App.ControllSample;
 
 namespace AY.LearningTag.App
 {
@@ -38,8 +39,10 @@ namespace AY.LearningTag.App
             ConfigHelper.ReadConnectionString();
 
             // Resolve the MainWindow from the service provider
-            var mainWindow = Services.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+            //var mainWindow = Services.GetRequiredService<MainWindow>();
+            //mainWindow.Show();
+
+            new ControllMain().Show();
         }
 
 

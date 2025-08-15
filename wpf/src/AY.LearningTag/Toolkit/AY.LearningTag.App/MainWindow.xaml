@@ -16,53 +16,13 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ListBox
-            Grid.Row="0"
-            Background="#2a2f46"
-            ItemContainerStyle="{StaticResource ListBoxItemStyleA}"
-            ItemTemplate="{StaticResource ListBoxItemDateTemplate}"
-            Style="{StaticResource ListBoxStyle}">
-            <!--<ListBox.ItemTemplate>
-        <DataTemplate></DataTemplate>
-    </ListBox.ItemTemplate>-->
-            <ListBoxItem>Item 1</ListBoxItem>
-            <ListBoxItem>Item 2</ListBoxItem>
-            <ListBoxItem>Item 3</ListBoxItem>
-            <ListBoxItem>Item 4</ListBoxItem>
-            <ListBoxItem>Item 1</ListBoxItem>
-            <ListBoxItem>Item 2</ListBoxItem>
-            <ListBoxItem>Item 3</ListBoxItem>
-            <ListBoxItem>Item 4</ListBoxItem>
-        </ListBox>
+        
 
 
 
 
 
-        <ListBox
-            Grid.Row="1"
-            Height="100"
-            Background="#2a2f46"
-            ItemContainerStyle="{StaticResource ListBoxItemStyleB}">
-            <!--  设置ListBoxItem的父容器  -->
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Columns="2" />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-
-            <!--<ListBox.ItemTemplate>
-                <DataTemplate></DataTemplate>
-            </ListBox.ItemTemplate>-->
-            <ListBoxItem>Item 1</ListBoxItem>
-            <ListBoxItem>Item 2</ListBoxItem>
-            <ListBoxItem>Item 3</ListBoxItem>
-            <ListBoxItem>Item 4</ListBoxItem>
-            <ListBoxItem>Item 1</ListBoxItem>
-            <ListBoxItem>Item 2</ListBoxItem>
-            <ListBoxItem>Item 3</ListBoxItem>
-            <ListBoxItem>Item 4</ListBoxItem>
-        </ListBox>
+        
         <StackPanel Grid.Row="2">
             <Button
                 Name="btn5"

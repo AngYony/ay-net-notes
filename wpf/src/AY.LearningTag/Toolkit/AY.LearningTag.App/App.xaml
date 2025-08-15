@@ -6,13 +6,12 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDark.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+              
 
-                <ResourceDictionary Source="/AY.Styles;component/ListBoxStyle.xaml" />
+                <!--<ResourceDictionary Source="/AY.Styles;component/ListBoxStyle.xaml" />
                 <ResourceDictionary Source="/AY.Styles;component/ScrollViewerStyle.xaml" />
                 <ResourceDictionary Source="/AY.Styles;component/ComboBoxStyle.xaml" />
-                <ResourceDictionary Source="/AY.Styles;component/ButtonStyle.xaml" />
+                <ResourceDictionary Source="/AY.Styles;component/ButtonStyle.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

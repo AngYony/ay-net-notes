@@ -1,0 +1,31 @@
+﻿<Window
+    x:Class="AY.LearningTag.App.ControllSample.ControllMain"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AY.LearningTag.App.ControllSample"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="自定义样式示例"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <UniformGrid>
+        <Button
+            Name="btnListBox"
+            Click="btnListBox_Click"
+            Content="ListBox" />
+
+        <Button
+            x:Name="btnButton"
+            Click="btnButton_Click"
+            Content="Button" />
+    </UniformGrid>
+</Window>
