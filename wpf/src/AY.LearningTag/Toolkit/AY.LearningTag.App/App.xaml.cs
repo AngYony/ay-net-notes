@@ -8,6 +8,8 @@ using System.Windows;
 using System;
 using AY.LearningTag.ToolKitShared;
 using AY.LearningTag.App.ControllSample;
+using AY.LearningTag.App.Stores;
+using AY.LearningTag.App.Services;
 
 namespace AY.LearningTag.App
 {
@@ -22,7 +24,7 @@ namespace AY.LearningTag.App
         {
             //todo:创建Host
 
-            var app=new App();
+            var app = new App();
             app.InitializeComponent();
             app.Run();
         }
@@ -37,12 +39,15 @@ namespace AY.LearningTag.App
         {
             base.OnStartup(e);
             ConfigHelper.ReadConnectionString();
+            //var store = Services.GetRequiredService<NavigationStore>();
+            //store.CurrentViewModel = new HomeViewModel(store);
+            //new ControllMain().Show();
 
             // Resolve the MainWindow from the service provider
-            //var mainWindow = Services.GetRequiredService<MainWindow>();
-            //mainWindow.Show();
+            var mainWindow = Services.GetRequiredService<MainWindow>();
 
-            new ControllMain().Show();
+            mainWindow.Show();
+
         }
 
 
@@ -62,14 +67,21 @@ namespace AY.LearningTag.App
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
+            services.AddSingleton<NavigationService>();
+
+
+
             //添加日志服务
             services.AddLog()
                 .AddViewModel<MainWindow, MainViewModel>();
 
+
+
+
             return services.BuildServiceProvider();
         }
 
-       
+
 
     }
 

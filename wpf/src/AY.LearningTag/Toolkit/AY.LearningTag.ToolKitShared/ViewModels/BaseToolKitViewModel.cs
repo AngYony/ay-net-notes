@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.ToolKitShared.ViewModel;
+namespace AY.LearningTag.ToolKitShared.ViewModels;
 
 public class BaseToolKitViewModel : CommunityToolkit.Mvvm.ComponentModel.ObservableObject
 {

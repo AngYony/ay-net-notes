@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AY.LearningTag.App.ControllSample.TabControl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,11 @@ namespace AY.LearningTag.App.ControllSample
         private void btnButton_Click(object sender, RoutedEventArgs e)
         {
             new ButtonSample().ShowDialog();
+        }
+
+        private void TabControl_Click(object sender, RoutedEventArgs e)
+        {
+            new TabControlSample().ShowDialog();
         }
     }
 }

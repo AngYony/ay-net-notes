@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.App.Dtos
+namespace AY.LearningTag.App.ViewModels
 {
-    public  class BaseDto: BaseToolKitViewModel
+    public class ViewModelBase : BaseToolKitViewModel
     {
+
     }
 }

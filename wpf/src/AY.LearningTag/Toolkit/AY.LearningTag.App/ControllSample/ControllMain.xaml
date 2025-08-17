@@ -27,5 +27,9 @@
             x:Name="btnButton"
             Click="btnButton_Click"
             Content="Button" />
+
+        <Button x:Name="TabControl"
+                    Click="TabControl_Click"
+                    Content="TabControl" />
     </UniformGrid>
 </Window>

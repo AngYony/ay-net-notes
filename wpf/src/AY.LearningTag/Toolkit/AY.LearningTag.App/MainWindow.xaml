@@ -6,53 +6,23 @@
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:AY.LearningTag.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:AY.LearningTag.App.ViewModels"
+    xmlns:views="clr-namespace:AY.LearningTag.App.Views"
     Title="MainWindow"
     Width="800"
     Height="400"
+    d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        
+    <ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                <views:HomeView />
+            </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
+                <views:AccountView />
+            </DataTemplate>
 
-
-
-
-        
-        <StackPanel Grid.Row="2">
-            <Button
-                Name="btn5"
-                Width="100"
-                Height="50"
-                Foreground="White">
-                上传
-            </Button>
-
-
-            <ComboBox Width="200" Height="32">
-                <ComboBoxItem>abc</ComboBoxItem>
-                <ComboBoxItem>abc</ComboBoxItem>
-            </ComboBox>
-
-            <ProgressBar
-                Height="30"
-                Background="#727992"
-                Foreground="Red"
-                Value="50" />
-
-            <Line
-                Stroke="Red"
-                StrokeThickness="4"
-                X1="10"
-                X2="260"
-                Y1="80"
-                Y2="100" />
-        </StackPanel>
-
-
-    </Grid>
+        </ContentControl.Resources>
+    </ContentControl>
 </Window>
