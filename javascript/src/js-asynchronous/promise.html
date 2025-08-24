@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+
+        Promise.resolve("哈哈哈哈哈哈").then(value=>{console.log(value)});
+
+
+    //   let p1 = new Promise((resolve, reject) => {
+    //     resolve("发送消息");
+    //     //reject("拒绝消息");
+    //   })
+    //     //代码块T1
+    //     .then(
+    //       (value) => {
+    //         console.log(value);
+    //         // 代码块V1，此处直接返回Promise对象，对该对象的处理（成对出现的then语句）为代码块T2
+    //         return new Promise((resolve, reject) => {
+    //           resolve("哈哈哈哈哈哈哈");
+    //         });
+    //       },
+    //       (reason) => {
+    //         console.log("error:", reason);
+    //         return "呜呜呜呜呜呜呜呜呜";
+    //       }
+    //     )
+    //     //代码块T2，是对上述代码块V1中返回的Promise的处理，从而实现链式调用
+    //     .then(
+    //       (value) => {
+    //         //区域B1
+    //         console.log("接收上一个Promise发送过来的消息：", value);
+    //       },
+    //       (reason) => console.log("拒绝的消息：", reason)
+    //     );
+    </script>
+  </body>
+</html>

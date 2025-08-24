@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <!--  Image 常用的样式设置  -->
+    <Style x:Key="ImageStyleSample" TargetType="Image">
+        <!--  图片填充方式：UniformToFill  -->
+        <Setter Property="Stretch" Value="UniformToFill" />
+        <Setter Property="Source" Value="/AY.Styles;component/Resources/vue.png" />
+    </Style>
+</ResourceDictionary>

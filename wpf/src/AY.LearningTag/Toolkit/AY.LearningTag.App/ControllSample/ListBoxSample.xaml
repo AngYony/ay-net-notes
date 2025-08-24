@@ -74,7 +74,24 @@
         </ListBox>
 
 
-
+        <!--  示例3：横向listbox  -->
+        <ListBox
+            x:Name="myListBox"
+            Grid.Row="0"
+            Grid.Column="2"
+            Height="80"
+            VerticalAlignment="Bottom"
+            Background="#44f0f8ff">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBoxItem>Item 1</ListBoxItem>
+            <ListBoxItem>Item 2</ListBoxItem>
+            <ListBoxItem>Item 3</ListBoxItem>
+            <ListBoxItem>Item 4</ListBoxItem>
+        </ListBox>
 
     </Grid>
 </Window>

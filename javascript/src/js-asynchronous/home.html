@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="position: absolute; height: 100px; width: 100px; background-color:aqua ;"></div>
+</body>
+
+
+<script>
+
+    //   定时器封装，主线程必须先执行完成之后，才能执行定时器中的任务
+    function interval(callback, delay = 100) {
+        let id = setInterval(() => callback(id), delay);
+    }
+
+    interval(timeId => {
+        const div = document.querySelector("div");
+        let left = parseInt(window.getComputedStyle(div).left);
+        div.style.left = left + 10 + "px";
+        console.log(left);
+        if (left >= 200) {
+            clearInterval(timeId);
+
+            interval(timeId => {
+                let width = parseInt(window.getComputedStyle(div).width);
+                div.style.width = width - 5 + "px";
+                if (width <= 20) {
+                        clearInterval(timeId);
+                }
+            }, 100);
+
+
+        }
+
+    })
+
+    
+
+
+</script>
+
+</html>

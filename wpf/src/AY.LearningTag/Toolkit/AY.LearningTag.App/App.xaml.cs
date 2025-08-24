@@ -10,6 +10,7 @@ using AY.LearningTag.ToolKitShared;
 using AY.LearningTag.App.ControllSample;
 using AY.LearningTag.App.Stores;
 using AY.LearningTag.App.Services;
+using AY.LearningTag.App.ControllSample.ListBox;
 
 namespace AY.LearningTag.App
 {
@@ -41,12 +42,12 @@ namespace AY.LearningTag.App
             ConfigHelper.ReadConnectionString();
             //var store = Services.GetRequiredService<NavigationStore>();
             //store.CurrentViewModel = new HomeViewModel(store);
-            //new ControllMain().Show();
+            new YuanShen().Show();
 
             // Resolve the MainWindow from the service provider
-            var mainWindow = Services.GetRequiredService<MainWindow>();
+            //var mainWindow = Services.GetRequiredService<MainWindow>();
 
-            mainWindow.Show();
+            //mainWindow.Show();
 
         }
 

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace AY.LearningTag.App.Services
 {
+    /// <summary>
+    /// Toolkit实现导航
+    /// </summary>
     public class NavigationService
     {
         //public static NavigationService Instance { get; } = new NavigationService();
@@ -31,10 +34,16 @@ namespace AY.LearningTag.App.Services
             CurrentViewModelChanged?.Invoke();
         }
 
-        public void NavigateTo<T>() where T:ViewModelBase
+       
+
+        public void NavigateTo(ViewModelBase viewModel)
+        {
+            CurrentViewModel = viewModel;
+        }
+
+        public void NavigateTo<T>() where T : ViewModelBase
         {
             CurrentViewModel = App.Current.Services.GetService<T>();
         }
-
     }
 }
