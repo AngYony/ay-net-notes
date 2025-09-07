@@ -1,6 +1,5 @@
 ﻿using AY.LearningTag.App.Messages;
 using AY.LearningTag.App.Services;
-using AY.LearningTag.App.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
@@ -9,25 +8,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
 namespace AY.LearningTag.App.ViewModels
 {
     public partial class MainViewModel : ViewModelBase
     {
-
-
         [ObservableProperty]
         private string title = "Learning Tag App";
+
         private readonly NavigationService _navigationService;
 
-        public ViewModelBase CurrentViewModel => _navigationService.CurrentViewModel;
+        /// <summary>
+        /// 当前视图的ViewModel
+        /// </summary>
+        [ObservableProperty]
+        private ViewModelBase? currentViewModel;
 
         public MainViewModel(NavigationService navigationService)
         {
             this._navigationService = navigationService;
-            _navigationService.CurrentViewModelChanged += OnCurrentViewModelChanged;
-            _navigationService.CurrentViewModel = new HomeViewModel(navigationService);
 
+            _navigationService.CurrentViewModelChanged += () =>
+            {
+                CurrentViewModel = _navigationService.CurrentViewModel;
+            };
+
+            _navigationService.NavigateTo<HomeViewModel>();
         }
 
         private void OnCurrentViewModelChanged()

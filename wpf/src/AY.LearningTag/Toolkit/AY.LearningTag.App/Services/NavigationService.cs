@@ -13,9 +13,6 @@ namespace AY.LearningTag.App.Services
     /// </summary>
     public class NavigationService
     {
-        //public static NavigationService Instance { get; } = new NavigationService();
-
-
         public event Action? CurrentViewModelChanged;
 
         private ViewModelBase? _currentViewMode;
@@ -25,16 +22,9 @@ namespace AY.LearningTag.App.Services
             set
             {
                 _currentViewMode = value;
-                OnCurrentViewModelChanged();
+                CurrentViewModelChanged?.Invoke();
             }
         }
-
-        private void OnCurrentViewModelChanged()
-        {
-            CurrentViewModelChanged?.Invoke();
-        }
-
-       
 
         public void NavigateTo(ViewModelBase viewModel)
         {

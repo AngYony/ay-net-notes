@@ -1,4 +1,5 @@
 ﻿using AY.LearningTag.App.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace AY.LearningTag.App.ViewModels
@@ -6,7 +7,8 @@ namespace AY.LearningTag.App.ViewModels
     public partial class AccountViewModel : ViewModelBase
     {
         private readonly NavigationService _navigationService;
-        public string Name = "Account View Model";
+        [ObservableProperty]
+        private string name = "Account View Model";
 
         public AccountViewModel(NavigationService navigationService)
         {

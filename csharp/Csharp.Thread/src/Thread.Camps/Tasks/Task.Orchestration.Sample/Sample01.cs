@@ -1,26 +1,32 @@
 ﻿using System;
-using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace S05_TaskSharp {
+namespace TaskOrchestration.Sample
+{
+    internal class Sample01
+    {
 
-    internal class TaskSample1 {
-
-        public static void SayA() {
+        public static void SayA()
+        {
             Console.WriteLine("A开始执行");
             Console.WriteLine($"当前任务的线程的ID：{Environment.CurrentManagedThreadId}");
             Thread.Sleep(3000);
             Console.WriteLine("A执行完毕");
         }
 
-        public static void SayB() {
+        public static void SayB()
+        {
             Console.WriteLine("B开始执行");
             Console.WriteLine($"当前任务的线程的ID：{Environment.CurrentManagedThreadId}");
             Thread.Sleep(2000);
             Console.WriteLine("B执行完毕");
         }
 
-        public static void SayC() {
+        public static void SayC()
+        {
             Console.WriteLine("C开始执行");
             Console.WriteLine($"当前任务的线程的ID：{Environment.CurrentManagedThreadId}");
             Thread.Sleep(1000);
@@ -29,7 +35,8 @@ namespace S05_TaskSharp {
 
 
         // 串行化Task
-        public static void ShunXu() {
+        public static void ShunXu()
+        {
             Console.WriteLine("串行执行任务");
             var task = Task.Factory.StartNew(() => {
                 SayA();
@@ -46,7 +53,8 @@ namespace S05_TaskSharp {
 
 
         // 并行执行A和B，执行完成之后再执行C
-        public static void BingXing() {
+        public static void BingXing()
+        {
             var tasks = new Task[2];
             tasks[0] = Task.Factory.StartNew(() => {
                 SayA();
@@ -61,13 +69,15 @@ namespace S05_TaskSharp {
             Console.Read();
         }
 
-        public static void SayChildA() {
+        public static void SayChildA()
+        {
             Console.WriteLine("ChildA开始执行");
             Console.WriteLine($"当前任务的线程的ID：{Environment.CurrentManagedThreadId}");
             Thread.Sleep(2000);
             Console.WriteLine("ChildA执行完毕");
         }
-        public static void SayChildB() {
+        public static void SayChildB()
+        {
             Console.WriteLine("ChildB开始执行");
             Console.WriteLine($"当前任务的线程的ID：{Environment.CurrentManagedThreadId}");
             Thread.Sleep(3000);
@@ -75,7 +85,8 @@ namespace S05_TaskSharp {
         }
 
         //一个父Task包含2个子Task，子任务不执行完，父级任务是不能结束的
-        public static void FuZiTask() {
+        public static void FuZiTask()
+        {
             var parentTask = Task.Factory.StartNew(() => {
                 // 子task1
                 var child1Task = Task.Factory.StartNew(() => {
