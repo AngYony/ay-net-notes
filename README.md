@@ -1,3 +1,9 @@
 # ay-net-notes
 
-是对.net相关的技术的学习笔记进行的整理。
+.NET 相关的技术笔记整理。
+
+- WPF
+- ASP.NET Core
+- C# 语言
+- 上位机
+- EF Core
