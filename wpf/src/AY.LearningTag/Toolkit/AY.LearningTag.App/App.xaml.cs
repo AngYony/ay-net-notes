@@ -1,15 +1,18 @@
-﻿using AY.LearningTag.App.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
+﻿using AY.LearningTag.App.ControllSample;
+using AY.LearningTag.App.ControllSample.ListBox;
+using AY.LearningTag.App.Services;
+using AY.LearningTag.App.ViewModels;
 using AY.LearningTag.Shared;
+using AY.LearningTag.ToolKitShared;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using System;
 using System.Configuration;
 using System.Data;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
-using System;
-using AY.LearningTag.ToolKitShared;
-using AY.LearningTag.App.ControllSample;
-using AY.LearningTag.App.Services;
-using AY.LearningTag.App.ControllSample.ListBox;
 
 namespace AY.LearningTag.App
 {
@@ -18,7 +21,7 @@ namespace AY.LearningTag.App
     /// </summary>
     public partial class App : Application
     {
-        //将App.xaml设为生成页
+        //将App.xaml的属性设为生成页
         [STAThread]
         static void Main(string[] args)
         {
@@ -29,10 +32,23 @@ namespace AY.LearningTag.App
             app.Run();
         }
 
+        public IServiceProvider Services { get; }
+        public IConfiguration? Configuration { get; }
 
         public App()
         {
+            //先创建配置服务
+            Configuration = ConfigureAppSettings();
             Services = ConfigureServices();
+           
+        }
+
+        private IConfiguration? ConfigureAppSettings()
+        {
+            var builder = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            return builder.Build();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -59,7 +75,7 @@ namespace AY.LearningTag.App
         /// <summary>
         /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
         /// </summary>
-        public IServiceProvider Services { get; }
+
 
         /// <summary>
         /// Configures the services for the application.
@@ -67,10 +83,12 @@ namespace AY.LearningTag.App
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
+            services.AddConfigureService(App.Current.Configuration!);
+
             services.AddSingleton<NavigationService>();
             services.AddTransient<HomeViewModel>();
 
-
+          
 
             //添加日志服务
             services.AddLog()

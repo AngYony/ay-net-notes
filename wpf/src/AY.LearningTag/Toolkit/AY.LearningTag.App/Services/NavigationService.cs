@@ -1,5 +1,7 @@
 ﻿using AY.LearningTag.App.ViewModels;
+using AY.LearningTag.ToolKitShared;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,12 @@ namespace AY.LearningTag.App.Services
     /// </summary>
     public class NavigationService
     {
+
+        public NavigationService(IOptions<MySettings> options)
+        {
+
+            string test = options.Value.KeyThree.Message;
+        }
         public event Action? CurrentViewModelChanged;
 
         private ViewModelBase? _currentViewMode;

@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Debugging;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -29,6 +31,30 @@ namespace AY.LearningTag.ToolKitShared
                 }
                 return view;
             });
+            return services;
+        }
+
+        public static IServiceCollection AddConfigureService(this IServiceCollection services, IConfiguration configuration)
+        {
+            //https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers
+            //方式一：绑定配置并直接添加到服务容器中（推荐），可以直接通过注入的方式读取到配置项，最推荐方式
+            services.Configure<MySettings>(configuration.GetSection("Settings"));
+
+
+            ////方式二：直接读取配置文件到实体中
+            //configuration.GetRequiredSection("settings").Get<Settings>();
+
+            ////方式三：读取配置绑定到实体
+            //Settings options = new();
+            //configuration.GetSection(nameof(Settings)).Bind(options);
+
+            ////方式四：
+            //configuration.GetSection(nameof(Settings)).Get<Settings>();
+
+            
+
+
+
             return services;
         }
 
