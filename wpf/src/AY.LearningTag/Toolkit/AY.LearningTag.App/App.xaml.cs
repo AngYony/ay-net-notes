@@ -57,12 +57,12 @@ namespace AY.LearningTag.App
             ConfigHelper.ReadConnectionString();
             //var store = Services.GetRequiredService<NavigationStore>();
             //store.CurrentViewModel = new HomeViewModel(store);
-            //new YuanShen().Show();
+            new ListBoxGroupSampleA().Show();
 
             // Resolve the MainWindow from the service provider
-            var mainWindow = Services.GetRequiredService<MainWindow>();
+            //var mainWindow = Services.GetRequiredService<MainWindow>();
 
-            mainWindow.Show();
+            //mainWindow.Show();
 
         }
 
