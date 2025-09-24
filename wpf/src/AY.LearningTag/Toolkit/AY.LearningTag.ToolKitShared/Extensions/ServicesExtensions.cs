@@ -1,18 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Debugging;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace AY.LearningTag.ToolKitShared
+namespace AY.LearningTag.ToolKitShared.Extensions
 {
     public static class ServicesExtensions
     {
@@ -51,7 +47,7 @@ namespace AY.LearningTag.ToolKitShared
             ////方式四：
             //configuration.GetSection(nameof(Settings)).Get<Settings>();
 
-            
+
 
 
 
@@ -65,7 +61,7 @@ namespace AY.LearningTag.ToolKitShared
             var serilog = new LoggerConfiguration()
                 .MinimumLevel.Debug() //设置日志级别
                                       //.WriteTo.Console() //输出到控制台，需要安装Serilog.Sinks.Console包
-                .WriteTo.File("logs\\log.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File("logs\\log-.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
             services.AddLogging(builder => builder.AddSerilog(serilog));
 
