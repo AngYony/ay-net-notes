@@ -89,7 +89,15 @@ namespace AY.LearningTag.App
             services.AddSingleton<NavigationService>();
             services.AddTransient<HomeViewModel>();
 
-          
+            // 假设你有多个接口和实现类需要注入
+            //services.Scan(scan => scan
+            //    .FromAssemblyOf<IMyService>()  // 扫描包含接口和实现的程序集
+            //    .AddClasses(classes => classes.AssignableTo<IMyService>())
+            //    .AsImplementedInterfaces()
+            //    .WithScopedLifetime()
+            //);
+
+
 
             //添加日志服务
             services.AddLog()
