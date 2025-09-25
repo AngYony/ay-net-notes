@@ -2,6 +2,16 @@
 
 
 
+
+
+### 布局技巧
+
+- Grid内部的子元素，默认是层叠展示的，如果设置子元素的HorizontalAlignment为left或者Right，就可以实现DockPanel一样的左端或右端停靠效果。
+
+  
+
+
+
 ### 修改WPF控件默认系统样式
 
 需要借助模板来实现：
