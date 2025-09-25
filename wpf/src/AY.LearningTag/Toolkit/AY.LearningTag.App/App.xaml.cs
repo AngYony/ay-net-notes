@@ -3,7 +3,7 @@ using AY.LearningTag.App.ControllSample.ListBox;
 using AY.LearningTag.App.Services;
 using AY.LearningTag.App.ViewModels;
 using AY.LearningTag.Shared;
-using AY.LearningTag.ToolKitShared;
+using AY.LearningTag.ToolKitShared.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -25,13 +25,19 @@ namespace AY.LearningTag.App
         [STAThread]
         static void Main(string[] args)
         {
-            //todo:创建Host
-
             var app = new App();
             app.InitializeComponent();
             app.Run();
         }
 
+        /// <summary>
+        /// Gets the current <see cref="App"/> instance in use
+        /// </summary>
+        public new static App Current => (App)Application.Current;
+
+        /// <summary>
+        /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
+        /// </summary>
         public IServiceProvider Services { get; }
         public IConfiguration? Configuration { get; }
 
@@ -57,24 +63,19 @@ namespace AY.LearningTag.App
             ConfigHelper.ReadConnectionString();
             //var store = Services.GetRequiredService<NavigationStore>();
             //store.CurrentViewModel = new HomeViewModel(store);
-            new ListBoxGroupSampleA().Show();
+            //new ListBoxGroupSampleA().Show();
 
             // Resolve the MainWindow from the service provider
-            //var mainWindow = Services.GetRequiredService<MainWindow>();
+            var mainWindow = Services.GetRequiredService<MainWindow>();
 
-            //mainWindow.Show();
+            mainWindow.Show();
 
         }
 
 
-        /// <summary>
-        /// Gets the current <see cref="App"/> instance in use
-        /// </summary>
-        public new static App Current => (App)Application.Current;
+        
 
-        /// <summary>
-        /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
-        /// </summary>
+        
 
 
         /// <summary>
@@ -88,7 +89,15 @@ namespace AY.LearningTag.App
             services.AddSingleton<NavigationService>();
             services.AddTransient<HomeViewModel>();
 
-          
+            // 假设你有多个接口和实现类需要注入
+            //services.Scan(scan => scan
+            //    .FromAssemblyOf<IMyService>()  // 扫描包含接口和实现的程序集
+            //    .AddClasses(classes => classes.AssignableTo<IMyService>())
+            //    .AsImplementedInterfaces()
+            //    .WithScopedLifetime()
+            //);
+
+
 
             //添加日志服务
             services.AddLog()

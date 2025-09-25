@@ -24,8 +24,9 @@ namespace AY.LearningTag.App.ViewModels
         [ObservableProperty]
         private ViewModelBase? currentViewModel;
 
-        public MainViewModel(NavigationService navigationService)
+        public MainViewModel(NavigationService navigationService, ILogger<MainViewModel> logger)
         {
+            logger.LogInformation("测试日志");
             this._navigationService = navigationService;
 
             _navigationService.CurrentViewModelChanged += () =>
