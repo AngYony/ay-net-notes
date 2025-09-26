@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NLog.Extensions.Logging" Version="6.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\AY.LearningTag.Common\AY.LearningTag.Utilities\AY.LearningTag.Utilities.csproj" />
+    <ProjectReference Include="..\..\AY.Shared\AY.Shared.csproj" />
+    <ProjectReference Include="..\LearningTag.PrismShared\LearningTag.PrismShared.csproj" />
+    <ProjectReference Include="..\Modules\LearningTag.About\LearningTag.About.csproj" />
+    <ProjectReference Include="..\Modules\LearningTag.Setting\LearningTag.Setting.csproj" />
+  </ItemGroup>
+</Project>
