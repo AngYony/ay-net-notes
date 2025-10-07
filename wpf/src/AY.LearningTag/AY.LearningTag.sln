@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.LearningTag.ToolKitShare
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.LearningTag.App", "AY.LearningTag.Shell\Toolkit\AY.LearningTag.App\AY.LearningTag.App.csproj", "{5877AB2D-48D7-5D82-147A-EF1339C5FC33}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.Themes", "AY.LearningTag.Shell\AY.Themes\AY.Themes.csproj", "{AD96FEAE-2969-4BC6-8F0E-A0727F307E92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{5877AB2D-48D7-5D82-147A-EF1339C5FC33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5877AB2D-48D7-5D82-147A-EF1339C5FC33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5877AB2D-48D7-5D82-147A-EF1339C5FC33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD96FEAE-2969-4BC6-8F0E-A0727F307E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD96FEAE-2969-4BC6-8F0E-A0727F307E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD96FEAE-2969-4BC6-8F0E-A0727F307E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD96FEAE-2969-4BC6-8F0E-A0727F307E92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,6 +131,7 @@ Global
 		{255999BC-27A8-6390-CD6D-77340D600E9A} = {F06945E3-DB99-4C7F-90A6-C0257B13FB17}
 		{F4605026-0212-14EB-99CE-E5214F25B619} = {110A6C73-D610-4807-B411-CE82572319DC}
 		{5877AB2D-48D7-5D82-147A-EF1339C5FC33} = {110A6C73-D610-4807-B411-CE82572319DC}
+		{AD96FEAE-2969-4BC6-8F0E-A0727F307E92} = {F06945E3-DB99-4C7F-90A6-C0257B13FB17}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {313FC583-E730-44BE-AA39-9B2A580339FC}
