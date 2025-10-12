@@ -1,10 +1,31 @@
-# XAML 介绍
+# XAML
 
 XAML（读作 “zaml”）的全称是 Extensible Application Markup Language，即可扩展应用程序标记语言。
 
-WPF项目中的程序入口为App.xml文件。
+XAML简化了为 .NET 应用创建 UI 的过程。您可以在声明性 XAML 标记中创建可见的 UI 元素，然后使用通过分部类定义连接到标记的代码隐藏文件将 UI定义与运行时逻辑分离。
 
-XAML文档最终被转换成BAML资源签入到DLL程序集当中，BAML为XAML的二进制形式，经过优化处理后，运行时更快解析。
+XAML 直接表示程序集中定义的一组特定支持类型的对象的实例化：
+
+- 多数XAML中声明的元素都是以类的形式存在的
+- 只有设计成支持XAML类型的类才能直接在XAML中使用
+- XAML实际上是描述了一个对象树（界面元素嵌套对应着对象引用的嵌套）
+- XAML直接将标记映射到程序集中对应的类型，有严格的类型检查
+- XAML通常使用UTF-8编码
+- XAML并不关心属性是不是在当前类上定义的——只要对象最终有这个属性，它就可以被设置。
+
+==XAML中声明的元素实质上就是类和对象及其属性。==
+
+例如wpf中常见的绑定形式：
+
+<img src="./assets/image-20251012110531380.png" alt="image-20251012110531380" align="left"/>
+
+
+
+## XAML的编译和属性映射
+
+WPF使用特定XAML解析系统构建于CLR和CLR类型系统之上，WPF中有一个专门的XAML解析器，它会把声明的标签映射到CLR里的真实类型上。解析器看到对应标签就执行实例化并设置其属性。
+
+XAML最终被转换成BAML资源签入到DLL程序集当中，BAML为XAML的二进制形式，经过优化处理后，运行时更快解析。
 
 可以通过反编译工具查看该文件的内容。
 
@@ -22,7 +43,157 @@ XAML文档最终被转换成BAML资源签入到DLL程序集当中，BAML为XAML�
 
 
 
+### XAML 属性映射
 
+当XAML中的属性使用了标记扩展（“{}”的形式）时：XAML先生成扩展实例，调用相关方法生成或查找需要的对象或表达式，最后再赋值。
+
+当XAML中的属性没有使用标记扩展时：XAML用统一的TypeConverter 机制，把字符串转换成具体类型再通过反射或依赖属性完成赋值。
+
+具体的属性映射机制步骤：
+
+1. 定位对象与属性，实例化标签对象
+2. 通过类型转换器(TypeConventer)转换字符串值
+3. 属性元素与对象子树的创建
+4. 反射或依赖属性机制赋值
+
+### TypeConverter 类型转换器
+
+TypeConverter提供了一种机制，将属性值字符串转换为CLR 对象实例，让声明式语法能映射到复杂类型。
+
+在.NET中，所有XAML类型转换器都派生自 System.ComponentModel.TypeConverter，它定义了四个主要方法：
+
+- CanConvertFrom(ITypeDescriptorContext,Type)
+- ConvertFrom(ITypeDescriptroContext,CultureInfo,object)
+- CanConvertTo(ITypeDescriptorContext,Type)
+- ConvertTo(ITypeDescriptorContext,CultureInfo,object,Type)
+
+
+
+![image-20251012113338968](./assets/image-20251012113338968.png)
+
+
+
+使用TypeConverter 类将XAML标签的Attribute与对象的Property进行映射，参见：
+
+- 《深入浅出WPF》P19中的3.2.2章节。
+- 《WPF编程宝典》P25中的2.3.1章节。 
+- 编辑C#代码生成exe、dll，使用C#编译工具csc命令。
+
+#### TypeConverter 示例
+
+![image-20251012114107280](./assets/image-20251012114107280.png)
+
+MapCL是一个用户控件：
+
+```csharp
+public partial class MapCL : UserControl
+{
+    public MapCL()
+    {
+        InitializeComponent();
+    }
+
+    public Location Center
+    {
+        get { return (Location)GetValue(CenterProperty); }
+        set { SetValue(CenterProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for Center.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty CenterProperty =
+        DependencyProperty.Register("Center", typeof(Location), typeof(MapCL), new PropertyMetadata(default(Location)));
+}
+```
+
+MapCL.xaml：
+
+```xaml
+<UserControl x:Class="AY.LearningTag.App.UserControls.MapCL"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AY.LearningTag.App.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Viewbox Stretch="Uniform">
+        <StackPanel>
+            <TextBlock Text="经纬度显示"/>
+            <TextBlock Text="{Binding Center.Longitude, StringFormat='Longitude: {0}', UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MapCL}}" />
+            <TextBlock Text="{Binding Center.Latitude, StringFormat='Longitude: {0}', UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MapCL}}" />
+        </StackPanel>
+    </Viewbox>
+</UserControl>
+```
+
+可以看到，MapCL的Center是定义个一个依赖属性， 该类型为Location，如果想要在XAML中直接给该属性指定值就能够映射到Location对象上，需要使用TypeConverter进行转换。
+
+```csharp
+[TypeConverter(typeof(LocationConverter))]
+public class Location
+{
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
+
+    public Location(double latitude, double longitude)
+    {
+        Latitude = latitude;
+        Longitude = longitude;
+        //todo：构建验证
+    }
+}
+
+public class LocationConverter : TypeConverter
+{
+    public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+    {
+        if (destinationType == typeof(string))
+            return true;
+        return base.CanConvertTo(context, destinationType);
+    }
+
+    public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+    {
+        if (destinationType == typeof(string) && value is Location location)
+        {
+            return $"{location.Latitude},{location.Longitude}";
+        }
+        return base.ConvertTo(context, culture, value, destinationType);
+    }
+
+    public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+    {
+        if (sourceType == typeof(string))
+            return true;
+        return base.CanConvertFrom(context, sourceType);
+    }
+
+    public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+    {
+        if (value is string str)
+        {
+            var parts = str.Split(',');
+            if (parts.Length == 2 &&
+                double.TryParse(parts[0], out var latitude) &&
+                double.TryParse(parts[1], out var longitude))
+            {
+                return new Location(latitude, longitude);
+            }
+        }
+        return base.ConvertFrom(context, culture, value);
+    }
+}
+```
+
+注意：需要在Location类的定义上标注[TypeConverter(typeof(LocationConverter))]。
+
+XAML使用方式：
+
+```xaml
+<uc:MapCL Width="200" Center="-134,-30"/>
+```
+
+直接为Center指定字符串，就可以最终通过TypeConverter映射到Location对象上。
 
 
 
@@ -350,14 +521,6 @@ x:XData标签是一个专用标签，这里只展示用法。
 
 
 
-## 补充
-
-使用TypeConverter 类将XAML标签的Attribute与对象的Property进行映射，参见：
-
-- 《深入浅出WPF》P19中的3.2.2章节。
-- 《WPF编程宝典》P25中的2.3.1章节。 
-- 编辑C#代码生成exe、dll，使用C#编译工具csc命令。
-
 
 
 ## 总结
@@ -374,6 +537,7 @@ References:
 
 - 《深入浅出WPF》
 - 《C#码农笔记-WPF应用程序》
+- [WPF自定义类型转换器TypeConventer | WPF故事模式专业版 | XAML 1-4_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1EexEzAEja?spm_id_from=333.788.player.switch&vd_source=e3d65fed6c5d2bee448a9a010e7d9a81)
 
 Last updated：2025-04-04
 
