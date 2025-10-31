@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.Entities.EnumTypes
+namespace AY.LearningTag.ApplicationServices.Sections.Dtos
 {
-    internal class AgeEnum
+    internal class SectionDto
     {
     }
 }

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.Entities
+namespace AY.LearningTag.Domain.Entities
 {
     /// <summary>
     /// 学习记录（学习任务）
     /// </summary>
-    public class LearningRecord:BaseEntity
+    public class LearningRecord : BaseEntity
     {
         /// <summary>
         /// 小节信息Id
@@ -26,7 +26,7 @@ namespace AY.LearningTag.Entities
         /// </summary>
         public DateTime EndTime { get; set; }
 
-        
+
         /// <summary>
         /// 已学时长
         /// </summary>

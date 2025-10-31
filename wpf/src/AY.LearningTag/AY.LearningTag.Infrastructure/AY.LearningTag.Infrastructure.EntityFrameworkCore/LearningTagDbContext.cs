@@ -5,16 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.EntityFrameworkCore
+namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
 {
     public class LearningTagDbContext : DbContext
     {
+        public LearningTagDbContext()
+        {
+        }
         public LearningTagDbContext(DbContextOptions options) : base(options)
         {
         }
 
-        protected LearningTagDbContext()
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //optionsBuilder.UseSqlite
+            base.OnConfiguring(optionsBuilder);
         }
+
     }
 }

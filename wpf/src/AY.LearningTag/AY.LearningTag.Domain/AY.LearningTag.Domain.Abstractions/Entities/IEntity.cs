@@ -14,12 +14,12 @@ namespace AY.LearningTag.Domain.Abstractions.Entities
     /// <summary>
     /// 实体接口
     /// </summary>
-    /// <typeparam name="TKey">唯一标识的类型</typeparam>
-    public interface IEntity<TKey> : IEntity where TKey : IEquatable<TKey>
+    /// <typeparam name="TPrimaryKey">唯一标识的类型</typeparam>
+    public interface IEntity<TPrimaryKey> : IEntity where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
         /// 实体的唯一标识
         /// </summary>
-        TKey Id { get; set; }
+        TPrimaryKey Id { get; set; }
     }
 }

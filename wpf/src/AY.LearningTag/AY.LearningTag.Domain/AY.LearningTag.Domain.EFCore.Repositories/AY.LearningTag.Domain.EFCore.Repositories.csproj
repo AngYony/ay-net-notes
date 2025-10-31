@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AY.LearningTag.Domain\AY.LearningTag.Entities\AY.LearningTag.Entities.csproj" />
+    <ProjectReference Include="..\AY.LearningTag.Domain.Abstractions\AY.LearningTag.Domain.Abstractions.csproj" />
+    <ProjectReference Include="..\AY.LearningTag.Domain.Entities\AY.LearningTag.Domain.Entities.csproj" />
   </ItemGroup>
 
 </Project>

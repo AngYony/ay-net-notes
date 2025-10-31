@@ -8,15 +8,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.EntityFrameworkCore.Repositories
+/*
+ * 通过EFCore实现的仓储接口
+ */
+
+//todo：验证将泛型的DbContext移除的情况
+namespace AY.LearningTag.Domain.EFCore.Repositories
 {
     /// <summary>
-    /// 无主键实体的EF Core仓储
+    /// EFCore仓储接口
     /// </summary>
-    /// <typeparam name="TEntity">实体类型</typeparam>
-    /// <typeparam name="TDbContext">EF Core上下文类型</typeparam>
-    public interface IEFCoreRepository<TEntity, TDbContext> : IReadOnlyRepository<TEntity>, IVariableRepository<TEntity>, IBulkOperableVariableRepository<int, IEFCoreRepository<TEntity, TDbContext>, TEntity>, IDisposable, IAsyncDisposable
-        where TEntity : class, IEntity
+    /// <typeparam name="TEntity"></typeparam>
+    public interface IEFCoreRepository<TEntity, TDbContext> 
+        : IRepository<TEntity>, IDisposable, IAsyncDisposable
+
+        where TEntity :class, IEntity
         where TDbContext : DbContext
     {
         /// <summary>
@@ -56,15 +62,18 @@ namespace AY.LearningTag.EntityFrameworkCore.Repositories
         void ResetDbContext();
     }
 
+
     /// <summary>
-    /// 有主键实体的EF Core仓储
+    /// 根据主键的EFCore仓储接口
     /// </summary>
-    /// <typeparam name="TEntity">实体类型</typeparam>
-    /// <typeparam name="TKey">主键类型</typeparam>
-    /// <typeparam name="TDbContext">EF Core上下文类型</typeparam>
-    public interface IEFCoreRepository<TEntity, TKey, TDbContext> : IEFCoreRepository<TEntity, TDbContext>, IReadOnlyRepository<TEntity, TKey>, IVariableRepository<TEntity, TKey>
-        where TEntity : class, IEntity<TKey>
-        where TKey : IEquatable<TKey>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TPrimaryKey"></typeparam>
+    public interface IEFCoreRepository<TEntity, TPrimaryKey, TDbContext> :
+        IEFCoreRepository<TEntity, TDbContext>,
+        IRepository<TEntity, TPrimaryKey>
+        where TEntity : class, IEntity<TPrimaryKey>
+        where TPrimaryKey : IEquatable<TPrimaryKey>
         where TDbContext : DbContext
-    { }
+    {
+    }
 }

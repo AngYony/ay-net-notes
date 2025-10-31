@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace AY.LearningTag.Domain.Abstractions.Repositories
 {
+    //注意：这里面虽然名称叫SaveChanges，但它并不局限于EF Core的上下文保存操作，任何支持批处理的仓储都可以实现这个接口
+
     /// <summary>
     /// 支持批处理的仓储
     /// </summary>
     /// <typeparam name="TVariableRepository">基础仓库类型</typeparam>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public interface IBulkOperableVariableRepository<TVariableRepository, TEntity>
-        where TEntity : IEntity
-        where TVariableRepository : IVariableRepository<TEntity>
+    public interface IBulkOperableVariableRepository
     {
         /// <summary>
         /// 保存变更
@@ -36,9 +36,7 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
     /// <typeparam name="TResult">处理结果的类型</typeparam>
     /// <typeparam name="TVariableRepository">基础仓库类型</typeparam>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public interface IBulkOperableVariableRepository<TResult, TVariableRepository, TEntity>
-        where TEntity : IEntity
-        where TVariableRepository : IVariableRepository<TEntity>
+    public interface IBulkOperableVariableRepository<TResult>
     {
         /// <summary>
         /// 保存变更

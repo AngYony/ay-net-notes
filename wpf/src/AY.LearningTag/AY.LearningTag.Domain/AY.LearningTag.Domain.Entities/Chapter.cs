@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.Entities
+namespace AY.LearningTag.Domain.Entities
 {
     /// <summary>
     /// 章节信息
@@ -22,6 +22,4 @@ namespace AY.LearningTag.Entities
         /// </summary>
         public string ChapterTitle { get; set; }
     }
-
-
 }

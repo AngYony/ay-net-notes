@@ -1,25 +1,30 @@
-﻿using System;
+﻿using AY.LearningTag.Domain.Abstractions.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WY.EntityFramework.Repositories
+namespace AY.LearningTag.Domain.Abstractions.Repositories
 {
     /// <summary>
-    /// 此接口是所有仓储的约定, 此接口仅作为约定，用于标识它们。
+    /// 只读仓库，只读取数据
     /// </summary>
-    /// <typeparam name="TEntity">当前传入仓储的实体类型</typeparam> 
-    public interface IRepository<TEntity, TPrimaryKey> where TEntity : class
+    /// <typeparam name="TEntity">实体类型</typeparam>
+    public interface IReadOnlyRepository<TEntity> where TEntity : IEntity
     {
-        #region 查询
+        /// <summary>
+        /// 用于获取用于从整个表中检索实体的IQueryable
+        /// </summary>
+        IQueryable<TEntity> Query { get; }
 
         /// <summary>
-        /// 用于获取用于从整个表中检索实体的IQueryable。
+        /// 用于获取用于从整个表中检索实体的IQueryable
         /// </summary>
-        /// <returns>可用于从数据库中选择实体</returns>
+        /// <returns></returns>
         IQueryable<TEntity> GetIQueryable();
+
 
         /// <summary>
         /// 用于获取所有实体。
@@ -73,71 +78,6 @@ namespace WY.EntityFramework.Repositories
         /// <param name="predicate">筛选条件</param>
         Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
 
-        #endregion 查询
-
-        #region Insert
-
-        /// <summary>
-        /// 添加一个新实体信息
-        /// </summary>
-        /// <param name="entity">被添加的实体</param>
-        TEntity Insert(TEntity entity);
-
-        /// <summary>
-        /// 添加一个新实体信息
-        /// </summary>
-        /// <param name="entity">被添加的实体</param>
-        Task<TEntity> InsertAsync(TEntity entity);
-
-        #endregion Insert
-
-        #region Update
-
-        /// <summary>
-        /// 更新现有实体。
-        /// </summary>
-        /// <param name="entity">Entity</param>
-        TEntity Update(TEntity entity);
-
-        /// <summary>
-        /// 更新现有实体。
-        /// </summary>
-        /// <param name="entity">Entity</param>
-        Task<TEntity> UpdateAsync(TEntity entity);
-
-        #endregion Update
-
-        #region Delete
-
-        /// <summary>
-        /// 删除一个实体
-        /// </summary>
-        /// <param name="entity">无返回值</param>
-        void Delete(TEntity entity);
-
-        /// <summary>
-        /// 删除一个实体
-        /// </summary>
-        /// <param name="entity">无返回值</param>
-        Task DeleteAsync(TEntity entity);
-
-        /// <summary>
-        ///按传入的条件可删除多个实体。
-        ///注意:所有符合给定条件的实体都将被检索和删除。
-        ///如果条件比较多，待删除的实体也比较多，这可能会导致主要的性能问题。
-        /// </summary>
-        /// <param name="predicate">筛选实体的条件</param>
-        void Delete(Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
-        ///按传入的条件可删除多个实体。
-        ///注意:所有符合给定条件的实体都将被检索和删除。
-        ///如果条件比较多，待删除的实体也比较多，这可能会导致主要的性能问题。
-        /// </summary>
-        /// <param name="predicate">筛选实体的条件</param>
-        Task DeleteAsync(Expression<Func<TEntity, bool>> predicate);
-
-        #endregion Delete
 
         #region 总和计算
 
@@ -197,5 +137,41 @@ namespace WY.EntityFramework.Repositories
         Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate);
 
         #endregion 总和计算
+
+
     }
+
+
+    /// <summary>
+    /// 根据主键读取实体的只读仓库
+    /// </summary>
+    /// <typeparam name="TEntity">实体类型</typeparam>
+    /// <typeparam name="TPrimaryKey">实体的唯一标识类型</typeparam>
+    public interface IReadOnlyRepository<TEntity, TPrimaryKey> : IReadOnlyRepository<TEntity>
+        where TEntity : IEntity<TPrimaryKey>
+        where TPrimaryKey : IEquatable<TPrimaryKey>
+    {
+        /// <summary>
+        /// 查找实体
+        /// </summary>
+        /// <param name="key">主键</param>
+        /// <returns>找到的实体</returns>
+        TEntity? Find(TPrimaryKey key);
+
+        /// <summary>
+        /// 查找实体
+        /// </summary>
+        /// <param name="key">主键</param>
+        /// <param name="cancellationToken">取消令牌</param>
+        /// <returns>获取找到的实体的任务</returns>
+        Task<TEntity?> FindAsync(TPrimaryKey key, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// 查找多个实体
+        /// </summary>
+        /// <param name="keys">主键集合</param>
+        /// <returns>找到是实体集合</returns>
+        IQueryable<TEntity?> Find(IEnumerable<TPrimaryKey> keys);
+    }
+
 }

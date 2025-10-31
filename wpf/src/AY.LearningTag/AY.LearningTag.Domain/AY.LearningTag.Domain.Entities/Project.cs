@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.Entities
+namespace AY.LearningTag.Domain.Entities
 {
     /// <summary>
     /// 课题信息
