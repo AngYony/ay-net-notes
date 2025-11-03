@@ -1,14 +1,18 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AY.LearningTag.Infrastructure.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace AY.LearningTag.ToolKitShared.Extensions
+namespace AY.Shared.Extensions
 {
     public static class ServicesExtensions
     {
@@ -29,6 +33,13 @@ namespace AY.LearningTag.ToolKitShared.Extensions
             });
             return services;
         }
+
+
+
+
+
+
+
 
         public static IServiceCollection AddConfigureService(this IServiceCollection services, IConfiguration configuration)
         {
@@ -51,6 +62,25 @@ namespace AY.LearningTag.ToolKitShared.Extensions
 
 
 
+            return services;
+        }
+
+
+
+        public static IServiceCollection AddPooledDbContextFactory(this IServiceCollection services, IConfiguration configuration)
+        {
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var migrationsAssembly = configuration.GetValue("MigrationsAssembly", string.Empty);
+            services.AddPooledDbContextFactory<LearningTagDbContext>(options =>
+            {
+                options.UseSqlite(connectionString, sqlOptions =>
+                {
+                    if (!string.IsNullOrEmpty(migrationsAssembly))
+                    {
+                        sqlOptions.MigrationsAssembly(migrationsAssembly);
+                    }
+                });
+            }, poolSize: 32); // 设置连接池大小为32
             return services;
         }
 

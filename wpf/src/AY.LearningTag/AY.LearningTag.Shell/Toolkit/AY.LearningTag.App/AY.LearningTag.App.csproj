@@ -22,10 +22,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\AY.LearningTag.ApplicationServices\AY.LearningTag.ApplicationServices.csproj" />
-    <ProjectReference Include="..\..\AY.Shared\AY.Shared.csproj" />
+    <ProjectReference Include="..\..\..\AY.LearningTag.Infrastructure\AY.LearningTag.Infrastructure.EntityFrameworkCore\AY.LearningTag.Infrastructure.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\AY.Styles\AY.Styles.csproj" />
     <ProjectReference Include="..\..\AY.Themes\AY.Themes.csproj" />
-    <ProjectReference Include="..\AY.LearningTag.ToolKitShared\AY.LearningTag.ToolKitShared.csproj" />
+    <ProjectReference Include="..\AY.Shared.CommunityToolkit\AY.Shared.CommunityToolkit.csproj" />
   </ItemGroup>
 
   <ItemGroup>

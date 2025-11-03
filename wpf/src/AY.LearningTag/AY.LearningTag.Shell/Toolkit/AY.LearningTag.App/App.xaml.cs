@@ -2,8 +2,9 @@
 using AY.LearningTag.App.ControllSample.ListBox;
 using AY.LearningTag.App.Services;
 using AY.LearningTag.App.ViewModels;
+using AY.LearningTag.Infrastructure.EntityFrameworkCore;
 using AY.LearningTag.Shared;
-using AY.LearningTag.ToolKitShared.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -44,18 +45,30 @@ namespace AY.LearningTag.App
         public App()
         {
             //先创建配置服务
-            Configuration = ConfigureAppSettings();
-            Services = ConfigureServices();
-           
+            Configuration = BuildConfiguration();
+            Services = BuildServiceProvider();
+
         }
 
-        private IConfiguration? ConfigureAppSettings()
+        /// <summary>
+        /// 生成配置组件
+        /// </summary>
+        /// <returns></returns>
+        private IConfiguration? BuildConfiguration()
         {
             var builder = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+               .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+               .AddJsonFile("mysettings.json", optional: false, reloadOnChange: true);
             return builder.Build();
         }
+
+
+
+
+
+
+
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -72,19 +85,33 @@ namespace AY.LearningTag.App
 
         }
 
+        private void AddPooledDbContextFactory(ServiceCollection services)
+        {
+            
+        }
 
-        
 
-        
+
 
 
         /// <summary>
         /// Configures the services for the application.
         /// </summary>
-        private static IServiceProvider ConfigureServices()
+        private IServiceProvider BuildServiceProvider()
         {
             var services = new ServiceCollection();
+
+
+            AddPooledDbContextFactory(services); //添加DBContextFactory服务
+
+
+
+
+
             services.AddConfigureService(App.Current.Configuration!);
+
+
+
 
             services.AddSingleton<NavigationService>();
             services.AddTransient<HomeViewModel>();

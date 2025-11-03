@@ -1,4 +1,10 @@
-﻿namespace AY.LearningTag.ToolKitShared
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AY.Shared.Extensions
 {
     public sealed class MySettings
     {
@@ -12,6 +18,5 @@
     {
         public required string Message { get; set; } = null!;
     }
-
 
 }
