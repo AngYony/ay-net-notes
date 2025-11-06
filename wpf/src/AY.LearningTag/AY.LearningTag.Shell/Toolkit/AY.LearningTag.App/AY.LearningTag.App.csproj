@@ -23,9 +23,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\AY.LearningTag.ApplicationServices\AY.LearningTag.ApplicationServices.csproj" />
     <ProjectReference Include="..\..\..\AY.LearningTag.Infrastructure\AY.LearningTag.Infrastructure.EntityFrameworkCore\AY.LearningTag.Infrastructure.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\..\AY.LearningTag.Infrastructure\AY.LearningTag.Infrastructure.Migrations.SQLite\AY.LearningTag.Infrastructure.Migrations.SQLite.csproj" />
+    <ProjectReference Include="..\..\AY.Shared\AY.Shared.csproj" />
     <ProjectReference Include="..\..\AY.Styles\AY.Styles.csproj" />
     <ProjectReference Include="..\..\AY.Themes\AY.Themes.csproj" />
-    <ProjectReference Include="..\AY.Shared.CommunityToolkit\AY.Shared.CommunityToolkit.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +59,9 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="mysettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -66,6 +70,13 @@
 
   <ItemGroup>
     <Folder Include="UserControls\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

@@ -9,13 +9,19 @@ using System.Threading.Tasks;
 
 namespace AY.LearningTag.Domain.EFCore.Repositories
 {
-    public interface IBaseRepository<TEntity, TDbContext> : IEFCoreRepository<TEntity, int, TDbContext> where TDbContext : DbContext
-        where TEntity : class, IEntity<int>
-    {
-    }
+    //public interface IBaseRepository<TEntity, TDbContext> : IEFCoreRepository<TEntity, int, TDbContext> where TDbContext : DbContext
+    //    where TEntity : class, IEntity<int>
+    //{
+    //}
 
-    public interface ISectionRepository<TDbContext> : IBaseRepository<Section, TDbContext> where TDbContext : DbContext
-    {
+    //public interface ISectionRepository<TDbContext> : IBaseRepository<Section, TDbContext> where TDbContext : DbContext
+    //{
 
+    //}
+
+
+    public interface ISectionRepository<TDbContext> : IEFCoreRepository<Section, int, TDbContext> where TDbContext : DbContext
+    {
+        Task<List<Section>> GetSectionsByCategoryAsync(int categoryId);
     }
 }

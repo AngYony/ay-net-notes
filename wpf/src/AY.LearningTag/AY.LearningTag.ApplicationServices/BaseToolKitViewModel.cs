@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.Shared.CommunityToolkit
+namespace AY.LearningTag.ApplicationServices
 {
     public class BaseToolKitViewModel : ObservableObject
     {

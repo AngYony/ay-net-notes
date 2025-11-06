@@ -176,10 +176,16 @@ public class MyCodeFirstDbContext : DbContext
 可以使用单独的项目来存放迁移代码文件。需要注意以下几点：
 
 - 迁移项目中不存在DbContext上下文类型时，必须添加对上下文项目的引用。
+- 在程序包管理器控制台中进行迁移时，需要指定默认项目为迁移项目。
+- 解决方案中的启动项目（右击项目“设为启动项目”），必须是安装了NuGet包Microsoft.EntityFrameworkCore.Tools，否则将会无法识别命令。
+- 如果仅在迁移项目中安装了Microsoft.EntityFrameworkCore.Tools，而App启动项目没有安装，需要设置迁移项目为启动项目才可以进行命令迁移。
+- 如果迁移项目本身就是启动项目，可直接执行迁移命令，如果启动项目为App而非迁移项目，且默认项目指定的是迁移项目，此时必须在App项目中安装Microsoft.EntityFrameworkCore.Tools。
 
-- 必须在启动项目中添加对迁移项目的引用。（启动项目包含了连接字符串信息）。
+综上推荐做法是：
 
-- 必须在启动项目中安装NuGet包 Microsoft.EntityFrameworkCore.Tools，注意：不是安装在迁移项目或上下文项目中，必须是安装在启动项目中，否则执行迁移命令会报错。
+- 启动项目和迁移项目，同时安装 NuGet包Microsoft.EntityFrameworkCore.Tools。
+- 在程序包管理器控制台中进行迁移时，指定默认项目为迁移项目。
+- 启动项目添加迁移项目的引用（需要在启动项目中，指定迁移项目程序集）
 
 - 在启动项目所在的文件夹中执行迁移命令：
 

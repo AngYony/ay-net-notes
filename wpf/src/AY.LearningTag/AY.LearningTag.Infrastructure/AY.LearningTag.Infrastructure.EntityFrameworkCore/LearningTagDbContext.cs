@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AY.LearningTag.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
 {
     public class LearningTagDbContext : DbContext
     {
+        public DbSet<Project> Projects { get; set; }
+
         public LearningTagDbContext()
         {
         }
@@ -18,7 +21,6 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlite
             base.OnConfiguring(optionsBuilder);
         }
 

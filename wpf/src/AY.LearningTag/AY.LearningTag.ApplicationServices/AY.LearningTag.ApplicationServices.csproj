@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AY.LearningTag.Domain\AY.LearningTag.Domain.EFCore.Repositories\AY.LearningTag.Domain.EFCore.Repositories.csproj" />
   </ItemGroup>
 

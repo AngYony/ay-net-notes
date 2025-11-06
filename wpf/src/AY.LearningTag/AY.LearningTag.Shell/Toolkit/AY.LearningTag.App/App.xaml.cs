@@ -2,8 +2,10 @@
 using AY.LearningTag.App.ControllSample.ListBox;
 using AY.LearningTag.App.Services;
 using AY.LearningTag.App.ViewModels;
+using AY.LearningTag.Domain.EFCore.Repositories;
 using AY.LearningTag.Infrastructure.EntityFrameworkCore;
 using AY.LearningTag.Shared;
+using AY.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +52,41 @@ namespace AY.LearningTag.App
 
         }
 
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            ConfigHelper.ReadConnectionString();
+            // 应用迁移
+            ApplyDatabaseMigrations();
+             
+
+
+
+            //var store = Services.GetRequiredService<NavigationStore>();
+            //store.CurrentViewModel = new HomeViewModel(store);
+            //new ListBoxGroupSampleA().Show();
+
+            // Resolve the MainWindow from the service provider
+            var mainWindow = Services.GetRequiredService<MainWindow>();
+
+            mainWindow.Show();
+
+        }
+
+        /// <summary>
+        /// 应用数据库迁移
+        /// </summary>
+        private void ApplyDatabaseMigrations()
+        {
+            using var scope = Services.CreateScope();
+            var dbFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<LearningTagDbContext>>();
+            using var db = dbFactory.CreateDbContext();
+            db.Database.Migrate();  // <-- 自动执行迁移（如果还没应用）
+        }
+
+
+
+
         /// <summary>
         /// 生成配置组件
         /// </summary>
@@ -64,57 +101,30 @@ namespace AY.LearningTag.App
         }
 
 
-
-
-
-
-
-
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-            ConfigHelper.ReadConnectionString();
-            //var store = Services.GetRequiredService<NavigationStore>();
-            //store.CurrentViewModel = new HomeViewModel(store);
-            //new ListBoxGroupSampleA().Show();
-
-            // Resolve the MainWindow from the service provider
-            var mainWindow = Services.GetRequiredService<MainWindow>();
-
-            mainWindow.Show();
-
-        }
-
-        private void AddPooledDbContextFactory(ServiceCollection services)
-        {
-            
-        }
-
-
-
-
-
         /// <summary>
         /// Configures the services for the application.
         /// </summary>
         private IServiceProvider BuildServiceProvider()
         {
             var services = new ServiceCollection();
+            //添加其他json配置项
+            services.AddConfigureEx(this.Configuration)
+                    //添加数据库服务
+                    .AddPooledDbContextFactoryEx(this.Configuration)
+                    //添加文件服务
+                    .AddLogEx();
 
-
-            AddPooledDbContextFactory(services); //添加DBContextFactory服务
-
-
-
-
-
-            services.AddConfigureService(App.Current.Configuration!);
-
+            services.AddScoped(typeof(IEFCoreRepository<,>), typeof(EFCoreRepository<,>));
+            services.AddScoped(typeof(IEFCoreRepository<,,>), typeof(EFCoreRepository<,,>));
+            services.AddScoped<ISectionRepository<LearningTagDbContext>, SectionRepository>();
 
 
 
             services.AddSingleton<NavigationService>();
             services.AddTransient<HomeViewModel>();
+            //添加日志服务
+            services.AddViewModel<MainWindow, MainViewModel>();
+
 
             // 假设你有多个接口和实现类需要注入
             //services.Scan(scan => scan
@@ -124,17 +134,21 @@ namespace AY.LearningTag.App
             //    .WithScopedLifetime()
             //);
 
-
-
-            //添加日志服务
-            services.AddLog()
-                .AddViewModel<MainWindow, MainViewModel>();
-
-
-
-
             return services.BuildServiceProvider();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
