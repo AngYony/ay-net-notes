@@ -9,7 +9,7 @@ namespace AY.LearningTag.ApplicationServices.Sections
 {
     public class SectionService
     {
-        public SectionService(ISection )
+        public SectionService( )
         {
 
         }
