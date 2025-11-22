@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\AY.LearningTag.Common\AY.Utils\AY.Utils.csproj" />
     <ProjectReference Include="..\..\AY.LearningTag.Infrastructure\AY.LearningTag.Infrastructure.EntityFrameworkCore\AY.LearningTag.Infrastructure.EntityFrameworkCore.csproj" />
   </ItemGroup>
 

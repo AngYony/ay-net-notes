@@ -3,26 +3,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Runtime;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace AY.Shared.Extensions
 {
     public static class ServicesExtensions
     {
-
+        /// <summary>
+        /// 添加配置文件支持
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddConfigureEx(this IServiceCollection services, IConfiguration configuration)
         {
             //https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers
             //方式一：绑定配置并直接添加到服务容器中（推荐），可以直接通过注入的方式读取到配置项，最推荐方式
             services.Configure<MySettings>(configuration.GetSection("Settings"));
-
 
             ////方式二：直接读取配置文件到实体中
             //configuration.GetRequiredSection("settings").Get<Settings>();
@@ -66,7 +63,6 @@ namespace AY.Shared.Extensions
             return services;
         }
 
-
         public static IServiceCollection AddLogEx(this IServiceCollection services)
         {
             //在不使用主机的情况下使用 DI 时，请在 LoggingServiceCollectionExtensions.AddLogging 中进行配置。
@@ -77,11 +73,8 @@ namespace AY.Shared.Extensions
                 .CreateLogger();
             services.AddLogging(builder => builder.AddSerilog(serilog));
 
-
-
-
-
             #region 在不使用主机和DI的情况下
+
             //ILoggerFactory logger = LoggerFactory.Create(logging =>
             //{
             //    logging.AddSerilog(serilog);
@@ -93,9 +86,8 @@ namespace AY.Shared.Extensions
             //        .AddSerilog(serilog)
             //        .CreateLogger("Logger")
             //);
-            #endregion
 
-
+            #endregion 在不使用主机和DI的情况下
 
             return services;
         }

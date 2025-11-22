@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.Utilities.Extensions
+namespace AY.Utils.Extensions
 {
     public static class TaskExtensions
     {
@@ -69,8 +68,8 @@ namespace AY.LearningTag.Utilities.Extensions
             }
 
         }
-        
-        
+
+
 
         /// <summary>
         /// 准确捕获异常的操作
@@ -78,7 +77,7 @@ namespace AY.LearningTag.Utilities.Extensions
         /// <param name="task"></param>
         /// <param name="onCompleted"></param>
         /// <param name="onError"></param>
-        public static async Task Await(this Task task,Action? onCompleted = null, Action<Exception>? onError =null)
+        public static async Task Await(this Task task, Action? onCompleted = null, Action<Exception>? onError = null)
         {
             try
             {
@@ -110,12 +109,12 @@ namespace AY.LearningTag.Utilities.Extensions
 
             channel.Writer.Complete(); // 完成写入器，通知读取器没有更多数据了
             await Task.WhenAll(reciver, reciver2);
-             
+
             Console.ReadLine();
 
 
 
-            async Task SendThreadAsync(ChannelWriter<int> writer,string threadName)
+            async Task SendThreadAsync(ChannelWriter<int> writer, string threadName)
             {
                 for (int i = 0; i < 10; i++)
                 {
@@ -148,6 +147,5 @@ namespace AY.LearningTag.Utilities.Extensions
 
 
     }
-
 
 }

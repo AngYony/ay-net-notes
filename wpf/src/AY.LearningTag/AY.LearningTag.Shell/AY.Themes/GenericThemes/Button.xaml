@@ -1,4 +1,84 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush x:Key="PrimaryColorBrush" Color="#1196ff" />
 
+    <!--  复杂背景按钮样式使用Grid  -->
+    <Style x:Key="btnA" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border Background="#1196ff" CornerRadius="5" />
+                        <!--<Image Margin="80,0,0,0" Source="/AY.Styles;component/Resources/vue.png" Stretch="None" />-->
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Green" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="Red" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+
+
+
+
+    <!--  简单背景按钮样式使用Border  -->
+    <Style x:Key="BtnStyleB" TargetType="Button">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Margin" Value="2" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                    x:Name="btnBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="btnBorder" Property="Background" Value="#1196ff" />
+                            <Setter Property="Foreground" Value="#FFF" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="btnBorder" Property="Opacity" Value="0.8" />
+                        </Trigger>
+                        <!--  禁用状态  -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="btnBorder" Property="Opacity" Value="0.5" />
+                            <Setter Property="Background" Value="#B30F1F43" />
+                            <Setter Property="Cursor" Value="No" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!--按钮渐变背景示例-->
+    <Style x:Key="btnBackground" TargetType="Button">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0.0" Color="#1196ff" />
+                    <GradientStop Offset="1.0" Color="#0d6efd" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
 </ResourceDictionary>

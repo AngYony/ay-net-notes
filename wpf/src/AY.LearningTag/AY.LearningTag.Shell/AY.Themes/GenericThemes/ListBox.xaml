@@ -1,8 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/AY.Styles;component/ScrollViewerStyle.xaml" />
+        <ResourceDictionary Source="/AY.Themes;component/GenericThemes/ScrollViewer.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
 
     <!--  https://learn.microsoft.com/zh-cn/dotnet/desktop/wpf/controls/control-styles-and-templates  -->
     <!--  https://learn.microsoft.com/zh-cn/dotnet/api/system.windows.controls.itemspaneltemplate?view=windowsdesktop-9.0&f1url=%3FappId%3DDev17IDEF1%26l%3DZH-CN%26k%3Dk(System.Windows.Controls.ItemsPanelTemplate)%3Bk(VS.XamlEditor)%26rd%3Dtrue  -->
@@ -23,15 +24,15 @@
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <!--  使ListBoxItem都在UniformGrid中  -->
                             <!--<UniformGrid
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                IsItemsHost="True" />-->
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            IsItemsHost="True" />-->
                             <!--  方式一：设置ListBoxItem的父容器  -->
                             <StackPanel
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                IsItemsHost="True"
-                                Orientation="Vertical" />
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            IsItemsHost="True"
+                            Orientation="Vertical" />
                         </ScrollViewer>
                     </Border>
                 </ControlTemplate>
@@ -54,9 +55,9 @@
                         <!--<Border Background="#454e6d" CornerRadius="5" />-->
                         <!--<Border x:Name="MouseOverBorder" />-->
                         <Border
-                            x:Name="SelectedBorder"
-                            Background="#454e6d"
-                            CornerRadius="5" />
+                        x:Name="SelectedBorder"
+                        Background="#454e6d"
+                        CornerRadius="5" />
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -88,15 +89,15 @@
                 <ControlTemplate TargetType="ListBoxItem">
                     <Grid>
                         <Rectangle
-                            x:Name="bg"
-                            Fill="#454e6d"
-                            RadiusX="5"
-                            RadiusY="5" />
+                        x:Name="bg"
+                        Fill="#454e6d"
+                        RadiusX="5"
+                        RadiusY="5" />
                         <ContentPresenter
-                            Margin="10,10,0,0"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            TextElement.Foreground="White" />
+                        Margin="10,10,0,0"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        TextElement.Foreground="White" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -134,6 +135,8 @@
     <DataTemplate x:Key="ListBoxItemDateTemplate">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" />
     </DataTemplate>
+
+
 
 </ResourceDictionary>
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.Utilities.Extensions
+namespace AY.Utils.Extensions
 {
     public static class ThreadExtensions
     {

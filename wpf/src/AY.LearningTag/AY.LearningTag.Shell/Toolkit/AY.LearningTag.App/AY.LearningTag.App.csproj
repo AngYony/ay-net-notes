@@ -25,7 +25,6 @@
     <ProjectReference Include="..\..\..\AY.LearningTag.Infrastructure\AY.LearningTag.Infrastructure.EntityFrameworkCore\AY.LearningTag.Infrastructure.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\..\AY.LearningTag.Infrastructure\AY.LearningTag.Infrastructure.Migrations.SQLite\AY.LearningTag.Infrastructure.Migrations.SQLite.csproj" />
     <ProjectReference Include="..\..\AY.Shared\AY.Shared.csproj" />
-    <ProjectReference Include="..\..\AY.Styles\AY.Styles.csproj" />
     <ProjectReference Include="..\..\AY.Themes\AY.Themes.csproj" />
   </ItemGroup>
 

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.Utilities
+namespace AY.Utils
 {
     public static class MiniDump
     {
