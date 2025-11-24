@@ -2,6 +2,8 @@
 using AY.LearningTag.App.ControllSample.ListBox;
 using AY.LearningTag.App.Services;
 using AY.LearningTag.App.ViewModels;
+using AY.LearningTag.ApplicationServices;
+using AY.LearningTag.ApplicationServices.Sections;
 using AY.LearningTag.Domain.EFCore.Repositories;
 using AY.LearningTag.Infrastructure.EntityFrameworkCore;
 using AY.LearningTag.Shared;
@@ -14,6 +16,7 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
@@ -58,7 +61,7 @@ namespace AY.LearningTag.App
             ConfigHelper.ReadConnectionString();
             // 应用迁移
             ApplyDatabaseMigrations();
-             
+
 
 
 
@@ -114,10 +117,26 @@ namespace AY.LearningTag.App
                     //添加文件服务
                     .AddLogEx();
 
-            services.AddScoped(typeof(IEFCoreRepository<,>), typeof(EFCoreRepository<,>));
-            services.AddScoped(typeof(IEFCoreRepository<,,>), typeof(EFCoreRepository<,,>));
-            services.AddScoped<ISectionRepository<LearningTagDbContext>, SectionRepository>();
 
+
+
+            #region  开放泛型接口其实现类也是开放泛型的注册方式（实现类不需要指定具体泛型参数的，但必须保证泛型参数数量和接口定义的一直才可以使用这种形式注册）
+            services.AddTransient(typeof(IEFCoreRepository<,>), typeof(EFCoreRepository<,>));
+            services.AddTransient(typeof(IEFCoreRepository<,,>), typeof(EFCoreRepository<,,>));
+            services.AddTransient(typeof(IDataRepositoryBase<,>), typeof(DataRepositoryBase<,>));
+            services.AddDataRepositories(); //扫描并注册所有具体的仓储类
+            services.AddApplicationServices(typeof(ITransientServiceBase)); //扫描并注册所有具体的应用服务类
+            #endregion
+
+
+            #region 实现类是非泛型类，必须在注册的时候指定具体的泛型参数
+            //services.AddTransient(typeof(ISectionDataRepository<>), typeof(SectionDataRepository<>));
+
+
+
+            #endregion
+
+            //services.AddTransient<ISectionService, SectionService<LearningTagDbContext>>();
 
 
             services.AddSingleton<NavigationService>();

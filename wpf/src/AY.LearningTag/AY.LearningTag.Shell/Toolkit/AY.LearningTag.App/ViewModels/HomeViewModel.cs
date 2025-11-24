@@ -1,5 +1,6 @@
 ﻿using AY.LearningTag.App.Properties;
-using AY.LearningTag.App.Services; 
+using AY.LearningTag.App.Services;
+using AY.LearningTag.ApplicationServices.Sections;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Options;
 using System;
@@ -12,20 +13,20 @@ namespace AY.LearningTag.App.ViewModels
 {
     public partial class HomeViewModel : ViewModelBase
     {
-        private readonly NavigationService _navigationService;
+        private readonly NavigationService _navigationService; 
 
         public string WelcomeMessage => "Welcome to Learning Tag App!";
 
         public HomeViewModel(NavigationService navigationService)
         {
-            this._navigationService = navigationService;
-           
+            this._navigationService = navigationService; 
         }
 
         [RelayCommand]
         private void NavigateToAccount()
         {
             _navigationService.NavigateTo(new AccountViewModel(_navigationService));
+              
         }
     }
 }

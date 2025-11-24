@@ -1,5 +1,7 @@
 ﻿using AY.LearningTag.App.Messages;
 using AY.LearningTag.App.Services;
+using AY.LearningTag.ApplicationServices.Sections;
+using AY.LearningTag.Infrastructure.EntityFrameworkCore;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
@@ -17,6 +19,7 @@ namespace AY.LearningTag.App.ViewModels
         private string title = "Learning Tag App";
 
         private readonly NavigationService _navigationService;
+        private readonly ISectionService<LearningTagDbContext> sectionService;
 
         /// <summary>
         /// 当前视图的ViewModel
@@ -24,16 +27,17 @@ namespace AY.LearningTag.App.ViewModels
         [ObservableProperty]
         private ViewModelBase? currentViewModel;
 
-        public MainViewModel(NavigationService navigationService, ILogger<MainViewModel> logger)
+        public MainViewModel(NavigationService navigationService, ILogger<MainViewModel> logger, ISectionService<LearningTagDbContext> sectionService)
         {
             logger.LogInformation("测试日志");
             this._navigationService = navigationService;
-
+            this.sectionService = sectionService;
             _navigationService.CurrentViewModelChanged += () =>
             {
                 CurrentViewModel = _navigationService.CurrentViewModel;
             };
 
+            sectionService.GetSectionsByCategoryAsync(0);
             _navigationService.NavigateTo<HomeViewModel>();
         }
 
