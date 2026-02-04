@@ -102,14 +102,14 @@ namespace AY.Shared.Extensions
         public static IServiceCollection AddDataRepositories(this IServiceCollection services)
         {
             //这里由于添加了程序集的引用，因此可以直接通过 typeof 来获取程序集
-            Assembly assembly = typeof(DataRepositoryBase<,>).Assembly;
+            Assembly assembly = typeof(EFCoreRepository<,>).Assembly;
 
             var implementationTypes = assembly.GetTypes()
                 .Where(t => t.IsClass
                     && !t.IsAbstract
                     && t.BaseType != null
                     && t.BaseType.IsGenericType
-                    && t.BaseType.GetGenericTypeDefinition() == typeof(DataRepositoryBase<,>)
+                    && t.BaseType.GetGenericTypeDefinition() == typeof(EFCoreRepository<,>)
                 );
 
 

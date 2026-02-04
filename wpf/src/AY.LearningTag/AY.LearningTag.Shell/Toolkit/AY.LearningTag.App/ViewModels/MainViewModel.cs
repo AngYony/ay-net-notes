@@ -19,7 +19,7 @@ namespace AY.LearningTag.App.ViewModels
         private string title = "Learning Tag App";
 
         private readonly NavigationService _navigationService;
-        private readonly ISectionService<LearningTagDbContext> sectionService;
+        private readonly ISectionService sectionService;
 
         /// <summary>
         /// 当前视图的ViewModel
@@ -27,7 +27,7 @@ namespace AY.LearningTag.App.ViewModels
         [ObservableProperty]
         private ViewModelBase? currentViewModel;
 
-        public MainViewModel(NavigationService navigationService, ILogger<MainViewModel> logger, ISectionService<LearningTagDbContext> sectionService)
+        public MainViewModel(NavigationService navigationService, ILogger<MainViewModel> logger, ISectionService sectionService)
         {
             logger.LogInformation("测试日志");
             this._navigationService = navigationService;

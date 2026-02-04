@@ -1,6 +1,6 @@
 ﻿using AY.LearningTag.Domain.Abstractions.Entities;
 using AY.LearningTag.Domain.Abstractions.Repositories;
-using AY.LearningTag.Domain.EFCore.Repositories;
+using AY.LearningTag.Domain.EFCore.Repositories.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
@@ -17,7 +17,7 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TDbContext"></typeparam>
-    public class EFCoreRepository<TEntity, TDbContext> : IEFCoreRepository<TEntity, TDbContext>
+    public class EFCoreRepository<TEntity, TDbContext> : IEFCoreRepository<TEntity>
         where TEntity : class, IEntity
         where TDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
@@ -58,7 +58,7 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
             return GetIQueryable().Count();
         }
 
-         
+
         public int Count(Expression<Func<TEntity, bool>> predicate)
         {
             return GetIQueryable().Where(predicate).Count();
@@ -82,7 +82,7 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
                 Table.Remove(entity);
             }
         }
-         
+
         public void Delete(Expression<Func<TEntity, bool>> predicate)
         {
             foreach (var entity in GetIQueryable().Where(predicate).ToList())
@@ -98,7 +98,7 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
             return Task.CompletedTask;
         }
 
-         
+
         public async Task DeleteAsync(Expression<Func<TEntity, bool>> predicate)
         {
             foreach (var entity in GetIQueryable().Where(predicate).ToList())
@@ -167,8 +167,8 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
             return await GetIQueryable().Where(predicate).ToListAsync();
         }
 
-         
-        
+
+
 
         public virtual TEntity Insert(TEntity entity) => Table.Add(entity).Entity;
 
@@ -178,7 +178,7 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
             var task = await Table.AddAsync(entity, cancellationToken);
             return task.Entity;
         }
-         
+
         public long LongCount()
         {
             return GetIQueryable().LongCount();
@@ -204,7 +204,7 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
         /// </summary>
         public void ResetDbContext() => dbContext.ChangeTracker.Clear();
 
-       
+
         public TEntity Single(Expression<Func<TEntity, bool>> predicate)
         {
             return GetIQueryable().Single(predicate);
@@ -321,7 +321,7 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
 
     public class EFCoreRepository<TEntity, TPrimaryKey, TDbContext> :
         EFCoreRepository<TEntity, TDbContext>,
-        IEFCoreRepository<TEntity, TPrimaryKey, TDbContext>
+        IEFCoreRepository<TEntity, TPrimaryKey>
         where TEntity : class, IEntity<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
         where TDbContext : DbContext
@@ -341,15 +341,15 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
             Delete(key);
             return Task.CompletedTask;
         }
-         
-        
+
+
         public virtual void DeleteRange(IEnumerable<TPrimaryKey> keys)
         {
             var entities = Find(keys).ToArray();
             Table.AttachRange(entities);
             DeleteRange(entities);
         }
-         
+
 
         public virtual Task DeleteRangeAsync(IEnumerable<TPrimaryKey> keys, CancellationToken cancellationToken = default)
         {

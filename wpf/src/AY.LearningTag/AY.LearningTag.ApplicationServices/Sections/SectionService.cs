@@ -1,6 +1,5 @@
 ﻿using AY.LearningTag.Domain.EFCore.Repositories;
 using AY.LearningTag.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace AY.LearningTag.ApplicationServices.Sections
 {
-    public class SectionService<TDbContext> : ISectionService<TDbContext> where TDbContext : DbContext
+    public class SectionService : ISectionService
     {
-        private readonly ISectionDataRepository<TDbContext> sectionRepository;
+        private readonly ISectionDataRepository sectionRepository;
 
-        public SectionService(ISectionDataRepository<TDbContext> sectionRepository)
+        public SectionService(ISectionDataRepository sectionRepository)
         {
             this.sectionRepository = sectionRepository;
         }

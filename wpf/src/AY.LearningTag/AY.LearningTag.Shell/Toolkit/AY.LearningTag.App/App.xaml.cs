@@ -4,7 +4,7 @@ using AY.LearningTag.App.Services;
 using AY.LearningTag.App.ViewModels;
 using AY.LearningTag.ApplicationServices;
 using AY.LearningTag.ApplicationServices.Sections;
-using AY.LearningTag.Domain.EFCore.Repositories;
+using AY.LearningTag.Domain.EFCore.Repositories.Common;
 using AY.LearningTag.Infrastructure.EntityFrameworkCore;
 using AY.LearningTag.Shared;
 using AY.Shared.Extensions;
@@ -122,8 +122,6 @@ namespace AY.LearningTag.App
 
             #region  开放泛型接口其实现类也是开放泛型的注册方式（实现类不需要指定具体泛型参数的，但必须保证泛型参数数量和接口定义的一直才可以使用这种形式注册）
             services.AddTransient(typeof(IEFCoreRepository<,>), typeof(EFCoreRepository<,>));
-            services.AddTransient(typeof(IEFCoreRepository<,,>), typeof(EFCoreRepository<,,>));
-            services.AddTransient(typeof(IDataRepositoryBase<,>), typeof(DataRepositoryBase<,>));
             services.AddDataRepositories(); //扫描并注册所有具体的仓储类
             services.AddApplicationServices(typeof(ITransientServiceBase)); //扫描并注册所有具体的应用服务类
             #endregion

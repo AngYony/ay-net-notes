@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Toolkit", "Toolkit", "{110A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Shell 展示层", "1.Shell 展示层", "{F06945E3-DB99-4C7F-90A6-C0257B13FB17}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain 领域（不引用任何其它层程序集）", "Domain 领域（不引用任何其它层程序集）", "{1D99A831-2D9F-49E4-A314-6A323722D698}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain 领域（不引用任何其它层程序集，领域侧只定义接口和平台无关，所以不要引入EF组件）", "Domain 领域（不引用任何其它层程序集，领域侧只定义接口和平台无关，所以不要引入EF组件）", "{1D99A831-2D9F-49E4-A314-6A323722D698}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.LearningTag.Domain.Abstractions", "AY.LearningTag.Domain\AY.LearningTag.Domain.Abstractions\AY.LearningTag.Domain.Abstractions.csproj", "{1456A959-8A14-49BB-90BD-E2D3D3D854C0}"
 EndProject
@@ -42,8 +42,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.LearningTag.Infrastructure.EntityFrameworkCore", "AY.LearningTag.Infrastructure\AY.LearningTag.Infrastructure.EntityFrameworkCore\AY.LearningTag.Infrastructure.EntityFrameworkCore.csproj", "{C24AF09E-FBC2-47F3-959F-43E82791F1A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.LearningTag.Infrastructure.Migrations.SQLite", "AY.LearningTag.Infrastructure\AY.LearningTag.Infrastructure.Migrations.SQLite\AY.LearningTag.Infrastructure.Migrations.SQLite.csproj", "{512EA7AB-3088-4815-8B39-0E32102F4481}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "待整理", "待整理", "{BBFBB8D4-3D36-4E5E-8EBA-1C5B4DF0C870}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AY.Utils", "AY.LearningTag.Common\AY.Utils\AY.Utils.csproj", "{3115B1E9-FAFA-4E34-9E9C-B23556F028D9}"
 EndProject
