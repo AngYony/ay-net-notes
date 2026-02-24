@@ -6,6 +6,7 @@ using AY.LearningTag.ApplicationServices;
 using AY.LearningTag.ApplicationServices.Sections;
 using AY.LearningTag.Domain.EFCore.Repositories.Common;
 using AY.LearningTag.Infrastructure.EntityFrameworkCore;
+using AY.LearningTag.Infrastructure.EntityFrameworkCore.DbContexts;
 using AY.LearningTag.Shared;
 using AY.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -111,45 +112,20 @@ namespace AY.LearningTag.App
         {
             var services = new ServiceCollection();
             //添加其他json配置项
-            services.AddConfigureEx(this.Configuration)
+            services.AddConfigure(this.Configuration!)
                     //添加数据库服务
-                    .AddPooledDbContextFactoryEx(this.Configuration)
+                    .AddDbContextFactory(this.Configuration!)
                     //添加文件服务
                     .AddLogEx();
 
-
-
-
-            #region  开放泛型接口其实现类也是开放泛型的注册方式（实现类不需要指定具体泛型参数的，但必须保证泛型参数数量和接口定义的一直才可以使用这种形式注册）
-            services.AddTransient(typeof(IEFCoreRepository<,>), typeof(EFCoreRepository<,>));
-            services.AddDataRepositories(); //扫描并注册所有具体的仓储类
-            services.AddApplicationServices(typeof(ITransientServiceBase)); //扫描并注册所有具体的应用服务类
-            #endregion
-
-
-            #region 实现类是非泛型类，必须在注册的时候指定具体的泛型参数
-            //services.AddTransient(typeof(ISectionDataRepository<>), typeof(SectionDataRepository<>));
-
-
-
-            #endregion
-
-            //services.AddTransient<ISectionService, SectionService<LearningTagDbContext>>();
+            //自动注册仓储和服务类
+            services.AutoRegisterDataRepositoriesAndApplicationServices(typeof(ITransientServiceBase));
 
 
             services.AddSingleton<NavigationService>();
             services.AddTransient<HomeViewModel>();
             //添加日志服务
             services.AddViewModel<MainWindow, MainViewModel>();
-
-
-            // 假设你有多个接口和实现类需要注入
-            //services.Scan(scan => scan
-            //    .FromAssemblyOf<IMyService>()  // 扫描包含接口和实现的程序集
-            //    .AddClasses(classes => classes.AssignableTo<IMyService>())
-            //    .AsImplementedInterfaces()
-            //    .WithScopedLifetime()
-            //);
 
             return services.BuildServiceProvider();
         }

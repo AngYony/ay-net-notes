@@ -37,7 +37,7 @@ namespace AY.LearningTag.App.ViewModels
                 CurrentViewModel = _navigationService.CurrentViewModel;
             };
 
-            sectionService.GetSectionsByCategoryAsync(0);
+       sectionService.GetSectionsByCategoryAsync(0);
             _navigationService.NavigateTo<HomeViewModel>();
         }
 

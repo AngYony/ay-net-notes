@@ -239,17 +239,17 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
         public EntityEntry<TEntity> GetEntityEntry(TEntity entity) => dbContext.Entry(entity);
 
 
-        //public virtual int SaveChanges()
-        //{
-        //    GenerateConcurrencyStamp();
-        //    return dbContext.SaveChanges();
-        //}
+        public virtual int SaveChanges()
+        {
+            GenerateConcurrencyStamp();
+            return dbContext.SaveChanges();
+        }
 
-        //public virtual Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        //{
-        //    GenerateConcurrencyStamp();
-        //    return dbContext.SaveChangesAsync(cancellationToken);
-        //}
+        public virtual Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            GenerateConcurrencyStamp();
+            return dbContext.SaveChangesAsync(cancellationToken);
+        }
 
 
         /// <summary>
@@ -281,34 +281,34 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
 
         #region 私有方法
 
-        /// <summary>
-        /// 检查实体是否处于跟踪状态，如果是则返回，如果没有则添加跟踪状态
-        /// </summary>
-        /// <param name="entity"></param>
-        protected virtual void AttachIfNot(TEntity entity)
-        {
-            var entry = dbContext.ChangeTracker.Entries()
-                .FirstOrDefault(ent => ent.Entity == entity);
+        ///// <summary>
+        ///// 检查实体是否处于跟踪状态，如果是则返回，如果没有则添加跟踪状态
+        ///// </summary>
+        ///// <param name="entity"></param>
+        //protected virtual void AttachIfNot(TEntity entity)
+        //{
+        //    var entry = dbContext.ChangeTracker.Entries()
+        //        .FirstOrDefault(ent => ent.Entity == entity);
 
-            if (entry != null)
-            {
-                return;
-            }
+        //    if (entry != null)
+        //    {
+        //        return;
+        //    }
 
-            Table.Attach(entity);
-        }
+        //    Table.Attach(entity);
+        //}
 
-        protected void Save()
-        {
-            //调用数据库上下文保存数据
-            dbContext.SaveChanges();
-        }
+        //protected void Save()
+        //{
+        //    //调用数据库上下文保存数据
+        //    dbContext.SaveChanges();
+        //}
 
-        protected async Task SaveAsync()
-        {
-            //调用数据库上下文保存数据的异步方法
-            await dbContext.SaveChangesAsync();
-        }
+        //protected async Task SaveAsync()
+        //{
+        //    //调用数据库上下文保存数据的异步方法
+        //    await dbContext.SaveChangesAsync();
+        //}
 
         #endregion 私有方法
 

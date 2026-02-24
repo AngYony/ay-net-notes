@@ -6,11 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
+namespace AY.LearningTag.Infrastructure.EntityFrameworkCore.DbContexts
 {
     public class LearningTagDbContext : DbContext
     {
         public DbSet<Project> Projects { get; set; }
+
+        public DbSet<Section> Sections { get; set; }
 
         public LearningTagDbContext()
         {

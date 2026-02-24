@@ -14,7 +14,9 @@ namespace AY.LearningTag.Domain.EFCore.Repositories.Common
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     public interface IEFCoreRepository<TEntity>
-        : IRepository<TEntity>, IDisposable, IAsyncDisposable
+        : IRepository<TEntity>,
+        IBulkOperableVariableRepository<int>,
+        IDisposable, IAsyncDisposable
 
         where TEntity : class, IEntity
     {

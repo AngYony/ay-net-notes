@@ -1,4 +1,4 @@
-﻿using AY.LearningTag.Infrastructure.EntityFrameworkCore;
+﻿using AY.LearningTag.Infrastructure.EntityFrameworkCore.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using System;
@@ -26,7 +26,7 @@ namespace AY.LearningTag.Infrastructure.Migrations.SQLite
         public LearningTagDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<LearningTagDbContext>();
-            optionsBuilder.UseSqlite("Data Source=C:\\DesignAY.db",
+            optionsBuilder.UseSqlite("Data Source=C:\\AYDB\\DesignAY.db",
                 b => b.MigrationsAssembly(typeof(DesignTimeDbContextFactory).Assembly.FullName));
             return new LearningTagDbContext(optionsBuilder.Options);
         }

@@ -1,6 +1,7 @@
 ﻿using AY.LearningTag.Domain.Abstractions.Entities;
 using AY.LearningTag.Domain.EFCore.Repositories;
 using AY.LearningTag.Domain.Entities;
+using AY.LearningTag.Infrastructure.EntityFrameworkCore.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,19 +9,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
+namespace AY.LearningTag.Infrastructure.EntityFrameworkCore.Repositories
 {
-    public class SectionDataRepository<TDbContext> : EFCoreRepository<Section, TDbContext>,
-        ISectionDataRepository where TDbContext : DbContext
+    public class SectionDataRepository : EFCoreRepository<Section, LearningTagDbContext>, ISectionDataRepository
     {
-        public SectionDataRepository(IDbContextFactory<TDbContext> factory) : base(factory)
+        public SectionDataRepository(IDbContextFactory<LearningTagDbContext> factory) : base(factory)
         {
 
         }
-
         public async Task<List<Section>> GetSectionsByCategoryAsync(int categoryId)
         {
-            return await Table.ToListAsync();
+            var data = await Table.ToListAsync();
+            return data;
         }
     }
 }
