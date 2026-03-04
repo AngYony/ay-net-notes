@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AY.LearningTag.Infrastructure.EntityFrameworkCore.Repositories
 {
-    public class SectionDataRepository : EFCoreRepository<Section, LearningTagDbContext>, ISectionDataRepository
+    public class SectionDataRepository : EFCoreRepository<Section, int, LearningTagDbContext>, ISectionDataRepository
     {
         public SectionDataRepository(IDbContextFactory<LearningTagDbContext> factory) : base(factory)
         {

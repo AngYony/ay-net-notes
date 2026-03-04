@@ -36,21 +36,21 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         /// 用于获取所有实体的异步实现
         /// </summary>
         /// <returns>所有实体列表</returns>
-        Task<List<TEntity>> GetAllListAsync();
+        Task<List<TEntity>> GetAllListAsync( CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 用于获取传入本方法的所有实体 <paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">筛选实体的条件</param>
         /// <returns>所有实体列表</returns>
-        List<TEntity> GetAllList(Expression<Func<TEntity, bool>> predicate);
+        List<TEntity> GetList(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
         /// 用于获取传入本方法的所有实体<paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">筛选实体的条件</param>
         /// <returns>所有实体列表</returns>
-        Task<List<TEntity>> GetAllListAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 通过传入的筛选条件来获取实体信息 通过传入的筛选条件来获取实体信息
@@ -64,7 +64,7 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         /// 如果查询不到返回值则会引发异常
         /// </summary>
         /// <param name="predicate">Entity</param>
-        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 通过传入的筛选条件查询实体信息，如果没有找到，则返回null。
@@ -76,7 +76,7 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         /// 通过传入的筛选条件查询实体信息，如果没有找到，则返回null。
         /// </summary>
         /// <param name="predicate">筛选条件</param>
-        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 
 
         #region 总和计算
@@ -85,40 +85,40 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         /// 获取此仓储中所有实体的总和。
         /// </summary>
         /// <returns>实体的总数</returns>
-        int Count();
+        int GetCount();
 
         /// <summary>
         /// 获取此仓储中所有实体的总和。
         /// </summary>
         /// <returns>实体的总数</returns>
-        Task<int> CountAsync();
+        Task<int> GetCountAsync( CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 支持条件筛选 <paramref name="predicate"/>计算仓储中的实体总和
         /// </summary>
         /// <param name="predicate">实体的总数</param>
         /// <returns>实体的总数</returns>
-        int Count(Expression<Func<TEntity, bool>> predicate);
+        int GetCount(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
         ///支持条件筛选 <paramref name="predicate"/>计算仓储中的实体总和
         /// </summary>
         /// <param name="predicate">实体的总数</param>
         /// <returns>实体的总数</returns>
-        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<int> GetCountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 获取此存储库中所有实体的总和(如果预期返回值大于了Int.MaxValue值，则推荐该方法)，简单来说就是返回值为long类型
         /// <see cref="int.MaxValue"/>.
         /// </summary>
         /// <returns>实体的总数</returns>
-        long LongCount();
+        long GetLongCount();
 
         /// <summary>
         /// 获取此存储库中所有实体的总和(如果预期返回值大于了Int.MaxValue值，则推荐该方法)，简单来说就是返回值为long类型<see cref="int.MaxValue"/>.
         /// </summary>
         /// <returns>实体的总数</returns>
-        Task<long> LongCountAsync();
+        Task<long> GetLongCountAsync( CancellationToken cancellationToken = default);
 
         /// <summary>
         ///支持条件筛选获取此存储库中所有实体的总和(如果预期返回值大于了Int.MaxValue值，则推荐该方法)，简单来说就是返回值为long类型
@@ -126,7 +126,7 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         /// </summary>
         /// <param name="predicate">实体的总数</param>
         /// <returns>实体的总数</returns>
-        long LongCount(Expression<Func<TEntity, bool>> predicate);
+        long GetLongCount(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
         /// 支持条件筛选<paramref name="predicate"/>获取此存储库中所有实体的总和(如果预期返回值大于了Int.MaxValue值，则推荐该方法)，简单来说就是返回值为long类型
@@ -134,7 +134,7 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         /// </summary>
         /// <param name="predicate">实体的总数</param>
         /// <returns>实体的总数</returns>
-        Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<long> GetLongCountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 
         #endregion 总和计算
 
@@ -156,7 +156,7 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         /// </summary>
         /// <param name="key">主键</param>
         /// <returns>找到的实体</returns>
-        TEntity? Find(TPrimaryKey key);
+        TEntity? Single(TPrimaryKey key);
 
         /// <summary>
         /// 查找实体
@@ -164,14 +164,14 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         /// <param name="key">主键</param>
         /// <param name="cancellationToken">取消令牌</param>
         /// <returns>获取找到的实体的任务</returns>
-        Task<TEntity?> FindAsync(TPrimaryKey key, CancellationToken cancellationToken = default);
+        Task<TEntity?> SingleAsync(TPrimaryKey key, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 查找多个实体
         /// </summary>
         /// <param name="keys">主键集合</param>
         /// <returns>找到是实体集合</returns>
-        IQueryable<TEntity?> Find(IEnumerable<TPrimaryKey> keys);
+        IQueryable<TEntity?> Single(IEnumerable<TPrimaryKey> keys);
     }
 
 }

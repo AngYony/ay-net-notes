@@ -20,7 +20,6 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore.DbContexts
         public LearningTagDbContext(DbContextOptions options) : base(options)
         {
         }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

@@ -1,12 +1,12 @@
 ﻿using AY.LearningTag.Domain.Abstractions.Entities;
 using AY.LearningTag.Domain.Abstractions.Repositories;
+using System.Linq.Expressions;
 //using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 /*
  * 通过EFCore实现的仓储接口
  */
 
-//todo：验证将泛型的DbContext移除的情况
 namespace AY.LearningTag.Domain.EFCore.Repositories.Common
 {
     /// <summary>
@@ -20,6 +20,53 @@ namespace AY.LearningTag.Domain.EFCore.Repositories.Common
 
         where TEntity : class, IEntity
     {
+        #region Insert
+        /// <summary>
+        /// 自动保存添加单个实体
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="autoSave"></param>
+        /// <returns></returns>
+        TEntity Insert(TEntity entity, bool autoSave = false);
+        /// <summary>
+        /// 自动保存添加单个实体
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="autoSave"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<TEntity> InsertAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// 自动保存同时添加多个实体
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <param name="autoSave"></param>
+        void InsertMany(IEnumerable<TEntity> entities, bool autoSave = false);
+
+        /// <summary>
+        /// 自动保存同时添加多个实体
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <param name="autoSave"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task InsertManyAsync(IEnumerable<TEntity> entities, bool autoSave = false, CancellationToken cancellationToken = default);
+        #endregion
+
+        #region Delete
+
+        void Delete(TEntity? entity, bool autoSave = false);
+        void Delete(Expression<Func<TEntity, bool>> predicate, bool autoSave = false);
+        void DeleteMany(IEnumerable<TEntity> entities, bool autoSave = false);
+
+        #endregion
+
+        #region Update
+        TEntity Update(TEntity entity, bool autoSave = false);
+        void UpdateMany(IEnumerable<TEntity> entities, bool autoSave = false);
+        #endregion
+
+
         /// <summary>
         /// 开始跟踪实体变更
         /// </summary>

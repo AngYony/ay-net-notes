@@ -30,23 +30,19 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         /// <returns>指示添加状态的任务</returns>
         Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-        #endregion
-
-        #region Update
+        /// <summary>
+        /// 添加多个实体
+        /// </summary>
+        /// <param name="entities">实体实例集合</param>
+        void InsertMany(IEnumerable<TEntity> entities);
 
         /// <summary>
-        /// 更新实体
+        /// 添加多个实体
         /// </summary>
-        /// <param name="entity">实体实例</param>
-        TEntity Update(TEntity entity);
-
-        /// <summary>
-        /// 更新实体
-        /// </summary>
-        /// <param name="entity">实体实例</param>
+        /// <param name="entities">实体实例集合</param>
         /// <param name="cancellationToken">取消令牌</param>
-        /// <returns>指示更新状态的任务</returns>
-        Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+        /// <returns>指示添加状态的任务</returns>
+        Task InsertManyAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
         #endregion
 
@@ -80,41 +76,13 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         ///如果条件比较多，待删除的实体也比较多，这可能会导致主要的性能问题。
         /// </summary>
         /// <param name="predicate">筛选实体的条件</param>
-        Task DeleteAsync(Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
-        /// 添加多个实体
-        /// </summary>
-        /// <param name="entities">实体实例集合</param>
-        void AddRange(IEnumerable<TEntity> entities);
-
-        /// <summary>
-        /// 添加多个实体
-        /// </summary>
-        /// <param name="entities">实体实例集合</param>
-        /// <param name="cancellationToken">取消令牌</param>
-        /// <returns>指示添加状态的任务</returns>
-        Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// 更新多个实体
-        /// </summary>
-        /// <param name="entities">实体实例集合</param>
-        void UpdateRange(IEnumerable<TEntity> entities);
-
-        /// <summary>
-        /// 更新多个实体
-        /// </summary>
-        /// <param name="entities">实体实例集合</param>
-        /// <param name="cancellationToken">取消令牌</param>
-        /// <returns>指示更新状态的任务</returns>
-        Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+        Task DeleteAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 删除多个实体
         /// </summary>
         /// <param name="entities">实体实例集合</param>
-        void DeleteRange(IEnumerable<TEntity> entities);
+        void DeleteMany(IEnumerable<TEntity> entities);
 
         /// <summary>
         /// 删除多个实体
@@ -122,10 +90,42 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         /// <param name="entities">实体实例集合</param>
         /// <param name="cancellationToken">取消令牌</param>
         /// <returns>指示删除状态的任务</returns>
-        Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+        Task DeleteManyAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
         #endregion
 
+
+        #region Update
+
+        /// <summary>
+        /// 更新实体
+        /// </summary>
+        /// <param name="entity">实体实例</param>
+        TEntity Update(TEntity entity);
+
+        /// <summary>
+        /// 更新实体（自动SaveChanges）
+        /// </summary>
+        /// <param name="entity">实体实例</param>
+        /// <param name="cancellationToken">取消令牌</param>
+        /// <returns>指示更新状态的任务</returns>
+        Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// 更新多个实体
+        /// </summary>
+        /// <param name="entities">实体实例集合</param>
+        void UpdateMany(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// 更新多个实体（自动SaveChanges）
+        /// </summary>
+        /// <param name="entities">实体实例集合</param>
+        /// <param name="cancellationToken">取消令牌</param>
+        /// <returns>指示更新状态的任务</returns>
+        Task UpdateManyAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+
+        #endregion
     }
 
     /// <summary>
@@ -155,7 +155,7 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         /// 删除多个实体
         /// </summary>
         /// <param name="keys">主键集合</param>
-        void DeleteRange(IEnumerable<TPrimaryKey> keys);
+        void DeleteMany(IEnumerable<TPrimaryKey> keys);
 
         /// <summary>
         /// 删除多个实体
@@ -163,7 +163,7 @@ namespace AY.LearningTag.Domain.Abstractions.Repositories
         /// <param name="keys">主键集合</param>
         /// <param name="cancellationToken">取消令牌</param>
         /// <returns>指示删除状态的任务</returns>
-        Task DeleteRangeAsync(IEnumerable<TPrimaryKey> keys, CancellationToken cancellationToken = default);
+        Task DeleteManyAsync(IEnumerable<TPrimaryKey> keys, CancellationToken cancellationToken = default);
     }
 
 }

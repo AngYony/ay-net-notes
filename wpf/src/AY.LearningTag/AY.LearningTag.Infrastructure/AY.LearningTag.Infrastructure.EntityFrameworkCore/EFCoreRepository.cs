@@ -24,57 +24,134 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
         protected readonly TDbContext dbContext;
         protected readonly DbSet<TEntity> Table;
 
+        /*
+         * IDbContextFactory<T> 的默认注入生命周期是 Singleton（单例）。
+         * 其本质上是一个“工厂工具”，它的职责是根据配置信息（如数据库连接字符串）随时生产出新的 DbContext 实例。
+         */
         public EFCoreRepository(IDbContextFactory<TDbContext> factory)
         {
-            dbContext = factory.CreateDbContext();
+            dbContext = factory.CreateDbContext(); //Repository 生命周期 = DbContext 生命周期
             Table = dbContext.Set<TEntity>();
         }
 
         /// <summary>
         /// 根查询，已启用非跟踪的标识解析
         /// <para>如果需要进一步改善复杂查询（特别是连接查询）的性能，推荐调用AsSplitQuery方法启用拆分SQL的查询</para>
+        /// 不跟踪、但会做“实例去重”、同一个主键只生成一个对象
         /// </summary>
         public virtual IQueryable<TEntity> Query => Table.AsNoTrackingWithIdentityResolution();
+
         public IQueryable<TEntity> GetIQueryable()
         {
             return Table.AsQueryable();
         }
 
+        #region Insert 操作
+        /// <summary>
+        /// 新增单个实体
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public virtual TEntity Insert(TEntity entity) => Table.Add(entity).Entity;
 
-
-        public virtual void AddRange(IEnumerable<TEntity> entities) => Table.AddRange(entities);
-
-        public virtual Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default) => Table.AddRangeAsync(entities, cancellationToken);
-
-
-        public void Attach(TEntity entity) => dbContext.Attach(entity);
-
-        public void AttachRange(IEnumerable<TEntity> entities) => dbContext.AttachRange(entities);
-
-
-
-        public int Count()
+        /// <summary>
+        /// 自动保存添加单个实体
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="autoSave"></param>
+        /// <returns></returns>
+        public virtual TEntity Insert(TEntity entity, bool autoSave = false)
         {
-            return GetIQueryable().Count();
+            var saveEntity = Insert(entity);
+            if (autoSave)
+            {
+                dbContext.SaveChanges();
+            }
+            return saveEntity;
         }
 
-
-        public int Count(Expression<Func<TEntity, bool>> predicate)
+        /// <summary>
+        /// 新增单个实体异步方法
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public virtual async Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            return GetIQueryable().Where(predicate).Count();
+            var task = await Table.AddAsync(entity, cancellationToken);
+            return task.Entity;
         }
 
-        public async Task<int> CountAsync()
+        /// <summary>
+        /// 自动保存添加单个实体的异步方法
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="autoSave"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public virtual async Task<TEntity> InsertAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
         {
-            return await GetIQueryable().CountAsync();
+            var saveEntity = await InsertAsync(entity, cancellationToken);
+            if (autoSave)
+            {
+                await dbContext.SaveChangesAsync(cancellationToken);
+            }
+            return saveEntity;
         }
 
-        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
+        /// <summary>
+        /// 同时新增多个实体
+        /// </summary>
+        /// <param name="entities"></param>
+        public virtual void InsertMany(IEnumerable<TEntity> entities) => Table.AddRange(entities);
+
+        /// <summary>
+        /// 自动保存同时新增多个实体
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <param name="autoSave"></param>
+        public virtual void InsertMany(IEnumerable<TEntity> entities, bool autoSave = false)
         {
-            return await GetIQueryable().Where(predicate).CountAsync();
+            InsertMany(entities);
+            if (autoSave)
+            {
+                dbContext.SaveChanges();
+            }
         }
 
+        /// <summary>
+        /// 同时新增多个实体异步方法
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public virtual Task InsertManyAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+            => Table.AddRangeAsync(entities, cancellationToken);
 
+        /// <summary>
+        /// 自动保存新增多个实体
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <param name="autoSave"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public virtual async Task InsertManyAsync(IEnumerable<TEntity> entities, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            await InsertManyAsync(entities, cancellationToken);
+            if (autoSave)
+            {
+                await dbContext.SaveChangesAsync(cancellationToken);
+            }
+        }
+
+        #endregion
+
+        #region Delete
+
+        /// <summary>
+        /// 删除单个实体
+        /// </summary>
+        /// <param name="entity"></param>
         public virtual void Delete(TEntity? entity)
         {
             if (entity is not null)
@@ -83,48 +160,235 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
             }
         }
 
-        public void Delete(Expression<Func<TEntity, bool>> predicate)
+        public virtual void Delete(TEntity? entity, bool autoSave = false)
         {
-            foreach (var entity in GetIQueryable().Where(predicate).ToList())
+            if (entity is not null)
             {
-                Delete(entity);
+                Table.Remove(entity);
+                if (autoSave)
+                {
+                    dbContext.SaveChanges();
+                }
             }
         }
 
-
+        /// <summary>
+        /// 异步删除单个实体（自动SaveChanges）
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public virtual Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            Delete(entity);
-            return Task.CompletedTask;
+            Delete(entity); //没有异步方法，只有在SaveChanges时异步
+            return dbContext.SaveChangesAsync(cancellationToken);
         }
 
-
-        public async Task DeleteAsync(Expression<Func<TEntity, bool>> predicate)
+        /// <summary>
+        /// 根据条件删除多个实体
+        /// </summary>
+        /// <param name="predicate"></param>
+        public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
         {
-            foreach (var entity in GetIQueryable().Where(predicate).ToList())
+            var entities = GetIQueryable().Where(predicate).ToList();
+            DeleteMany(entities);
+        }
+
+        public virtual void Delete(Expression<Func<TEntity, bool>> predicate, bool autoSave = false)
+        {
+            Delete(predicate);
+            if (autoSave)
             {
-                await DeleteAsync(entity);
+                dbContext.SaveChanges();
             }
         }
 
-
-
-
-        public virtual void DeleteRange(IEnumerable<TEntity> entities)
+        /// <summary>
+        /// 根据条件异步删除多个实体
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public virtual Task DeleteAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            foreach (var entity in entities)
+            var entities = GetIQueryable().Where(predicate).ToList();
+            return DeleteManyAsync(entities, cancellationToken);
+        }
+
+        /// <summary>
+        /// 同步删除多个实体
+        /// </summary>
+        /// <param name="entities"></param>
+        public virtual void DeleteMany(IEnumerable<TEntity> entities)
+        {
+            Table.RemoveRange(entities);
+        }
+
+        public virtual void DeleteMany(IEnumerable<TEntity> entities, bool autoSave = false)
+        {
+            DeleteMany(entities);
+            if (autoSave)
             {
-                Delete(entity);
+                dbContext.SaveChanges();
             }
         }
-
-        public virtual Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// 异步删除多个实体（自动SaveChangesAsync）
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public virtual Task DeleteManyAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
-            DeleteRange(entities);
-            return Task.CompletedTask;
+            Table.RemoveRange(entities);
+            return dbContext.SaveChangesAsync(cancellationToken);
         }
 
 
+        #endregion
+
+        #region Update
+
+        public virtual TEntity Update(TEntity entity)
+        {
+            dbContext.Attach(entity);
+            var updatedEntity = Table.Update(entity).Entity;
+            return updatedEntity;
+        }
+
+        public virtual TEntity Update(TEntity entity, bool autoSave = false)
+        {
+            var updatedEntity = Update(entity);
+            if (autoSave)
+            {
+                dbContext.SaveChanges();
+            }
+            return updatedEntity;
+        }
+
+        /// <summary>
+        /// 更新单个实体（自动SaveChanges）
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public virtual async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            var updatedEntity = Update(entity);
+            await dbContext.SaveChangesAsync(cancellationToken);
+            return updatedEntity;
+        }
+
+        public virtual void UpdateMany(IEnumerable<TEntity> entities) => Table.UpdateRange(entities);
+
+        public virtual void UpdateMany(IEnumerable<TEntity> entities, bool autoSave = false)
+        {
+            UpdateMany(entities);
+            if (autoSave)
+            {
+                dbContext.SaveChanges();
+            }
+        }
+        /// <summary>
+        /// 更新多个实体，自动SaveChanges
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public virtual async Task UpdateManyAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        {
+            UpdateMany(entities);
+            await dbContext.SaveChangesAsync(cancellationToken);
+        }
+        #endregion
+
+        #region Select
+
+        public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
+        {
+            return GetIQueryable().FirstOrDefault(predicate);
+        }
+
+        public Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        {
+            return GetIQueryable().FirstOrDefaultAsync(predicate, cancellationToken);
+        }
+
+        public TEntity Single(Expression<Func<TEntity, bool>> predicate)
+        {
+            return GetIQueryable().SingleOrDefault(predicate);
+        }
+
+        public async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        {
+            return await GetIQueryable().SingleOrDefaultAsync(predicate, cancellationToken);
+        }
+
+        public List<TEntity> GetAllList()
+        {
+            return GetIQueryable().ToList();
+        }
+
+        public async Task<List<TEntity>> GetAllListAsync(CancellationToken cancellationToken = default)
+        {
+            return await GetIQueryable().ToListAsync(cancellationToken);
+        }
+
+        public List<TEntity> GetList(Expression<Func<TEntity, bool>> predicate)
+        {
+            return GetIQueryable().Where(predicate).ToList();
+        }
+
+        public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        {
+            return await GetIQueryable().Where(predicate).ToListAsync(cancellationToken);
+        }
+
+        public int GetCount()
+        {
+            return GetIQueryable().Count();
+        }
+
+
+        public int GetCount(Expression<Func<TEntity, bool>> predicate)
+        {
+            return GetIQueryable().Where(predicate).Count();
+        }
+
+        public async Task<int> GetCountAsync(CancellationToken cancellationToken = default)
+        {
+            return await GetIQueryable().CountAsync(cancellationToken);
+        }
+
+        public async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        {
+            return await GetIQueryable().Where(predicate).CountAsync(cancellationToken);
+        }
+
+        public long GetLongCount()
+        {
+            return GetIQueryable().LongCount();
+        }
+
+        public async Task<long> GetLongCountAsync(CancellationToken cancellationToken = default)
+        {
+            return await GetIQueryable().LongCountAsync(cancellationToken);
+        }
+
+        public long GetLongCount(Expression<Func<TEntity, bool>> predicate)
+        {
+            return GetIQueryable().Where(predicate).LongCount();
+        }
+
+        public async Task<long> GetLongCountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        {
+            return await GetIQueryable().Where(predicate).LongCountAsync(cancellationToken);
+        }
+
+        #endregion
+
+        public void Attach(TEntity entity) => dbContext.Attach(entity);
+
+        public void AttachRange(IEnumerable<TEntity> entities) => dbContext.AttachRange(entities);
 
         public void Detach(TEntity entity) => dbContext.Entry(entity).State = EntityState.Detached;
 
@@ -136,108 +400,12 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
             }
         }
 
-        public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
-        {
-            return GetIQueryable().FirstOrDefault(predicate);
-        }
-
-        public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            var entity = await GetIQueryable().FirstOrDefaultAsync(predicate);
-            return entity;
-        }
-
-        public List<TEntity> GetAllList()
-        {
-            return GetIQueryable().ToList();
-        }
-
-        public async Task<List<TEntity>> GetAllListAsync()
-        {
-            return await GetIQueryable().ToListAsync();
-        }
-
-        public List<TEntity> GetAllList(Expression<Func<TEntity, bool>> predicate)
-        {
-            return GetIQueryable().Where(predicate).ToList();
-        }
-
-        public async Task<List<TEntity>> GetAllListAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            return await GetIQueryable().Where(predicate).ToListAsync();
-        }
-
-
-
-
-        public virtual TEntity Insert(TEntity entity) => Table.Add(entity).Entity;
-
-
-        public async Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken = default)
-        {
-            var task = await Table.AddAsync(entity, cancellationToken);
-            return task.Entity;
-        }
-
-        public long LongCount()
-        {
-            return GetIQueryable().LongCount();
-        }
-
-        public async Task<long> LongCountAsync()
-        {
-            return await GetIQueryable().LongCountAsync();
-        }
-
-        public long LongCount(Expression<Func<TEntity, bool>> predicate)
-        {
-            return GetIQueryable().Where(predicate).LongCount();
-        }
-
-        public async Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            return await GetIQueryable().Where(predicate).LongCountAsync();
-        }
-
         /// <summary>
         /// 重置（更改跟踪器的）状态
         /// </summary>
         public void ResetDbContext() => dbContext.ChangeTracker.Clear();
 
-
-        public TEntity Single(Expression<Func<TEntity, bool>> predicate)
-        {
-            return GetIQueryable().Single(predicate);
-        }
-
-        public async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            return await GetIQueryable().SingleAsync(predicate);
-        }
-
-
-
-
-        public TEntity Update(TEntity entity) => Table.Update(entity).Entity;
-
-
-        public Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
-        {
-            ////Update(entity);
-            throw new NotImplementedException();
-        }
-
-
-        public virtual void UpdateRange(IEnumerable<TEntity> entities) => Table.UpdateRange(entities);
-
-        public virtual Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
-        {
-            UpdateRange(entities);
-            return Task.CompletedTask;
-        }
-
         public EntityEntry<TEntity> GetEntityEntry(TEntity entity) => dbContext.Entry(entity);
-
 
         public virtual int SaveChanges()
         {
@@ -279,6 +447,10 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
             }
         }
 
+        public void Dispose() => dbContext?.Dispose();
+
+        public ValueTask DisposeAsync() => dbContext?.DisposeAsync() ?? ValueTask.CompletedTask;
+
         #region 私有方法
 
         ///// <summary>
@@ -298,23 +470,9 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
         //    Table.Attach(entity);
         //}
 
-        //protected void Save()
-        //{
-        //    //调用数据库上下文保存数据
-        //    dbContext.SaveChanges();
-        //}
 
-        //protected async Task SaveAsync()
-        //{
-        //    //调用数据库上下文保存数据的异步方法
-        //    await dbContext.SaveChangesAsync();
-        //}
 
         #endregion 私有方法
-
-        public void Dispose() => dbContext?.Dispose();
-
-        public ValueTask DisposeAsync() => dbContext?.DisposeAsync() ?? ValueTask.CompletedTask;
 
 
     }
@@ -332,7 +490,7 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
 
         public virtual void Delete(TPrimaryKey key)
         {
-            var entity = Find(key);
+            var entity = Single(key);
             Delete(entity);
         }
 
@@ -343,38 +501,34 @@ namespace AY.LearningTag.Infrastructure.EntityFrameworkCore
         }
 
 
-        public virtual void DeleteRange(IEnumerable<TPrimaryKey> keys)
+        public virtual void DeleteMany(IEnumerable<TPrimaryKey> keys)
         {
-            var entities = Find(keys).ToArray();
+            var entities = Single(keys).ToArray();
             Table.AttachRange(entities);
-            DeleteRange(entities);
+            DeleteMany(entities);
         }
 
 
-        public virtual Task DeleteRangeAsync(IEnumerable<TPrimaryKey> keys, CancellationToken cancellationToken = default)
+        public virtual Task DeleteManyAsync(IEnumerable<TPrimaryKey> keys, CancellationToken cancellationToken = default)
         {
-            DeleteRange(keys);
+            DeleteMany(keys);
             return Task.CompletedTask;
         }
 
-        public virtual TEntity? Find(TPrimaryKey key)
+        public virtual TEntity? Single(TPrimaryKey key)
         {
             return Query.SingleOrDefault(x => x.Id.Equals(key));
         }
 
-        public virtual Task<TEntity?> FindAsync(TPrimaryKey key, CancellationToken cancellationToken = default)
+        public virtual Task<TEntity?> SingleAsync(TPrimaryKey key, CancellationToken cancellationToken = default)
         {
             return Query.SingleOrDefaultAsync(x => x.Id.Equals(key), cancellationToken);
         }
 
-        public virtual IQueryable<TEntity> Find(IEnumerable<TPrimaryKey> keys)
+        public virtual IQueryable<TEntity> Single(IEnumerable<TPrimaryKey> keys)
         {
             return Query.Where(x => keys.Contains(x.Id));
         }
-
-        //todo：定义一组SaveChange的增删改查操作
-
-
 
     }
 }

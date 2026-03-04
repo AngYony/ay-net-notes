@@ -61,8 +61,6 @@ namespace AY.Shared.Extensions
                 });
             });
 
-            //注册 DbContext 实例
-            //services.AddScoped(provider => provider.GetRequiredService<IDbContextFactory<LearningTagDbContext>>().CreateDbContext());
             return services;
         }
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AY.LearningTag.Domain.EFCore.Repositories
 {
-    public interface ISectionDataRepository : IEFCoreRepository<Section>
+    public interface ISectionDataRepository : IEFCoreRepository<Section,int>
     {
         Task<List<Section>> GetSectionsByCategoryAsync(int categoryId);
     }
