@@ -253,3 +253,181 @@ description: Review code changes for quality, security vulnerabilities, and best
 ```
 
 优点：说明了做什么（审查代码质量、安全、规范）和什么时候用（代码修改后，或用户请求时）。“Proactively” 这个关键词会鼓励 Claude 在合适的时机主动委派任务。
+
+#### tools 和 disallowedTools
+
+- tools：白名单，如果子代理只需要少数几个工具，用白名单更清晰。
+- disallowedTools：黑名单，如果子代理需要大部分工具但排除个别，用黑名单更简洁。
+
+注意：==不要同时使用两者==——选一种即可。
+
+```markdown
+# 方式一：白名单 (tools) — "只能用这些"
+# 适合：需要严格限制的场景（如只读审查）
+tools: Read, Grep, Glob
+
+# 方式二：黑名单 (disallowedTools) — “继承所有，但排除这些”
+# 适合：需要大部分工具但排除少数危险工具的场景
+disallowedTools: Write, Edit
+```
+
+工具权限应遵循最小权限原则——只开放必要的工具，能用 Read 完成的任务，就不要给 Edit。以下是根据用途划分的典型工具组合：
+
+```
+只读型（审计/检查）         研究型（信息收集）         开发型（读写改）
+├── Read                    ├── Read                   ├── Read
+├── Grep                    ├── Grep                   ├── Write
+└── Glob                    ├── Glob                   ├── Edit
+                            ├── WebFetch               ├── Bash
+                            └── WebSearch              ├── Glob
+                                                       └── Grep
+```
+
+#### model
+
+model ：模型选择与默认值
+
+![image-20260314101849727](./assets/image-20260314101849727.png)
+
+#### permissionMode
+
+permissionMode：权限模式，表示控制子代理在执行过程中遇到需要权限的操作时如何处理。
+
+子代理会继承主对话的权限上下文，但可以通过此字段覆盖行为：
+
+![image-20260314102132458](./assets/image-20260314102132458.png)
+
+例如，如果你希望子代理能跑  git diff 但绝不能修改文件，可以这样配置：
+
+```markdown
+---
+name: code-reviewer
+tools: Read, Grep, Glob, Bash
+permissionMode: plan          # 强制只读模式，即使有 Bash 也无法写入
+---
+```
+
+这比单纯依赖 prompt 约束更可靠——permissionMode: plan 是==系统级==的只读保障。
+
+#### skills
+
+skills：为子代理预加载知识。
+
+skills  字段允许你在子代理启动时，把指定 Skill 的完整内容注入到子代理的上下文中。这意味着子代理不需要在执行过程中发现和加载 Skill——知识已经在它的脑子里了。
+
+```markdown
+---
+name: impact-analyzer
+description: Analyze impact scope of code changes on the full call chain.
+tools: Read, Grep, Glob, Bash
+skills:
+  - chain-knowledge        # 链路拓扑和 SLA 约束
+  - recent-incidents       # 近期事故记录
+---
+```
+
+==子代理不会自动继承主对话中可用的 Skill==。如果你希望子代理拥有某个 Skill 的知识，必须在这里显式列出。
+
+#### hooks
+
+hooks：子代理专属的生命周期 Hook。
+
+子代理可以在自己的 frontmatter 中定义 Hook——这些 Hook 只在该子代理运行期间生效，子代理结束后自动清理。
+
+```markdown
+---
+name: db-reader
+description: Execute read-only database queries.
+tools: Bash
+hooks:
+  PreToolUse:
+    - matcher: "Bash"
+      hooks:
+        - type: command
+          command: "./scripts/validate-readonly-query.sh"
+---
+```
+
+上面的例子中，db-reader 虽然拥有 Bash 工具，但每次执行 Bash 命令前都会被 Hook 拦截验证——只有 SELECT 查询能通过，INSERT/UPDATE/DELETE 等写操作会被阻止。这比不给 Bash 工具更灵活（允许读操作），又比无约束的 Bash 更安全。
+
+Hook 可以让子代理不仅可以控制有哪些工具，还可以控制工具能做什么操作。
+
+## 子代理的存放位置与优先级
+
+子代理可以被设置为不同的作用域。当多个作用域存在同名子代理时，高优先级的会覆盖低优先级的。
+
+![image-20260314103333715](./assets/image-20260314103333715.png)
+
+项目级（仅当前项目可用）的子代理存放位置如下所示，适合项目特有的角色，比如针对特定框架的测试运行器：
+
+```
+your-project/
+└── .claude/
+    └── agents/
+        ├── test-runner.md
+        └── code-reviewer.md
+```
+
+用户级（当前系统用户，所有项目可用）的子代理存放位置如下所示，适合通用角色，比如日志分析器、通用代码审查器。
+
+```
+~/.claude/
+└── agents/
+    ├── general-reviewer.md
+    └── log-analyzer.md
+```
+
+注：`~/.claude/`对应 Windwos系统的用户目录：C:\Users\Administrator\.claude
+
+## 创建子代理的三种方式
+
+### 方式一：交互式创建（推荐新手使用）
+
+在 Claude Code 中输入  /agents，按照向导操作：
+
+```
+步骤 1：输入 /agents
+步骤 2：选择 "Create new agent"
+步骤 3：选择存放位置（User-level 或 Project-level）
+步骤 4：选择 "Generate with Claude" 并描述功能
+步骤 5：选择需要的工具
+步骤 6：选择模型
+步骤 7：保存
+```
+
+这种方式简单直观，Claude 会帮你生成初始的 prompt。
+
+### 方式二：手写配置文件
+
+直接创建  .claude/agents/your-agent.md 文件。其优势是更精细的控制，方便版本管理，可以从其他项目复制。
+
+### 方式三：CLI 参数临时创建
+
+通过  --agents 参数，可以在启动 Claude Code 时传入 JSON 格式的子代理定义。这种方式创建的子代理仅在当前会话中存在，不会保存到磁盘。这种方式特别适合 CI/CD 自动化时在流水线中临时创建任务专用的子代理。
+
+## 子代理的运行模式
+
+子代理可以在前台或后台运行：
+
+![image-20260314104654241](./assets/image-20260314104654241.png)
+
+Claude 会根据任务自动选择前台或后台。你也可以手动控制。
+
+将前台子代理切换到后台：
+
+- 对 Claude 说 “run this in the background”
+- 正在运行的前台子代理可以按  Ctrl+B 切换到后台
+
+启动前，Claude Code 会预先请求子代理可能需要的所有权限——因为后台运行时无法弹出交互式确认。如果后台子代理因权限不足而失败，你可以恢复它到前台重试。
+
+每个子代理执行完成后，Claude 会自动收到它的  agent ID。如果你需要在之前的子代理基础上继续工作，可以让 Claude 恢复（Resume）它：
+
+```
+用 code-reviewer 子代理审查认证模块
+[子代理完成]
+
+继续刚才的审查，再看一下授权逻辑
+[Claude 恢复之前的子代理，保留完整上下文]
+```
+
+恢复的子代理会保留所有之前的对话历史——它从上次停下的地方继续，而不是重新开始。这对于需要多轮迭代的长任务非常有用。
