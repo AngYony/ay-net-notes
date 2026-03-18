@@ -1,4 +1,24 @@
+AI学习需要攻克的概念：
+
+- ~~Agent~~
+
+- Skill
+
+- MCP
+
+  
+
+
+
+
+
 知了Agent：自动剪辑编排视频并发布。自主搜索潜在客户，输入行业关键词，24小时在线找客户；自主帮客户回复咨询；——知了AI员工系统
+
+
+
+
+
+
 
 
 
@@ -156,3 +176,4 @@ https://mp.weixin.qq.com/s/-H5o23ELvzp96ZMyq81cyA
 
 SDD：规范驱动开发
 
+【从 LLM 到 Agent Skill，一期视频带你打通底层逻辑！】 https://www.bilibili.com/video/BV1E7wtzaEdq/?share_source=copy_web&vd_source=0c3508996343cffb03a456391ba5edd0
