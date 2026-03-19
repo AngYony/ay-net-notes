@@ -16,7 +16,7 @@ namespace AY.Samples.Common
         /// Qwen: qwen-max, qwen-plus, qwen-flash
         /// Anthropic: glm-4.5-air
         /// </summary>
-        public static IChatClient GetDefaultChatClient(string provider = "AzureOpenAI", string model = "gpt-5.4", bool enableLogging = false)
+        public static IChatClient GetDefaultChatClient(string provider = "OpenAI", string model = "gpt-5.2-medium", bool enableLogging = false)
         {
             IChatClient chatClient = provider switch
             {
@@ -24,7 +24,7 @@ namespace AY.Samples.Common
                 "DeepSeek" => GetDeepSeekClient(enableLogging).GetChatClient(model).AsIChatClient(),
                 "Qwen" => GetQwenClient(enableLogging).GetChatClient(model).AsIChatClient(),
                 "Anthropic" => GetAnthropicClient(enableLogging).AsIChatClient(defaultModelId: model),
-                "WY" => GetAIClient(Keys.AzureOpenAIEndpoint, Keys.AzureOpenAIApiKey, enableLogging).GetChatClient(model).AsIChatClient(),
+                "OpenAI" => GetAIClient(Keys.OpenAIEndpoint, Keys.OpenAIApiKey, enableLogging).GetChatClient(model).AsIChatClient(),
                 _ => GetAzureOpenAIClient(enableLogging).GetChatClient(model).AsIChatClient(),
             };
 
@@ -109,6 +109,7 @@ namespace AY.Samples.Common
             // 创建自定义的OpenAI客户端
             OpenAIClient aiClient = new(new ApiKeyCredential(apiKey), clientOptions);
             return aiClient;
+
         }
     }
 }
