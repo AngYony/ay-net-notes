@@ -4,6 +4,7 @@ using Azure.AI.OpenAI;
 using Anthropic;
 using System.ClientModel;
 using Microsoft.Extensions.Logging;
+using AY.Samples.Common.Enums;
 
 namespace AY.Samples.Common
 {
@@ -16,16 +17,16 @@ namespace AY.Samples.Common
         /// Qwen: qwen-max, qwen-plus, qwen-flash
         /// Anthropic: glm-4.5-air
         /// </summary>
-        public static IChatClient GetDefaultChatClient(string provider = "OpenAI", string model = "gpt-5.2-medium", bool enableLogging = false)
+        public static IChatClient GetDefaultChatClient(ChatProvider provider = ChatProvider.General, string model = "gpt-5.2-medium", bool enableLogging = false)
         {
             IChatClient chatClient = provider switch
             {
-                "AzureOpenAI" => GetAzureOpenAIClient(enableLogging).GetChatClient(model).AsIChatClient(),
-                "DeepSeek" => GetDeepSeekClient(enableLogging).GetChatClient(model).AsIChatClient(),
-                "Qwen" => GetQwenClient(enableLogging).GetChatClient(model).AsIChatClient(),
-                "Anthropic" => GetAnthropicClient(enableLogging).AsIChatClient(defaultModelId: model),
-                "OpenAI" => GetAIClient(Keys.OpenAIEndpoint, Keys.OpenAIApiKey, enableLogging).GetChatClient(model).AsIChatClient(),
-                _ => GetAzureOpenAIClient(enableLogging).GetChatClient(model).AsIChatClient(),
+                ChatProvider.AzureOpenAI => GetAzureOpenAIClient(enableLogging).GetChatClient(model).AsIChatClient(),
+                ChatProvider.DeepSeek => GetDeepSeekClient(enableLogging).GetChatClient(model).AsIChatClient(),
+                ChatProvider.Qwen => GetQwenClient(enableLogging).GetChatClient(model).AsIChatClient(),
+                ChatProvider.Anthropic => GetAnthropicClient(enableLogging).AsIChatClient(defaultModelId: model),
+                ChatProvider.General => GetAIClient(Keys.OpenAIEndpoint, Keys.OpenAIApiKey, enableLogging).GetChatClient(model).AsIChatClient(),
+                _ => GetAIClient(Keys.OpenAIEndpoint, Keys.OpenAIApiKey, enableLogging).GetChatClient(model).AsIChatClient(),
             };
 
             return chatClient;
