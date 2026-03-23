@@ -2,5 +2,6 @@
   <Folder Name="/Samples/">
     <Project Path="Samples/AY.Samples.Common/AY.Samples.Common.csproj" Id="7226b8ac-6cfb-4cbf-9254-dd7b775a1216" />
     <Project Path="Samples/AY.Samples.Console01/AY.Samples.Console01.csproj" Id="8fc4c65f-f56c-4805-ae01-d3ac1b0acc33" />
+    <Project Path="Samples/AY.Samples.Console02/AY.Samples.Console02.csproj" Id="0b60ecad-5673-4e36-af11-efff863ed920" />
   </Folder>
 </Solution>

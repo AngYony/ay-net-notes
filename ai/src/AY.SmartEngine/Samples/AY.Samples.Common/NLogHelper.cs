@@ -19,6 +19,7 @@ namespace AY.Samples.Common
             };
             // 定义控制台日志输出目标
             var consoleTarget = new ConsoleTarget();
+        
 
             var config = new NLog.Config.LoggingConfiguration();
             // 定义日志输出规则(输出所有Trace级别及以上的日志到控制台)
