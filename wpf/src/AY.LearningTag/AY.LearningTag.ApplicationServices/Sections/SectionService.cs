@@ -11,15 +11,16 @@ namespace AY.LearningTag.ApplicationServices.Sections
 {
     public class SectionService : ISectionService
     {
-        private readonly IServiceProvider serviceProvider;
-        public SectionService(IServiceProvider serviceProvider)
+        private readonly ISectionDataRepository _sectionDataRepository;
+
+        public SectionService(ISectionDataRepository sectionDataRepository)
         {
-            this.serviceProvider = serviceProvider;
+            this._sectionDataRepository = sectionDataRepository;
         }
 
         public async Task<List<Domain.Entities.Section>> GetSectionsByCategoryAsync(int categoryId)
         {
-            using var _sectionDataRepository = serviceProvider.GetRequiredService<ISectionDataRepository>();
+            //using var _sectionDataRepository = serviceProvider.GetRequiredService<ISectionDataRepository>();
             return await _sectionDataRepository.GetSectionsByCategoryAsync(categoryId);
         }
     }
