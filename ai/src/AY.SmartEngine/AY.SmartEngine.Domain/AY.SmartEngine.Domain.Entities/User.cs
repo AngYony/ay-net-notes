@@ -8,5 +8,6 @@ namespace AY.SmartEngine.Domain.Entities
     {
         public required string Username { get; set; }
         public string? Email { get; set; }
+        public string Url { get; set; }
     }
 }

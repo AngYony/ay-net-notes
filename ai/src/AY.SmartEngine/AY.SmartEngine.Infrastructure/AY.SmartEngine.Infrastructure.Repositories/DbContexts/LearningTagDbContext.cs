@@ -10,9 +10,6 @@ namespace AY.SmartEngine.Infrastructure.Repositories.DbContexts
     {
         public DbSet<User> Users { get; set; }
 
-        public LearningTagDbContext()
-        {
-        }
         public LearningTagDbContext(DbContextOptions<LearningTagDbContext> options) : base(options)
         {
         }

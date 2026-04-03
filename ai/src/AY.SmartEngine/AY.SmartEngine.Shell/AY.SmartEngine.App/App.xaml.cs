@@ -1,16 +1,14 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
-using Serilog.Extensions.Hosting;
-using Serilog.Settings.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
-using Serilog;
-using Microsoft.EntityFrameworkCore;
-using AY.SmartEngine.Infrastructure.Repositories.DbContexts;
-using AY.SmartEngine.Shared.Extensions;
-using AY.SmartEngine.Infrastructure.Repositories.Repositories;
+﻿using AY.SmartEngine.App.ViewModels;
 using AY.SmartEngine.ApplicatonServices.Users;
-using AY.SmartEngine.App.ViewModels;
+using AY.SmartEngine.Infrastructure.Repositories.DbContexts;
+using AY.SmartEngine.Infrastructure.Repositories.Repositories;
+using AY.SmartEngine.Shared.Extensions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+using System.Windows;
 
 namespace AY.SmartEngine.App
 {
@@ -36,12 +34,15 @@ namespace AY.SmartEngine.App
         {
             // 1. 引导日志 (Bootstrap Logger)
             Log.Logger = new LoggerConfiguration()
-            //.MinimumLevel.Debug()
-            .WriteTo.Console()
-            .CreateBootstrapLogger();
+                .MinimumLevel.Information()
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateBootstrapLogger();
 
             try
             {
+                Log.Information("Starting Host building...");
+
                 // 2. 构建 Host
                 AppHost = CreateHostBuilder(args).Build();
 
@@ -54,6 +55,7 @@ namespace AY.SmartEngine.App
             catch (Exception ex)
             {
                 Log.Fatal(ex, "Host terminated unexpectedly");
+                MessageBox.Show($"程序启动过程中发生不可恢复的错误:\n{ex.Message}", "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
             finally
             {
@@ -76,22 +78,19 @@ namespace AY.SmartEngine.App
                 // 1. 配置加载 (appsettings.json & mysettings.json)
                 .ConfigureAppConfiguration((context, configBuilder) =>
                 {
+                    // 设置基础路径并加载配置
                     configBuilder.SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                           .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                          .AddJsonFile("mysettings.json", optional: false, reloadOnChange: true)
+                          //.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true)
                           .AddEnvironmentVariables();
                 })
-                //// 2. 集成 Serilog
+                // 2. 集成 Serilog
                 .UseSerilog((context, services, loggerConfig) =>
                 {
-                    // 完全依赖配置文件，代码中只保留最基础的设置
+                    // 从 IConfiguration 动态读取日志设置（推荐方式）
                     loggerConfig.ReadFrom.Configuration(context.Configuration)
                         .ReadFrom.Services(services)
                         .Enrich.FromLogContext();
-
-                    //.Enrich.FromLogContext()
-                    //    .WriteTo.Console()
-                    //    .WriteTo.File("logs/app-.log", rollingInterval: RollingInterval.Day);
                 })
                 // 3. 服务注入
                 .ConfigureServices((context, services) =>
@@ -123,18 +122,28 @@ namespace AY.SmartEngine.App
         /// </summary>
         private async Task ApplyDatabaseMigrationsAsync()
         {
-            Log.Information("Checking database migrations...");
-
-            using var scope = AppHost.Services.CreateScope();
-            var dbFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<LearningTagDbContext>>();
-            using var db = await dbFactory.CreateDbContextAsync();
-            // 仅在有待处理迁移时执行
-            var pendingMigrations = await db.Database.GetPendingMigrationsAsync();
-            if (pendingMigrations.Any())
+            try
             {
-                Log.Information("Applying {Count} migrations...", pendingMigrations.Count());
-                await db.Database.MigrateAsync();
+                Log.Information("Executing Database Migrations...");
+
+                using var scope = AppHost.Services.CreateScope();
+                var dbFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<LearningTagDbContext>>();
+                using var db = await dbFactory.CreateDbContextAsync();
+                // 仅在有待处理迁移时执行
+                var pendingMigrations = await db.Database.GetPendingMigrationsAsync();
+                if (pendingMigrations.Any())
+                {
+                    Log.Information("Found {Count} pending migrations, applying...", pendingMigrations.Count());
+                    await db.Database.MigrateAsync();
+                    Log.Information("Database migrated successfully.");
+                }
             }
+            catch (Exception ex)
+            {
+                // 数据库失败是致命错误，建议抛出由 OnStartup 捕获
+                throw new InvalidOperationException("Database migration failed. See inner exception for details.", ex);
+            }
+
         }
 
         private static IServiceCollection AddOptionsBinding(IServiceCollection services, IConfiguration configuration)
@@ -170,7 +179,6 @@ namespace AY.SmartEngine.App
             var migrationsAssembly = configuration.GetValue("MigrationsAssembly", string.Empty);
             services.AddDbContextFactory<LearningTagDbContext>(options =>
             {
-                options.EnableSensitiveDataLogging();
                 options.UseSqlite(connectionString, sqlOptions =>
                 {
                     if (!string.IsNullOrEmpty(migrationsAssembly))
@@ -179,14 +187,17 @@ namespace AY.SmartEngine.App
                         sqlOptions.MigrationsAssembly(migrationsAssembly);
                     }
                 });
+
+#if DEBUG
+                // 调试模式下启用详细错误显示
+                options.EnableSensitiveDataLogging();
+                options.EnableDetailedErrors();
+#endif
+
             });
 
             return services;
         }
-
-
-
-
 
 
         protected override async void OnStartup(StartupEventArgs e)
@@ -196,43 +207,52 @@ namespace AY.SmartEngine.App
 
             try
             {
-                // 启动 Host (启动后台服务等)
-                await AppHost!.StartAsync();
+                Log.Information("WPF Application Startup...");
 
-                // 逻辑处理：读取连接字符串（如果还有必要，通常 EF 已在 DI 配置好）
-                //ConfigHelper.ReadConnectionString();
+                // 1. 启动异步托管服务 (例如注册的 IHostedService)
+                await AppHost.StartAsync();
 
-                // 执行数据库迁移
+                // 2. 数据库流水线：自动迁移
                 await ApplyDatabaseMigrationsAsync();
 
-                // 从容器中获取 MainWindow 并显示
+                // 3. 从容器获取主窗口并启动
+                // DI 会自动解析构造函数中的 MainViewModel -> Repository -> DbContext
                 var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
                 mainWindow.Show();
 
-                Log.Information("Application started successfully.");
+                Log.Information("MainWindow displayed.");
             }
             catch (Exception ex)
             {
                 // 记录错误日志并优雅退出
-                Log.Error(ex, "An error occurred during application startup.");
-                MessageBox.Show($"应用初始化失败: {ex.Message}", "严重错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Error(ex, "An error occurred during OnStartup.");
+                MessageBox.Show($"应用启动失败: {ex.Message}", "严重错误", MessageBoxButton.OK, MessageBoxImage.Error);
                 // 优雅退出，因为 base.OnStartup 已经跑过，这里调用 Shutdown 是安全的
                 Shutdown();
             }
         }
 
+
+
         protected override async void OnExit(ExitEventArgs e)
         {
-            Log.Information("Application exiting...");
+            Log.Information("WPF Application Exiting. Cleaning up Host...");
+
             try
             {
                 // 设置超时时间，防止某些后台任务卡死导致进程无法关闭
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
                 await AppHost.StopAsync(cts.Token);
             }
+            catch (Exception ex)
+            {
+                Log.Warning(ex, "Host stop failed during exit.");
+            }
             finally
             {
                 AppHost.Dispose();
+                Log.Information("Host disposed.");
+                Log.CloseAndFlush();
                 base.OnExit(e);
             }
         }

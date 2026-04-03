@@ -18,4 +18,8 @@
     <ProjectReference Include="..\AY.SmartEngine.Infrastructure.Repositories\AY.SmartEngine.Infrastructure.Repositories.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

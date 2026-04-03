@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Design;
 namespace AY.SmartEngine.Infrastructure.Migrations.SQLite
 {
     /// <summary>
+    /// 使用时：需要先将迁移项目设置为启动项目，才会优先按照本文件中配置的数据库进行设计比对，否则将以启动项目中注入的AddDbContext连接字符串为主
     /// IDesignTimeDbContextFactory 只在开发时用于迁移生成，不在运行时使用，
     /// 因此设计时工厂（IDesignTimeDbContextFactory）是一个“孤立运行环境”，它必须自己知道数据库连接字符串，而不能依赖运行时 DI。
     /// </summary>
@@ -18,7 +19,7 @@ namespace AY.SmartEngine.Infrastructure.Migrations.SQLite
         public LearningTagDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<LearningTagDbContext>();
-            optionsBuilder.UseSqlite("Data Source=C:\\AYDB\\smart.db",
+            optionsBuilder.UseSqlite("Data Source=C:\\AYDB\\多个数据库适用.db",
                 b => b.MigrationsAssembly(typeof(DesignTimeDbContextFactory).Assembly.FullName));
             return new LearningTagDbContext(optionsBuilder.Options);
         }
