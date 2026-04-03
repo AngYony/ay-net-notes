@@ -112,7 +112,7 @@ namespace AY.LearningTag.App
         {
             var services = new ServiceCollection();
             //添加其他json配置项
-            services.AddConfigure(this.Configuration!)
+            services.AddOptionsBinding(this.Configuration!)
                     //添加数据库服务
                     .AddDbContextFactory(this.Configuration!)
                     //添加文件服务

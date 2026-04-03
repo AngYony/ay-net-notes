@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+	<!-- 1. 禁用自动生成的 WinMain 入口点 -->
+	<EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AY.SmartEngine.ApplicatonServices\AY.SmartEngine.ApplicatonServices\AY.SmartEngine.ApplicatonServices.csproj" />
+    <ProjectReference Include="..\..\AY.SmartEngine.Infrastructure\AY.SmartEngine.Infrastructure.Migrations.SQLite\AY.SmartEngine.Infrastructure.Migrations.SQLite.csproj" />
+    <ProjectReference Include="..\..\AY.SmartEngine.Infrastructure\AY.SmartEngine.Infrastructure.Repositories\AY.SmartEngine.Infrastructure.Repositories.csproj" />
+    <ProjectReference Include="..\AY.SmartEngine.Shared\AY.SmartEngine.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

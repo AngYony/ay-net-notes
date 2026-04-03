@@ -1,4 +1,20 @@
 <Solution>
+  <Folder Name="/1. Shell 展示层/">
+    <Project Path="AY.SmartEngine.Shell/AY.SmartEngine.App/AY.SmartEngine.App.csproj" Id="72d8ce09-c7d2-4cd2-93e5-fc8c77f35fa7" />
+    <Project Path="AY.SmartEngine.Shell/AY.SmartEngine.Shared/AY.SmartEngine.Shared.csproj" Id="9fddbba1-7e69-4921-acc6-2745850b3b34" />
+  </Folder>
+  <Folder Name="/Application 层（只引用Domain层，不引用Infrastructure层）/">
+    <Project Path="AY.SmartEngine.ApplicatonServices/AY.SmartEngine.ApplicatonServices/AY.SmartEngine.ApplicatonServices.csproj" Id="ebe3b7fc-3c69-4f57-b788-eb085e82cb6d" />
+  </Folder>
+  <Folder Name="/Domain 领域（不引用任何其它层程序集，领域侧只定义接口和平台无关，所以不要引入EF组件）/">
+    <Project Path="AY.SmartEngine.Domain/AY.SmartEngine.Domain.Abstractions/AY.SmartEngine.Domain.Abstractions.csproj" Id="47bfd716-ec73-4b4b-95a8-c3d33c3a1b31" />
+    <Project Path="AY.SmartEngine.Domain/AY.SmartEngine.Domain.Entities/AY.SmartEngine.Domain.Entities.csproj" Id="f2012f92-ce8b-4aa7-a21e-de230c7fbfda" />
+    <Project Path="AY.SmartEngine.Domain/AY.SmartEngine.Domain.Repositories/AY.SmartEngine.Domain.Repositories.csproj" Id="770726b1-b86c-44e7-8cd9-e67b476ed571" />
+  </Folder>
+  <Folder Name="/Infrastructure 基础设施层/">
+    <Project Path="AY.SmartEngine.Infrastructure/AY.SmartEngine.Infrastructure.Migrations.SQLite/AY.SmartEngine.Infrastructure.Migrations.SQLite.csproj" Id="1fa20aaa-9b9a-4d8e-88ea-d2f5d502ff2a" />
+    <Project Path="AY.SmartEngine.Infrastructure/AY.SmartEngine.Infrastructure.Repositories/AY.SmartEngine.Infrastructure.Repositories.csproj" Id="9fc591a4-3766-479c-bf78-e9021f2c4b70" />
+  </Folder>
   <Folder Name="/Samples/">
     <Project Path="Samples/AY.Samples.Common/AY.Samples.Common.csproj" Id="7226b8ac-6cfb-4cbf-9254-dd7b775a1216" />
     <Project Path="Samples/AY.Samples.Console01/AY.Samples.Console01.csproj" Id="8fc4c65f-f56c-4805-ae01-d3ac1b0acc33" />

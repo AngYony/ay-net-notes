@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AY.SmartEngine.Domain.Abstractions\AY.SmartEngine.Domain.Abstractions.csproj" />
+    <ProjectReference Include="..\AY.SmartEngine.Domain.Entities\AY.SmartEngine.Domain.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

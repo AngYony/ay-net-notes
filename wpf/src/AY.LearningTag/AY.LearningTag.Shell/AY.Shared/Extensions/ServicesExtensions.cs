@@ -18,7 +18,7 @@ namespace AY.Shared.Extensions
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static IServiceCollection AddConfigure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddOptionsBinding(this IServiceCollection services, IConfiguration configuration)
         {
             //https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers
             //方式一：绑定配置并直接添加到服务容器中（推荐），可以直接通过注入的方式读取到配置项，最推荐方式
