@@ -7,6 +7,6 @@ namespace AY.SmartEngine.Domain.Repositories
 {
     public interface IUserRepository : IRepositoryBase<User>
     {
-        Task AddAsync(User user);
+        Task<bool> UpdateEmailAsync(int id, string email);
     }
 }

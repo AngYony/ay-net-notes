@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using System.IO;
 using System.Windows;
 
 namespace AY.SmartEngine.App
@@ -32,11 +33,15 @@ namespace AY.SmartEngine.App
         [STAThread]
         public static void Main(string[] args)
         {
+            // 强制将工作目录设为程序 .exe 所在的目录
+            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+
             // 1. 引导日志 (Bootstrap Logger)
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
+                .WriteTo.Debug()
                 .CreateBootstrapLogger();
 
             try
@@ -137,6 +142,12 @@ namespace AY.SmartEngine.App
                     await db.Database.MigrateAsync();
                     Log.Information("Database migrated successfully.");
                 }
+
+                // 注意：即使没有迁移，每次启动都执行一次这些 PRAGMA 指令是安全的
+                // WAL 模式允许读写并行；synchronous=NORMAL 在 WAL 下能极大提升写入速度并保持安全
+                await db.Database.ExecuteSqlRawAsync("PRAGMA journal_mode=WAL; PRAGMA synchronous=NORMAL;");
+                Log.Information("SQLite performance pragmas applied (WAL mode).");
+
             }
             catch (Exception ex)
             {
@@ -190,8 +201,8 @@ namespace AY.SmartEngine.App
 
 #if DEBUG
                 // 调试模式下启用详细错误显示
-                options.EnableSensitiveDataLogging();
-                options.EnableDetailedErrors();
+                options.EnableSensitiveDataLogging();   // 【可选】如果你想在日志中看到 SQL 的参数值
+                options.EnableDetailedErrors();         // 【可选】显示更详细的错误
 #endif
 
             });

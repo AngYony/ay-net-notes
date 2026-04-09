@@ -12,12 +12,18 @@ namespace AY.SmartEngine.Infrastructure.Repositories.Repositories
     {
         public UserRepository(IDbContextFactory<LearningTagDbContext> dbContextFactory) : base(dbContextFactory)
         {
+
         }
-        public async Task AddAsync(User user)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateEmailAsync(int id, string email)
         {
-            using var context = await _dbContextFactory.CreateDbContextAsync();
-            context.Users.Add(user);
-            await context.SaveChangesAsync();
+            return await base.UpdateAsync(x => x.Id == id, s => s.SetProperty(x => x.Email, email)) > 0;
         }
     }
 }

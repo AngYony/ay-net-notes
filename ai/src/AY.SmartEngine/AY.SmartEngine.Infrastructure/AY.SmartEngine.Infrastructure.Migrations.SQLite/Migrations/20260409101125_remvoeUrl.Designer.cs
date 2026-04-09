@@ -3,6 +3,7 @@ using System;
 using AY.SmartEngine.Infrastructure.Repositories.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AY.SmartEngine.Infrastructure.Migrations.SQLite.Migrations
 {
     [DbContext(typeof(LearningTagDbContext))]
-    partial class LearningTagDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260409101125_remvoeUrl")]
+    partial class remvoeUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.5");
