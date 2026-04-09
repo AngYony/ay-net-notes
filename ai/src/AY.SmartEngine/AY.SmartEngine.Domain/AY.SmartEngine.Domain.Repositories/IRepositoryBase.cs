@@ -5,8 +5,9 @@ using System.Text;
 
 namespace AY.SmartEngine.Domain.Repositories
 {
-    public interface IUserRepository : IRepositoryBase<User>
+    public interface IRepositoryBase<TEntity> where TEntity : BaseEntity
     {
-        Task AddAsync(User user);
+        Task<List<TEntity>> GetAllAsync();
+
     }
 }
