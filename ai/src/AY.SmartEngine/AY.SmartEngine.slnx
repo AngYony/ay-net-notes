@@ -5,6 +5,7 @@
   </Folder>
   <Folder Name="/Application 层（只引用Domain层，不引用Infrastructure层）/">
     <Project Path="AY.SmartEngine.ApplicatonServices/AY.SmartEngine.ApplicatonServices/AY.SmartEngine.ApplicatonServices.csproj" Id="ebe3b7fc-3c69-4f57-b788-eb085e82cb6d" />
+    <Project Path="AY.SmartEngine.TaskQueueCore/AY.SmartEngine.TaskQueueCore.csproj" Id="c0afdacb-25bc-4ca0-af8a-ad9fdc01459a" />
   </Folder>
   <Folder Name="/Domain 领域（不引用任何其它层程序集，领域侧只定义接口和平台无关，所以不要引入EF组件）/">
     <Project Path="AY.SmartEngine.Domain/AY.SmartEngine.Domain.Abstractions/AY.SmartEngine.Domain.Abstractions.csproj" Id="47bfd716-ec73-4b4b-95a8-c3d33c3a1b31" />

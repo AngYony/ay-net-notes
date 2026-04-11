@@ -158,6 +158,7 @@ namespace AY.SmartEngine.Infrastructure.Repositories.Repositories
         public virtual async Task<TEntity?> GetFirstAsync(int id, CancellationToken cancellationToken = default)
         {
             await using var context = await _dbContextFactory.CreateDbContextAsync(cancellationToken);
+            //Find方法专门按照主键搜索，带缓存优化（会优先从跟踪的实体中获取）
             return await context.Set<TEntity>().FindAsync(new object[] { id }, cancellationToken);
         }
 

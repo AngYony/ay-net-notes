@@ -18,7 +18,9 @@ namespace AY.SmartEngine.Domain.TaskQueue.Entities
         /// <summary>
         /// 任务名称
         /// </summary>
+        [Required]
         public string JobName { get; set; } = string.Empty;
+
         /// <summary>
         /// 所属队列（队列名称）
         /// </summary>
@@ -43,7 +45,7 @@ namespace AY.SmartEngine.Domain.TaskQueue.Entities
         /// <summary>
         /// 状态：0=Pending, 1=Running, 2=Completed, 3=Failed, 4=Paused, 5=Cancelled, 6=WaitingForChildren
         /// </summary>
-        public JobStatus Status { get; set; } = JobStatus.Pending;
+        public JobStatus JobStatus { get; set; } = JobStatus.Pending;
         /// <summary>
         /// 优先级：0=Low, 5=Normal, 10=High, 20=Critical
         /// </summary>
@@ -109,6 +111,13 @@ namespace AY.SmartEngine.Domain.TaskQueue.Entities
         /// 进度消息
         /// </summary>
         public string? ProgressMessage { get; set; }
+
+
+        // 自引用父任务
+        [ForeignKey(nameof(ParentJobId))]
+        public JobEntity? ParentJob { get; set; }
+
+        public ICollection<JobEntity> ChildJobs { get; set; } = new List<JobEntity>();
 
 
     }

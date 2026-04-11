@@ -20,10 +20,32 @@ namespace AY.SmartEngine.Infrastructure.Repositories.DbContexts
             base.OnConfiguring(optionsBuilder);
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<User>().HasKey(u => u.Id);
-        //    base.OnModelCreating(modelBuilder);
-        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<JobEntity>(entity =>
+            {
+                entity.HasIndex(e => new { e.QueueName, e.JobStatus })
+                    .HasDatabaseName("idx_jobs_queue_status");
+
+                entity.HasIndex(e => e.ParentJobId)
+                    .HasDatabaseName("idx_jobs_parent");
+
+                entity.HasIndex(e => e.ScheduledAt)
+                    .HasDatabaseName("idx_jobs_scheduled");
+
+                entity.HasOne(x => x.ParentJob)
+                    .WithMany(x => x.ChildJobs)
+                    .HasForeignKey(x => x.ParentJobId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+            
+            modelBuilder.Entity<JobQueueEntity>(entity =>
+            {
+                entity.HasIndex(e => e.QueueName)
+                      .IsUnique()
+                      .HasDatabaseName("idx_jobqueues_name");
+            });
+        }
     }
 }

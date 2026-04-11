@@ -18,6 +18,7 @@ namespace AY.SmartEngine.Domain.TaskQueue.Entities
         /// <summary>
         /// 队列名称
         /// </summary>
+        [Required]
         public string QueueName { get; set; } = string.Empty;
         /// <summary>
         /// 队列状态：1=Active, 2=Paused, 3=Stopped
