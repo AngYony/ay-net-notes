@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AY.SmartEngine.Infrastructure.Migrations.SQLite.Migrations
 {
     [DbContext(typeof(LearningTagDbContext))]
-    [Migration("20260409100102_TestDB")]
-    partial class TestDB
+    [Migration("20260411073941_InitSmart")]
+    partial class InitSmart
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,10 +36,6 @@ namespace AY.SmartEngine.Infrastructure.Migrations.SQLite.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Username")

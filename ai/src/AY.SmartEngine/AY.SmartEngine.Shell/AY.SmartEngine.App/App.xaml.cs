@@ -71,10 +71,6 @@ namespace AY.SmartEngine.App
         }
 
 
-
-
-
-
         /// <summary>
         /// 创建通用 Host 构造器
         /// </summary>
@@ -122,41 +118,7 @@ namespace AY.SmartEngine.App
                     services.AddViewModel<MainWindow, MainViewModel>();
                 });
 
-        /// <summary>
-        /// 应用数据库迁移
-        /// </summary>
-        private async Task ApplyDatabaseMigrationsAsync()
-        {
-            try
-            {
-                Log.Information("Executing Database Migrations...");
-
-                using var scope = AppHost.Services.CreateScope();
-                var dbFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<LearningTagDbContext>>();
-                using var db = await dbFactory.CreateDbContextAsync();
-                // 仅在有待处理迁移时执行
-                var pendingMigrations = await db.Database.GetPendingMigrationsAsync();
-                if (pendingMigrations.Any())
-                {
-                    Log.Information("Found {Count} pending migrations, applying...", pendingMigrations.Count());
-                    await db.Database.MigrateAsync();
-                    Log.Information("Database migrated successfully.");
-                }
-
-                // 注意：即使没有迁移，每次启动都执行一次这些 PRAGMA 指令是安全的
-                // WAL 模式允许读写并行；synchronous=NORMAL 在 WAL 下能极大提升写入速度并保持安全
-                await db.Database.ExecuteSqlRawAsync("PRAGMA journal_mode=WAL; PRAGMA synchronous=NORMAL;");
-                Log.Information("SQLite performance pragmas applied (WAL mode).");
-
-            }
-            catch (Exception ex)
-            {
-                // 数据库失败是致命错误，建议抛出由 OnStartup 捕获
-                throw new InvalidOperationException("Database migration failed. See inner exception for details.", ex);
-            }
-
-        }
-
+        
         private static IServiceCollection AddOptionsBinding(IServiceCollection services, IConfiguration configuration)
         {
             //https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers
@@ -207,6 +169,34 @@ namespace AY.SmartEngine.App
 
             });
 
+
+            #region 添加任务队列数据库
+
+            var taskQueueConnectionString = configuration.GetConnectionString("TaskQueueConnection");
+            //从配置文件中获取迁移程序集信息，好处是：可以不需要显式添加程序集的引用就可以注册服务
+            var taskQueueMigrationsAssembly = configuration.GetValue("TaskQueueMigrationsAssembly", string.Empty);
+            services.AddDbContextFactory<TaskQueueDbContext>(options =>
+            {
+                options.UseSqlite(taskQueueConnectionString, sqlOptions =>
+                {
+                    if (!string.IsNullOrEmpty(taskQueueMigrationsAssembly))
+                    {
+                        //指定迁移程序集
+                        sqlOptions.MigrationsAssembly(taskQueueMigrationsAssembly);
+                    }
+                });
+
+#if DEBUG
+                // 调试模式下启用详细错误显示
+                options.EnableSensitiveDataLogging();   // 【可选】如果你想在日志中看到 SQL 的参数值
+                options.EnableDetailedErrors();         // 【可选】显示更详细的错误
+#endif
+
+            });
+
+
+            #endregion
+
             return services;
         }
 
@@ -224,7 +214,8 @@ namespace AY.SmartEngine.App
                 await AppHost.StartAsync();
 
                 // 2. 数据库流水线：自动迁移
-                await ApplyDatabaseMigrationsAsync();
+                await ApplyDatabaseMigrationsAsync<LearningTagDbContext>();
+                await ApplyDatabaseMigrationsAsync<TaskQueueDbContext>();
 
                 // 3. 从容器获取主窗口并启动
                 // DI 会自动解析构造函数中的 MainViewModel -> Repository -> DbContext
@@ -241,6 +232,41 @@ namespace AY.SmartEngine.App
                 // 优雅退出，因为 base.OnStartup 已经跑过，这里调用 Shutdown 是安全的
                 Shutdown();
             }
+        }
+
+        /// <summary>
+        /// 应用数据库迁移
+        /// </summary>
+        private async Task ApplyDatabaseMigrationsAsync<TDbContext>() where TDbContext : DbContext
+        {
+            try
+            {
+                Log.Information("Executing database migrations for {DbContext}...", typeof(TDbContext).Name);
+
+                using var scope = AppHost.Services.CreateScope();
+                var dbFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<TDbContext>>();
+                using var db = await dbFactory.CreateDbContextAsync();
+                // 仅在有待处理迁移时执行
+                var pendingMigrations = await db.Database.GetPendingMigrationsAsync();
+                if (pendingMigrations.Any())
+                {
+                    Log.Information("Found {Count} pending migrations for {DbContext}, applying...", pendingMigrations.Count(), typeof(TDbContext).Name);
+                    await db.Database.MigrateAsync();
+                    Log.Information("{DbContext} migrated successfully.", typeof(TDbContext).Name);
+                }
+
+                // 注意：即使没有迁移，每次启动都执行一次这些 PRAGMA 指令是安全的
+                // WAL 模式允许读写并行；synchronous=NORMAL 在 WAL 下能极大提升写入速度并保持安全
+                await db.Database.ExecuteSqlRawAsync("PRAGMA journal_mode=WAL; PRAGMA synchronous=NORMAL;");
+                Log.Information("SQLite pragmas applied for {DbContext}.", typeof(TDbContext).Name);
+
+            }
+            catch (Exception ex)
+            {
+                // 数据库失败是致命错误，建议抛出由 OnStartup 捕获
+                throw new InvalidOperationException($"Database migration failed for {typeof(TDbContext).Name}.", ex);
+            }
+
         }
 
 

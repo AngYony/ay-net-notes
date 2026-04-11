@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AY.SmartEngine.Domain.Abstractions\AY.SmartEngine.Domain.Abstractions.csproj" />
     <ProjectReference Include="..\AY.SmartEngine.Domain.Entities\AY.SmartEngine.Domain.Entities.csproj" />
+    <ProjectReference Include="..\AY.SmartEngine.Domain.TaskQueue.Entities\AY.SmartEngine.Domain.TaskQueue.Entities.csproj" />
   </ItemGroup>
 
 </Project>

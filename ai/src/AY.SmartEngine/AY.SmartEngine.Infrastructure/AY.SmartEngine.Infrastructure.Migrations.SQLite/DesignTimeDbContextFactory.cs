@@ -19,7 +19,7 @@ namespace AY.SmartEngine.Infrastructure.Migrations.SQLite
         public LearningTagDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<LearningTagDbContext>();
-            optionsBuilder.UseSqlite("Data Source=C:\\AYDB\\多个数据库适用.db",
+            optionsBuilder.UseSqlite("Data Source=C:\\AYDB\\smart_design.db",
                 b => b.MigrationsAssembly(typeof(DesignTimeDbContextFactory).Assembly.FullName));
             return new LearningTagDbContext(optionsBuilder.Options);
         }

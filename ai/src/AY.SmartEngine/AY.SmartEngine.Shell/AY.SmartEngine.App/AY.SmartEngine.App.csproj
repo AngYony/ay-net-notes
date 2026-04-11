@@ -21,6 +21,7 @@
     <ProjectReference Include="..\..\AY.SmartEngine.ApplicatonServices\AY.SmartEngine.ApplicatonServices\AY.SmartEngine.ApplicatonServices.csproj" />
     <ProjectReference Include="..\..\AY.SmartEngine.Infrastructure\AY.SmartEngine.Infrastructure.Migrations.SQLite\AY.SmartEngine.Infrastructure.Migrations.SQLite.csproj" />
     <ProjectReference Include="..\..\AY.SmartEngine.Infrastructure\AY.SmartEngine.Infrastructure.Repositories\AY.SmartEngine.Infrastructure.Repositories.csproj" />
+    <ProjectReference Include="..\..\AY.SmartEngine.Infrastructure\AY.SmartEngine.Infrastructure.TaskQueue.Migrations.SQLite\AY.SmartEngine.Infrastructure.TaskQueue.Migrations.SQLite.csproj" />
     <ProjectReference Include="..\AY.SmartEngine.Shared\AY.SmartEngine.Shared.csproj" />
   </ItemGroup>
 

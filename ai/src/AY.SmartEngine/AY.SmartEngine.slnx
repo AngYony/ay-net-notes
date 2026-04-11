@@ -8,12 +8,18 @@
   </Folder>
   <Folder Name="/Domain 领域（不引用任何其它层程序集，领域侧只定义接口和平台无关，所以不要引入EF组件）/">
     <Project Path="AY.SmartEngine.Domain/AY.SmartEngine.Domain.Abstractions/AY.SmartEngine.Domain.Abstractions.csproj" Id="47bfd716-ec73-4b4b-95a8-c3d33c3a1b31" />
-    <Project Path="AY.SmartEngine.Domain/AY.SmartEngine.Domain.Entities/AY.SmartEngine.Domain.Entities.csproj" Id="f2012f92-ce8b-4aa7-a21e-de230c7fbfda" />
     <Project Path="AY.SmartEngine.Domain/AY.SmartEngine.Domain.Repositories/AY.SmartEngine.Domain.Repositories.csproj" Id="770726b1-b86c-44e7-8cd9-e67b476ed571" />
   </Folder>
+  <Folder Name="/Domain 领域（不引用任何其它层程序集，领域侧只定义接口和平台无关，所以不要引入EF组件）/Entities/">
+    <Project Path="AY.SmartEngine.Domain/AY.SmartEngine.Domain.Entities/AY.SmartEngine.Domain.Entities.csproj" Id="f2012f92-ce8b-4aa7-a21e-de230c7fbfda" />
+    <Project Path="AY.SmartEngine.Domain/AY.SmartEngine.Domain.TaskQueue.Entities/AY.SmartEngine.Domain.TaskQueue.Entities.csproj" Id="dc16018f-7df2-4d2d-beea-a645d104c813" />
+  </Folder>
   <Folder Name="/Infrastructure 基础设施层/">
-    <Project Path="AY.SmartEngine.Infrastructure/AY.SmartEngine.Infrastructure.Migrations.SQLite/AY.SmartEngine.Infrastructure.Migrations.SQLite.csproj" Id="1fa20aaa-9b9a-4d8e-88ea-d2f5d502ff2a" />
     <Project Path="AY.SmartEngine.Infrastructure/AY.SmartEngine.Infrastructure.Repositories/AY.SmartEngine.Infrastructure.Repositories.csproj" Id="9fc591a4-3766-479c-bf78-e9021f2c4b70" />
+  </Folder>
+  <Folder Name="/Infrastructure 基础设施层/Migrations/">
+    <Project Path="AY.SmartEngine.Infrastructure/AY.SmartEngine.Infrastructure.Migrations.SQLite/AY.SmartEngine.Infrastructure.Migrations.SQLite.csproj" Id="1fa20aaa-9b9a-4d8e-88ea-d2f5d502ff2a" />
+    <Project Path="AY.SmartEngine.Infrastructure/AY.SmartEngine.Infrastructure.TaskQueue.Migrations.SQLite/AY.SmartEngine.Infrastructure.TaskQueue.Migrations.SQLite.csproj" Id="e3d63b7e-33a2-42ae-9e4d-0ac0dcddfe5e" />
   </Folder>
   <Folder Name="/Samples/">
     <Project Path="Samples/AY.Samples.Common/AY.Samples.Common.csproj" Id="7226b8ac-6cfb-4cbf-9254-dd7b775a1216" />
