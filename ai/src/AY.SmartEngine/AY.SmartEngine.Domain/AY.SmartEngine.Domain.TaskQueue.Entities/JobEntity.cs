@@ -52,7 +52,7 @@ namespace AY.SmartEngine.Domain.TaskQueue.Entities
         public JobPriority Priority { get; set; } = JobPriority.Normal;
 
         /// <summary>
-        /// 父级任务Id
+        /// 父级任务Id（纯外键，不要导航属性）
         /// </summary>
         public Guid? ParentJobId { get; set; }
 
@@ -111,14 +111,6 @@ namespace AY.SmartEngine.Domain.TaskQueue.Entities
         /// 进度消息
         /// </summary>
         public string? ProgressMessage { get; set; }
-
-
-        // 自引用父任务
-        [ForeignKey(nameof(ParentJobId))]
-        public JobEntity? ParentJob { get; set; }
-
-        public ICollection<JobEntity> ChildJobs { get; set; } = new List<JobEntity>();
-
 
     }
 }

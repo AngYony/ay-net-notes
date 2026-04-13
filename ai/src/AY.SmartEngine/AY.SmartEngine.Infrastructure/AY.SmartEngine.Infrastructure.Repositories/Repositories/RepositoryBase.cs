@@ -79,6 +79,28 @@ namespace AY.SmartEngine.Infrastructure.Repositories.Repositories
         }
 
         /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<int> DeleteAsync(IEnumerable<int> ids, CancellationToken cancellationToken = default)
+        {
+            var _ids = ids.Distinct().ToArray();
+            if (_ids.Length == 0) return 0;
+            await using var context = await _dbContextFactory.CreateDbContextAsync(cancellationToken);
+            int affected = 0;
+            foreach (var batch in _ids.Chunk(1000))
+            {
+                affected += await context.Set<TEntity>()
+                    .Where(a => batch.Contains(a.Id))
+                    .ExecuteDeleteAsync(cancellationToken);
+            }
+            return affected;
+        }
+
+
+        /// <summary>
         /// 批量物理删除 (高效：直接生成 SQL DELETE)
         /// </summary>
         public virtual async Task<int> DeleteAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
@@ -137,9 +159,9 @@ namespace AY.SmartEngine.Infrastructure.Repositories.Repositories
         /// <example>
         /// await repo.UpdateAsync(x => x.Id == 1, s => s.SetProperty(x => x.Name, "NewName"));
         /// </example>
-        public virtual async Task<int> UpdateAsync(
+        protected virtual async Task<int> UpdateAsync(
             Expression<Func<TEntity, bool>> predicate,
-            Action<UpdateSettersBuilder<TEntity>> setPropertyCalls, // 改为 Action
+            Action<UpdateSettersBuilder<TEntity>> setPropertyCalls,
             CancellationToken cancellationToken = default)
         {
             await using var context = await _dbContextFactory.CreateDbContextAsync(cancellationToken);
@@ -147,6 +169,30 @@ namespace AY.SmartEngine.Infrastructure.Repositories.Repositories
                 .Where(predicate)
                 .ExecuteUpdateAsync(setPropertyCalls, cancellationToken);
         }
+
+        /// <summary>
+        /// 根据一组Id批量更新数据
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="setPropertyCalls"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        protected virtual async Task<int> UpdateAsync(
+            IEnumerable<int> ids, Action<UpdateSettersBuilder<TEntity>> setPropertyCalls, CancellationToken cancellationToken = default)
+        {
+            var _ids = ids.Distinct().ToArray();
+            if (_ids.Length == 0) return 0;
+            await using var context = await _dbContextFactory.CreateDbContextAsync(cancellationToken);
+            int affected = 0;
+            foreach (var batch in _ids.Chunk(1000))
+            {
+                affected += await context.Set<TEntity>()
+                .Where(a => batch.Contains(a.Id))
+                .ExecuteUpdateAsync(setPropertyCalls, cancellationToken);
+            }
+            return affected;
+        }
+
 
         #endregion 修改操作
 

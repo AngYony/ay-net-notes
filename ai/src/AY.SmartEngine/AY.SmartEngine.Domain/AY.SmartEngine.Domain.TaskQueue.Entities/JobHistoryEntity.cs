@@ -7,6 +7,7 @@ using System.Text;
 
 namespace AY.SmartEngine.Domain.TaskQueue.Entities
 {
+    [Table("JobHistories")]
     public class JobHistoryEntity
     {
         [Key]

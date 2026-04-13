@@ -3,6 +3,7 @@ using System;
 using AY.SmartEngine.Infrastructure.Repositories.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AY.SmartEngine.Infrastructure.TaskQueue.Migrations.SQLite.Migrations
 {
     [DbContext(typeof(TaskQueueDbContext))]
-    partial class TaskQueueDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260413082616_SetTaskQueueIndex")]
+    partial class SetTaskQueueIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.5");

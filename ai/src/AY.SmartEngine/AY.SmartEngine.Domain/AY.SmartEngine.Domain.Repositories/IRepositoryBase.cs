@@ -44,6 +44,14 @@ namespace AY.SmartEngine.Domain.Repositories
         Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<int> DeleteAsync(IEnumerable<int> ids, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// 批量物理删除 (高效：直接生成 SQL DELETE)
         /// </summary>
         /// <param name="predicate"></param>
