@@ -6,6 +6,7 @@ using System.Text;
 
 namespace AY.SmartEngine.TaskQueueCore.Queue
 {
+    [Obsolete("无意义的接口，不需要")]
     public interface IJobQueue
     {
         /// <summary>
