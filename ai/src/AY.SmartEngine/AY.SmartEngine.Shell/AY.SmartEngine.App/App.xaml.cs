@@ -34,7 +34,7 @@ namespace AY.SmartEngine.App
         public static void Main(string[] args)
         {
             // 强制将工作目录设为程序 .exe 所在的目录
-            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+            Directory.SetCurrentDirectory(AppContext.BaseDirectory);
 
             // 1. 引导日志 (Bootstrap Logger)
             Log.Logger = new LoggerConfiguration()
@@ -170,32 +170,7 @@ namespace AY.SmartEngine.App
             });
 
 
-            #region 添加任务队列数据库
-
-            var taskQueueConnectionString = configuration.GetConnectionString("TaskQueueConnection");
-            //从配置文件中获取迁移程序集信息，好处是：可以不需要显式添加程序集的引用就可以注册服务
-            var taskQueueMigrationsAssembly = configuration.GetValue("TaskQueueMigrationsAssembly", string.Empty);
-            services.AddDbContextFactory<TaskQueueDbContext>(options =>
-            {
-                options.UseSqlite(taskQueueConnectionString, sqlOptions =>
-                {
-                    if (!string.IsNullOrEmpty(taskQueueMigrationsAssembly))
-                    {
-                        //指定迁移程序集
-                        sqlOptions.MigrationsAssembly(taskQueueMigrationsAssembly);
-                    }
-                });
-
-#if DEBUG
-                // 调试模式下启用详细错误显示
-                options.EnableSensitiveDataLogging();   // 【可选】如果你想在日志中看到 SQL 的参数值
-                options.EnableDetailedErrors();         // 【可选】显示更详细的错误
-#endif
-
-            });
-
-
-            #endregion
+             
 
             return services;
         }
@@ -214,8 +189,7 @@ namespace AY.SmartEngine.App
                 await AppHost.StartAsync();
 
                 // 2. 数据库流水线：自动迁移
-                await ApplyDatabaseMigrationsAsync<LearningTagDbContext>();
-                await ApplyDatabaseMigrationsAsync<TaskQueueDbContext>();
+                await ApplyDatabaseMigrationsAsync<LearningTagDbContext>(); 
 
                 // 3. 从容器获取主窗口并启动
                 // DI 会自动解析构造函数中的 MainViewModel -> Repository -> DbContext
